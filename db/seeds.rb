@@ -1,6 +1,7 @@
 User.create name: 'David Faulkenberry',
             email: 'dave@example.com',
-            password: 'password'
+            password: 'password',
+            admin: true
 
 BusStop.create name: 'Studio Arts Building',
                hastus_id: 72,
