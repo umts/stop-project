@@ -1,7 +1,15 @@
 class BusStopsController < ApplicationController
   before_action :find_stop, only: %i(edit update)
 
-  def edit
+  def create
+    @stop = BusStop.new stop_params
+    if @stop.save
+      flash[:notice] = 'Bus stop was created.'
+      redirect_to bus_stops_path
+    else
+      flash[:errors] = @stop.errors.full_messages
+      render 'edit'
+    end
   end
 
   def index

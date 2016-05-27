@@ -1,0 +1,28 @@
+= form_for stop do |f|
+  %table.stop-form
+    %tr
+      %td= f.label :name
+      %td= f.text_field :name#, required: true
+    %tr
+      %td= f.label :hastus_id, 'Hastus ID'
+      %td= f.number_field :hastus_id, required: true
+    %tr
+      %td= f.label :has_post, 'Post'
+      %td= f.check_box :has_post
+    %tr
+      %td= f.label :has_bench, 'Bench'
+      %td= f.check_box :has_bench
+    %tr
+      %td= f.label :has_light, 'Light'
+      %td= f.check_box :has_light
+    %tr
+      %td= f.label :has_ramp, 'Ramp'
+      %td= f.check_box :has_ramp
+    %tr
+      %td= f.label :has_shelter, 'Shelter'
+      %td= f.check_box :has_shelter
+    %tr
+      %td= f.label :has_trash, 'Trash'
+      %td= f.check_box :has_trash
+    %tr
+      %td= submit_tag 'Save stop', class: 'btn btn-primary submit'

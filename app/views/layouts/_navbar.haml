@@ -5,6 +5,8 @@
     - if user_signed_in?
       = link_to destroy_user_session_path, method: :delete do
         %button.btn.btn-default.navbar-btn.navbar-right.logout{type: :button} Logout
+      = link_to new_bus_stop_path do
+        %button.btn.btn-default.navbar-btn.navbar-left New Bus Stop
     - else
       = link_to new_user_session_path do
         %button.btn.btn-default.navbar-btn.navbar-right.login{type: :button} Log in
