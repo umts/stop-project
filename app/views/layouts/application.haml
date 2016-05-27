@@ -1,0 +1,18 @@
+!!!
+%html
+  %head
+    %title Stop Project
+    = favicon_link_tag 'favicon.png'
+    = stylesheet_link_tag 'application.css', media: 'all'
+    = javascript_include_tag 'application.js'
+    = csrf_meta_tags
+  %body
+    = render partial: 'layouts/navbar'
+    #main-panel.panel.panel-default
+      .panel-body
+        - if flash[:notice].present?
+          %p.notice= flash[:notice]
+        - if flash[:errors].present?
+          - flash[:errors].each do |error|
+            %p.errors= error
+        = yield

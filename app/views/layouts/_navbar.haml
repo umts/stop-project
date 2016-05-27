@@ -1,0 +1,10 @@
+%nav.navbar.navbar-default.with-icon
+  .container-fluid
+    .navbar-header
+      %a.navbar-brand{href: root_path}= image_tag 'favicon.png'
+    - if user_signed_in?
+      = link_to destroy_user_session_path, method: :delete do
+        %button.btn.btn-default.navbar-btn.navbar-right.logout{type: :button} Logout
+    - else
+      = link_to new_user_session_path do
+        %button.btn.btn-default.navbar-btn.navbar-right.login{type: :button} Log in
