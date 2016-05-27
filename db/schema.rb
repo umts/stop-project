@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160527193221) do
+ActiveRecord::Schema.define(version: 20160527200240) do
+
+  create_table "bus_stops", force: :cascade do |t|
+    t.string  "name",         limit: 255, default: "",    null: false
+    t.integer "hastus_id",    limit: 4,                   null: false
+    t.boolean "has_post",                 default: false, null: false
+    t.boolean "has_bench",                default: false, null: false
+    t.boolean "has_light",                default: false, null: false
+    t.boolean "has_ramp",                 default: false, null: false
+    t.boolean "has_shelter",              default: false, null: false
+    t.boolean "has_trash",                default: false, null: false
+    t.boolean "has_sidewalk",             default: false, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name",                   limit: 255, default: "", null: false

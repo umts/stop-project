@@ -1,0 +1,16 @@
+table.stops{
+  text-align: center;
+}
+
+table.stops th{
+  text-align: center;
+  padding-left: 0.5em;
+}
+
+.glyphicon-ok{
+  color: green;
+}
+
+.glyphicon-remove{
+  color: red;
+}

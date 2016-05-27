@@ -1,1 +1,23 @@
-%h1.centered Bus Stops
+%h1 Bus Stops
+
+%table.stops
+  %thead
+    %tr
+      %th Name
+      %th Post
+      %th Bench
+      %th Light
+      %th Ramp
+      %th Shelter
+      %th Trash
+      %th
+  - @stops.each do |stop|
+    %tr
+      %td= stop.name
+      %td= check_image stop.has_post?
+      %td= check_image stop.has_bench?
+      %td= check_image stop.has_light?
+      %td= check_image stop.has_ramp?
+      %td= check_image stop.has_shelter?
+      %td= check_image stop.has_trash?
+      %td Edit
