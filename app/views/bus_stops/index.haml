@@ -1,4 +1,4 @@
-%h1 Bus Stops
+.page-title Bus Stops
 
 %table.stops
   %thead
@@ -20,4 +20,6 @@
       %td= check_image stop.has_ramp?
       %td= check_image stop.has_shelter?
       %td= check_image stop.has_trash?
-      %td Edit
+      %td
+        = link_to edit_bus_stop_path(stop) do
+          %button.btn.btn-default Edit

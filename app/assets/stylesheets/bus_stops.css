@@ -14,3 +14,12 @@ table.stops th{
 .glyphicon-remove{
   color: red;
 }
+
+table.stop-form td{
+  padding: 0.25em 1em;
+}
+
+input[type=checkbox]{
+  transform: scale(2,2);
+}
+

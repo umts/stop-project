@@ -15,6 +15,20 @@ body{
   margin: 1em;
 }
 
+.page-title{
+  background: #e0e7eb;
+  border-radius: 6px;
+  font-size: 50px;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+button.btn.btn-default{
+  font-size: 30px;
+  border: 2px solid grey;
+  margin-left: 10px;
+}
+
 p.notice{
   background-color: #b5e8ce;
   border: 3px solid #7ad6a7;
