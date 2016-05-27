@@ -23,3 +23,6 @@ input[type=checkbox]{
   transform: scale(2,2);
 }
 
+input.btn.btn-primary.submit{
+  font-size: 30px;
+}
