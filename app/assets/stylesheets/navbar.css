@@ -1,0 +1,16 @@
+.navbar .container-fluid{
+  background: #e0e7eb;
+}
+
+a.navbar-brand img{
+  height: 50px;
+}
+
+.navbar button{
+  font-size: 30px;
+}
+
+.navbar button.logout,button.login{
+  border: 2px solid grey;
+  margin-right: 10px;
+}
