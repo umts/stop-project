@@ -30,16 +30,20 @@ button.btn.btn-default{
   margin-left: 10px;
 }
 
-p.notice{
-  background-color: #b5e8ce;
-  border: 3px solid #7ad6a7;
+.info p{
+  border: 3px solid lightgrey;
   border-radius: 6px;
   text-align: center;
 }
 
-p.errors{
+.info p.login-notice{
+  background-color: #d1a8bb;
+}
+
+.info p.notice{
+  background-color: #b5e8ce;
+}
+
+.info p.errors{
   background-color: #e8b5b5;
-  border: 3px solid #d16b6b;
-  border-radius: 6px;
-  text-align: center;
 }
