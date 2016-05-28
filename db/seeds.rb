@@ -3,6 +3,11 @@ User.create name: 'David Faulkenberry',
             password: 'password',
             admin: true
 
+User.create name: 'George Boole',
+            email: 'george@example.com',
+            password: 'password',
+            admin: false
+
 BusStop.create name: 'Studio Arts Building',
                hastus_id: 72,
                has_shelter: true,

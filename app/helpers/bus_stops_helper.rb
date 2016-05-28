@@ -6,4 +6,10 @@ module BusStopsHelper
     else content_tag :span, nil, class: 'glyphicon glyphicon-remove'
     end
   end
+
+  def display_name(stop)
+    if stop.name.present? then stop.name
+    else 'New stop'
+    end
+  end
 end

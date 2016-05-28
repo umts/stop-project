@@ -1,0 +1,21 @@
+.page-title Users
+
+%table.index
+  %thead
+    %tr
+      %th Name
+      %th Email
+      %th Admin?
+      %th
+      %th
+  - @users.each do |user|
+    %tr
+      %td= user.name
+      %td= user.email
+      %td= check_image user.admin?
+      %td
+        = link_to edit_user_path(user) do
+          %button.btn.btn-default Edit
+      %td
+        = link_to user_path(user), method: :delete do
+          %button.btn.btn-default Delete

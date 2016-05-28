@@ -1,10 +1,16 @@
-table.stops{
+table.index{
   text-align: center;
 }
 
-table.stops th{
+table.index th{
+  border-bottom: 1px solid lightgrey;
   text-align: center;
-  padding-left: 0.5em;
+  padding: 0 10px;
+}
+
+table.index td{
+  text-align: center;
+  padding: 0 0.5em;
 }
 
 .glyphicon-ok{
@@ -15,7 +21,7 @@ table.stops th{
   color: red;
 }
 
-table.stop-form td{
+table.edit-form td{
   padding: 0.25em 1em;
 }
 

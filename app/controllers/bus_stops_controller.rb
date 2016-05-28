@@ -17,12 +17,13 @@ class BusStopsController < ApplicationController
   end
 
   def update
-    if @stop.update stop_params
+    @stop.assign_attributes stop_params
+    if @stop.save
       flash[:notice] = 'Bus stop was updated.'
       redirect_to bus_stops_path
     else
       flash[:errors] = @stop.errors.full_messages
-      redirect_to :back
+      render 'edit'
     end
   end
 

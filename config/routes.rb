@@ -1,8 +1,14 @@
 Rails.application.routes.draw do
-  devise_for :users
   root 'bus_stops#index'
-  resources :bus_stops, except: :show
-  scope :admin do
-    resources :users
+
+  devise_for :users
+  as :user do
+    get 'users/edit', to: 'devise/registrations#edit', as: :edit_user_registration
+    put 'users', to: 'devise/registrations#update', as: :user_registration           
   end
+  scope :admin do
+    resources :users, except: :show
+  end
+
+  resources :bus_stops, except: :show
 end

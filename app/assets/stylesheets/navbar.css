@@ -15,7 +15,7 @@ a.navbar-brand img{
   padding: 5px;
 }
 
-.navbar button.logout,button.login{
+.navbar button.auth{
   border: 2px solid grey;
   margin-right: 10px;
 }
