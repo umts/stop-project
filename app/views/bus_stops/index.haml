@@ -6,6 +6,6 @@
   = submit_tag 'Search'
 or
 = form_tag name_search_bus_stops_path do
-  = label_tag :id, 'Enter stop name'
-  = text_field_tag :name, '', required: true
+  = label_tag :name, 'Enter stop name'
+  = text_field_tag :name, '', required: true, class: 'name-autocomplete'
   = submit_tag 'Search'

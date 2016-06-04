@@ -1,5 +1,11 @@
 class BusStopsController < ApplicationController
-  before_action :find_stop, except: %i(create index name_search)
+  before_action :find_stop, only: %i(edit id_search update)
+
+  def autocomplete
+    stops = BusStop.where 'lower(name) like ?',
+                          "%#{params.require(:term)}%"
+    render json: stops.pluck(:name)
+  end
 
   def create
     @stop = BusStop.new stop_params
@@ -13,16 +19,12 @@ class BusStopsController < ApplicationController
   end
 
   def id_search
-    render 'edit'
+    redirect_to edit_bus_stop_path(@stop.hastus_id)
   end
 
-  def index
-    @stops = BusStop.all
-  end
-  
   def name_search
-    @stop = BusStop.find_by name: params.require(:name)
-    render 'edit'
+    stop = BusStop.find_by name: params.require(:name)
+    redirect_to edit_bus_stop_path(stop.hastus_id)
   end
 
   def update

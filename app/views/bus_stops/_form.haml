@@ -1,4 +1,4 @@
-= form_for stop do |f|
+= form_for stop, url: bus_stop_path(stop.hastus_id) do |f|
   %table.edit-form
     %tr
       %td= f.label :name

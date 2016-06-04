@@ -10,6 +10,7 @@ gem 'mysql2'
 gem 'paper_trail'
 gem 'rails'
 gem 'sass-rails'
+gem 'underscore-rails'
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap'
 end

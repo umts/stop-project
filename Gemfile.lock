@@ -190,6 +190,7 @@ GEM
     tilt (2.0.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    underscore-rails (1.8.3)
     warden (1.2.6)
       rack (>= 1.0)
 
@@ -216,6 +217,7 @@ DEPENDENCIES
   rails
   rails-assets-bootstrap!
   sass-rails
+  underscore-rails
 
 BUNDLED WITH
    1.11.2

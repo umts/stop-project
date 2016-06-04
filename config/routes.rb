@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :bus_stops, except: :show do
     collection do
+      post :autocomplete
       post :id_search
       post :name_search
     end
