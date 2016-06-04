@@ -1,5 +1,5 @@
 class BusStopsController < ApplicationController
-  before_action :find_stop, only: %i(edit update)
+  before_action :find_stop, except: %i(create index name_search)
 
   def create
     @stop = BusStop.new stop_params
@@ -12,8 +12,17 @@ class BusStopsController < ApplicationController
     end
   end
 
+  def id_search
+    render 'edit'
+  end
+
   def index
     @stops = BusStop.all
+  end
+  
+  def name_search
+    @stop = BusStop.find_by name: params.require(:name)
+    render 'edit'
   end
 
   def update
@@ -30,9 +39,9 @@ class BusStopsController < ApplicationController
   private
 
   def find_stop
-    @stop = BusStop.find_by id: params.require(:id)
+    @stop = BusStop.find_by hastus_id: params.require(:id)
     unless @stop.present?
-      render nothing: true, status: :not_found and return
+      redirect_to :back, notice: 'Stop not found' and return
     end
   end
 

@@ -10,5 +10,10 @@ Rails.application.routes.draw do
     resources :users, except: :show
   end
 
-  resources :bus_stops, except: :show
+  resources :bus_stops, except: :show do
+    collection do
+      post :id_search
+      post :name_search
+    end
+  end
 end
