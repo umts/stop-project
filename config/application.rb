@@ -17,5 +17,6 @@ module StopProject
     config.time_zone = 'Eastern Time (US & Canada)'
     config.autoload_paths << Rails.root.join('lib')
     config.filter_parameters += [:password, :secret]
+    config.active_record.raise_in_transactional_callbacks = true
   end
 end
