@@ -10,17 +10,16 @@ User.create name: 'George Boole',
 
 BusStop.create name: 'Studio Arts Building',
                hastus_id: 72,
-               has_shelter: true,
-               has_trash: true
-
-BusStop.create name: 'Fine Arts Center',
-               hastus_id: 71,
-               has_bench: true,
-               has_shelter: true,
-               has_trash: true
-
-BusStop.create name: 'GRC',
-               hastus_id: 58,
-               has_shelter: true,
-               has_trash: true,
-               has_light: true
+               accessible: 'When necessary',
+               bench: 'PVTA',
+               curb_cut: "Within 20'",
+               lighting: "50\" - 20'",
+               mounting: 'PVTA pole',
+               mounting_direction: 'Towards street',
+               shelter: 'PVTA',
+               sidewalk: 'More than 36"',
+               sign: nil,
+               trash: 'Other',
+               bus_pull_out_exists: true,
+               has_power: true,
+               system_map_exists: false
