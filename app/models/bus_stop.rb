@@ -1,6 +1,6 @@
 class BusStop < ActiveRecord::Base
   has_paper_trail
-  validates :name, :hastus_id, presence: true
+  validates :name, :hastus_id, presence: true, uniqueness: true
   default_scope -> { order :name }
 
   STRING_COLUMN_OPTIONS = {
@@ -16,6 +16,9 @@ class BusStop < ActiveRecord::Base
     sign:               ['Flag stop',      'Missing sign',     'Needs attention'],
     trash:              ['PVTA',           'Municipal',        'Other'          ]
   }
+
+  BOOLEAN_COLUMNS = %i(bolt_on_base bus_pull_out_exists extend_pole has_power
+    new_anchor new_pole solar_lighting straighten_pole system_map_exists)
 
   STRING_COLUMN_OPTIONS.each do |attribute, options|
     validates attribute, inclusion: { in: options }, allow_blank: true

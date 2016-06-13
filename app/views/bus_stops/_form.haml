@@ -2,27 +2,23 @@
   %table.edit-form
     %tr
       %td= f.label :name
-      %td= f.text_field :name#, required: true
+      %td= f.text_field :name, required: true
     %tr
       %td= f.label :hastus_id, 'Hastus ID'
       %td= f.number_field :hastus_id, required: true
+    - BusStop::STRING_COLUMN_OPTIONS.each do |attribute, options|
+      %tr
+        %td= f.label attribute
+        %td= f.select attribute, options, include_blank: true
+    - BusStop::BOOLEAN_COLUMNS.each do |attribute|
+      %tr
+        %td= f.label attribute
+        %td= f.check_box attribute
     %tr
-      %td= f.label :has_post, 'Post'
-      %td= f.check_box :has_post
+      %td= f.label :mounting_clearance_after
+      %td= f.number_field :mounting_clearance_after
     %tr
-      %td= f.label :has_bench, 'Bench'
-      %td= f.check_box :has_bench
-    %tr
-      %td= f.label :has_light, 'Light'
-      %td= f.check_box :has_light
-    %tr
-      %td= f.label :has_ramp, 'Ramp'
-      %td= f.check_box :has_ramp
-    %tr
-      %td= f.label :has_shelter, 'Shelter'
-      %td= f.check_box :has_shelter
-    %tr
-      %td= f.label :has_trash, 'Trash'
-      %td= f.check_box :has_trash
+      %td= f.label :mounting_clearance_before
+      %td= f.number_field :mounting_clearance_before
     %tr
       %td= submit_tag 'Save stop', class: 'btn btn-primary submit'
