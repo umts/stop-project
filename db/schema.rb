@@ -11,18 +11,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160527210642) do
+ActiveRecord::Schema.define(version: 20160613121307) do
 
   create_table "bus_stops", force: :cascade do |t|
-    t.string  "name",         limit: 255, default: "",    null: false
-    t.integer "hastus_id",    limit: 4,                   null: false
-    t.boolean "has_post",                 default: false, null: false
-    t.boolean "has_bench",                default: false, null: false
-    t.boolean "has_light",                default: false, null: false
-    t.boolean "has_ramp",                 default: false, null: false
-    t.boolean "has_shelter",              default: false, null: false
-    t.boolean "has_trash",                default: false, null: false
-    t.boolean "has_sidewalk",             default: false, null: false
+    t.string  "name",                      limit: 255, default: "", null: false
+    t.integer "hastus_id",                 limit: 4,                null: false
+    t.string  "accessible",                limit: 255
+    t.string  "bench",                     limit: 255
+    t.string  "curb_cut",                  limit: 255
+    t.string  "lighting",                  limit: 255
+    t.string  "mounting",                  limit: 255
+    t.string  "mounting_direction",        limit: 255
+    t.string  "schedule_holder",           limit: 255
+    t.string  "shelter",                   limit: 255
+    t.string  "sidewalk",                  limit: 255
+    t.string  "sign",                      limit: 255
+    t.string  "trash",                     limit: 255
+    t.boolean "bolt_on_base"
+    t.boolean "bus_pull_out_exists"
+    t.boolean "extend_pole"
+    t.boolean "has_power"
+    t.boolean "new_anchor"
+    t.boolean "new_pole"
+    t.boolean "solar_lighting"
+    t.boolean "straighten_pole"
+    t.boolean "system_map_exists"
+    t.integer "mounting_clearance_after",  limit: 4
+    t.integer "mounting_clearance_before", limit: 4
   end
 
   create_table "users", force: :cascade do |t|
