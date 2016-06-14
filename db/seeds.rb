@@ -10,8 +10,12 @@ User.create! name: 'George Boole',
              password_confirmation: 'password',
              admin: false
 
+Route.create! number: '30'
+sasn = Route.create! number: '31'
+
 BusStop.create! name: 'Studio Arts Building',
                 hastus_id: 72,
+                routes: [sasn],
                 accessible: 'When necessary',
                 bench: 'PVTA',
                 curb_cut: "Within 20'",

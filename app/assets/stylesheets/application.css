@@ -24,6 +24,10 @@ body{
   margin-bottom: 1em;
 }
 
+.smalltext{
+  font-size: 50%;
+}
+
 button.btn.btn-default{
   font-size: 30px;
   border: 2px solid grey;

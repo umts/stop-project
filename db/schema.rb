@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160613130217) do
+ActiveRecord::Schema.define(version: 20160614172456) do
 
   create_table "bus_stops", force: :cascade do |t|
     t.string  "name",                      limit: 255, default: "", null: false
@@ -38,6 +38,17 @@ ActiveRecord::Schema.define(version: 20160613130217) do
     t.boolean "system_map_exists"
     t.integer "mounting_clearance_after",  limit: 4
     t.integer "mounting_clearance_before", limit: 4
+  end
+
+  create_table "bus_stops_routes", id: false, force: :cascade do |t|
+    t.integer "bus_stop_id", limit: 4, null: false
+    t.integer "route_id",    limit: 4, null: false
+  end
+
+  create_table "routes", force: :cascade do |t|
+    t.string   "number",     limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "users", force: :cascade do |t|

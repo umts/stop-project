@@ -1,6 +1,10 @@
+include DateAndTimeMethods
+
 class BusStop < ActiveRecord::Base
   has_paper_trail
   validates :name, :hastus_id, presence: true, uniqueness: true
+  has_and_belongs_to_many :routes
+  validates :routes, presence: true
   default_scope -> { order :name }
 
   STRING_COLUMN_OPTIONS = {
@@ -23,4 +27,20 @@ class BusStop < ActiveRecord::Base
   STRING_COLUMN_OPTIONS.each do |attribute, options|
     validates attribute, inclusion: { in: options }, allow_blank: true
   end
+
+  def last_updated
+    versions.where(event: 'update').last
+  end
+
+  def last_updated_at
+    if last_updated.present?
+      format_datetime last_updated.created_at
+    else 'Unknown'
+    end
+  end
+
+  def last_updated_by
+    User.find_by(id: last_updated.try(:whodunnit)).try :name || 'Unknown'
+  end
+
 end

@@ -3,6 +3,10 @@ class User < ActiveRecord::Base
   validates :name, :email, presence: true, uniqueness: true
   validate :confirmation_matches, if: -> { password.present? }
 
+  def not_admin?
+    !admin?
+  end
+
   private
 
   def confirmation_matches
