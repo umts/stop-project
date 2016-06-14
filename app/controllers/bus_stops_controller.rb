@@ -7,6 +7,14 @@ class BusStopsController < ApplicationController
     render json: stops.pluck(:name)
   end
 
+  def by_route
+    @route = Route.find_by number: params.require(:number)
+    if @route.present?
+      @stops = @route.bus_stops
+    else  redirect_to :back, notice: 'Route not found'
+    end
+  end
+
   def create
     @stop = BusStop.new stop_params
     if @stop.save

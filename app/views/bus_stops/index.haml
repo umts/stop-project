@@ -9,3 +9,8 @@ or
   = label_tag :name, 'Enter stop name'
   = text_field_tag :name, '', required: true, class: 'name-autocomplete'
   = submit_tag 'Search'
+or
+= form_tag by_route_bus_stops_path, method: :get do
+  = label_tag :number, 'Select a route'
+  = select_tag :number, options_for_select(Route.pluck :number)
+  = submit_tag 'Search'

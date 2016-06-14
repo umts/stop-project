@@ -12,7 +12,7 @@
     - if current_user.admin?
       %tr
         %td= f.label :route
-        %td= f.collection_select :route_ids, Route.order(:number), :id, :number, {}, multiple: true
+        %td= f.collection_select :route_ids, Route.all, :id, :number, {}, multiple: true
     - BusStop::STRING_COLUMN_OPTIONS.each do |attribute, options|
       %tr
         %td= f.label attribute
