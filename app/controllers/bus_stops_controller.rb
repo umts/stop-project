@@ -11,7 +11,8 @@ class BusStopsController < ApplicationController
     @route = Route.find_by number: params.require(:number)
     if @route.present?
       @stops = @route.bus_stops
-    else  redirect_to :back, notice: 'Route not found'
+    else redirect_to bus_stops_path,
+                     notice: "Route #{params[:number]} not found"
     end
   end
 
@@ -51,7 +52,7 @@ class BusStopsController < ApplicationController
   def find_stop
     @stop = BusStop.find_by hastus_id: params.require(:id)
     unless @stop.present?
-      redirect_to :back, notice: 'Stop not found' and return
+      redirect_to :back, notice: "Stop #{params[:id]} not found" and return
     end
   end
 
