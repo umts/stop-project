@@ -4,7 +4,6 @@ class BusStop < ActiveRecord::Base
   has_paper_trail
   validates :name, :hastus_id, presence: true, uniqueness: true
   has_and_belongs_to_many :routes
-  validates :routes, presence: true
   default_scope -> { order :name }
 
   STRING_COLUMN_OPTIONS = {
