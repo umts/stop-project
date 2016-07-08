@@ -1,0 +1,38 @@
+separator ";"
+
+line stop
+   {
+   keyword stop
+   object stop
+   item stp_identifier
+   item stp_ud_accessible_when_necessary
+   item stp_ud_accessible_not_recommended
+   item stp_ud_shelter_pvta
+   item stp_ud_shelter_other
+   item stp_ud_shelter_building
+   item stp_ud_sign_flag_stop
+   item stp_ud_sign_missing
+   item stp_ud_sign_needs_attention
+   item stp_ud_mounting_pvta_pole
+   item stp_ud_mounting_pole_other
+   item stp_ud_mounting_structure
+   item stp_ud_bench_pvta_bench
+   item stp_ud_bench_other_bench
+   item stp_ud_trash_pvta
+   item stp_ud_trash_municipal
+   item stp_ud_trash_other
+   item stp_ud_schedule_holder_in_shelter
+   item stp_ud_schedule_holder_on_pole
+   item stp_ud_lighting_no_lighting
+   item stp_ud_lighting_solar
+   item stp_ud_lighting_within_20ft
+   item stp_ud_lighting_within_50ft
+   item stp_ud_curb_cut_drive_within_20ft
+   item stp_ud_curb_cut_no_curb
+   item stp_ud_curb_cut_no_curb_cut
+   item stp_ud_sidewalk_less_than_36in
+   item stp_ud_sidewalk_more_than_36in
+   item stp_ud_sidewalk_no_sidewalk
+   item stp_ud_system_map
+   item stp_ud_bus_pull_out
+   }
