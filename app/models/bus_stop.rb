@@ -2,8 +2,8 @@ include DateAndTimeMethods
 
 class BusStop < ActiveRecord::Base
   has_paper_trail
-  validates :name, presence: true, uniqueness: true
-  validates :hastus_id, presence: true
+  validates :name, presence: true
+  validates :hastus_id, presence: true, uniqueness: true
   has_and_belongs_to_many :routes
   default_scope -> { order :name }
 
