@@ -35,10 +35,10 @@ namespace :bus_stops do
           end
         end
       end
-      COLUMN_NAMES.stringify_keys.each do |db_column_name, csv_column_name|
+      COLUMN_NAMES.each do |db_column_name, csv_column_name|
         attrs[db_column_name] = row[csv_column_name]
       end
-      next if attrs['name'].blank?
+      next if attrs[:name].blank?
       BusStop.create! attrs
     end
   end
