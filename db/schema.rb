@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160708175130) do
+ActiveRecord::Schema.define(version: 20160708192840) do
 
   create_table "bus_stops", force: :cascade do |t|
     t.string  "name",                      limit: 255, default: "", null: false
@@ -46,9 +46,10 @@ ActiveRecord::Schema.define(version: 20160708175130) do
   end
 
   create_table "routes", force: :cascade do |t|
-    t.string   "number",     limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "number",      limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "description", limit: 255
   end
 
   create_table "users", force: :cascade do |t|
