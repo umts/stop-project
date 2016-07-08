@@ -3,21 +3,23 @@ require 'csv'
 #Change string column row names
 
 STRING_COLUMN_ROW_NAMES = {
-  accessible:         ['When necessary', 'Not recommended'                    ],
-  bench:              ['PVTA',           'Other'                              ],
-  curb_cut:           ["Within 20'",     'No curb cut',      'No curb'        ],
-  lighting:           ['Within 50"',     "50\" - 20'",       'None'           ],
-  mounting:           ['PVTA pole',      'Other pole',       'Structure'      ],
-  mounting_direction: ['Towards street', 'Away from street'                   ],
-  schedule_holder:    ['On pole',        'In shelter'                         ],
-  shelter:            ['PVTA',           'Other',            'Building'       ],
-  sidewalk:           ['More than 36"',  'Less than 36"',    'None'           ],
-  sign:               ['Flag stop',      'Missing sign',     'Needs attention'],
-  trash:              ['PVTA',           'Municipal',        'Other'          ]
+  accessible:         %w(stp_ud_accessible_when_necessary  stp_ud_accessible_not_recommended),
+  bench:              %w(stp_ud_bench_pvta_bench           stp_ud_bench_other_bench),
+  curb_cut:           %w(stp_ud_curb_cut_drive_within_20ft stp_ud_curb_cut_no_curb_cut       stp_ud_curb_cut_no_curb    ),
+  lighting:           %w(stp_ud_lighting_within_20ft       stp_ud_lighting_within_50ft       stp_ud_lighting_no_lighting),
+  mounting:           %w(stp_ud_mounting_pvta_pole         stp_ud_mounting_pole_other        stp_ud_mounting_structure  ),
+  schedule_holder:    %w(stp_ud_schedule_holder_on_pole    stp_ud_schedule_holder_in_shelter                            ),
+  shelter:            %w(stp_ud_shelter_pvta               stp_ud_shelter_other              stp_ud_shelter_building    ),
+  sidewalk:           %w(stp_ud_sidewalk_more_than_36in    stp_ud_sidewalk_less_than_36in    stp_ud_sidewalk_no_sidewalk),
+  sign:               %w(stp_ud_sign_flag_stop             stp_ud_sign_missing               stp_ud_sign_needs_attention),
+  trash:              %w(stp_ud_trash_pvta                 stp_ud_trash_municipal            stp_ud_trash_other         )
 }
 
 COLUMN_NAMES = {
-
+  hastus_id:         'stp_identifier',
+  name:              'sloc_description',
+  solar_lighting:    'stp_ud_lighting_solar',
+  system_map_exists: 'stp_ud_system_map'
 }
 
 namespace :bus_stops do

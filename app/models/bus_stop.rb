@@ -11,7 +11,7 @@ class BusStop < ActiveRecord::Base
     accessible:         ['When necessary', 'Not recommended'                    ],
     bench:              ['PVTA',           'Other'                              ],
     curb_cut:           ["Within 20'",     'No curb cut',      'No curb'        ],
-    lighting:           ['Within 50"',     "50\" - 20'",       'None'           ],
+    lighting:           ["Within 20'",     "20' - 50'",        'None'           ],
     mounting:           ['PVTA pole',      'Other pole',       'Structure'      ],
     mounting_direction: ['Towards street', 'Away from street'                   ],
     schedule_holder:    ['On pole',        'In shelter'                         ],
