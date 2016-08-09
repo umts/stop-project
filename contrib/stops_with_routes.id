@@ -1,0 +1,41 @@
+att hide_inaccessible_values
+
+file stops_details_with_routes
+   {
+   line headers
+      {
+      item stp_identifier { value ' "stp_identifier" ' }
+      item rte_identifier { value ' "rte_identifier" ' }
+      item rte_description { value ' "rte_description" ' }
+      item rte_in_use { value ' "rte_in_use" ' }
+      item rte_version { value ' "rte_version" ' }
+      item rte_group { value ' "rte_group" ' }
+      item rte_service_type { value ' "rte_service_type" ' }
+      }
+   foreach stop
+      {
+      foreach route
+         {
+         sort_by routeSort
+            {
+            criteria rte_identifier { value 'rte_identifier' }
+            }
+
+         condition '(with a route_version from rte_version
+                       {
+                       rtev_last_effective_date >= p_JobDate and rtev_last_effective_date <> NULL and
+                       rtev_effective_date <= p_JobDate and rtev_effective_date <> NULL
+                       } )'
+         line route
+            {
+            item stp_identifier { value 'stp_identifier' }
+            item rte_identifier { value 'rte_identifier' }
+            item rte_description { value 'rte_description' }
+            item rte_in_use { value 'rte_in_use' }
+            item rte_version { value 'rte_version' }
+            item rte_group { value 'rte_group' }
+            item rte_service_type { value 'rte_service_type' }
+            }
+         }
+      }
+   }
