@@ -7,6 +7,12 @@ module BusStopsHelper
     end
   end
 
+  def creation_url(stop)
+    if stop.new_record? then bus_stops_path
+    else bus_stop_path stop.hastus_id
+    end
+  end
+
   def display_name(stop)
     if stop.name.present? then stop.name
     else 'New stop'
