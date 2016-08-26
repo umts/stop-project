@@ -33,7 +33,12 @@ class BusStopsController < ApplicationController
 
   def name_search
     stop = BusStop.find_by name: params.require(:name)
-    redirect_to edit_bus_stop_path(stop.hastus_id)
+    if stop.present?
+      redirect_to edit_bus_stop_path(stop.hastus_id)
+    else
+      redirect_to bus_stops_path, 
+                    notice: "Route #{params[:name]} not found"
+    end
   end
 
   def update
