@@ -11,9 +11,9 @@ User.create! name: 'Jake Foreman',
              admin: false
 
 routes = {
-  30 => Route.create!(number: '30'),
-  31 => Route.create!(number: '31'),
-  38 => Route.create!(number: '38')
+  30 => Route.create!(number: '30', description: 'North Amherst / Old Belchertown Rd'),
+  31 => Route.create!(number: '31', description: 'Sunderland / South Amherst'),
+  38 => Route.create!(number: '38', description: 'UMass / Mount Holyoke College')
 }
 
 stops = {
