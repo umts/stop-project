@@ -36,8 +36,9 @@ class BusStopsController < ApplicationController
     if stop.present?
       redirect_to edit_bus_stop_path(stop.hastus_id)
     else
+      flash[:errors] = 
       redirect_to bus_stops_path, 
-                    notice: "Route #{params[:name]} not found"
+                    notice: "Stop #{params[:name]} not found"
     end
   end
 
