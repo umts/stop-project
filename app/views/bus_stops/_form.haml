@@ -1,6 +1,9 @@
 - if stop.last_updated.present?
   .smalltext.last-updated
     Last updated by #{stop.last_updated_by} at #{stop.last_updated_at}
+- if stop.completed_at.present?
+  .smalltext.last-updated
+    Completed at #{format_datetime stop.completed_at}
 = form_for stop, url: creation_url(stop) do |f|
   %table.edit-form
     %tr
@@ -27,5 +30,8 @@
     %tr
       %td= f.label :mounting_clearance_before
       %td= f.number_field :mounting_clearance_before
+    %tr
+      %td= f.label :completed, 'Completed?'
+      %td= f.check_box :completed
     %tr
       %td= submit_tag 'Save stop', class: 'btn btn-primary submit'

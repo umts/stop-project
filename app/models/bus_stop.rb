@@ -7,6 +7,8 @@ class BusStop < ActiveRecord::Base
   has_and_belongs_to_many :routes
   default_scope -> { order :name }
 
+  before_save :assign_completion_timestamp, if: -> { completed_changed? }
+
   STRING_COLUMN_OPTIONS = {
     accessible:         ['When necessary', 'Not recommended'                    ],
     bench:              ['PVTA',           'Other'                              ],
@@ -41,6 +43,12 @@ class BusStop < ActiveRecord::Base
 
   def last_updated_by
     User.find_by(id: last_updated.try(:whodunnit)).try :name || 'Unknown'
+  end
+
+  private
+
+  def assign_completion_timestamp
+    assign_attributes completed_at: (completed? ? DateTime.current : nil)
   end
 
 end

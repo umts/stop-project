@@ -11,33 +11,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160708192840) do
+ActiveRecord::Schema.define(version: 20170105165853) do
 
   create_table "bus_stops", force: :cascade do |t|
-    t.string  "name",                      limit: 255, default: "", null: false
-    t.string  "hastus_id",                 limit: 255,              null: false
-    t.string  "accessible",                limit: 255
-    t.string  "bench",                     limit: 255
-    t.string  "curb_cut",                  limit: 255
-    t.string  "lighting",                  limit: 255
-    t.string  "mounting",                  limit: 255
-    t.string  "mounting_direction",        limit: 255
-    t.string  "schedule_holder",           limit: 255
-    t.string  "shelter",                   limit: 255
-    t.string  "sidewalk",                  limit: 255
-    t.string  "sign",                      limit: 255
-    t.string  "trash",                     limit: 255
-    t.boolean "bolt_on_base"
-    t.boolean "bus_pull_out_exists"
-    t.boolean "extend_pole"
-    t.boolean "has_power"
-    t.boolean "new_anchor"
-    t.boolean "new_pole"
-    t.boolean "solar_lighting"
-    t.boolean "straighten_pole"
-    t.boolean "system_map_exists"
-    t.integer "mounting_clearance_after",  limit: 4
-    t.integer "mounting_clearance_before", limit: 4
+    t.string   "name",                      limit: 255, default: "", null: false
+    t.string   "hastus_id",                 limit: 255,              null: false
+    t.string   "accessible",                limit: 255
+    t.string   "bench",                     limit: 255
+    t.string   "curb_cut",                  limit: 255
+    t.string   "lighting",                  limit: 255
+    t.string   "mounting",                  limit: 255
+    t.string   "mounting_direction",        limit: 255
+    t.string   "schedule_holder",           limit: 255
+    t.string   "shelter",                   limit: 255
+    t.string   "sidewalk",                  limit: 255
+    t.string   "sign",                      limit: 255
+    t.string   "trash",                     limit: 255
+    t.boolean  "bolt_on_base"
+    t.boolean  "bus_pull_out_exists"
+    t.boolean  "extend_pole"
+    t.boolean  "has_power"
+    t.boolean  "new_anchor"
+    t.boolean  "new_pole"
+    t.boolean  "solar_lighting"
+    t.boolean  "straighten_pole"
+    t.boolean  "system_map_exists"
+    t.integer  "mounting_clearance_after",  limit: 4
+    t.integer  "mounting_clearance_before", limit: 4
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.boolean  "completed"
+    t.datetime "completed_at"
   end
 
   create_table "bus_stops_routes", id: false, force: :cascade do |t|
@@ -65,6 +69,7 @@ ActiveRecord::Schema.define(version: 20160708192840) do
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
     t.boolean  "admin",                              default: false, null: false
+    t.datetime "created_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
