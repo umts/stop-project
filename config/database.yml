@@ -1,5 +1,7 @@
 development:
   adapter: mysql2
-  database: stop-project_development
+  database: stop_project_development
+  username: stop-project
+  password: bananas
   pool: 5
   timeout: 5000

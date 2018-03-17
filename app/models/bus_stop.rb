@@ -1,6 +1,6 @@
 include DateAndTimeMethods
 
-class BusStop < ActiveRecord::Base
+class BusStop < ApplicationRecord
   has_paper_trail
   validates :name, presence: true
   validates :hastus_id, presence: true, uniqueness: true
