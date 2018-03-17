@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :restrict_to_admin
   before_action :find_user, only: %i(destroy edit update)
   
   def destroy
