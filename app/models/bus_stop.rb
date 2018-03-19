@@ -10,19 +10,22 @@ class BusStop < ActiveRecord::Base
   before_save :assign_completion_timestamp, if: -> { completed_changed? }
 
   STRING_COLUMN_OPTIONS = {
-    accessible:         ['When necessary',  'Not recommended'                          ],
-    bench:              ['PVTA',            'Other'                                    ],
-    curb_cut:           ["Within 20'",      'No curb cut',       'No curb'             ],
-    lighting:           ["Within 20'",      "20' - 50'",         'None'                ],
-    mounting:           ['PVTA pole',       'Other pole',        'City Pole', 
-                         'Utility Pole',    'Structure'                                ],
-    mounting_direction: ['Towards street',  'Away from street'                         ],
-    schedule_holder:    ['On pole',         'In shelter'                               ],
-    shelter:            ['PVTA',            'Other',             'Building'            ],
-    sidewalk:           ['More than 36"',   'Less than 36"',     'None'                ],
-    sign:               ['Flag stop',       'Missing sign',      'Needs attention'     ],
-    sign_type:          ['Axehead (2014+)', 'Rectangle (<2014)', 'MGM + Axhead (2018+)'],
-    trash:              ['PVTA',            'Municipal',         'Other'               ],
+    accessible: ['When necessary', 'Not recommended'],
+    bench: %w[PVTA Other],
+    curb_cut: ["Within 20'", 'No curb cut', 'No curb'],
+    lighting: ["Within 20'", "20' - 50'", 'None'],
+    mounting: ['PVTA pole', 'Other pole', 'City Pole', 'Utility Pole', 'Structure'],
+    mounting_direction: ['Towards street', 'Away from street'],
+    schedule_holder: ['On pole', 'In shelter'],
+    shelter: %w[PVTA Other Building],
+    shelter_condition: %w[Great Good Fair Poor],
+    shelter_pad_condition: %w[Great Good Fair Poor],
+    shelter_pad_material: %w[Asphalt Concrete Other],
+    shelter_type: %w[Modern Modern\ half Victorian Dome Wooden Extra\ large Other],
+    sidewalk: ['More than 36"', 'Less than 36"', 'None'],
+    sign: ['Flag stop', 'Missing sign', 'Needs attention'],
+    sign_type: ['Axehead (2014+)', 'Rectangle (<2014)', 'MGM + Axhead (2018+)'],
+    trash: %w[PVTA Municipal Other],
   }
 
   BOOLEAN_COLUMNS = %i(bolt_on_base bus_pull_out_exists extend_pole has_power
