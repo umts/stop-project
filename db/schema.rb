@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170105165853) do
+ActiveRecord::Schema.define(version: 20180319230634) do
 
   create_table "bus_stops", force: :cascade do |t|
     t.string   "name",                      limit: 255, default: "", null: false
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20170105165853) do
     t.datetime "updated_at",                                         null: false
     t.boolean  "completed"
     t.datetime "completed_at"
+    t.string   "sign_type",                 limit: 255
   end
 
   create_table "bus_stops_routes", id: false, force: :cascade do |t|
