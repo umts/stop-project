@@ -10,3 +10,6 @@
 
 # Ignore export files
 *.exp
+
+/node_modules
+/yarn-error.log
