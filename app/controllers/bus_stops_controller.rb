@@ -1,6 +1,6 @@
 class BusStopsController < ApplicationController
-  before_action :find_stop, only: %i[edit id_search update]
-  before_action :restrict_to_admin, only: %i[manage]
+  before_action :find_stop, only: %i[edit destroy id_search update]
+  before_action :restrict_to_admin, only: %i[destroy manage]
 
   def autocomplete
     stops = BusStop.where 'lower(name) like ?',
@@ -26,6 +26,12 @@ class BusStopsController < ApplicationController
       flash[:errors] = @stop.errors.full_messages
       render 'edit'
     end
+  end
+
+  def destroy
+    @stop.destroy
+    redirect_to manage_bus_stops_path,
+      notice: "#{@stop.name} has been deleted."
   end
 
   def id_search
@@ -62,7 +68,8 @@ class BusStopsController < ApplicationController
   def find_stop
     @stop = BusStop.find_by hastus_id: params.require(:id)
     unless @stop.present?
-      redirect_to :back, notice: "Stop #{params[:id]} not found" and return
+      redirect_back(fallback_location: root_path,
+        notice: "Stop #{params[:id]} not found") and return
     end
   end
 
