@@ -37,7 +37,8 @@ class BusStop < ApplicationRecord
   EXPORT_ATTRS = {
     name: 'Stop Name',
     hastus_id: 'Hastus ID',
-    route_list: 'Routes'
+    route_list: 'Routes',
+    updated_at: 'Last updated'
   }
 
   STRING_COLUMN_OPTIONS.each do |attribute, options|
