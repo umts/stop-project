@@ -1,4 +1,4 @@
-class AddShelterFieldsToBusStops < ActiveRecord::Migration
+class AddShelterFieldsToBusStops < ActiveRecord::Migration[4.2]
   def change
     add_column :bus_stops, :shelter_condition,     :string
     add_column :bus_stops, :shelter_pad_condition, :string
