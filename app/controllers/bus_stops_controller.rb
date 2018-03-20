@@ -34,6 +34,7 @@ class BusStopsController < ApplicationController
 
   def manage
     @stops = BusStop.order(:name)
+                    .paginate(page: params[:page], per_page: 10)
   end
 
   def name_search

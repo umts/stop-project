@@ -11,6 +11,7 @@ gem 'paper_trail', '~> 8.1'
 gem 'rails', '~> 5.1'
 gem 'sass-rails', '~> 5.0'
 gem 'underscore-rails', '~> 1.8'
+gem 'will_paginate', '~> 3.1'
 
 group :production do
   gem 'exception_notification', '~> 4.2'
