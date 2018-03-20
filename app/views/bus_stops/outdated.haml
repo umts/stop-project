@@ -1,8 +1,10 @@
 Bus stops not updated since #{@date} (#{@stops.count})
 
-= form_tag '#' do
+= form_tag '#', method: :get do
   = text_field_tag :date, @date, class: 'datepick'
   = submit_tag 'Change date'
+
+= link_to 'Export as CSV', outdated_bus_stops_path(date: params[:date], format: :csv)
 
 - if @stops.present?
   %table.manage

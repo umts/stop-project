@@ -59,7 +59,10 @@ class BusStopsController < ApplicationController
                     .paginate(page: params[:page], per_page: 10)
     respond_to do |format|
       format.html { render :outdated }
-      # format.csv
+      format.csv do
+        send_data @stops.to_csv,
+          filename: "outdated-stops-since-#{@date.strftime('%Y%m%d')}.csv"
+      end
     end
   end
 

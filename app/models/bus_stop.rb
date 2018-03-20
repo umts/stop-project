@@ -1,3 +1,5 @@
+require 'csv'
+
 include DateAndTimeMethods
 
 class BusStop < ApplicationRecord
@@ -32,6 +34,12 @@ class BusStop < ApplicationRecord
   BOOLEAN_COLUMNS = %i(bolt_on_base bus_pull_out_exists extend_pole has_power
     new_anchor new_pole solar_lighting straighten_pole system_map_exists)
 
+  EXPORT_ATTRS = {
+    name: 'Stop Name',
+    hastus_id: 'Hastus ID',
+    route_list: 'Routes'
+  }
+
   STRING_COLUMN_OPTIONS.each do |attribute, options|
     validates attribute, inclusion: { in: options }, allow_blank: true
   end
@@ -53,6 +61,15 @@ class BusStop < ApplicationRecord
 
   def route_list
     routes.pluck(:number).sort.join(', ')
+  end
+
+  def self.to_csv
+    CSV.generate headers: true do |csv|
+       csv << EXPORT_ATTRS.values
+       all.each do |stop|
+         csv << EXPORT_ATTRS.keys.map { |attr| stop.send attr }
+       end
+    end
   end
 
   private

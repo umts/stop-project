@@ -4,7 +4,7 @@ $(document).ready(function(){
   });
 
   $('.datepick').datepicker({
-    dateFormat: 'yyyy-mm-dd'
+    dateFormat: 'yy-mm-dd'
   })
 });
 
