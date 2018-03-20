@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   devise :database_authenticatable
   validates :name, :email, presence: true, uniqueness: true
   validate :confirmation_matches, if: -> { password.present? }

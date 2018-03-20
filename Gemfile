@@ -1,22 +1,19 @@
 source 'https://rubygems.org'
 
-gem 'coffee-rails'
-gem 'devise'
-gem 'haml'
-gem 'haml-rails'
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
-gem 'mysql2'
-gem 'paper_trail'
-gem 'rails'
-gem 'sass-rails'
-gem 'underscore-rails'
-source 'https://rails-assets.org' do
-  gem 'rails-assets-bootstrap'
-end
+gem 'bootstrap-sass'
+gem 'coffee-rails', '~> 4.2'
+gem 'devise', '~> 4.4'
+gem 'haml-rails', '~> 1.0'
+gem 'jquery-rails', '~> 4.3'
+gem 'jquery-ui-rails', '~> 6.0'
+gem 'mysql2', '~> 0.4'
+gem 'paper_trail', '~> 8.1'
+gem 'rails', '~> 5.1'
+gem 'sass-rails', '~> 5.0'
+gem 'underscore-rails', '~> 1.8'
 
 group :production do
-  gem 'exception_notification'
+  gem 'exception_notification', '~> 4.2'
 end
 
 group :development do

@@ -1,9 +1,11 @@
 /*
+ *= require autocomplete
  *= require_tree .
  *= require_self
- *= require bootstrap
- *= require autocomplete
  */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
 
 body{
   background: #d7bea3 !important;
