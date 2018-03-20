@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       post :id_search
       get  :manage
       post :name_search
+      get  :outdated
     end
   end
 end

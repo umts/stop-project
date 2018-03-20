@@ -24,4 +24,5 @@ group :development do
   gem 'capistrano-rails', require: false
   gem 'capistrano-passenger', require: false
   gem 'pry-byebug'
+  gem 'timecop', '~> 0.9.1'
 end

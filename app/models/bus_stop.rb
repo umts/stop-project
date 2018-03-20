@@ -5,9 +5,10 @@ class BusStop < ApplicationRecord
   validates :name, presence: true
   validates :hastus_id, presence: true, uniqueness: true
   has_and_belongs_to_many :routes
-  default_scope -> { order :name }
 
   before_save :assign_completion_timestamp, if: -> { completed_changed? }
+
+  scope :not_updated_since, -> (date) { where 'updated_at < ?', date.to_datetime }
 
   STRING_COLUMN_OPTIONS = {
     accessible: ['When necessary', 'Not recommended'],
@@ -48,6 +49,10 @@ class BusStop < ApplicationRecord
 
   def last_updated_by
     User.find_by(id: last_updated.try(:whodunnit)).try :name || 'Unknown'
+  end
+
+  def route_list
+    routes.pluck(:number).sort.join(', ')
   end
 
   private

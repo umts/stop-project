@@ -5,13 +5,13 @@ class BusStopsController < ApplicationController
   def autocomplete
     stops = BusStop.where 'lower(name) like ?',
                           "%#{params.require(:term)}%"
-    render json: stops.pluck(:name)
+    render json: stops.pluck(:name).sort
   end
 
   def by_route
     @route = Route.find_by number: params.require(:number)
     if @route.present?
-      @stops = @route.bus_stops
+      @stops = @route.bus_stops.order(:name)
     else redirect_to bus_stops_path,
                      notice: "Route #{params[:number]} not found"
     end
@@ -49,6 +49,17 @@ class BusStopsController < ApplicationController
       redirect_to edit_bus_stop_path(stop.hastus_id)
     else redirect_to bus_stops_path, 
                     notice: "Stop #{params[:name]} not found"
+    end
+  end
+
+  def outdated
+    @date = Date.parse(params[:date]) rescue 1.month.ago.to_date
+    @stops = BusStop.not_updated_since(@date)
+                    .order(:updated_at)
+                    .paginate(page: params[:page], per_page: 10)
+    respond_to do |format|
+      format.html { render :outdated }
+      # format.csv
     end
   end
 

@@ -1,0 +1,24 @@
+Bus stops not updated since #{@date} (#{@stops.count})
+
+= form_tag '#' do
+  = text_field_tag :date, @date, class: 'datepick'
+  = submit_tag 'Change date'
+
+- if @stops.present?
+  %table.manage
+    %thead
+      %th Stop
+      %th ID
+      %th Routes
+      %th Updated
+      %th
+    - @stops.each do |stop|
+      %tr
+        %td= stop.name
+        %td= stop.hastus_id
+        %td= stop.route_list
+        %td= stop.updated_at.strftime('%Y-%m-%d %H:%M %P')
+        %td= link_to 'Edit', edit_bus_stop_path(stop.hastus_id)
+  = will_paginate @stops
+- else
+  No such stops.
