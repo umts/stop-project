@@ -34,7 +34,7 @@ class BusStop < ApplicationRecord
   BOOLEAN_COLUMNS = %i(bolt_on_base bus_pull_out_exists extend_pole has_power
     new_anchor new_pole solar_lighting straighten_pole system_map_exists)
 
-  EXPORT_ATTRS = {
+  LIMITED_ATTRS = {
     name: 'Stop Name',
     hastus_id: 'Hastus ID',
     route_list: 'Routes',
@@ -64,11 +64,15 @@ class BusStop < ApplicationRecord
     routes.pluck(:number).sort.join(', ')
   end
 
-  def self.to_csv
+  def self.to_csv(limited_attributes: false)
+    attrs = if limited_attributes
+              LIMITED_ATTRS
+            else Hash[columns.map{|c| [c.name, c.name.humanize] }]
+            end
     CSV.generate headers: true do |csv|
-       csv << EXPORT_ATTRS.values
+       csv << attrs.values
        all.each do |stop|
-         csv << EXPORT_ATTRS.keys.map { |attr| stop.send attr }
+         csv << attrs.keys.map { |attr| stop.send attr }
        end
     end
   end

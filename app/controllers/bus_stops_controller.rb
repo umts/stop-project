@@ -41,6 +41,13 @@ class BusStopsController < ApplicationController
   def manage
     @stops = BusStop.order(:name)
                     .paginate(page: params[:page], per_page: 10)
+    respond_to do |format|
+      format.html { render :manage }
+      format.csv do
+        send_data @stops.to_csv,
+          filename: "all-stops-#{Date.today.strftime('%Y%m%d')}.csv"
+      end
+    end
   end
 
   def name_search
@@ -60,7 +67,7 @@ class BusStopsController < ApplicationController
     respond_to do |format|
       format.html { render :outdated }
       format.csv do
-        send_data @stops.to_csv,
+        send_data @stops.to_csv(limited_attributes: true),
           filename: "outdated-stops-since-#{@date.strftime('%Y%m%d')}.csv"
       end
     end
