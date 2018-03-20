@@ -1,5 +1,6 @@
 class BusStopsController < ApplicationController
-  before_action :find_stop, only: %i(edit id_search update)
+  before_action :find_stop, only: %i[edit id_search update]
+  before_action :restrict_to_admin, only: %i[manage]
 
   def autocomplete
     stops = BusStop.where 'lower(name) like ?',
@@ -29,6 +30,10 @@ class BusStopsController < ApplicationController
 
   def id_search
     redirect_to edit_bus_stop_path(@stop.hastus_id)
+  end
+
+  def manage
+    @stops = BusStop.order(:name)
   end
 
   def name_search

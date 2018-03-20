@@ -1,0 +1,8 @@
+%table.manage
+  %thead
+    %th Stop
+    %th ID
+  - @stops.each do |stop|
+    %tr
+      %td= stop.name
+      %td= stop.hastus_id
