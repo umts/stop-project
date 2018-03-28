@@ -1,3 +1,5 @@
+require 'csv'
+
 include DateAndTimeMethods
 
 class BusStop < ApplicationRecord
@@ -5,9 +7,10 @@ class BusStop < ApplicationRecord
   validates :name, presence: true
   validates :hastus_id, presence: true, uniqueness: true
   has_and_belongs_to_many :routes
-  default_scope -> { order :name }
 
   before_save :assign_completion_timestamp, if: -> { completed_changed? }
+
+  scope :not_updated_since, -> (date) { where 'updated_at < ?', date.to_datetime }
 
   STRING_COLUMN_OPTIONS = {
     accessible: ['When necessary', 'Not recommended'],
@@ -31,6 +34,13 @@ class BusStop < ApplicationRecord
   BOOLEAN_COLUMNS = %i(bolt_on_base bus_pull_out_exists extend_pole has_power
     new_anchor new_pole solar_lighting straighten_pole system_map_exists)
 
+  LIMITED_ATTRS = {
+    name: 'Stop Name',
+    hastus_id: 'Hastus ID',
+    route_list: 'Routes',
+    updated_at: 'Last updated'
+  }
+
   STRING_COLUMN_OPTIONS.each do |attribute, options|
     validates attribute, inclusion: { in: options }, allow_blank: true
   end
@@ -48,6 +58,23 @@ class BusStop < ApplicationRecord
 
   def last_updated_by
     User.find_by(id: last_updated.try(:whodunnit)).try :name || 'Unknown'
+  end
+
+  def route_list
+    routes.pluck(:number).sort.join(', ')
+  end
+
+  def self.to_csv(limited_attributes: false)
+    attrs = if limited_attributes
+              LIMITED_ATTRS
+            else Hash[columns.map{|c| [c.name, c.name.humanize] }]
+            end
+    CSV.generate headers: true do |csv|
+       csv << attrs.values
+       all.each do |stop|
+         csv << attrs.keys.map { |attr| stop.send attr }
+       end
+    end
   end
 
   private

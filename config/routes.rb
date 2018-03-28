@@ -15,7 +15,9 @@ Rails.application.routes.draw do
       post :autocomplete
       get  :by_route
       post :id_search
+      get  :manage
       post :name_search
+      get  :outdated
     end
   end
 end
