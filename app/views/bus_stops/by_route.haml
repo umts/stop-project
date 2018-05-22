@@ -3,6 +3,8 @@
 - if @stops.empty?
   No stops on this route
 - @stops.each do |stop|
-  = link_to edit_bus_stop_path(stop.hastus_id) do
-    %button.btn.btn-default= stop.name
+  %ul
+    %li
+      = link_to edit_bus_stop_path(stop.hastus_id) do
+        - stop.name
 
