@@ -2,9 +2,9 @@
 
 - if @stops.empty?
   No stops on this route
-- @stops.each do |stop|
   %ul
-    %li
-      = link_to edit_bus_stop_path(stop.hastus_id) do
-        - stop.name
+- @stops.each do |stop|
+  %li
+    = link_to edit_bus_stop_path(stop.hastus_id) do
+      - stop.name
 
