@@ -3,17 +3,14 @@
 - if @stops.empty?
   No stops on this route
 - else
-
-  Incomplete Stops
-  %ul
-    - @stops.where(completed: false).each do |stop|
+  - @inc_and_comp.each_pair do |complete, stops|
+    - if complete
+      %ul
+        Completed Stops
+    - else
+      %ul
+        Incomplete Stops
+    - stops.each do |stop|
       %li
         = link_to edit_bus_stop_path(stop.hastus_id) do
           - stop.name
-  Completed Stops
-  %ul
-    - @stops.where(completed: true).each do |stop|
-      %li
-        = link_to edit_bus_stop_path(stop.hastus_id) do
-          - stop.name
-
