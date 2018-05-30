@@ -4,12 +4,12 @@
   No stops on this route
 - else
   - @stops.each_pair do |complete, stops|
+    %ul
     - if complete
-      %ul
-        Completed Stops
+      Completed Stops
     - else
-      %ul
-        Not Completed Stops
+      Not Completed
+    Stops
     - stops.each do |stop|
       %li
         = link_to edit_bus_stop_path(stop.hastus_id) do
