@@ -9,7 +9,7 @@
         Completed Stops
     - else
       %ul
-        Incomplete Stops
+        Not Completed Stops
     - stops.each do |stop|
       %li
         = link_to edit_bus_stop_path(stop.hastus_id) do
