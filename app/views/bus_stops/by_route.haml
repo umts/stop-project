@@ -3,7 +3,7 @@
 - if @stops.empty?
   No stops on this route
 - else
-  - @inc_and_comp.each_pair do |complete, stops|
+  - @stops.each_pair do |complete, stops|
     - if complete
       %ul
         Completed Stops
