@@ -12,10 +12,4 @@ module BusStopsHelper
     else bus_stop_path stop.hastus_id
     end
   end
-
-  def display_name(stop)
-    if stop.name.present? then stop.name
-    else 'New stop'
-    end
-  end
 end
