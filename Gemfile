@@ -26,3 +26,7 @@ group :development do
   gem 'pry-byebug'
   gem 'timecop', '~> 0.9.1'
 end
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.7'
+end
