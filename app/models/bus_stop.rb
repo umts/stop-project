@@ -67,7 +67,10 @@ class BusStop < ApplicationRecord
   def self.to_csv(limited_attributes: false)
     attrs = if limited_attributes
               LIMITED_ATTRS
-            else Hash[columns.map{|c| [c.name, c.name.humanize] }]
+            else Hash[columns.map do |c|
+              [c.name, c.name.humanize]
+            end
+            ]
             end
     CSV.generate headers: true do |csv|
        csv << attrs.values
