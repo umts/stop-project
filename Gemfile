@@ -23,6 +23,18 @@ group :development do
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano-passenger', require: false
-  gem 'pry-byebug'
   gem 'timecop', '~> 0.9.1'
+end
+
+group :development, :test do
+  gem 'factory_bot_rails'
+  gem 'pry-byebug'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'puma'
+  gem 'rspec-rails'
+  gem 'selenium-webdriver'
+  gem 'simplecov'
 end

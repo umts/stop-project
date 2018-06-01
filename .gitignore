@@ -13,3 +13,8 @@
 
 /node_modules
 /yarn-error.log
+
+# Ignore all of coverage except for last_run.json
+/coverage/index.html
+/coverage/assets/*
+/coverage/.resultset.*
