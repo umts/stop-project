@@ -60,14 +60,14 @@ class BusStopsController < ApplicationController
 
   def outdated
     @date = Date.parse(params[:date]) rescue 1.month.ago.to_date
-    outdated_stops = BusStop.not_updated_since(@date).order(:updated_at)
+    @stops = BusStop.not_updated_since(@date).order(:updated_at)
     respond_to do |format|
       format.html do
-        outdated_stops.paginate(page: params[:page], per_page: 10)
+        @stops.paginate(page: params[:page], per_page: 10)
         render :outdated
       end
       format.csv do
-        send_data outdated_stops.to_csv(limited_attributes: true),
+        send_data @stops.to_csv(limited_attributes: true),
           filename: "outdated-stops-since-#{@date.strftime('%Y%m%d')}.csv"
       end
     end
