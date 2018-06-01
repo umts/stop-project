@@ -39,12 +39,11 @@ class BusStopsController < ApplicationController
   end
 
   def manage
-    all_stops = BusStop.order(:name)
-    @stops = all_stops.paginate(page: params[:page], per_page: 10)
+    @stops = BusStop.order(:name).paginate(page: params[:page], per_page: 10)
     respond_to do |format|
       format.html { render :manage }
       format.csv do
-        send_data all_stops.to_csv,
+        send_data BusStop.all.to_csv,
           filename: "all-stops-#{Date.today.strftime('%Y%m%d')}.csv"
       end
     end
