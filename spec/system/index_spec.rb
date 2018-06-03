@@ -1,8 +1,19 @@
 require 'spec_helper'
 
 describe 'searching for a bus stop by stop id' do
+  before :each do
+    user = create :user
+    when_current_user_is user
+    visit root_url
+    bus_stop = create :bus_stop
+  end
   context 'correct stop id' do
     it 'redirects to the edit page' do
+      within 'form' do
+        # figure out how to differentiate between forms
+        # fill_in 'id', with: bus_stop.id
+        # click_button 'commit'
+      end
     end
   end
    context 'incorrect stop id' do
