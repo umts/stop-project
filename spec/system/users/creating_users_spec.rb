@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe 'creating users' do
+  before :each do
+    admin = create :user, :admin
+    when_current_user_is admin
+    visit new_user_url
+  end
   context 'as an admin' do
     it 'creates a user' do
     end
