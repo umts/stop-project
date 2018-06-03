@@ -33,6 +33,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'chromedriver-helper'
   gem 'puma'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
