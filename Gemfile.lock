@@ -288,7 +288,7 @@ DEPENDENCIES
   mysql2 (~> 0.4)
   paper_trail (~> 8.1)
   pry-byebug
-  puma
+  puma (~> 3.7)
   rails (~> 5.1)
   rspec-rails
   sass-rails (~> 5.0)

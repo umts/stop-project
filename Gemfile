@@ -34,7 +34,7 @@ end
 group :test do
   gem 'capybara'
   gem 'chromedriver-helper'
-  gem 'puma'
+  gem 'puma', '~> 3.7'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'simplecov'
