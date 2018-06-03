@@ -36,3 +36,11 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
 end
+
+def when_current_user_is(user)
+  current_user = case user
+                 when User, nil then user
+                 when Symbol then create(:user, user)
+                 end
+  sign_in current_user
+end
