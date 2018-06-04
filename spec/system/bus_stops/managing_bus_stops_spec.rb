@@ -8,7 +8,6 @@ describe 'managing stops as an admin' do
     
     when_current_user_is admin
     visit manage_bus_stops_url
-
   end
   context 'delete button' do
     it 'deletes the specific bus stop' do
