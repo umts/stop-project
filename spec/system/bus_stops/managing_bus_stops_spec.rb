@@ -31,3 +31,21 @@ describe 'managing stops as an admin' do
     end
   end
 end
+
+describe 'viewing outdated' do
+  context 'click the link' do
+    it 'redirects to outdated page' do
+      click_link 'View Outdated'
+      expect(page.current_url).to end_with outdated_bus_stops_path
+    end
+    it 'allows editing of outdated stops' do
+    end
+    it 'outdated can be narrowed down with a different date' do
+    end
+  end
+end
+
+describe 'exporting all as CSV' do
+  it 'exports a CSV of all stops' do
+  end
+end
