@@ -20,7 +20,8 @@ describe 'creating users as an admin' do
       end
     end
     it 'notifies the user has been created' do
-      expect(page).to have_text 'User was created.'
+      expect(page).to have_selector 'p.notice',
+        text: 'User was created.'
     end
     it 'redirects to the users page' do
       expect(page.current_url).to end_with users_path
@@ -53,7 +54,8 @@ describe 'creating users as an admin' do
          
          click_on 'Save user'
        end
-       expect(page).to have_text 'User was created.'
+       expect(page).to have_selector 'p.notice',
+         text: 'User was created.'
        expect(page.current_url).to end_with users_path
      end
    end
