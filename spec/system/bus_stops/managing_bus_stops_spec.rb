@@ -4,7 +4,7 @@ describe 'managing stops as an admin' do
 
   before :each do
     admin = create :user, :admin
-    @bus_stop = create :bus_stop, name: 'GRC'
+    @bus_stop = create :bus_stop
     
     when_current_user_is admin
     visit manage_bus_stops_url
