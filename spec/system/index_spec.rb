@@ -5,13 +5,12 @@ describe 'searching for a bus stop by stop id' do
     user = create :user
     when_current_user_is user
     visit root_url
-    # i know this shouldn't be here UGH
-    bus_stop = create :bus_stop, id: 7
+    @bus_stop = create :bus_stop
   end
   context 'correct stop id' do
     it 'redirects to the edit page' do
       within 'form', text: 'Enter stop ID' do
-        fill_in 'id', with: 7
+        fill_in 'id', with: @bus_stop.id
         click_button 'Search'
       end
     end
@@ -19,7 +18,7 @@ describe 'searching for a bus stop by stop id' do
    context 'incorrect stop id' do
      before :each do
        within 'form', text: 'Enter stop ID' do
-         fill_in 'id', with: 40000
+         fill_in 'id', with: -@bus_stop.id
          click_button 'Search'
        end
      end
@@ -28,7 +27,7 @@ describe 'searching for a bus stop by stop id' do
      end
      it 'displays a helpful message' do
        expect(page).to have_selector 'p.notice',
-         text: 'Stop 40000 not found'
+         text: "Stop #{-@bus_stop.id} not found"
      end
    end
 end
