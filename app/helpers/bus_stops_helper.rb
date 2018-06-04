@@ -8,8 +8,6 @@ module BusStopsHelper
   end
 
   def creation_url(stop)
-    if stop.new_record? then bus_stops_path
-    else bus_stop_path stop.hastus_id
-    end
+    bus_stop_path stop.hastus_id
   end
 end
