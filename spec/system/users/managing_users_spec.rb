@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe 'managing users as an admin' do
   before :each do
-    admin = create :user, :admin, name: 'Admin'
-    delete_user = create :user, name: 'Jane'
+    admin = create :user, :admin
+    @manage_user = create :user
     
     when_current_user_is admin
     visit users_url
@@ -12,21 +12,21 @@ describe 'managing users as an admin' do
   context 'delete button' do
     it 'deletes the specific user' do
       expect(page).to have_selector 'table.index tbody tr', count: 2
-      within 'tr', text: 'Jane' do
+      within 'tr', text: @manage_user.name.to_s do
         click_button 'Delete'
       end
       expect(page).to have_selector 'p.notice',
         text: 'User was deleted.'
-      expect(page).not_to have_selector 'table.index tbody tr', text: 'Jane'
+      expect(page).not_to have_selector 'table.index tbody tr', text: @manage_user.name.to_s
     end
   end
   context 'edit button' do
     it 'redirects to edit user page' do
       expect(page).to have_selector 'table.index tbody tr', count: 2
-      within 'tr', text: 'Jane' do
+      within 'tr', text: @manage_user.name.to_s do
         click_button 'Edit'
       end
-      expect(page).to have_content 'Editing Jane'
+      expect(page).to have_content "Editing #{@manage_user.name}"
     end
   end
 end
