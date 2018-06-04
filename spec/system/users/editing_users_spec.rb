@@ -24,6 +24,24 @@ describe 'editing a user as an admin' do
   end
   context 'with name, email, or admin changes' do
     it 'updates the user and table accordingly' do
+      @previous_name = @edit_user.name
+      @previous_email = @edit_user.email
+      within 'table.edit-form' do
+        fill_in 'Name', with: 'newname'
+        fill_in 'Email', with: 'newemail@example.com'
+        check 'Admin'
+        fill_in 'Password', with: 'newpass'
+        fill_in 'Password confirmation', with: 'newpass'
+        click_button 'Save user'
+      end
+      expect(page).to have_css 'td', text: 'newname'
+      expect(page).to have_css 'td', text: 'newemail@example.com'
+      # users in table are all admins
+      expect(page).to have_css 'span', class: 'glyphicon glyphicon-ok'
+      
+      expect(page).not_to have_css 'td', text: @previous_name
+      expect(page).not_to have_css 'td', text: @previous_email
+      expect(page).not_to have_css 'span', class: 'glyphicon glyphicon-remove'
     end
   end
 end
