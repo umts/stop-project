@@ -4,7 +4,7 @@
 - if stop.completed_at.present?
   .smalltext.last-updated
     Completed at #{format_datetime stop.completed_at}
-= form_for stop, url: creation_url(stop) do |f|
+= form_for stop, url: bus_stop_path(stop.hastus_id) do |f|
   %table.edit-form
     %tr
       %td= f.label :name
