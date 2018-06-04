@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe 'creating users as an admin' do
   before :each do
-    admin = create :user, :admin
-    when_current_user_is admin
+    @admin = create :user, :admin
+    when_current_user_is @admin
     visit new_user_url
   end
   context 'with all fields' do
@@ -27,21 +27,24 @@ describe 'creating users as an admin' do
       expect(page.current_url).to end_with users_path
     end
   end
-   context 'without name and email' do
+   context 'with errors' do
      before :each do
         within 'form#new_user.new_user' do
           check 'Admin'
+          fill_in 'Name', with: 'someone'
+          fill_in 'Email', with: @admin.email
           fill_in 'Password', with: 'password'
           fill_in 'Password confirmation', with: 'password'
 
           click_on 'Save user'
         end
      end
-     it "doesn't create a new user" do
-       expect(page).not_to have_text 'User was created.'
+     it 'sends a helpful error message' do
+       expect(page).to have_selector 'p.errors',
+         text: 'Email has already been taken'
      end
-     it 'stays on the new user page' do
-       expect(page.current_url).to end_with new_user_path
+     it 'redirects to edit user page' do
+       expect(page).to have_content 'Editing someone'
      end
    end
    context 'without password' do
