@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'managing stops as an admin' do
-
   before :each do
     admin = create :user, :admin
     @bus_stop = create :bus_stop
