@@ -12,18 +12,18 @@ describe 'managing users as an admin' do
   context 'delete button' do
     it 'deletes the specific user' do
       expect(page).to have_selector 'table.index tbody tr', count: 2
-      within 'tr', text: @manage_user.name.to_s do
+      within 'tr', text: @manage_user.name do
         click_button 'Delete'
       end
       expect(page).to have_selector 'p.notice',
         text: 'User was deleted.'
-      expect(page).not_to have_selector 'table.index tbody tr', text: @manage_user.name.to_s
+      expect(page).not_to have_selector 'table.index tbody tr', text: @manage_user.name
     end
   end
   context 'edit button' do
     it 'redirects to edit user page' do
       expect(page).to have_selector 'table.index tbody tr', count: 2
-      within 'tr', text: @manage_user.name.to_s do
+      within 'tr', text: @manage_user.name do
         click_button 'Edit'
       end
       expect(page).to have_content "Editing #{@manage_user.name}"
