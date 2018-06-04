@@ -12,7 +12,7 @@ describe 'searching for a bus stop by stop id' do
   context 'correct stop id' do
     it 'redirects to the edit page' do
       within 'form', text: 'Enter stop ID' do
-        fill_in 'id', with: @bus_stop.hastus_id.to_s
+        fill_in 'Enter stop ID', with: @bus_stop.hastus_id.to_s
         click_button 'Search'
       end
       expect(page).to have_content "Editing #{@bus_stop.name}"
@@ -21,13 +21,12 @@ describe 'searching for a bus stop by stop id' do
    context 'incorrect stop id' do
      before :each do
        within 'form', text: 'Enter stop ID' do
-         fill_in 'id', with: -1
+         fill_in 'Enter stop ID', with: -1
          click_button 'Search'
        end
      end
      it 'stays on the same page' do
-       # this test fails
-       expect(page.current_url).to end_with root_url
+       expect(page.current_path).to end_with root_url
      end
      it 'displays a helpful message' do
        expect(page).to have_selector 'p.notice',
@@ -37,10 +36,17 @@ describe 'searching for a bus stop by stop id' do
 end
 
 describe 'searching for a bus stop by stop name' do
+  before :each do
+    user = create :user
+    @bus_stop = create :bus_stop
+    
+    when_current_user_is user
+    visit root_url
+  end
   context 'correct stop name' do
     it 'redirects to the edit page' do
       within 'form', text: 'Enter stop name' do
-        fill_in 'name', with: @bus_stop.name.to_s
+        fill_in 'Enter stop name', with: @bus_stop.name
         click_button 'Search'
       end
       expect(page).to have_content "Editing #{@bus_stop.name}"
@@ -49,12 +55,12 @@ describe 'searching for a bus stop by stop name' do
   context 'incorrect stop name' do
     before :each do
       within 'form', text: 'Enter stop name' do
-        fill_in 'name', with: '1234'
+        fill_in 'Enter stop name', with: '1234'
         click_button 'Search'
       end
     end
     it 'stays on the same page' do
-      expect(page.current_url).to end_with root_url
+      expect(page.current_path).to end_with root_url
     end
     it 'displays a helpful message' do
       expect(page).to have_selector 'p.notice',
@@ -64,8 +70,18 @@ describe 'searching for a bus stop by stop name' do
 end
 
 describe 'searching for a bus stop by route' do
+  before :each do
+    user = create :user
+    @bus_stop = create :bus_stop
+    
+    when_current_user_is user
+    visit root_url
+  end
   context 'route from the dropdown' do
     it 'redirects to bus stops by route page' do
+      within 'form', text: 'Select a route' do
+        # need to make a route
+      end
     end
   end
 end
