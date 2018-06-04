@@ -3,8 +3,6 @@
     .navbar-header
       %a.navbar-brand{href: root_path}= image_tag 'favicon.png'
     - if user_signed_in?
-      = link_to new_bus_stop_path do
-        %button.btn.btn-default.navbar-btn.navbar-left New Stop
       - if current_user.admin?
         = link_to new_user_path do
           %button.btn.btn-default.navbar-btn.navbar-left New User
