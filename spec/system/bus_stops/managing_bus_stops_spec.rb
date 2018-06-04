@@ -27,7 +27,7 @@ describe 'managing stops as an admin' do
       within 'tr', text: @bus_stop.name.to_s do
         click_link 'Edit'
       end
-      expect(page).to have_content "Editing #{@bus_stop.name.to_s}"
+      expect(page).to have_content "Editing #{@bus_stop.name}"
     end
   end
 end
