@@ -1,11 +1,14 @@
 require 'spec_helper'
 
 describe 'editing a user as an admin' do
-  before :each do
-    admin = create :user, :admin
-    edit_user = create :user
-    
-    when_current_user_is admin
-    visit edit_user, id: edit_user.id
+  context 'with no changes' do
+    it 'updates the user' do
+    end
+    it 'redirect to users table' do
+    end
+  end
+  context 'with name, email, or admin changes' do
+    it 'updates the user and table accordingly' do
+    end
   end
 end
