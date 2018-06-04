@@ -6,3 +6,4 @@ module BusStopsHelper
     else content_tag :span, nil, class: 'glyphicon glyphicon-remove'
     end
   end
+end
