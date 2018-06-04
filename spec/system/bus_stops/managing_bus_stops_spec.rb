@@ -4,7 +4,7 @@ describe 'managing stops as an admin' do
 
   before :each do
     admin = create :user, :admin
-    bus_stop = create :bus_stop, name: 'GRC'
+    @bus_stop = create :bus_stop, name: 'GRC'
     
     when_current_user_is admin
     visit manage_bus_stops_url
@@ -13,22 +13,22 @@ describe 'managing stops as an admin' do
   context 'delete button' do
     it 'deletes the specific bus stop' do
       expect(page).to have_selector 'table.manage tbody tr', count: 1
-      within 'tr', text: 'GRC' do
+      within 'tr', text: @bus_stop.name.to_s do
         click_button 'Delete'
       end
       page.driver.browser.switch_to.alert.accept
       expect(page).to have_selector 'p.notice',
-        text: 'GRC has been deleted.'
-      expect(page).not_to have_selector 'table.manage tbody tr', text: 'GRC'
+        text: "#{@bus_stop.name} has been deleted."
+      expect(page).not_to have_selector 'table.manage tbody tr', text: @bus_stop.name.to_s
     end
   end
   context 'edit button' do
     it 'redirects to edit bus stop page' do
       expect(page).to have_selector 'table.manage tbody tr', count: 1
-      within 'tr', text: 'GRC' do
+      within 'tr', text: @bus_stop.name.to_s do
         click_link 'Edit'
       end
-      expect(page).to have_content 'Editing GRC'
+      expect(page).to have_content "Editing #{@bus_stop.name.to_s}"
     end
   end
 end
