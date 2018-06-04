@@ -28,6 +28,7 @@ describe 'managing stops as an admin' do
         click_link 'Edit'
       end
       expect(page).to have_content "Editing #{@bus_stop.name}"
+      expect(page.current_path).to match edit_bus_stop_path(@bus_stop.hastus_id)
     end
   end
 end
