@@ -1,14 +1,37 @@
 require 'spec_helper'
 
 describe 'searching for a bus stop by stop id' do
+
+  before :each do
+    user = create :user
+    @bus_stop = create :bus_stop
+    
+    when_current_user_is user
+    visit root_url
+  end
   context 'correct stop id' do
     it 'redirects to the edit page' do
+      within 'form', text: 'Enter stop ID' do
+        fill_in 'id', with: @bus_stop.hastus_id.to_s
+        click_button 'Search'
+      end
+      expect(page).to have_content "Editing #{@bus_stop.name}"
     end
   end
    context 'incorrect stop id' do
+     before :each do
+       within 'form', text: 'Enter stop ID' do
+         fill_in 'id', with: -1
+         click_button 'Search'
+       end
+     end
      it 'stays on the same page' do
+       # this test fails
+       expect(page.current_url).to end_with root_url
      end
      it 'displays a helpful message' do
+       expect(page).to have_selector 'p.notice',
+         text: 'Stop -1 not found'
      end
    end
 end
@@ -16,12 +39,26 @@ end
 describe 'searching for a bus stop by stop name' do
   context 'correct stop name' do
     it 'redirects to the edit page' do
+      within 'form', text: 'Enter stop name' do
+        fill_in 'name', with: @bus_stop.name.to_s
+        click_button 'Search'
+      end
+      expect(page).to have_content "Editing #{@bus_stop.name}"
     end
   end
   context 'incorrect stop name' do
+    before :each do
+      within 'form', text: 'Enter stop name' do
+        fill_in 'name', with: '1234'
+        click_button 'Search'
+      end
+    end
     it 'stays on the same page' do
+      expect(page.current_url).to end_with root_url
     end
     it 'displays a helpful message' do
+      expect(page).to have_selector 'p.notice',
+        text: 'Stop 1234 not found'
     end
   end
 end
