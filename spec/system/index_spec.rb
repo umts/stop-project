@@ -5,14 +5,14 @@ describe 'searching for a bus stop by stop id' do
     user = create :user
     when_current_user_is user
     visit root_url
-    bus_stop = create :bus_stop
+    # i know this shouldn't be here UGH
+    bus_stop = create :bus_stop, id: 7
   end
   context 'correct stop id' do
     it 'redirects to the edit page' do
-      within 'form' do
-        # figure out how to differentiate between forms
-        # fill_in 'id', with: bus_stop.id
-        # click_button 'commit'
+      within 'form', text: 'Enter stop ID' do
+        fill_in 'id', with: 7
+        click_button 'Search'
       end
     end
   end
