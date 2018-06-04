@@ -19,7 +19,7 @@ describe 'editing a user as an admin' do
         text: 'User was updated.'
     end
     it 'redirect to users table' do
-      expect(page.current_path).to end_with users_path
+      expect(page.current_url).to end_with users_path
     end
   end
   context 'with name, email, or admin changes' do
