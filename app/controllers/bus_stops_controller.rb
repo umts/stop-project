@@ -17,17 +17,6 @@ class BusStopsController < ApplicationController
     end
   end
 
-  def create
-    @stop = BusStop.new stop_params
-    if @stop.save
-      flash[:notice] = 'Bus stop was created.'
-      redirect_to bus_stops_path
-    else
-      flash[:errors] = @stop.errors.full_messages
-      render 'edit'
-    end
-  end
-
   def destroy
     @stop.destroy
     redirect_to manage_bus_stops_path,
