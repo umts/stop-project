@@ -8,6 +8,4 @@ describe 'editing a user as an admin' do
     when_current_user_is admin
     visit edit_user, id: edit_user.id
   end
-  context 'edit a user' do
-  end
 end
