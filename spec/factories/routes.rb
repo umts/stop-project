@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :route do
-    sequence(:number){ |n| "Route #{n}" }
+    sequence :number
     description 'route description'
   end
 end
