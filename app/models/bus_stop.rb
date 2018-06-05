@@ -6,6 +6,7 @@ class BusStop < ApplicationRecord
   has_paper_trail
   validates :name, presence: true
   validates :hastus_id, presence: true, uniqueness: true
+  validates :check_completed, presence: { if: :completed? }
   has_and_belongs_to_many :routes
 
   before_save :assign_completion_timestamp, if: -> { completed_changed? }
@@ -83,4 +84,7 @@ class BusStop < ApplicationRecord
     assign_attributes completed_at: (completed? ? DateTime.current : nil)
   end
 
+  def check_completed
+    errors.add :base, 'You must complete all fields before marking stop as complete.'
+  end
 end
