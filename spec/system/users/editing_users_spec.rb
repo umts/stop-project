@@ -1,12 +1,11 @@
 require 'spec_helper'
 
 describe 'editing a user as an admin' do
+  let!(:admin) { create :user, :admin }
+  let!(:edit_user) { create :user }
   before :each do
-    @admin = create :user, :admin
-    @edit_user = create :user
-    
-    when_current_user_is @admin
-    visit edit_user_path(@edit_user)
+    when_current_user_is admin
+    visit edit_user_path(edit_user)
   end
   context 'with no changes' do
     before :each do
@@ -24,8 +23,8 @@ describe 'editing a user as an admin' do
   end
   context 'with name, email, or admin changes' do
     it 'updates the user and table accordingly' do
-      @previous_name = @edit_user.name
-      @previous_email = @edit_user.email
+      @previous_name = edit_user.name
+      @previous_email = edit_user.email
       within 'table.edit-form' do
         fill_in 'Name', with: 'newname'
         fill_in 'Email', with: 'newemail@example.com'
@@ -47,7 +46,7 @@ describe 'editing a user as an admin' do
   context 'with errors' do
     before :each do
       within 'table.edit-form' do
-        fill_in 'Name', with: @admin.name
+        fill_in 'Name', with: admin.name
         click_button 'Save user'
       end
     end
@@ -56,7 +55,7 @@ describe 'editing a user as an admin' do
         text: 'Name has already been taken'
     end
     it 'stays on the edit page' do
-      expect(page).to have_content "Editing #{@edit_user.name}"
+      expect(page).to have_content "Editing #{edit_user.name}"
     end
   end
 end
