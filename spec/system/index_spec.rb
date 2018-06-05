@@ -91,7 +91,7 @@ describe 'searching for a bus stop by route' do
   context 'route from the dropdown' do
     it 'redirects to bus stops by route page' do
       within 'form', text: 'Select a route' do
-        select @route.number, from: 'number'
+        select @route.number, from: 'Select a route'
         click_button 'Search'
       end
       expect(page).to have_content @route.number
