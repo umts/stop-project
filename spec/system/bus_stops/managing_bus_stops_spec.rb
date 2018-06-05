@@ -47,12 +47,12 @@ describe 'viewing outdated' do
   end
   it 'displays only outdated stops' do
     expect(page).to have_selector 'table.manage tbody tr', count: 2
-    expect(page).to have_selector 'table.manage tbody tr', text: old_stop_1.name
-    expect(page).to have_selector 'table.manage tbody tr', text: old_stop_2.name
-    expect(page).not_to have_selector 'table.manage tbody tr', text: present_stop.name
+    expect(page).to have_selector 'table.manage tbody tr', text: old_stop_1.updated_at
+    expect(page).to have_selector 'table.manage tbody tr', text: old_stop_2.updated_at
+    expect(page).not_to have_selector 'table.manage tbody tr', text: present_stop.updated_at
   end
   it 'allows editing of outdated stops' do
-    within 'tr', text: old_stop_1.hastus_id do
+    within 'tr', text: old_stop_1.updated_at do
       click_link 'Edit'
     end
     expect(page).to have_content "Editing #{old_stop_1.name}"
