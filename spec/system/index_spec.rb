@@ -83,8 +83,7 @@ describe 'searching for a bus stop by route' do
   before :each do
     user = create :user
     @route = create :route
-    @bus_stop = create :bus_stop
-    @route.bus_stops << @bus_stop
+    @bus_stop = create :bus_stop, routes: [@route]
     when_current_user_is user
     visit root_url
   end
