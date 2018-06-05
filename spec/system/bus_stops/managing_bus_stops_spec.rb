@@ -59,6 +59,12 @@ describe 'viewing outdated' do
     expect(page).to have_content "Editing #{@stop_1.name}"
   end
   it 'outdated can be narrowed down with a different date' do
+    within '#date' do
+      # datepickers guh
+      fill_in 'date', with: @date
+      binding.pry
+      click_button 'Change date'
+    end
   end
 end
 
