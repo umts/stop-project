@@ -44,3 +44,7 @@ def when_current_user_is(user)
                  end
   sign_in current_user
 end
+
+def format_time(time)
+  time.strftime('%Y-%m-%d %H:%M %P')
+end
