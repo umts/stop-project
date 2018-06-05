@@ -59,16 +59,12 @@ describe 'viewing outdated' do
     expect(page).to have_content "Editing #{@stop_1.name}"
   end
   it 'outdated can be narrowed down with a different date' do
-    within '#date' do
-      # datepickers guh
-      fill_in 'date', with: @date
-      binding.pry
-      click_button 'Change date'
-    end
+    pending('review datepickers and capybara')
   end
 end
 
 describe 'exporting all as CSV' do
   it 'exports a CSV of all stops' do
+    pending('maybe later')
   end
 end

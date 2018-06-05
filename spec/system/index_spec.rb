@@ -35,6 +35,7 @@ describe 'searching for a bus stop by stop id' do
    end
    context 'without completing stop id' do
      it 'autofills' do
+       pending('how do I check this')
      end
    end
 end
@@ -73,6 +74,7 @@ describe 'searching for a bus stop by stop name' do
   end
   context 'without completing stop id' do
     it 'autofills' do
+      pending('how do I check this')
     end
   end
 end
