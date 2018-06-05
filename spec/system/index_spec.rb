@@ -26,7 +26,7 @@ describe 'searching for a bus stop by stop id' do
        end
      end
      it 'stays on the same page' do
-       expect(page.current_url).to end_with root_url
+       expect(page.current_url).to end_with root_path
      end
      it 'displays a helpful message' do
        expect(page).to have_selector 'p.notice',
@@ -60,7 +60,7 @@ describe 'searching for a bus stop by stop name' do
       end
     end
     it 'stays on the same page' do
-      expect(page.current_url).to end_with root_url
+      expect(page.current_url).to end_with bus_stops_path
     end
     it 'displays a helpful message' do
       expect(page).to have_selector 'p.notice',
