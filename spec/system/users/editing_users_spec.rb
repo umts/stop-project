@@ -37,11 +37,11 @@ describe 'editing a user as an admin' do
       expect(page).to have_css 'td', text: 'newname'
       expect(page).to have_css 'td', text: 'newemail@example.com'
       # users in table are all admins
-      expect(page).to have_css 'span', class: 'glyphicon glyphicon-ok'
+      expect(page).to have_css '.glyphicon-ok'
       
       expect(page).not_to have_css 'td', text: @previous_name
       expect(page).not_to have_css 'td', text: @previous_email
-      expect(page).not_to have_css 'span', class: 'glyphicon glyphicon-remove'
+      expect(page).not_to have_css '.glyphicon-remove'
     end
   end
   context 'with errors' do
