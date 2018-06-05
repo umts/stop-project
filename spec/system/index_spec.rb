@@ -68,7 +68,7 @@ describe 'searching for a bus stop by stop name' do
         text: 'Stop 1234 not found'
     end
   end
-  context 'without completing stop id' do
+  context 'without completing stop name' do
     it 'autofills' do
     end
   end
