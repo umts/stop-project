@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe 'creating users as an admin' do
+  let!(:admin) { create :admin }
   before :each do
-    @admin = create :user, :admin
-    when_current_user_is @admin
+    when_current_user_is admin
     visit new_user_url
   end
   context 'with all fields' do
@@ -32,7 +32,7 @@ describe 'creating users as an admin' do
         within 'form#new_user.new_user' do
           check 'Admin'
           fill_in 'Name', with: 'someone'
-          fill_in 'Email', with: @admin.email
+          fill_in 'Email', with: admin.email
           fill_in 'Password', with: 'password'
           fill_in 'Password confirmation', with: 'password'
 
