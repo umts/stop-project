@@ -62,4 +62,24 @@ describe 'creating users as an admin' do
        expect(page.current_url).to end_with users_path
      end
    end
+   context "password and password_confirmation don't match" do
+     before :each do
+        within 'form#new_user.new_user' do
+          check 'Admin'
+          fill_in 'Name', with: 'Brody'
+          fill_in 'Email', with: 'brody@example.com'
+          fill_in 'Password', with: 'password'
+          fill_in 'Password confirmation', with: 'password7'
+
+          click_on 'Save user'
+        end
+     end
+     it 'sends a helpful error message' do
+       expect(page).to have_selector 'p.errors',
+         text: 'Password confirmation does not match password'
+     end
+     it 'redirects to edit user page' do
+       expect(page).to have_content 'Editing Brody'
+     end
+   end
 end
