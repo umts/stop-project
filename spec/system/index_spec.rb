@@ -33,6 +33,10 @@ describe 'searching for a bus stop by stop id' do
          text: 'Stop -1 not found'
      end
    end
+   context 'without completing stop id' do
+     it 'autofills' do
+     end
+   end
 end
 
 describe 'searching for a bus stop by stop name' do
@@ -65,6 +69,10 @@ describe 'searching for a bus stop by stop name' do
     it 'displays a helpful message' do
       expect(page).to have_selector 'p.notice',
         text: 'Stop 1234 not found'
+    end
+  end
+  context 'without completing stop id' do
+    it 'autofills' do
     end
   end
 end
