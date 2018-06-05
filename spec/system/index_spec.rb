@@ -1,21 +1,19 @@
 require 'spec_helper'
 
 describe 'searching for a bus stop by stop id' do
-
-  before :each do
-    user = create :user
-    @bus_stop = create :bus_stop
-    
+  let(:user) { create :user }
+  let!(:bus_stop) { create :bus_stop }
+  before(:each) do
     when_current_user_is user
     visit root_url
   end
   context 'correct stop id' do
     it 'redirects to the edit page' do
       within 'form', text: 'Enter stop ID' do
-        fill_in 'Enter stop ID', with: @bus_stop.hastus_id.to_s
+        fill_in 'Enter stop ID', with: bus_stop.hastus_id.to_s
         click_button 'Search'
       end
-      expect(page).to have_content "Editing #{@bus_stop.name}"
+      expect(page).to have_content "Editing #{bus_stop.name}"
     end
   end
    context 'incorrect stop id' do
@@ -35,7 +33,6 @@ describe 'searching for a bus stop by stop id' do
    end
    context 'without completing stop id' do
      it 'autofills' do
-       pending('how do I check this')
      end
    end
 end
