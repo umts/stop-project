@@ -62,9 +62,3 @@ describe 'viewing outdated' do
     pending('review datepickers and capybara')
   end
 end
-
-describe 'exporting all as CSV' do
-  it 'exports a CSV of all stops' do
-    pending('maybe later')
-  end
-end
