@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'creating users as an admin' do
-  let!(:admin) { create :admin }
+  let!(:admin) { create :user, :admin }
   before :each do
     when_current_user_is admin
     visit new_user_url
