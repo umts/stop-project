@@ -33,15 +33,32 @@ describe 'managing stops as an admin' do
 end
 
 describe 'viewing outdated' do
-  context 'click the link' do
-    it 'redirects to outdated page' do
-      click_link 'View Outdated'
-      expect(page.current_url).to end_with outdated_bus_stops_path
+  before :each do
+    admin = create :user, :admin
+    @present_stop = create :bus_stop
+    @date = Date.today
+    @stop_1 = create :bus_stop, updated_at: (@date - 2.months)
+    @stop_2 = create :bus_stop, updated_at: (@date - 3.months)
+    when_current_user_is admin
+    visit manage_bus_stops_url
+
+    click_link 'View Outdated'
+  end
+  it 'redirects to outdated page' do
+    expect(page.current_url).to end_with outdated_bus_stops_path
+  end
+  it 'displays only outdated stops' do
+    expect(page).to have_selector 'table.manage tbody tr', count: 2
+    expect(page).to have_selector 'table.manage tbody tr', text: @stop_1.name
+    expect(page).to have_selector 'table.manage tbody tr', text: @stop_2.name
+  end
+  it 'allows editing of outdated stops' do
+    within 'tr', text: @stop_1.hastus_id do
+      click_link 'Edit'
     end
-    it 'allows editing of outdated stops' do
-    end
-    it 'outdated can be narrowed down with a different date' do
-    end
+    expect(page).to have_content "Editing #{@stop_1.name}"
+  end
+  it 'outdated can be narrowed down with a different date' do
   end
 end
 
