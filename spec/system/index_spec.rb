@@ -73,19 +73,19 @@ describe 'searching for a bus stop by route' do
   before :each do
     user = create :user
     @route = create :route
-    @bus_stop = create :bus_stop, route_list: [@route]
-    
+    @bus_stop = create :bus_stop
+    @route.bus_stops << @bus_stop
     when_current_user_is user
     visit root_url
   end
   context 'route from the dropdown' do
     it 'redirects to bus stops by route page' do
       within 'form', text: 'Select a route' do
-        select '@route', from: 'number'
+        select @route.number, from: 'number'
         click_button 'Search'
       end
-      expect(page).to have_content @route.name
-      expect(page.current_url).to end_with by_route_bus_stops
+      expect(page).to have_content @route.number
+      expect(page.current_path).to end_with by_route_bus_stops_path
     end
   end
 end
