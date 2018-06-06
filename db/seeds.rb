@@ -52,3 +52,7 @@ stops.each do |route_number, stop_names|
     end
   end
 end
+
+BusStop.column_names.each do |attribute|
+  Field.create!(name: attribute)
+end
