@@ -5,6 +5,6 @@ class CreateBusStopFields < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
-    create_join_table :bus_stops, :field_names
+    create_join_table :bus_stops, :fields
   end
 end
