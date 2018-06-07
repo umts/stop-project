@@ -53,7 +53,7 @@ stops.each do |route_number, stop_names|
   end
 end
 
-field_names = [:name, :accessible, :bench, :curb_cut, :lighting, :mounting,
+field_names = [:accessible, :bench, :curb_cut, :lighting, :mounting,
                :mounting_direction, :schedule_holder, :shelter, :sidewalk,
                :sign, :trash, :bolt_on_base, :bus_pull_out_exists, :extend_pole,
                :has_power, :new_anchor, :new_pole, :solar_lighting, :straighten_pole,
