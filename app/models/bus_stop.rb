@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require 'csv'
 
-include DateAndTimeMethods
-
 class BusStop < ApplicationRecord
+  include DateAndTimeMethods
   has_paper_trail
   validates :name, presence: true
   validates :hastus_id, presence: true, uniqueness: true
@@ -10,39 +11,81 @@ class BusStop < ApplicationRecord
 
   before_save :assign_completion_timestamp, if: -> { completed_changed? }
 
-  scope :not_updated_since, -> (date) { where 'updated_at < ?', date.to_datetime }
+  scope :not_updated_since,
+        ->(date) { where 'updated_at < ?', date.to_datetime }
 
-  STRING_COLUMN_OPTIONS = {
-    accessible: ['When necessary', 'Not recommended'],
-    bench: %w[PVTA Other],
-    curb_cut: ["Within 20'", 'No curb cut', 'No curb'],
-    lighting: ["Within 20'", "20' - 50'", 'None'],
-    mounting: ['PVTA pole', 'Other pole', 'City Pole', 'Utility Pole', 'Structure'],
-    mounting_direction: ['Towards street', 'Away from street'],
-    schedule_holder: ['On pole', 'In shelter'],
+  SIGN_OPTIONS = {
+    sign_type: ['Axehead (2014+)',
+                'Rectangle (<2014)',
+                'MGM + Axhead (2018+)'],
+    mounting: ['PVTA pole',
+               'Other pole',
+               'City Pole',
+               'Utility Pole',
+               'Structure'],
+    mounting_direction: ['Towards street',
+                         'Away from street'],
+    bolt_on_base: :boolean
+  }.freeze
+
+  SHELTER_OPTIONS = {
     shelter: %w[PVTA Other Building],
     shelter_condition: %w[Great Good Fair Poor],
     shelter_pad_condition: %w[Great Good Fair Poor],
-    shelter_pad_material: %w[Asphalt Concrete Other],
-    shelter_type: %w[Modern Modern\ half Victorian Dome Wooden Extra\ large Other],
-    sidewalk: ['More than 36"', 'Less than 36"', 'None'],
-    sign: ['Flag stop', 'Missing sign', 'Needs attention'],
-    sign_type: ['Axehead (2014+)', 'Rectangle (<2014)', 'MGM + Axhead (2018+)'],
-    trash: %w[PVTA Municipal Other],
-  }
+    shelter_pad_material: %w[Asphalt Concrete Other]
+  }.freeze
 
-  BOOLEAN_COLUMNS = %i(bolt_on_base bus_pull_out_exists extend_pole has_power
-    new_anchor new_pole solar_lighting straighten_pole system_map_exists)
+  AMENITIES = {
+    bench: %w[PVTA Other],
+    schedule_holder: ['On pole',
+                      'In shelter'],
+    system_map_exists: :boolean,
+    trash: %w[PVTA Municipal Other]
+  }.freeze
+
+  ACCESSIBILITY = {
+    accessible: ['When necessary',
+                 'Not recommended'],
+    curb_cut: ["Within 20'",
+               'No curb cut',
+               'No curb'],
+    sidewalk: ['More than 36"',
+               'Less than 36"',
+               'None'],
+    bus_pull_out_exists: :boolean
+
+  }.freeze
+
+  SECURITY_AND_SAFETY = {
+    lighting: ["Within 20'",
+               "20' - 50'",
+               'None']
+  }.freeze
+
+  TECHNOLOGY = %i[solar_lighting has_power].freeze
 
   LIMITED_ATTRS = {
     name: 'Stop Name',
     hastus_id: 'Hastus ID',
     route_list: 'Routes',
     updated_at: 'Last updated'
-  }
+  }.freeze
 
-  STRING_COLUMN_OPTIONS.each do |attribute, options|
-    validates attribute, inclusion: { in: options }, allow_blank: true
+  SUPER_HASH = {
+    sign_options: SIGN_OPTIONS,
+    shelter_options: SHELTER_OPTIONS,
+    amenities: AMENITIES,
+    accessibility: ACCESSIBILITY,
+    security_and_safety: SECURITY_AND_SAFETY,
+    technology: TECHNOLOGY
+  }.freeze
+
+  SUPER_HASH.each do |hash|
+    hash.each do |name, options|
+      if options.kind_of?(Array)
+        validates name, inclusion: { in: options }, allow_blank: true
+      end
+    end
   end
 
   def last_updated
@@ -67,13 +110,13 @@ class BusStop < ApplicationRecord
   def self.to_csv(limited_attributes: false)
     attrs = if limited_attributes
               LIMITED_ATTRS
-            else Hash[columns.map{|c| [c.name, c.name.humanize] }]
+            else Hash[columns.map { |c| [c.name, c.name.humanize] }]
             end
     CSV.generate headers: true do |csv|
-       csv << attrs.values
-       all.each do |stop|
-         csv << attrs.keys.map { |attr| stop.send attr }
-       end
+      csv << attrs.values
+      all.each do |stop|
+        csv << attrs.keys.map { |attr| stop.send attr }
+      end
     end
   end
 
@@ -82,5 +125,4 @@ class BusStop < ApplicationRecord
   def assign_completion_timestamp
     assign_attributes completed_at: (completed? ? DateTime.current : nil)
   end
-
 end
