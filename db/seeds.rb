@@ -12,6 +12,25 @@ User.create! name: 'Jake Foreman',
              password_confirmation: 'password',
              admin: false
 
+Field.create! name: 'Curb cut',
+              category: 'Accessible',
+              field_type: :choice,
+              #choices: ["Within 20'", 'No curb cut', 'No curb'],
+              description: 'Determine the border between the road and the bus stop.',
+              rank: 2
+
+Field.create! name: 'Solar lighting',
+              category: 'Technology',
+              field_type: :boolean,
+              description: 'Determine if this stop has solar lighting.',
+              rank: 1
+
+Field.create! name: 'Completed',
+              category: 'Info',
+              field_type: :boolean,
+              description: 'Have all attributes been checked?',
+              rank: 1
+
 routes = {
   30 => Route.create!(number: '30', description: 'North Amherst / Old Belchertown Rd'),
   31 => Route.create!(number: '31', description: 'Sunderland / South Amherst'),
@@ -51,16 +70,4 @@ stops.each do |route_number, stop_names|
       stop.save!
     end
   end
-end
-
-field_names = [:accessible, :bench, :curb_cut, :lighting, :mounting,
-               :mounting_direction, :schedule_holder, :shelter, :sidewalk,
-               :sign, :trash, :bolt_on_base, :bus_pull_out_exists, :extend_pole,
-               :has_power, :new_anchor, :new_pole, :solar_lighting, :straighten_pole,
-               :system_map_exists, :mounting_clearance_after, :mounting_clearance_before,
-               :completed, :sign_type, :shelter_condition, :shelter_pad_condition,
-               :shelter_pad_material, :shelter_type]
-
-field_names.each do |name|
-  Field.create!(name: name)
 end
