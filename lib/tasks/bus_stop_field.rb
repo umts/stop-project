@@ -53,12 +53,11 @@ namespace :bus_stop_fields do
     }
 
     fields.each_pair do |category, category_fields|
-      category_fields.each.with_index do |category_field, order|
+      category_fields.each.with_index do |category_field, rank|
         field = Field.create!(name: category_field.fetch(:name),
-                              order: order,
+                              rank: rank,
                               category: category,
                               description: category_field.fetch(:description),
-                              rank: category_field.fetch(:rank),
                               field_type: category_field.fetch(:field_type))
         BusStop.all.each do |stop|
           BusStopField.create! stop: stop, field: field, value: stop.send(category_field.fetch(:column))
