@@ -27,12 +27,12 @@ namespace :bus_stop_fields do
           column: :needs_work,
           field_type: :choice,
           choices: [
-                    '1 - No issues',
-                    '2 - Needs cleaning; no safety concern',
-                    '3 - Minor issues; no safety concern',
-                    '4 - Potential safety concern',
-                    '5 - Immediate safety concern'
-                    ],
+            '1 - No issues',
+            '2 - Needs cleaning; no safety concern',
+            '3 - Minor issues; no safety concern',
+            '4 - Potential safety concern',
+            '5 - Immediate safety concern'
+          ],
           description: 'Rank on scale of 1 to 5 if the stop needs work.'
         }
       ],
@@ -103,15 +103,15 @@ namespace :bus_stop_fields do
           column: :shelter_type,
           field_type: :choice,
           choices: [
-                    'Modern full',
-                    'Modern half',
-                    'Victorian',
-                    'Dome',
-                    'Wooden',
-                    'Extra large',
-                    'Other',
-                    'No Shelter'
-                    ],
+            'Modern full',
+            'Modern half',
+            'Victorian',
+            'Dome',
+            'Wooden',
+            'Extra large',
+            'Other',
+            'No Shelter'
+          ],
           description: 'Determine the type of shelter.'
         },
         {
@@ -147,12 +147,12 @@ namespace :bus_stop_fields do
           column: :bench,
           field_type: :choice,
           choices: [
-                    'PVTA bench',
-                    'Other structure',
-                    'Other bench',
-                    'PVTA and other bench',
-                    'None'
-                    ],
+            'PVTA bench',
+            'Other structure',
+            'Other bench',
+            'PVTA and other bench',
+            'None'
+          ],
           description: 'Determine if the bus stop has a bench or area to sit.'
         },
         {
@@ -160,27 +160,27 @@ namespace :bus_stop_fields do
           column: :bike_rack,
           field_type: :choice,
           choices: [
-                    'PVTA bike rack',
-                    'Other bike rack',
-                    'PVTA and other bike rack',
-                    'None'
-                    ],
+            'PVTA bike rack',
+            'Other bike rack',
+            'PVTA and other bike rack',
+            'None'
+          ],
           description: 'Determine if there are bike racks.'
-          },
+        },
         {
           name: 'Schedule holder',
           column: :schedule_holder,
           field_type: :choice,
           choices: ['On pole', 'In shelter', 'None'],
           description: 'Determine if there is a bus schedule or not.'
-          },
+        },
         {
           name: 'System map exists',
           column: :system_map_exists,
           field_type: :choice,
           choices: ['New map', 'Old map', 'None'],
           description: 'Determine if there is a system map at this stop.'
-          },
+        },
         {
           name: 'Trash',
           column: :trash,
@@ -226,10 +226,11 @@ namespace :bus_stop_fields do
           column: :obstructions,
           field_type: :choice,
           choices: [
-                    'Yes- tree/branches',
-                    'Yes- bollards/structure',
-                    'Yes - parking',
-                    'Yes - other', 'No'],
+            'Yes- tree/branches',
+            'Yes- bollards/structure',
+            'Yes - parking',
+            'Yes - other', 'No'
+          ],
           description: 'Are there any obstructions which make servicing this stop difficult?'
         }
       ],
