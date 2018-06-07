@@ -7,7 +7,7 @@ namespace :bus_stop_fields do
         { name: 'Completed', column: :completed, field_type: :boolean, description: 'Have all attributes been checked?' },
         { name: 'Garage responsible', column: :garage_responsible, field_type: :choice, choices: %w[SATCo UMTS VATCo] },
         { name: 'State road', column: :state_road, field_type: :boolean, description: 'Is this stop located on a state highway?' },
-        { name: 'Needs work', column: :needs_work, field_type: :choice, choices: ['1 - No issues', '2 - Needs cleaning; no safety concern', '3 - Minor issues; no safety concern', '4 - Potential safety concern', '5 - Immediate safety concern'], description: 'Rank on scale of 1 to 5 if the stop needs work.' },
+        { name: 'Needs work', column: :needs_work, field_type: :choice, choices: ['1 - No issues', '2 - Needs cleaning; no safety concern', '3 - Minor issues; no safety concern', '4 - Potential safety concern', '5 - Immediate safety concern'], description: 'Rank on scale of 1 to 5 if the stop needs work.' }
       ],
       'Sign' => [
         { name: 'Sign type', column: :sign_type, field_type: :choice, choices: ['Axehead', 'Rectangle', 'MGM + Axehead', 'Non-PVTA', 'No sign'], description: 'Determine the type of sign face.' },
