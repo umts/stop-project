@@ -1,17 +1,7 @@
 namespace :bus_stop_fields do
   task create: :environment do
     fields = {
-      'Sign' => [ #remember rank
-        { name: 'Stop sticker', column: :stop_sticker, field_type: :choice, choices: ['No sticker', 'Sticker incorrect', 'Sticker correct'] },
-        { name: 'Route sticker', column: :route_sticker, field_type: :choice, choices: ['No sticker', 'Sticker incorrect', 'Sticker correct'] },
-        { name: 'Mounting', column: :mounting, field_type: :choice, choices: ['PVTA pole', 'City pole', 'Utility pole', 'Structure', 'No sign'], description: 'Determine the mounting that a sign is on.' },
-        { name: 'Shared sign post FRTA', column: :shared_sign_post_frta, field_type: :boolean, description: 'Are there other signs on the sign post?'},
-        { name: 'Mounting direction', column: :mounting_direction, field_type: :choice, choices: ['Towards street', 'Away from street', 'Center', 'No sign'], description: 'The direction the sign face points.' },
-        { name: 'Sign type', column: :sign_type, field_type: :choice, choices: ['Axehead', 'Rectangle', 'MGM + Axehead', 'Non-PVTA', 'No sign'], description: 'Determine the type of sign face.' },
-        { name: 'Mounting clearance', column: :mounting_clearance, field_type: :choice, choices: ['No sign face', "Less than 60\"", "60-84\"", "Greater than 84\""], description: 'From the base of the sign to the ground.' },
-        { name: 'Bolt on base', column: :bolt_on_base, field_type: :boolean, description: 'Is this a break away pole?' }
-      ],
-      'Accessible' => [ #remember rank
+      'Accessible' => [
         { name: 'Accessible', column: :accessible, field_type: :boolean, description: 'Can this stop be safely accessed?' },
         { name: 'Curb cut', column: :curb_cut, field_type: :choice, choices: ["Within 20'", 'No curb cut', 'No curb'], description: 'Determine the border between the road and the bus stop.' },
         { name: 'Sidewalk width', column: :sidewalk_width, field_type: :choice, choices: ["More than 36\"", "Less than 36\"", 'None'], description: 'Determine if there is a sidewalk at the bus stop location or not. Note the size of the side walk as well.' },
@@ -30,8 +20,34 @@ namespace :bus_stop_fields do
        { name: 'Completed', column: :completed, field_type: :boolean, description: 'Have all attributes been checked?' },
        { name: 'Garage responsible', column: :garage_responsible, field_type: :choice, choices: ['SATCo', 'UMTS', 'VATCo'] },
        { name: 'State road', column: :state_road, field_type: :boolean, description: 'Is this stop located on a state highway?' },
-       { name: 'Needs work', column: :needs_work, field_type: :choice, choice: ['1- No issues','2- Needs cleaning; no safety concern', '3 - Minor issues; no safety concern', '4- Potential safety concern', '5- Immediate safety concern'], description: 'Rank on scale of 1 -5 if the stop needs work.' }
-     ]
+       { name: 'Needs work', column: :needs_work, field_type: :choice, choices: ['1 - No issues','2 - Needs cleaning; no safety concern', '3 - Minor issues; no safety concern', '4 - Potential safety concern', '5 - Immediate safety concern'], description: 'Rank on scale of 1 to 5 if the stop needs work.' }
+     ],
+     'Safety' => [
+       { name: 'Lighting', column: :lighting, field_type: :choice, choices: ["Within 20'", "20' - 50'", 'None'], description: 'Determine if there is lighting in the bus stop.' }
+     ],
+     'Shelter' => [
+       { name: 'Shelter', column: :shelter, field_type: :choice, choices: ['No shetler', 'PVTA shelter', 'Other shelter', 'Nearby building'], description: 'Determine if the bus stop has a shelter or not.' },
+       { name: 'Shelter ADA compliance', column: :shelter_ada_compliance, field_type: :boolean },
+       { name: 'Shelter condition', column: :shelter_condition, field_type: :choice, choices: ['Great', 'Good', 'Fair', 'Poor', 'No shelter'], description: 'Determine the condition of the bus shelter.' },
+       { name: 'Shelter pad condition', column: :shelter_pad_condition, field_type: :choice, choices: ['Great', 'Good', 'Fair', 'Poor', 'No shelter'], description: 'Determine the condition of the bus shelter pad.' },
+       { name: 'Shelter pad material', column: :shelter_pad_material, field_type: :choice, choices: ['Asphalt', 'Concrete', 'Other', 'No shelter'], description: 'Determine the material for the shelter pad.' },
+       { name: 'Shelter type', column: :shelter_type, field_type: :choice, choices: ['Modern full', 'Modern half', 'Victorian', 'Dome', 'Wooden', 'Extra large', 'Other', 'No Shelter'], description: 'Determine the type of shelter.' }
+     ],
+      'Sign' => [
+        { name: 'Stop sticker', column: :stop_sticker, field_type: :choice, choices: ['No sticker', 'Sticker incorrect', 'Sticker correct'] },
+        { name: 'Route sticker', column: :route_sticker, field_type: :choice, choices: ['No sticker', 'Sticker incorrect', 'Sticker correct'] },
+        { name: 'Mounting', column: :mounting, field_type: :choice, choices: ['PVTA pole', 'City pole', 'Utility pole', 'Structure', 'No sign'], description: 'Determine the mounting that a sign is on.' },
+        { name: 'Shared sign post FRTA', column: :shared_sign_post_frta, field_type: :boolean, description: 'Are there other signs on the sign post?'},
+        { name: 'Mounting direction', column: :mounting_direction, field_type: :choice, choices: ['Towards street', 'Away from street', 'Center', 'No sign'], description: 'The direction the sign face points.' },
+        { name: 'Sign type', column: :sign_type, field_type: :choice, choices: ['Axehead', 'Rectangle', 'MGM + Axehead', 'Non-PVTA', 'No sign'], description: 'Determine the type of sign face.' },
+        { name: 'Mounting clearance', column: :mounting_clearance, field_type: :choice, choices: ['No sign face', "Less than 60\"", "60-84\"", "Greater than 84\""], description: 'From the base of the sign to the ground.' },
+        { name: 'Bolt on base', column: :bolt_on_base, field_type: :boolean, description: 'Is this a break away pole?' }
+      ],
+      'Technology' => [
+        { name: 'Has power', column: :has_power, field_type: :choice, choices: ['Yes stub up', 'Yes outlet', 'No'], description: 'Determine if there is power or not.' },
+        { name: 'Solar lighting', column: :solar_lighting, field_type: :boolean, description: 'Determine if this stop has solar lighting.' },
+        { name: 'Real time information', column: :real_time_information, field_type: :choice, choices: ['Yes - solar', 'Yes - power', 'No'], description: 'Determine if this location has a real time information sign.' }
+      ]
     }
 
     fields.each_pair do |category, category_fields|
