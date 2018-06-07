@@ -53,6 +53,14 @@ stops.each do |route_number, stop_names|
   end
 end
 
-BusStop.column_names.each do |attribute|
-  Field.create!(name: attribute)
+field_names = [:name, :accessible, :bench, :curb_cut, :lighting, :mounting,
+               :mounting_direction, :schedule_holder, :shelter, :sidewalk,
+               :sign, :trash, :bolt_on_base, :bus_pull_out_exists, :extend_pole,
+               :has_power, :new_anchor, :new_pole, :solar_lighting, :straighten_pole,
+               :system_map_exists, :mounting_clearance_after, :mounting_clearance_before,
+               :completed, :sign_type, :shelter_condition, :shelter_pad_condition,
+               :shelter_pad_material, :shelter_type]
+
+field_names.each do |name|
+  Field.create!(name: name)
 end
