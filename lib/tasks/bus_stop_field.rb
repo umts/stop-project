@@ -270,7 +270,7 @@ namespace :bus_stop_fields do
 
     fields.each_pair do |category, category_fields|
       category_fields.each.with_index do |category_field, rank|
-        rank = rank + 1
+        rank += 1
         field = Field.create! name: category_field.fetch(:name),
                               rank: rank,
                               category: category,
@@ -279,8 +279,8 @@ namespace :bus_stop_fields do
                               choices: category_field.fetch(:choices)
         BusStop.all.each do |stop|
           BusStopField.create! stop: stop,
-                              field: field,
-                              value: stop.send(category_field.fetch(:column))
+                               field: field,
+                               value: stop.send(category_field.fetch(:column))
         end
       end
     end
