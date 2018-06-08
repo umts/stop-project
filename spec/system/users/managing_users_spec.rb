@@ -26,7 +26,7 @@ describe 'managing users as an admin' do
       within 'tr', text: manage_user.name do
         click_button 'Edit'
       end
-      expect(page).to have_content "Editing #{manage_user.name}"
+      expect(page).to have_current_path(edit_user_path(id: manage_user))
     end
   end
 end

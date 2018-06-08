@@ -65,7 +65,5 @@ describe 'viewing outdated' do
     end
     expect(page).to have_content "Editing #{old_stop_1.name}"
   end
-  it 'outdated can be narrowed down with a different date' do
-    pending('review datepickers and capybara')
-  end
+  it 'outdated can be narrowed down with a different date'
 end

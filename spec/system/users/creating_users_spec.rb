@@ -44,7 +44,10 @@ describe 'creating users as an admin' do
                                     text: 'Email has already been taken'
     end
     it 'redirects to edit user page' do
-      expect(page).to have_content 'Editing someone'
+      expect(page).to have_current_path users_path
+      expect(page).to have_selector("input#user_name[value='someone']")
+      expect(page)
+        .to have_selector("input#user_email[value='#{admin.email}']")
     end
   end
   context 'without password' do
@@ -78,7 +81,10 @@ describe 'creating users as an admin' do
                           text: 'Password confirmation does not match password'
     end
     it 'redirects to edit user page' do
-      expect(page).to have_content 'Editing Brody'
+      expect(page).to have_current_path users_path
+      expect(page).to have_selector("input#user_name[value='Brody']")
+      expect(page)
+        .to have_selector("input#user_email[value='brody@example.com']")
     end
   end
 end

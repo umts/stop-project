@@ -56,7 +56,7 @@ describe 'editing a user as an admin' do
                                     text: 'Name has already been taken'
     end
     it 'stays on the edit page' do
-      expect(page).to have_content "Editing #{edit_user.name}"
+      expect(page).to have_current_path(user_path(id: edit_user))
     end
   end
 end
