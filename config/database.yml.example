@@ -1,7 +1,14 @@
-development:
+default: &default
   adapter: mysql2
-  database: stop_project_development
   username: stop-project
   password: bananas
   pool: 5
   timeout: 5000
+
+development:
+  <<: *default
+  database: stop_project_development
+
+test:
+  <<: *default
+  database: stop_project_test

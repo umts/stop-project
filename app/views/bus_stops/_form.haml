@@ -4,34 +4,33 @@
 - if stop.completed_at.present?
   .smalltext.last-updated
     Completed at #{format_datetime stop.completed_at}
-= form_for stop, url: creation_url(stop) do |f|
+= form_for stop, url: bus_stop_path(stop.hastus_id) do |f|
   %table.edit-form
-    %tr
-      %td= f.label :name
-      %td= stop.name
-    %tr
-      %td= f.label :hastus_id, 'Hastus ID'
-      %td= stop.hastus_id
-    - if current_user.admin?
+    %th
+      Stop Info
       %tr
-        %td= f.label :route
-        %td= stop.route_list
-    - BusStop::STRING_COLUMN_OPTIONS.each do |attribute, options|
+        %td= f.label :name
+        %td= stop.name
       %tr
-        %td= f.label attribute
-        %td= f.select attribute, options, include_blank: true
-    - BusStop::BOOLEAN_COLUMNS.each do |attribute|
+        %td= f.label :hastus_id, 'Hastus ID'
+        %td= stop.hastus_id
+      - if current_user.admin?
+        %tr
+          %td= f.label :routes
+          %td= stop.route_list
       %tr
-        %td= f.label attribute
-        %td= f.check_box attribute
-    %tr
-      %td= f.label :mounting_clearance_after
-      %td= f.number_field :mounting_clearance_after
-    %tr
-      %td= f.label :mounting_clearance_before
-      %td= f.number_field :mounting_clearance_before
-    %tr
-      %td= f.label :completed, 'Completed?'
-      %td= f.check_box :completed
+        %td= f.label :completed, 'Completed?'
+        %td= f.check_box :completed
+    - BusStop::SUPER_HASH.each do |category, hash|
+      %th
+        = f.label category
+        - hash.each do |name, options|
+          %tr
+            %td= f.label name
+            %td
+              - if options.kind_of?(Array)
+                = f.select name, options, include_blank: true
+              - else
+                = f.check_box name
     %tr
       %td= submit_tag 'Save stop', class: 'btn btn-primary submit'
