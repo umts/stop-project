@@ -17,7 +17,7 @@ Field.create! name: 'Curb cut',
               field_type: :choice,
               #choices: ["Within 20'", 'No curb cut', 'No curb'],
               description: 'Determine the border between the road and the bus stop.',
-              rank: 2
+              rank: 1
 
 Field.create! name: 'Solar lighting',
               category: 'Technology',
