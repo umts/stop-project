@@ -10,14 +10,14 @@
       Stop Info
       %tr
         %td= f.label :name
-        %td= f.text_field :name, required: true, disabled: current_user.not_admin?
+        %td= stop.name
       %tr
         %td= f.label :hastus_id, 'Hastus ID'
-        %td= f.number_field :hastus_id, required: true, disabled: current_user.not_admin?
+        %td= stop.hastus_id
       - if current_user.admin?
         %tr
-          %td= f.label :route
-          %td= f.collection_select :route_ids, Route.all, :id, :number, {}, multiple: true
+          %td= f.label :routes
+          %td= stop.route_list
       %tr
         %td= f.label :completed, 'Completed?'
         %td= f.check_box :completed
