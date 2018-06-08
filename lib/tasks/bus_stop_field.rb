@@ -278,7 +278,9 @@ namespace :bus_stop_fields do
                               field_type: category_field.fetch(:field_type),
                               choices: category_field.fetch(:choices)
         BusStop.all.each do |stop|
-          BusStopField.create! stop: stop, field: field, value: stop.send(category_field.fetch(:column))
+          BusStopField.create! stop: stop,
+                              field: field,
+                              value: stop.send(category_field.fetch(:column))
         end
       end
     end
