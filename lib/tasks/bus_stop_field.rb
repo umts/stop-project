@@ -229,7 +229,8 @@ namespace :bus_stop_fields do
             'Yes- tree/branches',
             'Yes- bollards/structure',
             'Yes - parking',
-            'Yes - other', 'No'
+            'Yes - other',
+            'No'
           ],
           description: 'Are there any obstructions which make servicing this stop difficult?'
         }
