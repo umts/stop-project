@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'managing users as an admin' do
@@ -14,7 +16,7 @@ describe 'managing users as an admin' do
         click_button 'Delete'
       end
       expect(page).to have_selector 'p.notice',
-        text: 'User was deleted.'
+                                    text: 'User was deleted.'
       expect(page).not_to have_selector 'table.index tbody tr', text: manage_user.name
     end
   end

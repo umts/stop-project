@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'editing a user as an admin' do
@@ -15,7 +17,7 @@ describe 'editing a user as an admin' do
     end
     it 'updates the user' do
       expect(page).to have_selector 'p.notice',
-        text: 'User was updated.'
+                                    text: 'User was updated.'
     end
     it 'redirect to users table' do
       expect(page.current_url).to end_with users_path
@@ -23,8 +25,8 @@ describe 'editing a user as an admin' do
   end
   context 'with name, email, or admin changes' do
     it 'updates the user and table accordingly' do
-      @previous_name = edit_user.name
-      @previous_email = edit_user.email
+      previous_name = edit_user.name
+      previous_email = edit_user.email
       within 'table.edit-form' do
         fill_in 'Name', with: 'newname'
         fill_in 'Email', with: 'newemail@example.com'
@@ -37,9 +39,8 @@ describe 'editing a user as an admin' do
       expect(page).to have_css 'td', text: 'newemail@example.com'
       # users in table are all admins
       expect(page).to have_css '.glyphicon-ok'
-      
-      expect(page).not_to have_css 'td', text: @previous_name
-      expect(page).not_to have_css 'td', text: @previous_email
+      expect(page).not_to have_css 'td', text: previous_name
+      expect(page).not_to have_css 'td', text: previous_email
       expect(page).not_to have_css '.glyphicon-remove'
     end
   end
@@ -52,7 +53,7 @@ describe 'editing a user as an admin' do
     end
     it 'sends a helpful error message' do
       expect(page).to have_selector 'p.errors',
-        text: 'Name has already been taken'
+                                    text: 'Name has already been taken'
     end
     it 'stays on the edit page' do
       expect(page).to have_content "Editing #{edit_user.name}"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'searching for a bus stop by stop id' do
@@ -16,25 +18,25 @@ describe 'searching for a bus stop by stop id' do
       expect(page).to have_content "Editing #{bus_stop.name}"
     end
   end
-   context 'incorrect stop id' do
-     before :each do
-       within 'form', text: 'Enter stop ID' do
-         fill_in 'Enter stop ID', with: -1
-         click_button 'Search'
-       end
-     end
-     it 'stays on the same page' do
-       expect(page.current_url).to end_with root_path
-     end
-     it 'displays a helpful message' do
-       expect(page).to have_selector 'p.notice',
-         text: 'Stop -1 not found'
-     end
-   end
-   context 'without completing stop id' do
-     it 'autofills' do
-     end
-   end
+  context 'incorrect stop id' do
+    before :each do
+      within 'form', text: 'Enter stop ID' do
+        fill_in 'Enter stop ID', with: -1
+        click_button 'Search'
+      end
+    end
+    it 'stays on the same page' do
+      expect(page.current_url).to end_with root_path
+    end
+    it 'displays a helpful message' do
+      expect(page).to have_selector 'p.notice',
+                                    text: 'Stop -1 not found'
+    end
+  end
+  context 'without completing stop id' do
+    it 'autofills' do
+    end
+  end
 end
 
 describe 'searching for a bus stop by stop name' do
@@ -65,7 +67,7 @@ describe 'searching for a bus stop by stop name' do
     end
     it 'displays a helpful message' do
       expect(page).to have_selector 'p.notice',
-        text: 'Stop 1234 not found'
+                                    text: 'Stop 1234 not found'
     end
   end
   context 'without completing stop name' do
@@ -74,7 +76,6 @@ describe 'searching for a bus stop by stop name' do
       within 'form', text: 'Enter stop name' do
         fill_in 'Enter stop name', with: 'Mill Valley'
         choose_autocomplete_result 'Mill Valley Apartments', '#Enter stop name'
-        binding.pry
         click_button 'Search'
       end
     end
@@ -83,8 +84,8 @@ end
 
 describe 'searching for a bus stop by route' do
   let(:user) { create :user }
-  let!(:route){ create :route }
-  let!(:bus_stop){ create :bus_stop, routes: [route] }
+  let!(:route) { create :route }
+  let!(:bus_stop) { create :bus_stop, routes: [route] }
   before :each do
     when_current_user_is user
     visit root_url
@@ -100,4 +101,3 @@ describe 'searching for a bus stop by route' do
     end
   end
 end
-

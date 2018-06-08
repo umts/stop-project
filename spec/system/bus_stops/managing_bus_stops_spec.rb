@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'managing stops as an admin' do
@@ -15,8 +17,9 @@ describe 'managing stops as an admin' do
       end
       page.driver.browser.switch_to.alert.accept
       expect(page).to have_selector 'p.notice',
-        text: "#{bus_stop.name} has been deleted."
-      expect(page).not_to have_selector 'table.manage tbody tr', text: bus_stop.hastus_id
+                                    text: "#{bus_stop.name} has been deleted."
+      expect(page).not_to have_selector 'table.manage tbody tr',
+                                        text: bus_stop.hastus_id
     end
   end
   context 'edit button' do
@@ -26,7 +29,8 @@ describe 'managing stops as an admin' do
         click_link 'Edit'
       end
       expect(page).to have_content "Editing #{bus_stop.name}"
-      expect(page.current_url).to end_with edit_bus_stop_path(bus_stop.hastus_id)
+      expect(page.current_url)
+        .to end_with edit_bus_stop_path(bus_stop.hastus_id)
     end
   end
 end
@@ -46,10 +50,14 @@ describe 'viewing outdated' do
     expect(page.current_url).to end_with outdated_bus_stops_path
   end
   it 'displays only outdated stops' do
-    expect(page).to have_selector 'table.manage tbody tr', count: 2
-    expect(page).to have_selector 'table.manage tbody tr', text: format_time(old_stop_1.updated_at)
-    expect(page).to have_selector 'table.manage tbody tr', text: format_time(old_stop_2.updated_at)
-    expect(page).not_to have_selector 'table.manage tbody tr', text: format_time(present_stop.updated_at)
+    expect(page).to have_selector 'table.manage tbody tr',
+                                  count: 2
+    expect(page).to have_selector 'table.manage tbody tr',
+                                  text: format_time(old_stop_1.updated_at)
+    expect(page).to have_selector 'table.manage tbody tr',
+                                  text: format_time(old_stop_2.updated_at)
+    expect(page).not_to have_selector 'table.manage tbody tr',
+                                      text: format_time(present_stop.updated_at)
   end
   it 'allows editing of outdated stops' do
     within 'tr', text: format_time(old_stop_1.updated_at) do
