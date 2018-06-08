@@ -269,6 +269,7 @@ namespace :bus_stop_fields do
 
     fields.each_pair do |category, category_fields|
       category_fields.each.with_index do |category_field, rank|
+        rank = rank + 1
         field = Field.create!(name: category_field.fetch(:name),
                               rank: rank,
                               category: category,
