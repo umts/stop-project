@@ -274,7 +274,8 @@ namespace :bus_stop_fields do
                               rank: rank,
                               category: category,
                               description: category_field.fetch(:description),
-                              field_type: category_field.fetch(:field_type))
+                              field_type: category_field.fetch(:field_type),
+                              choices: category_field.fetch(:choices))
         BusStop.all.each do |stop|
           BusStopField.create! stop: stop, field: field, value: stop.send(category_field.fetch(:column))
         end
