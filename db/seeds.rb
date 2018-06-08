@@ -15,7 +15,7 @@ User.create! name: 'Jake Foreman',
 Field.create! name: 'Curb cut',
               category: 'Accessible',
               field_type: :choice,
-              #choices: ["Within 20'", 'No curb cut', 'No curb'],
+              choices: ["Within 20'", 'No curb cut', 'No curb'],
               description: 'Determine the border between the road and the bus stop.',
               rank: 1
 
