@@ -12,7 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20180608191700) do
 
-  create_table "bus_stop_fields", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "bus_stop_fields", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "bus_stop_id", null: false
+    t.bigint "field_id", null: false
     t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
