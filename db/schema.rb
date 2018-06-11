@@ -10,12 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180319231754) do
+ActiveRecord::Schema.define(version: 20180611165148) do
 
   create_table "bus_stops", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
     t.string "hastus_id", null: false
-    t.string "accessible"
     t.string "bench"
     t.string "curb_cut"
     t.string "lighting"
@@ -23,34 +22,40 @@ ActiveRecord::Schema.define(version: 20180319231754) do
     t.string "mounting_direction"
     t.string "schedule_holder"
     t.string "shelter"
-    t.string "sidewalk"
-    t.string "sign"
+    t.string "sidewalk_width"
     t.string "trash"
     t.boolean "bolt_on_base"
     t.boolean "bus_pull_out_exists"
-    t.boolean "extend_pole"
     t.boolean "has_power"
-    t.boolean "new_anchor"
-    t.boolean "new_pole"
     t.boolean "solar_lighting"
-    t.boolean "straighten_pole"
     t.boolean "system_map_exists"
-    t.integer "mounting_clearance_after"
-    t.integer "mounting_clearance_before"
+    t.integer "mounting_clearance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "completed"
-    t.datetime "completed_at"
     t.string "sign_type"
     t.string "shelter_condition"
     t.string "shelter_pad_condition"
     t.string "shelter_pad_material"
     t.string "shelter_type"
+    t.string "stop_routes"
+    t.string "shared_sign_post"
+    t.boolean "shelter_ada_compliance"
+    t.string "garage_responsible"
+    t.date "date_stop_checked"
+    t.string "stop_checked_by"
+    t.string "bike_rack"
+    t.boolean "ada_landing_pad"
+    t.string "real_time_information"
+    t.boolean "state_road"
+    t.integer "need_work"
+    t.string "obstructions"
+    t.boolean "accessible"
   end
 
   create_table "bus_stops_routes", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer "bus_stop_id", null: false
-    t.integer "route_id", null: false
+    t.bigint "bus_stop_id", null: false
+    t.bigint "route_id", null: false
   end
 
   create_table "routes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -73,12 +78,11 @@ ActiveRecord::Schema.define(version: 20180319231754) do
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.boolean "admin", default: false, null: false
-    t.datetime "created_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "versions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "versions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.string "item_type", limit: 191, null: false
     t.integer "item_id", null: false
     t.string "event", null: false
