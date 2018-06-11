@@ -280,7 +280,7 @@ namespace :bus_stop_fields do
         BusStop.all.each do |stop|
           BusStopField.create! bus_stop: stop,
                                field: field,
-                               value: stop.send(category_field.fetch(:column)) rescue nil
+                               value: stop.try(:send, category_field.fetch(:column))
         end
       end
     end
