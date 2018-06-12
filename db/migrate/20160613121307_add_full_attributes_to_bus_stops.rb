@@ -1,4 +1,4 @@
-class AddFullAttributesToBusStops < ActiveRecord::Migration
+class AddFullAttributesToBusStops < ActiveRecord::Migration[5.1]
   def change
     add_column :bus_stops, :accessible,         :string
     add_column :bus_stops, :bench,              :string
