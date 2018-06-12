@@ -27,12 +27,6 @@
       %tr
         %td= f.label :state_road
         %td= f.check_box :state_road
-      %tr
-        %td= f.label :date_stop_checked
-        %td= f.date_select :date_stop_checked, value: Date.today, disabled: true
-      %tr
-        %td= f.label :stop_checked_by
-        %td= f.text_field :stop_checked_by, value: current_user.name, disabled: true
     - BusStop::SUPER_HASH.each do |category, hash|
       %th
         = f.label category
