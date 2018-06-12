@@ -1,6 +1,9 @@
 - if stop.last_updated.present?
   .smalltext.last-updated
     Last updated by #{stop.last_updated_by} at #{stop.last_updated_at}
+- if stop.completed_at.present?
+  .smalltext.last-updated
+    Completed at #{format_datetime stop.completed_at}
 = form_for stop, url: bus_stop_path(stop.hastus_id) do |f|
   %table.edit-form
     %th

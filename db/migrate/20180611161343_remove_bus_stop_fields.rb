@@ -6,7 +6,6 @@ class RemoveBusStopFields < ActiveRecord::Migration[5.1]
     remove_column :bus_stops, :new_pole
     remove_column :bus_stops, :straighten_pole
     remove_column :bus_stops, :mounting_clearance_after
-    remove_column :bus_stops, :completed_at
     remove_column :bus_stops, :accessible
   end
 end
