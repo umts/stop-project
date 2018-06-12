@@ -17,63 +17,118 @@ class BusStop < ApplicationRecord
   SIGN_OPTIONS = {
     sign_type: ['Axehead (2014+)',
                 'Rectangle (<2014)',
-                'MGM + Axhead (2018+)'],
+                'MGM + Axhead (2018+)',
+                'Other',
+                'No sign'],
     mounting: ['PVTA pole',
                'Other pole',
-               'City Pole',
-               'Utility Pole',
-               'Structure'],
+               'City pole',
+               'Utility pole',
+               'Structure',
+               'No sign'],
+    shared_sign_post: ['No',
+                       'Yes - Traffic sign',
+                       'Yes - FRTA',
+                       'Yes - Other',
+                       'Sign not on pole'],
     mounting_direction: ['Towards street',
-                         'Away from street'],
+                         'Away from street',
+                         'Center',
+                         'No sign'],
+    mounting_clearance: ['Less than 60 inches',
+                         '60-83 inches',
+                         'Greater than 84 inches'],
     bolt_on_base: :boolean
   }.freeze
 
   SHELTER_OPTIONS = {
-    shelter: %w[PVTA Other Building],
-    shelter_condition: %w[Great Good Fair Poor],
-    shelter_pad_condition: %w[Great Good Fair Poor],
-    shelter_pad_material: %w[Asphalt Concrete Other]
+    shelter: ['No shelter',
+              'PVTA shelter',
+              'Other',
+              'Building'],
+    shelter_type: ['Modern',
+                   'Modern half',
+                   'Victorian',
+                   'Dome',
+                   'Wooden',
+                   'Extra large',
+                   'Other',
+                   'No shelter'],
+    shelter_ada_compliance: :boolean,
+    shelter_condition: ['Great',
+                        'Good',
+                        'Fair',
+                        'Poor',
+                        'No shelter'],
+    shelter_pad_condition: ['Great',
+                            'Good',
+                            'Fair',
+                            'Poor',
+                            'No shelter'],
+    shelter_pad_material: ['Asphalt',
+                           'Concrete',
+                           'Other',
+                           'No shelter']
   }.freeze
 
   AMENITIES = {
-    bench: %w[PVTA Other],
+    bench: ['PVTA bench',
+            'Other bench',
+            'Other structure',
+            'None'],
+    bike_rack: ['PVTA bike rack',
+                'Other bike rack',
+                'Bike locker',
+                'None'],
     schedule_holder: ['On pole',
-                      'In shelter'],
+                      'In shelter',
+                      'None'],
     system_map_exists: :boolean,
-    trash: %w[PVTA Municipal Other]
+    trash: %w[PVTA Municipal Other None],
   }.freeze
 
   ACCESSIBILITY = {
-    accessible: ['When necessary',
-                 'Not recommended'],
-    curb_cut: ["Within 20'",
+    accessible: :boolean,
+    curb_cut: ['Within 20 feet',
+               '20 - 50 feet ',
                'No curb cut',
                'No curb'],
-    sidewalk: ['More than 36"',
-               'Less than 36"',
-               'None'],
-    bus_pull_out_exists: :boolean
+    sidewalk_width: ['More than 36 inches',
+                     'Less than 36 inches',
+                     'None'],
+    bus_pull_out_exists: :boolean,
+    ada_landing_pad: :boolean,
+    obstructions: ['Yes - Tree/Branch',
+                   'Yes - Bollard/Structure',
+                   'Yes - Parking',
+                   'Yes - Other',
+                   'No']
 
   }.freeze
 
   SECURITY_AND_SAFETY = {
-    lighting: ["Within 20'",
-               "20' - 50'",
+    lighting: ['Within 20 feet',
+               '20 - 50 feet',
                'None']
   }.freeze
 
-  TECHNOLOGY = %i[solar_lighting has_power].freeze
+  TECHNOLOGY = { solar_lighting: :boolean,
+                 has_power: :boolean,
+                 real_time_information: ['Yes - Solar',
+                                         'Yes - Power',
+                                         'No']
+  }.freeze
 
   LIMITED_ATTRS = {
     name: 'Stop Name',
     hastus_id: 'Hastus ID',
-    route_list: 'Routes',
+    stop_routes: 'Routes',
     updated_at: 'Last updated'
   }.freeze
 
   SUPER_HASH = {
-    sign_options: SIGN_OPTIONS,
-    shelter_options: SHELTER_OPTIONS,
+    sign: SIGN_OPTIONS,
+    shelter: SHELTER_OPTIONS,
     amenities: AMENITIES,
     accessibility: ACCESSIBILITY,
     security_and_safety: SECURITY_AND_SAFETY,
