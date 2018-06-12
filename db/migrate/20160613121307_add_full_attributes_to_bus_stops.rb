@@ -11,7 +11,6 @@ class AddFullAttributesToBusStops < ActiveRecord::Migration[5.1]
     add_column :bus_stops, :sidewalk,           :string
     add_column :bus_stops, :sign,               :string
     add_column :bus_stops, :trash,              :string
-
     add_column :bus_stops, :bolt_on_base,        :boolean
     add_column :bus_stops, :bus_pull_out_exists, :boolean
     add_column :bus_stops, :extend_pole,         :boolean
@@ -21,7 +20,6 @@ class AddFullAttributesToBusStops < ActiveRecord::Migration[5.1]
     add_column :bus_stops, :solar_lighting,      :boolean
     add_column :bus_stops, :straighten_pole,     :boolean
     add_column :bus_stops, :system_map_exists,   :boolean
-
     add_column :bus_stops, :mounting_clearance_after, :integer
     add_column :bus_stops, :mounting_clearance_before, :integer
   end
