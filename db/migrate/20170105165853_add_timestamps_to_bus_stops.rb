@@ -1,4 +1,4 @@
-class AddTimestampsToBusStops < ActiveRecord::Migration[5.1]
+class AddTimestampsToBusStops < ActiveRecord::Migration[4.2]
   def change
     change_table :bus_stops do |t|
       t.timestamps null: false

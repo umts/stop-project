@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180614155733) do
+ActiveRecord::Schema.define(version: 20180614232652) do
+
+  create_table "bus_stop_fields", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "bus_stop_id", null: false
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "field_name"
+  end
 
   create_table "bus_stops", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
@@ -39,8 +47,6 @@ ActiveRecord::Schema.define(version: 20180614155733) do
     t.string "shelter_pad_condition"
     t.string "shelter_pad_material"
     t.string "shelter_type"
-    t.date "date_stop_checked"
-    t.string "stop_checked_by"
     t.string "shared_sign_post"
     t.boolean "shelter_ada_compliance"
     t.string "garage_responsible"
@@ -56,8 +62,18 @@ ActiveRecord::Schema.define(version: 20180614155733) do
   end
 
   create_table "bus_stops_routes", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint "bus_stop_id", null: false
-    t.bigint "route_id", null: false
+    t.integer "bus_stop_id", null: false
+    t.integer "route_id", null: false
+  end
+
+  create_table "fields", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.string "category"
+    t.text "description"
+    t.integer "rank"
+    t.string "field_type"
+    t.text "choices"
+    t.index ["name"], name: "index_fields_on_name"
   end
 
   create_table "routes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -80,11 +96,12 @@ ActiveRecord::Schema.define(version: 20180614155733) do
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.boolean "admin", default: false, null: false
+    t.datetime "created_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "versions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+  create_table "versions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "item_type", limit: 191, null: false
     t.integer "item_id", null: false
     t.string "event", null: false

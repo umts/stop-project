@@ -12,6 +12,25 @@ User.create! name: 'Jake Foreman',
              password_confirmation: 'password',
              admin: false
 
+Field.create! name: 'Curb cut',
+              category: 'Accessible',
+              field_type: :choice,
+              choices: ["Within 20'", 'No curb cut', 'No curb'],
+              description: 'Determine the border between the road and the bus stop.',
+              rank: 1
+
+Field.create! name: 'Solar lighting',
+              category: 'Technology',
+              field_type: :boolean,
+              description: 'Determine if this stop has solar lighting.',
+              rank: 1
+
+Field.create! name: 'Completed',
+              category: 'Info',
+              field_type: :boolean,
+              description: 'Have all attributes been checked?',
+              rank: 1
+
 routes = {
   30 => Route.create!(number: '30', description: 'North Amherst / Old Belchertown Rd'),
   31 => Route.create!(number: '31', description: 'Sunderland / South Amherst'),
