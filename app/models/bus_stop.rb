@@ -9,7 +9,7 @@ class BusStop < ApplicationRecord
   validates :hastus_id, presence: true, uniqueness: true
   has_and_belongs_to_many :routes
 
-  before_save :assign_completion_timestamp, if: -> { completed_changed? }
+  before_save :assign_completion_attributes, if: -> { completed_changed? }
 
   scope :not_updated_since,
         ->(date) { where 'updated_at < ?', date.to_datetime }
@@ -182,9 +182,17 @@ class BusStop < ApplicationRecord
     end
   end
 
+  def who_completed
+    User.find(completed_by).try :name
+  end
+
   private
 
-  def assign_completion_timestamp
-    assign_attributes completed_at: (completed? ? DateTime.current : nil)
+  def assign_completion_attributes
+    whodunnit = versions.last.whodunnit
+    assign_attributes(
+      completed_at: (completed? ? DateTime.current : nil),
+      completed_by: (completed? ? whodunnit : nil)
+    )
   end
 end
