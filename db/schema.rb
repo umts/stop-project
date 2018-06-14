@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180614155733) do
+ActiveRecord::Schema.define(version: 20180614185935) do
 
   create_table "bus_stops", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
@@ -39,8 +39,6 @@ ActiveRecord::Schema.define(version: 20180614155733) do
     t.string "shelter_pad_condition"
     t.string "shelter_pad_material"
     t.string "shelter_type"
-    t.date "date_stop_checked"
-    t.string "stop_checked_by"
     t.string "shared_sign_post"
     t.boolean "shelter_ada_compliance"
     t.string "garage_responsible"
@@ -53,6 +51,7 @@ ActiveRecord::Schema.define(version: 20180614155733) do
     t.boolean "accessible"
     t.string "stop_sticker"
     t.string "route_stickers"
+    t.integer "completed_by"
   end
 
   create_table "bus_stops_routes", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
