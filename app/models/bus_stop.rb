@@ -38,7 +38,13 @@ class BusStop < ApplicationRecord
     mounting_clearance: ['Less than 60 inches',
                          '60-83 inches',
                          'Greater than 84 inches'],
-    bolt_on_base: :boolean
+    bolt_on_base: :boolean,
+    stop_sticker: ['No sticker',
+                   'Sticker incorrect',
+                   'Sticker correct'],
+    route_stickers: ['No stickers',
+                     'Stickers incorrect',
+                     'Stickers correct']
   }.freeze
 
   SHELTER_OPTIONS = {

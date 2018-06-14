@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180611165148) do
+ActiveRecord::Schema.define(version: 20180614155733) do
 
   create_table "bus_stops", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
@@ -51,6 +51,8 @@ ActiveRecord::Schema.define(version: 20180611165148) do
     t.integer "need_work"
     t.string "obstructions"
     t.boolean "accessible"
+    t.string "stop_sticker"
+    t.string "route_stickers"
   end
 
   create_table "bus_stops_routes", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
