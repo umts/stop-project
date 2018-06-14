@@ -269,17 +269,16 @@ namespace :bus_stop_fields do
     }
 
     fields.each_pair do |category, category_fields|
-      category_fields.each.with_index 1 do |category_field, rank|
-        field = Field.create! name: category_field.fetch(:name),
-                              rank: rank,
-                              category: category,
-                              description: category_field.fetch(:description),
-                              field_type: category_field.fetch(:field_type),
-                              choices: category_field.fetch(:choices)
+      category_fields.each.with_index 1 do |category_field_attrs, rank|
+        field = Field.create! category_field_attrs.except(:column)
+                                                  .merge(rank: rank, category: category)
         BusStop.all.each do |stop|
-          BusStopField.create! bus_stop: stop,
-                               field: field,
-                               value: stop.try(:send, category_field.fetch(:column))
+          stops_column_name = category_field_attrs.fetch(:column)
+          if stop.respond_to? stops_column_name
+            BusStopField.create! bus_stop: stop,
+                                 field: field,
+                                 value: stop.send(stops_column_name)
+          end
         end
       end
     end
