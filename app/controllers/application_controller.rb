@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :set_paper_trail_whodunnit
 
+  helper_method :format_datetime
+  
   private
 
   def restrict_to_admin
