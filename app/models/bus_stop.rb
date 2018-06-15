@@ -183,17 +183,9 @@ class BusStop < ApplicationRecord
     end
   end
 
-  def who_completed
-    User.find(completed_by).try :name
-  end
-
   private
 
-  def assign_completion_attributes
-    whodunnit = versions.last.whodunnit
-    assign_attributes(
-      completed_at: (completed? ? DateTime.current : nil),
-      completed_by: (completed? ? whodunnit : nil)
-    )
+  def assign_completion_timestamp
+    assign_attributes completed_at: (completed? ? DateTime.current : nil)
   end
 end
