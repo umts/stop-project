@@ -7,9 +7,10 @@ class BusStop < ApplicationRecord
   has_paper_trail
   validates :name, presence: true
   validates :hastus_id, presence: true, uniqueness: true
+  belongs_to :completed_by, class_name: 'User', foreign_key: 'completed_by'
   has_and_belongs_to_many :routes
 
-  before_save :assign_completion_attributes, if: -> { completed_changed? }
+  before_save :assign_completion_timestamp, if: -> { completed_changed? }
 
   scope :not_updated_since,
         ->(date) { where 'updated_at < ?', date.to_datetime }
