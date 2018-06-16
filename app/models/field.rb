@@ -6,12 +6,18 @@ class Field < ApplicationRecord
   
   validates :category, presence: true
   validates :rank, presence: true, uniqueness: { scope: :category }
-  validates :field_type, inclusion: { in: %i[boolean choice] }
+  validates :field_type, inclusion: { in: %w[boolean choice] }
   
   serialize :choices, Array
   validates :choices, presence: true, if: :multiple_choice?
-  
+
+  scope :in_category, ->(category) { where category: category }
+
   def multiple_choice?
     field_type == :choice
+  end
+
+  def self.categories
+    order(:category).pluck(:category).uniq
   end
 end

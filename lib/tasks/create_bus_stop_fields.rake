@@ -268,6 +268,7 @@ namespace :bus_stop_fields do
       ]
     }
 
+    Field.delete_all
     fields.each_pair do |category, category_fields|
       category_fields.each.with_index 1 do |category_field_attrs, rank|
         field = Field.create! category_field_attrs.except(:column)
