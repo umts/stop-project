@@ -12,24 +12,7 @@ User.create! name: 'Jake Foreman',
              password_confirmation: 'password',
              admin: false
 
-Field.create! name: 'Curb cut',
-              category: 'Accessible',
-              field_type: :choice,
-              choices: ["Within 20'", 'No curb cut', 'No curb'],
-              description: 'Determine the border between the road and the bus stop.',
-              rank: 1
-
-Field.create! name: 'Solar lighting',
-              category: 'Technology',
-              field_type: :boolean,
-              description: 'Determine if this stop has solar lighting.',
-              rank: 1
-
-Field.create! name: 'Completed',
-              category: 'Info',
-              field_type: :boolean,
-              description: 'Have all attributes been checked?',
-              rank: 1
+# Recommended to create fields with `rails bus_stop_fields:create`.
 
 routes = {
   30 => Route.create!(number: '30', description: 'North Amherst / Old Belchertown Rd'),
@@ -63,7 +46,7 @@ hastus_ids = {
 stops.each do |route_number, stop_names|
   stop_names.each do |stop_name|
     # Anytime in the last two months
-    Timecop.freeze rand(86_400).minutes.ago do
+    Timecop.freeze Time.now - rand(2.months) do
       stop = BusStop.find_or_initialize_by name: stop_name
       stop.hastus_id = hastus_ids.fetch(stop_name)
       stop.routes << routes.fetch(route_number)

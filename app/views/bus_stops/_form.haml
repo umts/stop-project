@@ -6,37 +6,34 @@
     Completed at #{format_datetime stop.completed_at}
 = form_for stop, url: bus_stop_path(stop.hastus_id) do |f|
   %table.edit-form
-    %th
-      Stop Info
+    %thead
+      %tr
+        %th
+          Stop Info
+    %tbody
       %tr
         %td= f.label :name
         %td= stop.name
       %tr
         %td= f.label :hastus_id, 'Hastus ID'
         %td= stop.hastus_id
-      - if current_user.admin?
-        %tr
-          %td= f.label :routes
-          %td= stop.route_list
+      %tr
+        %td= f.label :routes
+        %td= stop.route_list
       %tr
         %td= f.label :completed, 'Completed?'
         %td= f.check_box :completed
-      %tr
-        %td= f.label :garage_responsible
-        %td= f.select :garage_responsible, %w[SATCo UMTS VATCo], include_blank: true
-      %tr
-        %td= f.label :state_road
-        %td= f.check_box :state_road
-    - BusStop::SUPER_HASH.each do |category, hash|
-      %th
-        = f.label category
-        - hash.each do |name, options|
-          %tr
-            %td= f.label name
-            %td
-              - if options.kind_of?(Array)
-                = f.select name, options, include_blank: true
-              - else
-                = f.check_box name
+      - @data_fields.each_pair do |category, category_fields|
+        %tr
+          %th{ colspan: 2 }= category
+        - category_fields.each do |data_field|
+          = fields_for data_field do |data_field_form|
+            %tr
+              %td= data_field_form.label :value, data_field.field_name
+              - case data_field.field.field_type
+              - when 'boolean'
+                %td= data_field_form.check_box :value
+              - when 'choice'
+                %td= data_field_form.select :value, data_field.field.choices, include_blank: true
     %tr
       %td= submit_tag 'Save stop', class: 'btn btn-primary submit'
