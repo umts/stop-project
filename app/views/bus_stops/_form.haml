@@ -23,8 +23,8 @@
         %td No
       %tr
         %td
-        %td= f.radio_button :completed, 'yes'
-        %td= f.radio_button :completed, 'no'
+        %td= f.radio_button :completed, true
+        %td= f.radio_button :completed, false
       %tr
         %td= f.label :garage_responsible
         %td= f.select :garage_responsible, %w[SATCo UMTS VATCo], include_blank: true
@@ -34,8 +34,8 @@
         %td No
       %tr
         %td
-        %td= f.radio_button :state_road, 'yes'
-        %td= f.radio_button :state_road, 'no'
+        %td= f.radio_button :state_road, true
+        %td= f.radio_button :state_road, false
     - BusStop::SUPER_HASH.each do |category, hash|
       %th
         = f.label category
@@ -49,8 +49,8 @@
               %td No
               %tr
                 %td
-                %td= f.radio_button name, 'yes'
-                %td= f.radio_button name, 'no'
+                %td= f.radio_button name, true
+                %td= f.radio_button name, false
     %tr
       %td= submit_tag 'Save stop', class: 'btn btn-primary submit'
       %td= link_to 'Field Guide', field_guide_bus_stops_path
