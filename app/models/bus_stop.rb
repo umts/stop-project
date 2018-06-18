@@ -183,6 +183,12 @@ class BusStop < ApplicationRecord
     end
   end
 
+  def assign_completed_by(user)
+    if completed_changed?
+      assign_attributes(completed_by: (completed? ? user : nil))
+    end
+  end
+
   private
 
   def assign_completion_timestamp
