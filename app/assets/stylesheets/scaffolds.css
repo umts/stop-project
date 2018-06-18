@@ -37,6 +37,10 @@ input[type=radio]{
   transform: scale(2,2);
 }
 
+select {
+  width: 10em;
+}
+
 input.btn.btn-primary.submit{
   font-size: 30px;
 }
