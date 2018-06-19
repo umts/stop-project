@@ -11,7 +11,6 @@ namespace :routes do
       if stop.present?
         route = Route.find_or_create_by number: row['rte_identifier'].strip
         stop.routes << route
-        binding.pry
 
         direction = row['direction']
         variant = row['variant']
@@ -29,12 +28,13 @@ namespace :routes do
     @other_variants = []
     @max_length = 0
 
+    binding.pry
     # per route
     @route_hash.each_key do |route|
       # per direction
       @route_hash[route].each_key do |direction|
         @route_hash[route][direction].each_key do |variant|
-          if max_length.nil?
+          if @max_length.nil?
             main_variant = @route_hash[route][direction][variant]
             @max_length = main_variant.length
           end
