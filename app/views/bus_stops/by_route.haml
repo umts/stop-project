@@ -5,12 +5,12 @@
 - else
   - @stops_arr.each_pair do |status, stops|
     - case status
-    - when :not_completed
-      Not Completed
-    - when :completed
-      Completed
     - when :pending
       Pending
+    - when :not_started
+      Not Started
+    - when :completed
+      Completed
     Stops
     %ul
     - stops.each do |stop|

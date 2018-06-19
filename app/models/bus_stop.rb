@@ -15,8 +15,8 @@ class BusStop < ApplicationRecord
         ->(date) { where 'updated_at < ?', date.to_datetime }
 
   scope :completed, -> { where completed: true }
-  scope :not_completed, -> { where completed: [false, nil] }
-  scope :pending, -> { not_completed.where('updated_at > created_at') }
+  scope :not_started, -> { where 'created_at = updated_at', completed: [false, nil] }
+  scope :pending, -> { where 'updated_at > created_at', completed: [false, nil] }
 
   SIGN_OPTIONS = {
     sign_type: ['Axehead (2014+)',
