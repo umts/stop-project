@@ -25,9 +25,9 @@ namespace :routes do
       end
     end
 
-    stop_list = []
-    other_variants = []
-    length = 0
+    @stop_list = []
+    @other_variants = []
+    @length = 0
 
     # per route
     route_hash.each_key do |route|
@@ -43,22 +43,22 @@ namespace :routes do
             # find variant with max stops
             max_length = route_hash[route][direction][variant].length
           else
-            other_variants << variant
+            @other_variants << variant
           end
           route_hash[route][direction][main_variant].each_pair do |stop, rank|
             bus_stops_route = BusStopsRoute.create sequence: rank, bus_stop: stop, route: route
             route.bus_stops_routes = bus_stops_route
 
-            stop_list << stop
-            length = rank
+            @stop_list << stop
+            @length = rank
           end
         # look at other variants
-          if other_variants.present?
+          if @other_variants.present?
             # figure out if any other stops are still in the route
-            other_variants.each do |variant|
+            @other_variants.each do |variant|
               route_hash[route][direction][variant].each_pair do |stop, _|
-                if !stop_list.include(stop)
-                  bus_stops_route = BusStopsRoute.create sequence: length + 1, bus_stop: stop, route: route
+                if !@stop_list.include(stop)
+                  bus_stops_route = BusStopsRoute.create sequence: @length = @length + 1, bus_stop: stop, route: route
                   route.bus_stops_routes = bus_stops_route
                 end
               end 
