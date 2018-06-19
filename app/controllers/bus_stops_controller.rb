@@ -13,8 +13,9 @@ class BusStopsController < ApplicationController
     if @route.present?
       @stops = @route.bus_stops
       @stops_arr = {}
-      @stops_arr[true] = @stops.not_completed
-      @stops_arr[false] = @stops.completed
+      @stops_arr[:not_completed] = @stops.not_completed
+      @stops_arr[:completed] = @stops.completed
+      @stops_arr[:pending] = @stops.pending
     else redirect_to bus_stops_path,
                      notice: "Route #{params[:number]} not found"
     end
