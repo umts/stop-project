@@ -12,13 +12,14 @@ namespace :routes do
                                         description: row['rte_description']
         stop.routes << route
       end
-    end
-    # per route
+      stop.routes.each do |route|
       # per direction
         # find variant with max stops
           # look at other variants
           # if any other stops are still in the route
               # rank according to the other variant and place after the first variant
               # (the rank will be saved as the sequence number)
+      end
+    end
   end
 end
