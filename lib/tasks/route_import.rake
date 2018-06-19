@@ -44,19 +44,14 @@ namespace :routes do
               other_variants << variant
             end
           end
-          # look at other variants
-            if variant.present?
-              # if any other stops are still in the route
-
-            end
-            
-
+          route_hash[route][direction][main_variant].each_pair do |stop, rank|
+            bus_stops_route = BusStopsRoute.create sequence: rank, bus_stop: stop, route: route
+            route.bus_stops_routes = bus_stops_route
           end
-          # rank according to the other variant and place after the first variant
-          # sequence needs to be in this loop
-          bus_stops_route = BusStopsRoute.create sequence: sequence, bus_stop: stop, route: route
-          route.bus_stops_routes = bus_stops_route
-          # (the rank will be saved as the sequence number)
+          # look at other variants
+          if other_variants.present?
+            # TODO: need to figure out if any other stops are still in the route
+          end
         end
       end
     end
