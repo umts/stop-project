@@ -27,6 +27,7 @@ namespace :routes do
     @stop_list = []
     @other_variants = []
     @max_length = 0
+    @length = 0
 
     # per route
     @route_hash.keys.each do |route|
@@ -52,8 +53,9 @@ namespace :routes do
             route.bus_stops_routes << bus_stops_route
 
             @stop_list << stop_id
-            @length = sequence
           end
+
+          @length = @max_length
         # look at other variants
           if @other_variants.present?
             # figure out if any other stops are still in the route
