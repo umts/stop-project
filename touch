@@ -1,0 +1,11 @@
+rte_identifier;variant;direction;stp_identifier;stop_variant_rank
+31;NC;North;157;1
+31;NC;North;153;2
+31;NC;North;152;3
+31;NC;North;147;4
+30;SNoNV;South;34;1
+30;SNoNV;South;35;2
+30;SNoNV;South;42;3
+30;NNoF;North;118;5
+30;NNoF;North;120;6
+30;NNoF;North;115;7

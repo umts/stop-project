@@ -45,22 +45,25 @@ namespace :routes do
           else
             @other_variants << variant
           end
-          binding.pry
-          @route_hash[route][direction][@main_variant].each do |stop, rank|
-            bus_stops_route = BusStopsRoute.create sequence: rank, bus_stop: stop, route: route
-            route.bus_stops_routes = bus_stops_route
+          @route_hash[route][direction][@main_variant] do |stop_id, sequence|
+            binding.pry
+            stop = BusStop.find_by id: stop_id
 
-            @stop_list << stop
-            @length = rank
+            bus_stops_route = BusStopsRoute.create sequence: sequence, bus_stop: stop, route: route
+            route.bus_stops_routes << bus_stops_route
+
+            @stop_list << stop_id
+            @length = sequence
           end
         # look at other variants
           if @other_variants.present?
             # figure out if any other stops are still in the route
             @other_variants.each do |variant|
-              @route_hash[route][direction][variant].each_pair do |stop, _|
-                if !@stop_list.include(stop)
+              @route_hash[route][direction][variant].each do |stop_id, _|
+                if !@stop_list.include(stop_id)
+                  stop = BusStop.find_by id: stop_id
                   bus_stops_route = BusStopsRoute.create sequence: @length = @length + 1, bus_stop: stop, route: route
-                  route.bus_stops_routes = bus_stops_route
+                  route.bus_stops_routes << bus_stops_route
                 end
               end 
             end
