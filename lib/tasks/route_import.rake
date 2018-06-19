@@ -13,7 +13,7 @@ namespace :routes do
         stop.routes << route
         binding.pry
 
-        direction = row['rte_direction']
+        direction = row['direction']
         variant = row['variant']
         stop_id = row['stp_identifier']
         rank = row['stop_variant_rank']
