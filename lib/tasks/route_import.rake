@@ -11,11 +11,11 @@ namespace :routes do
         # per route
         route = Route.find_or_create_by number: row['rte_identifier'].strip,
                                         description: row['rte_description']
-        variant = row['variant']
-        direction = row['direction']
         stop_variant_rank = row['stop_variant_rank']
           # per direction
+            direction = row['direction']
             # find variant with max stops
+              variant = row['variant']
               # look at other variants
               # if any other stops are still in the route
                 # rank according to the other variant and place after the first variant
