@@ -12,25 +12,26 @@ namespace :routes do
         stop_ids = []
 
         # what I want looks like:
-        # {route, direction, variants: { variant_name => [stop_ids]}}
         # { route: G2, direction: 'South', variants: { M_south => [], M_north => [], Main_S => [] } }
         
         route = Route.find_or_create_by number: row['rte_identifier'].strip,
                                         description: row['rte_description']
         stop.routes << route
 
-        variant = row['variant'] # This is the name of a collection of variants, 'M_south'
-        direction = row['rte_direction'] # This is the direction, 'South'
-        rank = row['stop_variant_rank'] # The rank of the stop variant
 
-        vars_arr[rank] = 
+        variant = row['variant']
+        direction = row['rte_direction']
+        rank = row['stop_variant_rank']
+        stop_id = row['stp_identifier']
+        stop_ids[rank-1] = stop_id #index starting at 0
 
-    
+        route_hash.merge{ route: route, direction: direction, variant_name: variant, stop_ids: stop_ids }
+        # hopefully this isn't overwritten...
+
       end
       route_hash.each do |route|
       # per direction
         route.each_pair do |direction, variants|
-          variants.
         # find variant with max stops
           # look at other variants
           # if any other stops are still in the route
