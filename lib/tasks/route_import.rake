@@ -19,7 +19,6 @@ namespace :routes do
         rank = row['stop_variant_rank']
 
         route_hash.merge{ route: route, direction: direction, variant_name: variant, stop_id: stop_id, rank: rank }
-
       end
       route_hash.each do |route|
       # per direction
