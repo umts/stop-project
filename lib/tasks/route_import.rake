@@ -28,24 +28,25 @@ namespace :routes do
     @other_variants = []
     @max_length = 0
 
-    binding.pry
     # per route
-    @route_hash.keys do |route|
-      # per direction
-      @route_hash[route].keys do |direction|
-        @route_hash[route][direction].keys do |variant|
-          if @max_length.nil?
-            main_variant = @route_hash[route][direction][variant]
-            @max_length = main_variant.length
+    @route_hash.keys.each do |route|
+    # per direction
+      @route_hash[route].keys.each do |direction|
+        @route_hash[route][direction].keys.each do |variant|
+          if @max_length == 0
+            @main_variant = variant
+            @max_length = @route_hash[route][direction][@main_variant].length
           end
           if @route_hash[route][direction][variant].length > @max_length
-            @other_variants << main_variant
+            @other_variants << @main_variant
             # find variant with max stops
             @max_length = @route_hash[route][direction][variant].length
+            @main_variant = variant
           else
             @other_variants << variant
           end
-          @route_hash[route][direction][main_variant].each_pair do |stop, rank|
+          binding.pry
+          @route_hash[route][direction][@main_variant].each do |stop, rank|
             bus_stops_route = BusStopsRoute.create sequence: rank, bus_stop: stop, route: route
             route.bus_stops_routes = bus_stops_route
 
