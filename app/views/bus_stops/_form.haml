@@ -27,6 +27,14 @@
       %tr
         %td= f.label :state_road
         %td= f.check_box :state_road
+      %tr
+        %td= f.label :need_work
+        %td= f.select :need_work, ['1 - No issues',
+        '2 - Needs cleaning, no safety concern',
+        '3 - Minor issues, non safety',
+        '4 - Potential safety concern',
+        '5 - Immediate safety concern'],
+        include_blank: true
     - BusStop::SUPER_HASH.each do |category, hash|
       %th
         = f.label category
