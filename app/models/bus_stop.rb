@@ -13,6 +13,14 @@ class BusStop < ApplicationRecord
 
   scope :not_updated_since,
         ->(date) { where 'updated_at < ?', date.to_datetime }
+  fields = (attribute_names - %w[date_stop_checked
+                                 stop_checked_by
+                                 completed
+                                 completed_at])
+           .map(&:to_sym)
+  fields.each do |n|
+    validates n, presence: true, if: :completed?
+  end
 
   SIGN_OPTIONS = {
     sign_type: ['Axehead (2014+)',
