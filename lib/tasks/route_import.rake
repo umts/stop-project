@@ -13,12 +13,13 @@ namespace :routes do
       if stop.present?
         route = Route.find_or_create_by number: row['rte_identifier'].strip,
                                         description: row['rte_description']
-        stop.routes << route
         # find variant with max stops
         #   look at other variants
         #     if any other stops are still in the route
         #       rank according to the other variant and place after the first variant
         #       (the rank will be saved as the sequence number)
+
+        stop.routes << route
       end
     end
   end
