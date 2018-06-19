@@ -20,13 +20,11 @@ namespace :routes do
 
         route_hash.merge{ route: route, direction: direction, variant_name: variant, stop_id: stop_id, rank: rank }
       end
-      route_hash.each do |route|
+      route_hash.each do |route, direction, variant_name, stop_id, rank|
       # per direction
-        route.each_pair do |direction, variants|
         # find variant with max stops
           # look at other variants
           # if any other stops are still in the route
-              variants
               # rank according to the other variant and place after the first variant
               # (the rank will be saved as the sequence number)
         end
