@@ -18,24 +18,11 @@
           %td= f.label :routes
           %td= stop.route_list
       %tr
-        %td= f.label :completed, 'Completed?'
-        %td Yes
-        %td No
-      %tr
-        %td
-        %td= f.radio_button :completed, true
-        %td= f.radio_button :completed, false
-      %tr
         %td= f.label :garage_responsible
         %td= f.select :garage_responsible, %w[SATCo UMTS VATCo], include_blank: true
       %tr
         %td= f.label :state_road
-        %td Yes
-        %td No
-      %tr
-        %td
-        %td= f.radio_button :state_road, true
-        %td= f.radio_button :state_road, false
+        %td= f.select :state_road, %w[Yes No], include_blank: true
     - BusStop::SUPER_HASH.each do |category, hash|
       %th
         = f.label category
@@ -45,12 +32,12 @@
             - if options.kind_of?(Array)
               %td= f.select name, options, include_blank: true
             - else
-              %td Yes
-              %td No
-              %tr
-                %td
-                %td= f.radio_button name, true
-                %td= f.radio_button name, false
+              %td= f.select name, %w[Yes No], include_blank: true
+    %th
+      Check when all fields are filled
+      %tr
+        %td= f.label :completed, 'Completed'
+        %td= f.check_box :completed, class: 'triple-zoom'
     %tr
       %td= submit_tag 'Save stop', class: 'btn btn-primary submit'
       %td= link_to 'Field Guide', field_guide_bus_stops_path
