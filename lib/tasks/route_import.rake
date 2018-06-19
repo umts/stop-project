@@ -18,6 +18,7 @@ namespace :routes do
         stop_id = row['stp_identifier']
         rank = row['stop_variant_rank']
 
+        binding.pry
         @route_hash[route] ||= {}
         @route_hash[route][direction] ||= {}
         @route_hash[route][direction][variant] ||= []
