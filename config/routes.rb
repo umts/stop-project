@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       get  :manage
       post :name_search
       get  :outdated
+      get :field_guide
     end
   end
 end
