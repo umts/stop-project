@@ -13,14 +13,43 @@ class BusStop < ApplicationRecord
 
   scope :not_updated_since,
         ->(date) { where 'updated_at < ?', date.to_datetime }
-  fields = (attribute_names - %w[date_stop_checked
-                                 stop_checked_by
-                                 completed
-                                 completed_at])
-           .map(&:to_sym)
-  fields.each do |n|
-    validates n, presence: true, if: :completed?
-  end
+  validates :id, presence: true, if: :completed?
+  validates :name, presence: true, if: :completed?
+  validates :hastus_id, presence: true, if: :completed?
+  validates :bench, presence: true, if: :completed?
+  validates :curb_cut, presence: true, if: :completed?
+  validates :lighting, presence: true, if: :completed?
+  validates :mounting, presence: true, if: :completed?
+  validates :mounting_direction, presence: true, if: :completed?
+  validates :schedule_holder, presence: true, if: :completed?
+  validates :shelter, presence: true, if: :completed?
+  validates :sidewalk_width, presence: true, if: :completed?
+  validates :trash, presence: true, if: :completed?
+  validates :bolt_on_base, presence: true, if: :completed?
+  validates :bus_pull_out_exists, presence: true, if: :completed?
+  validates :has_power, presence: true, if: :completed?
+  validates :solar_lighting, presence: true, if: :completed?
+  validates :system_map_exists, presence: true, if: :completed?
+  validates :mounting_clearance, presence: true, if: :completed?
+  validates :created_at, presence: true, if: :completed?
+  validates :updated_at, presence: true, if: :completed?
+  validates :sign_type, presence: true, if: :completed?
+  validates :shelter_condition, presence: true, if: :completed?
+  validates :shelter_pad_condition, presence: true, if: :completed?
+  validates :shelter_pad_material, presence: true, if: :completed?
+  validates :shelter_type, presence: true, if: :completed?
+  validates :shared_sign_post, presence: true, if: :completed?
+  validates :shelter_ada_compliance, presence: true, if: :completed?
+  validates :garage_responsible, presence: true, if: :completed?
+  validates :bike_rack, presence: true, if: :completed?
+  validates :ada_landing_pad, presence: true, if: :completed?
+  validates :real_time_information, presence: true, if: :completed?
+  validates :state_road, presence: true, if: :completed?
+  validates :need_work, presence: true, if: :completed?
+  validates :obstructions, presence: true, if: :completed?
+  validates :accessible, presence: true, if: :completed?
+  validates :stop_sticker, presence: true, if: :completed?
+  validates :route_stickers, presence: true, if: :completed?
 
   SIGN_OPTIONS = {
     sign_type: ['Axehead (2014+)',
