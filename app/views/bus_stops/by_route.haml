@@ -4,10 +4,13 @@
   No stops on this route
 - else
   - @stops_arr.each_pair do |status, stops|
-    - if status
+    - case status
+    - when :not_completed
       Not Completed
-    -else
+    - when :completed
       Completed
+    - when :pending
+      Pending
     Stops
     %ul
     - stops.each do |stop|
