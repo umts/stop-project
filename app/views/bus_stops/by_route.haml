@@ -4,12 +4,8 @@
   No stops on this route
 - else
   Completed
-  = @stops.completed
+  - stop_list @stops.completed
   Not Completed
-  = @stops.not_completed
-  Stops
-  %ul
-  - @stops.each do |stop|
-    %li
-      = link_to edit_bus_stop_path(stop.hastus_id) do
-        - stop.name
+  - stop_list @stops.not_completed
+  Pending
+  - stop_list @stops.pending
