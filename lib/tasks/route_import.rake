@@ -25,10 +25,10 @@ namespace :routes do
       end
     end
 
-    stops = []
+    stop_list = []
     other_variants = []
-    other_stops = []
     length = 0
+
     # per route
     route_hash.each_key do |route|
       # per direction
@@ -49,15 +49,18 @@ namespace :routes do
             bus_stops_route = BusStopsRoute.create sequence: rank, bus_stop: stop, route: route
             route.bus_stops_routes = bus_stops_route
 
-            stops << stop
+            stop_list << stop
             length = rank
           end
         # look at other variants
           if other_variants.present?
-            # TODO: need to figure out if any other stops are still in the route
+            # figure out if any other stops are still in the route
             other_variants.each do |variant|
               route_hash[route][direction][variant].each_pair do |stop, _|
-                bus_stops_route = BusStopsRoute.create sequence: length + 1, bus_stop: stop, route: route
+                if !stop_list.include(stop)
+                  bus_stops_route = BusStopsRoute.create sequence: length + 1, bus_stop: stop, route: route
+                  route.bus_stops_routes = bus_stops_route
+                end
               end 
             end
           end
