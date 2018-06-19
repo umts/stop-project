@@ -1,0 +1,2 @@
+class BusStopsRoute < ApplicationRecord
+end
