@@ -3,9 +3,14 @@
 - if @stops.empty?
   No stops on this route
 - else
-  Completed
-  - stop_list @stops.completed
-  Not Completed
-  - stop_list @stops.not_completed
-  Pending
-  - stop_list @stops.pending
+  - @stops_arr.each_pair do |status, stops|
+    - if status
+      Not Completed
+    -else
+      Completed
+    Stops
+    %ul
+    - stops.each do |stop|
+      %li
+        = link_to edit_bus_stop_path(stop.hastus_id) do
+          - stop.name
