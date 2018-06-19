@@ -30,10 +30,10 @@ namespace :routes do
 
     binding.pry
     # per route
-    @route_hash.each_key do |route|
+    @route_hash.keys do |route|
       # per direction
-      @route_hash[route].each_key do |direction|
-        @route_hash[route][direction].each_key do |variant|
+      @route_hash[route].keys do |direction|
+        @route_hash[route][direction].keys do |variant|
           if @max_length.nil?
             main_variant = @route_hash[route][direction][variant]
             @max_length = main_variant.length
