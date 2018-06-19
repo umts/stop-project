@@ -9,11 +9,6 @@ namespace :routes do
     CSV.foreach(args[:csv_file], headers: true, col_sep: ';') do |row|
       stop = BusStop.find_by hastus_id: row['stp_identifier']
       if stop.present?
-        stop_ids = []
-
-        # what I want looks like:
-        # { route: G2, direction: 'South', variants: { M_south => [], M_north => [], Main_S => [] } }
-
         route = Route.find_or_create_by number: row['rte_identifier'].strip,
                                         description: row['rte_description']
         stop.routes << route
