@@ -16,6 +16,8 @@ class BusStop < ApplicationRecord
 
   scope :completed, -> { where completed: true }
   scope :not_completed, -> { where completed: false || nil }
+  # TODO: add the part about created_at and updated_at
+  scope :pending, -> { self.not_completed }
 
   SIGN_OPTIONS = {
     sign_type: ['Axehead (2014+)',
