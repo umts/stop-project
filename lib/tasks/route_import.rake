@@ -4,6 +4,7 @@ require 'csv'
 
 namespace :routes do
   task :import, [:csv_file] => :environment do |_, args|
+    binding.pry
     Route.delete_all
     @route_hash = {}
     CSV.foreach(args[:csv_file], headers: true, col_sep: ';') do |row|
@@ -33,7 +34,6 @@ namespace :routes do
     @route_hash.keys.each do |route|
     # per direction
       @route_hash[route].keys.each do |direction|
-        binding.pry
         @route_hash[route][direction].keys.each do |variant|
           if @max_length == 0
             @main_variant = variant
@@ -60,6 +60,7 @@ namespace :routes do
             # figure out if any other stops are still in the route
             @other_variants.each do |variant|
               @route_hash[route][direction][variant].each do |stop_id, _|
+                # TODO: haven't tested this 
                 if !@stop_list.include?(stop_id)
                   @length = @length + 1
                   stop = BusStop.find_by id: stop_id
