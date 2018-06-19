@@ -3,15 +3,8 @@
 - if @stops.empty?
   No stops on this route
 - else
-  - @stops_arr.each_pair do |status, stops|
-    - case status
-    - when :pending
-      Pending
-    - when :not_started
-      Not Started
-    - when :completed
-      Completed
-    Stops
+  - @stops_hash.each_pair do |status, stops|
+    = status.humanize + ' Stops'
     %ul
     - stops.each do |stop|
       %li
