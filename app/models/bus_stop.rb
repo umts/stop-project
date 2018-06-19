@@ -7,6 +7,7 @@ class BusStop < ApplicationRecord
   has_paper_trail
   validates :name, presence: true
   validates :hastus_id, presence: true, uniqueness: true
+  has_many :bus_stops_routes
   has_many :routes, through: :bus_stops_routes
 
   before_save :assign_completion_timestamp, if: -> { completed_changed? }
