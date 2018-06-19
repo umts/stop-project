@@ -27,7 +27,7 @@ namespace :routes do
 
     @stop_list = []
     @other_variants = []
-    @length = 0
+    @max_length = 0
 
     # per route
     @route_hash.each_key do |route|
@@ -36,12 +36,12 @@ namespace :routes do
         @route_hash[route][direction].each_key do |variant|
           if max_length.nil?
             main_variant = @route_hash[route][direction][variant]
-            max_length = main_variant.length
+            @max_length = main_variant.length
           end
-          if @route_hash[route][direction][variant].length > max_length
+          if @route_hash[route][direction][variant].length > @max_length
             @other_variants << main_variant
             # find variant with max stops
-            max_length = @route_hash[route][direction][variant].length
+            @max_length = @route_hash[route][direction][variant].length
           else
             @other_variants << variant
           end
