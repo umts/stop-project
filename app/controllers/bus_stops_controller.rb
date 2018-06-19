@@ -64,6 +64,7 @@ class BusStopsController < ApplicationController
 
   def update
     @stop.assign_attributes stop_params
+    @stop.decide_if_completed_by current_user
     if @stop.save
       flash[:notice] = 'Bus stop was updated.'
       redirect_to bus_stops_path
