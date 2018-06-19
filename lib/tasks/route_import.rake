@@ -24,14 +24,41 @@ namespace :routes do
         @route_hash[route][direction][variant] << { stop_id => rank }
       end
     end
+
+    stops = []
+    other_variants = []
     # per route
-    route_hash.each do |route, direction, variant_name, stop_id, rank|
+    route_hash.each_key do |route|
       # per direction
-        # find variant with max stops
+      route_hash[route].each_key do |direction|
+        route_hash[route][direction].keys do |variants|
+          variants.each do |variant|
+            if main_variant.nil?
+              main_variant = route_hash[route][direction][variant].length
+            end
+            if route_hash[route][direction][variant].length > main_variant
+              other_variants << main_variant 
+              # find variant with max stops
+              main_variant = route_hash[route][direction][variant].length
+            else
+              other_variants << variant
+            end
+          end
           # look at other variants
-          # if any other stops are still in the route
-            # rank according to the other variant and place after the first variant
-            # (the rank will be saved as the sequence number)
+            if variant.present?
+              # if any other stops are still in the route
+
+            end
+            
+
+          end
+          # rank according to the other variant and place after the first variant
+          # sequence needs to be in this loop
+          bus_stops_route = BusStopsRoute.create sequence: sequence, bus_stop: stop, route: route
+          route.bus_stops_routes = bus_stops_route
+          # (the rank will be saved as the sequence number)
+        end
       end
+    end
   end
 end
