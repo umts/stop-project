@@ -11,7 +11,9 @@ class BusStopsController < ApplicationController
   def by_route
     @route = Route.find_by number: params.require(:number)
     if @route.present?
-      @stops = @route.bus_stops.order(:completed).group_by(&:completed?)
+      @stops = @route.bus_stops
+      @completed_stops = @stops.completed
+      @incomplete_stops = @stops.not_completed
     else redirect_to bus_stops_path,
                      notice: "Route #{params[:number]} not found"
     end
