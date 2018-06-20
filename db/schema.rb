@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180614155733) do
+ActiveRecord::Schema.define(version: 20180620181437) do
 
   create_table "bus_stops", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
@@ -24,12 +24,12 @@ ActiveRecord::Schema.define(version: 20180614155733) do
     t.string "shelter"
     t.string "sidewalk_width"
     t.string "trash"
-    t.boolean "bolt_on_base"
-    t.boolean "bus_pull_out_exists"
-    t.boolean "has_power"
-    t.boolean "solar_lighting"
-    t.boolean "system_map_exists"
-    t.integer "mounting_clearance"
+    t.string "bolt_on_base"
+    t.string "bus_pull_out_exists"
+    t.string "has_power"
+    t.string "solar_lighting"
+    t.string "system_map_exists"
+    t.string "mounting_clearance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "completed"
@@ -40,17 +40,18 @@ ActiveRecord::Schema.define(version: 20180614155733) do
     t.string "shelter_pad_material"
     t.string "shelter_type"
     t.string "shared_sign_post"
-    t.boolean "shelter_ada_compliance"
+    t.string "shelter_ada_compliance"
     t.string "garage_responsible"
     t.string "bike_rack"
-    t.boolean "ada_landing_pad"
+    t.string "ada_landing_pad"
     t.string "real_time_information"
-    t.boolean "state_road"
-    t.integer "need_work"
+    t.string "state_road"
+    t.string "need_work"
     t.string "obstructions"
-    t.boolean "accessible"
+    t.string "accessible"
     t.string "stop_sticker"
     t.string "route_stickers"
+    t.integer "completed_by"
   end
 
   create_table "bus_stops_routes", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
