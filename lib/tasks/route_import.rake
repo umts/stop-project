@@ -30,10 +30,11 @@ namespace :routes do
     @length = 0
 
     # per route
-    @route_hash.keys.each do |route|
+    @route_hash.each do |route, directions|
     # per direction
-      @route_hash[route].keys.each do |direction|
-        @route_hash[route][direction].keys.each do |variant|
+      directions.each do |direction, variants|
+        variants.each do |variant, stops|
+          binding.pry
           if @max_length == 0
             @main_variant = variant
             @max_length = @route_hash[route][direction][@main_variant].length
@@ -46,7 +47,7 @@ namespace :routes do
           else
             @other_variants << variant
           end
-          @route_hash[route][direction][@main_variant] do |stop_id, sequence|
+          @route_hash[route][direction][@main_variant].first.each do |stop_id, sequence|
             bus_stops_route = BusStopsRoute.create sequence: sequence, bus_stop_id: stop_id, route: route
             route.bus_stops_routes << bus_stops_route
 
