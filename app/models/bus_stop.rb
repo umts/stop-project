@@ -14,20 +14,25 @@ class BusStop < ApplicationRecord
 
   scope :not_updated_since,
         ->(date) { where 'updated_at < ?', date.to_datetime }
-  required_for_completion = %i[name hastus_id bench curb_cut lighting mounting
-                               mounting_direction schedule_holder shelter
-                               sidewalk_width trash bolt_on_base
-                               bus_pull_out_exists has_power solar_lighting
-                               system_map_exists mounting_clearance created_at
-                               updated_at sign_type shelter_condition
-                               shelter_pad_condition shelter_pad_material
-                               shelter_type shared_sign_post
-                               shelter_ada_compliance garage_responsible
-                               bike_rack ada_landing_pad real_time_information
-                               state_road need_work obstructions accessible
-                               stop_sticker route_stickers]
+  strings_required_for_completion = %i[name hastus_id bench curb_cut lighting
+                                       mounting mounting_direction
+                                       schedule_holder shelter sidewalk_width
+                                       trash mounting_clearance created_at
+                                       updated_at sign_type shelter_condition
+                                       shelter_pad_condition
+                                       shelter_pad_material shelter_type
+                                       shared_sign_post garage_responsible
+                                       bike_rack real_time_information
+                                       need_work obstructions stop_sticker
+                                       route_stickers]
 
-  validates *required_for_completion, presence: true, if: :completed?
+  boolean_required_for_completion = %i[bolt_on_base bus_pull_out_exists
+                                       has_power solar_lighting
+                                       system_map_exists shelter_ada_compliance
+                                       ada_landing_pad state_road accessible]
+
+  validates *strings_required_for_completion, presence: true, if: :completed?
+  validates *boolean_required_for_completion, inclusion: { in: [true, false] }
 
   scope :completed, -> { where completed: true }
   scope :not_started, -> { where 'created_at = updated_at', completed: [false, nil] }
