@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'csv'
 
 # Example invocation rake 'routes:import[some_csv_file.csv]'
@@ -32,8 +34,8 @@ namespace :routes do
         # don't want the main variant to have a different direction, set it to nil with each different variant
         @main_variant = nil
         @max_length = 0
-        variants.each do |variant, stops|
-          if @max_length == 0
+        variants.each do |variant, _stops|
+          if @max_length.zero?
             @main_variant = variant
             @max_length = @route_hash[route][direction][@main_variant].length
           elsif @route_hash[route][direction][variant].length > @max_length
@@ -48,7 +50,10 @@ namespace :routes do
           stop_hash.each do |hastus_id, rank|
             stop_id = BusStop.find_by(hastus_id: hastus_id).id
             sequence = rank.to_i
-            bus_stops_route = BusStopsRoute.create sequence: sequence, bus_stop_id: stop_id, route: route, direction: direction
+            bus_stops_route = BusStopsRoute.create sequence: sequence,
+                                                   bus_stop_id: stop_id,
+                                                   route: route,
+                                                   direction: direction
             route.bus_stops_routes << bus_stops_route
             @stop_list << stop_id
           end
@@ -56,22 +61,25 @@ namespace :routes do
         if @other_variants.present?
           @other_variants.each do |other_variant|
             @route_hash[route][direction][other_variant].each do |stop_hash|
-              stop_hash.each do |hastus_id, sequence|
+              stop_hash.each do |hastus_id, _sequence|
                 stop_id = BusStop.find_by(hastus_id: hastus_id).id
-                if !@stop_list.include?(stop_id)
-                  @max_length = @max_length + 1
+                if @stop_list.include?(stop_id)
+                  @max_length += 1
                   # might be happening here
-                  bus_stops_route = BusStopsRoute.create sequence: @max_length, bus_stop_id: stop_id, route: route, direction: direction
+                  bus_stops_route = BusStopsRoute.create sequence: @max_length,
+                                                         bus_stop_id: stop_id,
+                                                         route: route,
+                                                         direction: direction
                   route.bus_stops_routes << bus_stops_route
                 end
               end
             end
           end
-          # remove variants from the array if there were any in there to begin with
-          @other_variants = []
-          # remove stops from the array
-          @stop_list = []
         end
+        # remove variants from the array if there were any in there to begin with
+        @other_variants = []
+        # remove stops from the array
+        @stop_list = []
       end
     end
   end
