@@ -7,6 +7,7 @@ class BusStop < ApplicationRecord
   has_paper_trail
   validates :name, presence: true
   validates :hastus_id, presence: true, uniqueness: true
+  belongs_to :completed_by, class_name: 'User', foreign_key: :completed_by
   has_and_belongs_to_many :routes
 
   before_save :assign_completion_timestamp, if: -> { completed_changed? }
@@ -27,6 +28,10 @@ class BusStop < ApplicationRecord
                                stop_sticker route_stickers]
 
   validates *required_for_completion, presence: true, if: :completed?
+
+  scope :completed, -> { where completed: true }
+  scope :not_started, -> { where 'created_at = updated_at', completed: [false, nil] }
+  scope :pending, -> { where 'updated_at > created_at', completed: [false, nil] }
 
   SIGN_OPTIONS = {
     sign_type: ['Axehead (2014+)',
@@ -193,6 +198,12 @@ class BusStop < ApplicationRecord
       all.each do |stop|
         csv << attrs.keys.map { |attr| stop.send attr }
       end
+    end
+  end
+
+  def decide_if_completed_by(user)
+    if completed_changed?
+      assign_attributes(completed_by: (completed? ? user : nil))
     end
   end
 

@@ -11,7 +11,11 @@ class BusStopsController < ApplicationController
   def by_route
     @route = Route.find_by number: params.require(:number)
     if @route.present?
-      @stops = @route.bus_stops.order(:completed).group_by(&:completed?)
+      @stops = @route.bus_stops
+      @stops_hash = {}
+      @stops_hash['Pending'] = @stops.pending
+      @stops_hash['Not Started'] = @stops.not_started
+      @stops_hash['Completed'] = @stops.completed
     else redirect_to bus_stops_path,
                      notice: "Route #{params[:number]} not found"
     end
@@ -20,7 +24,7 @@ class BusStopsController < ApplicationController
   def destroy
     @stop.destroy
     redirect_to manage_bus_stops_path,
-      notice: "#{@stop.name} has been deleted."
+                notice: "#{@stop.name} has been deleted."
   end
 
   def id_search
@@ -34,7 +38,7 @@ class BusStopsController < ApplicationController
       format.html { render :manage }
       format.csv do
         send_data @stops.to_csv,
-          filename: "all-stops-#{Date.today.strftime('%Y%m%d')}.csv"
+                  filename: "all-stops-#{Date.today.strftime('%Y%m%d')}.csv"
       end
     end
   end
@@ -43,8 +47,8 @@ class BusStopsController < ApplicationController
     stop = BusStop.find_by name: params.require(:name)
     if stop.present?
       redirect_to edit_bus_stop_path(stop.hastus_id)
-    else redirect_to bus_stops_path, 
-                    notice: "Stop #{params[:name]} not found"
+    else redirect_to bus_stops_path,
+                     notice: "Stop #{params[:name]} not found"
     end
   end
 
@@ -57,13 +61,14 @@ class BusStopsController < ApplicationController
       format.html { render :outdated }
       format.csv do
         send_data @stops.to_csv(limited_attributes: true),
-          filename: "outdated-stops-since-#{@date.strftime('%Y%m%d')}.csv"
+                  filename: "outdated-stops-since-#{@date.strftime('%Y%m%d')}.csv"
       end
     end
   end
 
   def update
     @stop.assign_attributes stop_params
+    @stop.decide_if_completed_by current_user
     if @stop.save
       flash[:notice] = 'Bus stop was updated.'
       redirect_to bus_stops_path
@@ -79,7 +84,7 @@ class BusStopsController < ApplicationController
     @stop = BusStop.find_by hastus_id: params.require(:id)
     unless @stop.present?
       redirect_back(fallback_location: root_path,
-        notice: "Stop #{params[:id]} not found") and return
+                    notice: "Stop #{params[:id]} not found") and return
     end
   end
 

@@ -3,7 +3,7 @@
     Last updated by #{stop.last_updated_by} at #{stop.last_updated_at}
 - if stop.completed_at.present?
   .smalltext.last-updated
-    Completed at #{format_datetime stop.completed_at}
+    Completed by #{stop.completed_by.try :name} at #{format_datetime stop.completed_at}
 = form_for stop, url: bus_stop_path(stop.hastus_id) do |f|
   %table.edit-form
     %th
@@ -14,13 +14,9 @@
       %tr
         %td= f.label :hastus_id, 'Hastus ID'
         %td= stop.hastus_id
-      - if current_user.admin?
         %tr
           %td= f.label :routes
           %td= stop.route_list
-      %tr
-        %td= f.label :completed, 'Completed?'
-        %td= f.check_box :completed
       %tr
         %td= f.label :garage_responsible
         %td= f.select :garage_responsible, %w[SATCo UMTS VATCo], include_blank: true
@@ -35,17 +31,22 @@
         '4 - Potential safety concern',
         '5 - Immediate safety concern'],
         include_blank: true
+        %td= f.select :state_road, [['Yes', true], ['No', false]], include_blank: true
     - BusStop::SUPER_HASH.each do |category, hash|
       %th
         = f.label category
         - hash.each do |name, options|
           %tr
             %td= f.label name
-            %td
-              - if options.kind_of?(Array)
-                = f.select name, options, include_blank: true
-              - else
-                = f.check_box name
+            - if options.kind_of?(Array)
+              %td= f.select name, options, include_blank: true
+            - else
+              %td= f.select name, [['Yes', true], ['No', false]], include_blank: true
+    %th
+      Inventory
+      %tr
+        %td= f.label :completed, 'Completed'
+        %td= f.check_box :completed, class: 'triple-zoom'
     %tr
-      %td= submit_tag 'Save stop', class: 'btn btn-primary submit'
+      %td= submit_tag 'Save stop', class: 'btn btn-primary btn-lg btn-block submit'
       %td= link_to 'Field Guide', field_guide_bus_stops_path
