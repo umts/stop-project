@@ -46,8 +46,9 @@ namespace :routes do
           end
         end
         @route_hash[route][direction][@main_variant].each do |stop_hash|
-          stop_hash.each do |hastus_id, sequence|
+          stop_hash.each do |hastus_id, rank|
             stop_id = BusStop.find_by(hastus_id: hastus_id).id
+            sequence = rank.to_i
             bus_stops_route = BusStopsRoute.create sequence: sequence, bus_stop_id: stop_id, route: route
             route.bus_stops_routes << bus_stops_route
             @stop_list << stop_id
@@ -58,8 +59,10 @@ namespace :routes do
             @route_hash[route][direction][other_variant].each do |stop_hash|
               stop_hash.each do |hastus_id, sequence|
                 stop_id = BusStop.find_by(hastus_id: hastus_id).id
+                binding.pry
                 if !@stop_list.include?(stop_id)
                   @max_length = @max_length + 1
+                  # might be happening here
                   bus_stops_route = BusStopsRoute.create sequence: @max_length, bus_stop_id: stop_id, route: route
                   route.bus_stops_routes << bus_stops_route
                 end
