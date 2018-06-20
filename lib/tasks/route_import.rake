@@ -29,9 +29,7 @@ namespace :routes do
     @max_length = 0
     @length = 0
 
-    # per route
     @route_hash.each do |route, directions|
-    # per direction
       directions.each do |direction, variants|
         variants.each do |variant, stops|
           binding.pry
@@ -47,12 +45,13 @@ namespace :routes do
           else
             @other_variants << variant
           end
-          @route_hash[route][direction][@main_variant].first.each do |stop_id, sequence|
-            bus_stops_route = BusStopsRoute.create sequence: sequence, bus_stop_id: stop_id, route: route
-            route.bus_stops_routes << bus_stops_route
+        end
+        @route_hash[route][direction][@main_variant].first.each do |stop_id, sequence|
+          bus_stops_route = BusStopsRoute.create sequence: sequence, bus_stop_id: stop_id, route: route
+          route.bus_stops_routes << bus_stops_route
 
-            @stop_list << stop_id
-          end
+        @stop_list << stop_id
+        end
 
           @length = @max_length
         # look at other variants
