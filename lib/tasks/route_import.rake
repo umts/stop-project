@@ -9,9 +9,9 @@ namespace :routes do
     @route_hash = {}
     CSV.foreach(args[:csv_file], headers: true, col_sep: ';') do |row|
       stop = BusStop.find_by hastus_id: row['stp_identifier']
+      binding.pry
       if stop.present?
         route = Route.find_or_create_by number: row['rte_identifier'].strip
-        stop.routes << route
 
         direction = row['direction']
         variant = row['variant']
