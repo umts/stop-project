@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20180619192351) do
     t.boolean "accessible"
     t.string "stop_sticker"
     t.string "route_stickers"
+    t.integer "completed_by"
   end
 
   create_table "bus_stops_routes", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

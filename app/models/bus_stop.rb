@@ -13,16 +13,20 @@ class BusStop < ApplicationRecord
 
   scope :not_updated_since,
         ->(date) { where 'updated_at < ?', date.to_datetime }
-  validates :name, :hastus_id, :bench, :curb_cut, :lighting, :mounting,
-            :mounting_direction, :schedule_holder, :shelter, :sidewalk_width,
-            :trash, :bolt_on_base, :bus_pull_out_exists, :has_power,
-            :solar_lighting, :system_map_exists, :mounting_clearance,
-            :created_at, :updated_at, :sign_type, :shelter_condition,
-            :shelter_pad_condition, :shelter_pad_material, :shelter_type,
-            :shared_sign_post, :shelter_ada_compliance, :garage_responsible,
-            :bike_rack, :ada_landing_pad, :real_time_information, :state_road,
-            :need_work, :obstructions, :accessible, :stop_sticker,
-            :route_stickers, presence: true, if: :completed?
+  required_for_completion = %i[name hastus_id bench curb_cut lighting mounting
+                               mounting_direction schedule_holder shelter
+                               sidewalk_width trash bolt_on_base
+                               bus_pull_out_exists has_power solar_lighting
+                               system_map_exists mounting_clearance created_at
+                               updated_at sign_type shelter_condition
+                               shelter_pad_condition shelter_pad_material
+                               shelter_type shared_sign_post
+                               shelter_ada_compliance garage_responsible
+                               bike_rack ada_landing_pad real_time_information
+                               state_road need_work obstructions accessible
+                               stop_sticker route_stickers]
+
+  validates *required_for_completion, presence: true, if: :completed?
 
   SIGN_OPTIONS = {
     sign_type: ['Axehead (2014+)',
