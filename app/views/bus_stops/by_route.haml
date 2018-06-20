@@ -3,12 +3,8 @@
 - if @stops.empty?
   No stops on this route
 - else
-  - @stops.each_pair do |complete, stops|
-    - if complete
-      Completed
-    - else
-      Not Completed
-    Stops
+  - @stops_hash.each_pair do |status, stops|
+    = status + ' Stops'
     %ul
     - stops.each do |stop|
       %li
