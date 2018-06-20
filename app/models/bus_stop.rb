@@ -14,6 +14,26 @@ class BusStop < ApplicationRecord
 
   scope :not_updated_since,
         ->(date) { where 'updated_at < ?', date.to_datetime }
+  strings_required_for_completion = %i[name hastus_id bench curb_cut lighting
+                                       mounting mounting_direction
+                                       schedule_holder shelter sidewalk_width
+                                       trash mounting_clearance created_at
+                                       updated_at sign_type shelter_condition
+                                       shelter_pad_condition
+                                       shelter_pad_material shelter_type
+                                       shared_sign_post garage_responsible
+                                       bike_rack real_time_information
+                                       need_work obstructions stop_sticker
+                                       route_stickers]
+
+  boolean_required_for_completion = %i[bolt_on_base bus_pull_out_exists
+                                       has_power solar_lighting
+                                       system_map_exists shelter_ada_compliance
+                                       ada_landing_pad state_road accessible]
+
+  validates *strings_required_for_completion, presence: true, if: :completed?
+  validates *boolean_required_for_completion, inclusion: { in: [true, false] },
+                                              if: :completed?
 
   scope :completed, -> { where completed: true }
   scope :not_started, -> { where 'created_at = updated_at', completed: [false, nil] }
