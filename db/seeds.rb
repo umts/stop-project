@@ -41,8 +41,6 @@ hastus_ids = {
   'Townhouse Apts'       => 30
 }
 
-  BusStopRoute.new route: route, sequence: whatever, stop: stop
-
 stops.each do |route_number, stop_names|
   stop_names.each_with_index do |stop_name, sequence|
     # Anytime in the last two months
