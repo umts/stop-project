@@ -34,7 +34,7 @@ namespace :routes do
         # don't want the main variant to have a different direction, set it to nil with each different variant
         @main_variant = nil
         @max_length = 0
-        variants.each do |variant, _stops|
+        variants.each_key do |variant|
           if @max_length.zero?
             @main_variant = variant
             @max_length = @route_hash[route][direction][@main_variant].length
@@ -61,7 +61,7 @@ namespace :routes do
         if @other_variants.present?
           @other_variants.each do |other_variant|
             @route_hash[route][direction][other_variant].each do |stop_hash|
-              stop_hash.each do |hastus_id, _sequence|
+              stop_hash.each_key do |hastus_id|
                 stop_id = BusStop.find_by(hastus_id: hastus_id).id
                 if @stop_list.include?(stop_id)
                   @max_length += 1
