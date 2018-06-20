@@ -66,11 +66,9 @@ namespace :routes do
                 end
               end
             end
+          end
+        end
       end
-      end
-    end
-    
-    
     end
   end
 end
