@@ -9,6 +9,7 @@ class BusStop < ApplicationRecord
   validates :hastus_id, presence: true, uniqueness: true
   has_many :bus_stops_routes
   has_many :routes, through: :bus_stops_routes
+  belongs_to :completed_by, class_name: 'User', foreign_key: :completed_by
 
   before_save :assign_completion_timestamp, if: -> { completed_changed? }
 
@@ -180,6 +181,12 @@ class BusStop < ApplicationRecord
       all.each do |stop|
         csv << attrs.keys.map { |attr| stop.send attr }
       end
+    end
+  end
+
+  def decide_if_completed_by(user)
+    if completed_changed?
+      assign_attributes(completed_by: (completed? ? user : nil))
     end
   end
 
