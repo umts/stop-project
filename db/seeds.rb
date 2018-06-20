@@ -49,7 +49,7 @@ stops.each do |route_number, stop_names|
       stop.hastus_id = hastus_ids.fetch(stop_name)
       stop.save!
       route = routes.fetch(route_number)
-      BusStopsRoute.create route: route, sequence: sequence, stop: stop
+      BusStopsRoute.create route: route, sequence: sequence, bus_stop: stop
     end
   end
 end
