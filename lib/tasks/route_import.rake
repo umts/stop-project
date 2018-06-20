@@ -5,6 +5,7 @@ require 'csv'
 namespace :routes do
   task :import, [:csv_file] => :environment do |_, args|
     Route.delete_all
+    BusStopsRoute.delete_all
     @route_hash = {}
     CSV.foreach(args[:csv_file], headers: true, col_sep: ';') do |row|
       stop = BusStop.find_by hastus_id: row['stp_identifier']
