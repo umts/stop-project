@@ -49,7 +49,7 @@ namespace :routes do
           stop_hash.each do |hastus_id, rank|
             stop_id = BusStop.find_by(hastus_id: hastus_id).id
             sequence = rank.to_i
-            bus_stops_route = BusStopsRoute.create sequence: sequence, bus_stop_id: stop_id, route: route
+            bus_stops_route = BusStopsRoute.create sequence: sequence, bus_stop_id: stop_id, route: route, direction: direction
             route.bus_stops_routes << bus_stops_route
             @stop_list << stop_id
           end
@@ -62,7 +62,7 @@ namespace :routes do
                 if !@stop_list.include?(stop_id)
                   @max_length = @max_length + 1
                   # might be happening here
-                  bus_stops_route = BusStopsRoute.create sequence: @max_length, bus_stop_id: stop_id, route: route
+                  bus_stops_route = BusStopsRoute.create sequence: @max_length, bus_stop_id: stop_id, route: route, direction: direction
                   route.bus_stops_routes << bus_stops_route
                 end
               end
