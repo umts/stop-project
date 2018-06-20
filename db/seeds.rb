@@ -41,6 +41,8 @@ hastus_ids = {
   'Townhouse Apts'       => 30
 }
 
+directions = ['North', 'South']
+
 stops.each do |route_number, stop_names|
   stop_names.each_with_index do |stop_name, sequence|
     # Anytime in the last two months
@@ -51,7 +53,8 @@ stops.each do |route_number, stop_names|
       stop.hastus_id = hastus_ids.fetch(stop_name)
       stop.save!
       route = routes.fetch(route_number)
-      BusStopsRoute.create route: route, sequence: sequence, bus_stop: stop
+      direction = directions.sample
+      BusStopsRoute.create route: route, sequence: sequence, bus_stop: stop, direction: direction
     end
   end
 end
