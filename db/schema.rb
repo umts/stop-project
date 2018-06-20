@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20180619192351) do
     t.boolean "has_power"
     t.boolean "solar_lighting"
     t.boolean "system_map_exists"
-    t.integer "mounting_clearance"
+    t.string "mounting_clearance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "completed"
@@ -39,8 +39,6 @@ ActiveRecord::Schema.define(version: 20180619192351) do
     t.string "shelter_pad_condition"
     t.string "shelter_pad_material"
     t.string "shelter_type"
-    t.date "date_stop_checked"
-    t.string "stop_checked_by"
     t.string "shared_sign_post"
     t.boolean "shelter_ada_compliance"
     t.string "garage_responsible"
