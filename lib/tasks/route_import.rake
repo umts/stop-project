@@ -45,12 +45,12 @@ namespace :routes do
             @other_variants << variant
           end
         end
+        binding.pry
         @route_hash[route][direction][@main_variant].each do |stop_hash|
-          stop_hash.each do |hastus_id, rank|
-            binding.pry
-            #bus_stops_route = BusStopsRoute.create sequence: sequence, bus_stop_id: stop_id, route: route
-            #route.bus_stops_routes << bus_stops_route
-            
+          stop_hash.each do |hastus_id, sequence|
+            stop_id = BusStop.find_by(hastus_id: hastus_id).id
+            bus_stops_route = BusStopsRoute.create sequence: sequence, bus_stop_id: stop_id, route: route
+            route.bus_stops_routes << bus_stops_route
             @stop_list << stop_id
           end
         end
@@ -64,13 +64,15 @@ namespace :routes do
     if @other_variants.present?
       # figure out if any other stops are still in the route
       @other_variants.each do |variant|
-        @route_hash[route][direction][variant].each do |stop_id, _|
-        # TODO: haven't tested this
-          if !@stop_list.include?(stop_id)
-            @length = @length + 1
-            stop = BusStop.find_by id: stop_id
-            bus_stops_route = BusStopsRoute.create sequence: @length, bus_stop: stop, route: route
-            route.bus_stops_routes << bus_stops_route
+        @route_hash[route][direction][variant].each do |stop_hash|
+          stop_hash.each do |hastus_id, sequence|
+          # TODO: haven't tested this
+            stop_id = BusStop.find_by(hastus_id: hastus_id).id
+            if !@stop_list.include?(stop_id)
+              @length = @length + 1
+              bus_stops_route = BusStopsRoute.create sequence: @length, bus_stop_id: stop_id, route: route
+              route.bus_stops_routes << bus_stops_route
+            end
           end
         end
       end
