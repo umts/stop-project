@@ -26,12 +26,14 @@ namespace :routes do
 
     @stop_list = []
     @other_variants = []
-    @max_length = 0
-    @length = 0
 
     @route_hash.each do |route, directions|
       directions.each do |direction, variants|
+        # don't want the main variant to have a different direction, set it to nil with each different variant
+        @main_variant = nil
+        @max_length = 0
         variants.each do |variant, stops|
+          binding.pry
           if @max_length == 0
             @main_variant = variant
             @max_length = @route_hash[route][direction][@main_variant].length
