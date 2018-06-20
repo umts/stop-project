@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'timecop'
 
 User.create! name: 'David Faulkenberry',
@@ -41,14 +43,15 @@ hastus_ids = {
   'Townhouse Apts'       => 30
 }
 
-directions = ['North', 'South']
+directions = %w[North South]
 
 stops.each do |route_number, stop_names|
   stop_names.each_with_index do |stop_name, sequence|
     # Anytime in the last two months
     Timecop.freeze rand(86_400).minutes.ago do
       # don't want the sequences to start with 0.
-      sequence = sequence + 1
+      sequence += 1
+
       stop = BusStop.find_or_initialize_by name: stop_name
       stop.hastus_id = hastus_ids.fetch(stop_name)
       stop.save!
