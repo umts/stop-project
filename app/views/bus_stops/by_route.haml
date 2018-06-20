@@ -4,7 +4,7 @@
   No stops on this route
 - else
   - @stops_hash.each_pair do |status, stops|
-    = status.humanize + ' Stops'
+    = status + ' Stops'
     %ul
     - stops.each do |stop|
       %li
