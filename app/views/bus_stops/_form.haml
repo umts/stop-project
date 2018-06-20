@@ -22,7 +22,7 @@
         %td= f.select :garage_responsible, %w[SATCo UMTS VATCo], include_blank: true
       %tr
         %td= f.label :state_road
-        %td= f.check_box :state_road
+        %td= f.select :state_road, [['Yes', true], ['No', false]], include_blank: true
       %tr
         %td= f.label :need_work
         %td= f.select :need_work, ['1 - No issues',
@@ -31,7 +31,6 @@
         '4 - Potential safety concern',
         '5 - Immediate safety concern'],
         include_blank: true
-        %td= f.select :state_road, [['Yes', true], ['No', false]], include_blank: true
     - BusStop::SUPER_HASH.each do |category, hash|
       %th
         = f.label category
