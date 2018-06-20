@@ -67,6 +67,8 @@ namespace :routes do
             end
           end
         end
+        # remove variants from the array if there were any in there to begin with
+        @other_variants = []
       end
     end
   end
