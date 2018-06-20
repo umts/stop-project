@@ -53,26 +53,24 @@ namespace :routes do
             @stop_list << stop_id
           end
         end
+        if @other_variants.present?
+          @other_variants.each do |variant|
+            @route_hash[route][direction][variant].each do |stop_hash|
+              stop_hash.each do |hastus_id, sequence|
+              # TODO: haven't tested this
+                stop_id = BusStop.find_by(hastus_id: hastus_id).id
+                if !@stop_list.include?(stop_id)
+                  @max_length = @max_length + 1
+                  bus_stops_route = BusStopsRoute.create sequence: @max_length, bus_stop_id: stop_id, route: route
+                  route.bus_stops_routes << bus_stops_route
+                end
+              end
+            end
+      end
       end
     end
     
     
-    # look at other variants
-    if @other_variants.present?
-      # figure out if any other stops are still in the route
-      @other_variants.each do |variant|
-        @route_hash[route][direction][variant].each do |stop_hash|
-          stop_hash.each do |hastus_id, sequence|
-          # TODO: haven't tested this
-            stop_id = BusStop.find_by(hastus_id: hastus_id).id
-            if !@stop_list.include?(stop_id)
-              @max_length = @max_length + 1
-              bus_stops_route = BusStopsRoute.create sequence: @max_length, bus_stop_id: stop_id, route: route
-              route.bus_stops_routes << bus_stops_route
-            end
-          end
-        end
-      end
     end
   end
 end
