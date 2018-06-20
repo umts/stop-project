@@ -33,12 +33,10 @@ namespace :routes do
         @main_variant = nil
         @max_length = 0
         variants.each do |variant, stops|
-          binding.pry
           if @max_length == 0
             @main_variant = variant
             @max_length = @route_hash[route][direction][@main_variant].length
-          end
-          if @route_hash[route][direction][variant].length > @max_length
+          elsif @route_hash[route][direction][variant].length > @max_length
             @other_variants << @main_variant
             # find variant with max stops
             @max_length = @route_hash[route][direction][variant].length
@@ -56,8 +54,9 @@ namespace :routes do
           end
         end
         if @other_variants.present?
-          @other_variants.each do |variant|
-            @route_hash[route][direction][variant].each do |stop_hash|
+          @other_variants.each do |other_variant|
+            @route_hash[route][direction][other_variant].each do |stop_hash|
+              binding.pry
               stop_hash.each do |hastus_id, sequence|
               # TODO: haven't tested this
                 stop_id = BusStop.find_by(hastus_id: hastus_id).id
