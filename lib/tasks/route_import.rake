@@ -33,7 +33,6 @@ namespace :routes do
     @other_variants = []
 
     @route_hash.each do |route, directions|
-      
       # determine the longest variant
       directions.each do |direction, variants|
         @main_variant = nil
@@ -50,13 +49,13 @@ namespace :routes do
             @other_variants << variant
           end
         end
-        
+
         # take longest variant and assign sequence number to stops
         @route_hash[route][direction][@main_variant].each do |stop_hash|
           stop_hash.each do |hastus_id, rank|
             sequence = rank.to_i
             @sequenced_hash[route][direction][sequence] ||= []
-            @sequenced_hash[route][direction][sequence] << { :hastus_stop_id => hastus_id }
+            @sequenced_hash[route][direction][sequence] << { hastus_stop_id: hastus_id }
             @stop_list << hastus_id
           end
         end
@@ -67,12 +66,11 @@ namespace :routes do
           @other_variants.each do |other_variant|
             @route_hash[route][direction][other_variant].each do |stop_hash|
               stop_hash.each_key do |hastus_id|
-                if !@stop_list.include?(hastus_id)
-                  sequence += 1
-                  # add to sequenced_hash
-                  @sequenced_hash[route][direction][sequence] ||= []
-                  @sequenced_hash[route][direction][sequence] << { :hastus_stop_id => hastus_id }
-                end
+                next if @stop_list.include?(hastus_id)
+                sequence += 1
+                # add to sequenced_hash
+                @sequenced_hash[route][direction][sequence] ||= []
+                @sequenced_hash[route][direction][sequence] << { hastus_stop_id: hastus_id }
               end
             end
           end
@@ -95,7 +93,7 @@ namespace :routes do
             end
           end
         end
-      end 
+      end
     end
   end
 end
