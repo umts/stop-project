@@ -31,6 +31,7 @@ namespace :routes do
     other_variants = []
 
     route_hash.each do |route, directions|
+      stop_list = []
       # determine the longest variant
       directions.each do |direction, variants|
         main_variant = nil
