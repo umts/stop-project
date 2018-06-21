@@ -32,8 +32,11 @@ class BusStop < ApplicationRecord
                                        ada_landing_pad state_road accessible]
 
   validates *strings_required_for_completion, presence: true, if: :completed?
-  validates *boolean_required_for_completion, inclusion: { in: [true, false] },
-                                              if: :completed?
+  validates *boolean_required_for_completion,
+            inclusion: {
+                in: [true, false],
+                message: "can't be blank"
+            }, if: :completed?
 
   scope :completed, -> { where completed: true }
   scope :not_started, lambda {
