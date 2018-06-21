@@ -75,6 +75,9 @@ namespace :routes do
         @stop_list = []
       end
       # create bus stop routes here by looping through sequenced_hash
+      @sequenced_hash.each do |bus_stops_route_attrs|
+        BusStopRoute.create! bus_stops_route_attrs
+      end
     end
   end
 end
