@@ -30,9 +30,9 @@ namespace :routes do
     @other_variants = []
 
     @route_hash.each do |route, directions|
+      # determine the longest variant
       directions.each do |direction, variants|
         @sequenced_hash = {}
-        # don't want the main variant to have a different direction, set it to nil when direction changes
         @main_variant = nil
         @max_length = 0
         variants.each_key do |variant|
@@ -47,14 +47,16 @@ namespace :routes do
             @other_variants << variant
           end
         end
+        # take longest variant and assign sequence number to stops
         @route_hash[route][direction][@main_variant].each do |stop_hash|
           stop_hash.each do |hastus_id, rank|
-            sequence = rank + 1
+            sequence = rank.to_i + 1
             stop_id = BusStop.find_by(hastus_id: hastus_id).id
-            @sequenced_hash << { bus_stop_id: stop_id, route: route, direction: direction, sequence: sequence }
+            # add to sequenced_hash
             @stop_list << stop_id
           end
         end
+        # stops not in longest variant but on route are added to the end of longest variant.
         if @other_variants.present?
           sequence = @max_length
           @other_variants.each do |other_variant|
@@ -63,7 +65,7 @@ namespace :routes do
                 stop_id = BusStop.find_by(hastus_id: hastus_id).id
                 if @stop_list.include?(stop_id)
                   sequence += 1
-                  @sequenced_hash << { bus_stop_id: stop_id, route: route, direction: direction, sequence: sequence }
+                  # add to sequenced_hash
                 end
               end
             end
@@ -74,10 +76,7 @@ namespace :routes do
         # remove stops from the array
         @stop_list = []
       end
-      # create bus stop routes here by looping through sequenced_hash
-      @sequenced_hash.each do |bus_stops_route_attrs|
-        BusStopRoute.create! bus_stops_route_attrs
-      end
+      # create bus stops routes here by looping through sequenced_hash
     end
   end
 end
