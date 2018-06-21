@@ -9,7 +9,7 @@ namespace :routes do
     Route.delete_all
     BusStopsRoute.delete_all
     @route_hash = {}
-    @sequenced_hash = {}
+    @sequenced_bsrs = []
     CSV.foreach(args[:csv_file], headers: true, col_sep: ';') do |row|
       stop = BusStop.find_by hastus_id: row['stp_identifier']
       if stop.present?
@@ -24,8 +24,6 @@ namespace :routes do
         @route_hash[route][direction] ||= {}
         @route_hash[route][direction][variant] ||= []
         @route_hash[route][direction][variant] << { stop_id => sequence }
-        @sequenced_hash[route] ||= {}
-        @sequenced_hash[route][direction] ||= {}
       end
     end
 
@@ -54,8 +52,7 @@ namespace :routes do
         @route_hash[route][direction][@main_variant].each do |stop_hash|
           stop_hash.each do |hastus_id, rank|
             sequence = rank.to_i
-            @sequenced_hash[route][direction][sequence] ||= []
-            @sequenced_hash[route][direction][sequence] << { hastus_stop_id: hastus_id }
+            @sequenced_bsrs << { hastus_stop_id: hastus_id, route: route, direction: direction, sequence: sequence }
             @stop_list << hastus_id
           end
         end
@@ -68,9 +65,7 @@ namespace :routes do
               stop_hash.each_key do |hastus_id|
                 next if @stop_list.include?(hastus_id)
                 sequence += 1
-                # add to sequenced_hash
-                @sequenced_hash[route][direction][sequence] ||= []
-                @sequenced_hash[route][direction][sequence] << { hastus_stop_id: hastus_id }
+                @sequenced_bsrs << { hastus_stop_id: hastus_id, route: route, direction: direction, sequence: sequence }
               end
             end
           end
@@ -83,20 +78,8 @@ namespace :routes do
     end
 
     # create bus stops routes here by looping through sequenced_hash
-    @sequenced_hash.each do |route, directions|
-      directions.each do |direction, seq_hash|
-        seq_hash.each do |sequence, stop_array|
-          stop_array.each do |stop_hash|
-            stop_hash.each_value do |hastus_id|
-              stop_id = BusStop.find_by(hastus_id: hastus_id).id
-              BusStopsRoute.create! bus_stop_id: stop_id,
-                                    route: route,
-                                    direction: direction,
-                                    sequence: sequence
-            end
-          end
-        end
-      end
+    @sequenced_bsrs.each do |bsr_attrs|
+      BusStopsRoute.create! bsr_attrs
     end
   end
 end
