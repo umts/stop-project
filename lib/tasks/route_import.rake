@@ -87,9 +87,12 @@ namespace :routes do
       directions.each do |direction, seq_hash|
         seq_hash.each do |sequence, stop_array|
           stop_array.each do |stop_hash|
-            stop_hash.each do |_attr, hastus_id|
+            stop_hash.each_value do |hastus_id|
               stop_id = BusStop.find_by(hastus_id: hastus_id).id
-              BusStopsRoute.create! bus_stop_id: stop_id, route: route, direction: direction, sequence: sequence
+              BusStopsRoute.create! bus_stop_id: stop_id,
+                                    route: route,
+                                    direction: direction,
+                                    sequence: sequence
             end
           end
         end
