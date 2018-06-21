@@ -61,7 +61,7 @@ namespace :routes do
                 stop_id = BusStop.find_by(hastus_id: hastus_id).id
                 if @stop_list.include?(stop_id)
                   @max_length += 1
-                  # add stop to sequenced_hash
+                  @sequenced_hash << { bus_stop_id: stop_id, route: route, direction: direction, sequence: @max_length }
                 end
               end
             end
