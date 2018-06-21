@@ -58,7 +58,7 @@ namespace :routes do
           end
         end
 
-        # stops not in longest variant but on route are added to the end of longest variant.
+        # stops not in longest variant but on route are added to end of longest variant
         if other_variants.present?
           sequence = max_length
           other_variants.each do |other_variant|
@@ -79,7 +79,7 @@ namespace :routes do
       end
     end
 
-    # create bus stops routes here by looping through sequenced_hash
+    # create bus stops routes here by looping through sequenced bus stops routes
     sequenced_bsrs.each do |bsr_attrs|
       BusStopsRoute.create bsr_attrs
     end
