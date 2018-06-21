@@ -36,8 +36,14 @@ class BusStop < ApplicationRecord
                                               if: :completed?
 
   scope :completed, -> { where completed: true }
-  scope :not_started, -> { where 'created_at = updated_at', completed: [false, nil] }
-  scope :pending, -> { where 'updated_at > created_at', completed: [false, nil] }
+  scope :not_started, lambda {
+    (where 'created_at = updated_at')
+      .where completed: [false, nil]
+  }
+  scope :pending, lambda {
+    (where 'updated_at > created_at')
+      .where completed: [false, nil]
+  }
 
   SIGN_OPTIONS = {
     sign_type: ['Axehead (2014+)',
@@ -116,7 +122,7 @@ class BusStop < ApplicationRecord
                       'In shelter',
                       'None'],
     system_map_exists: :boolean,
-    trash: %w[PVTA Municipal Other None],
+    trash: %w[PVTA Municipal Other None]
   }.freeze
 
   ACCESSIBILITY = {
