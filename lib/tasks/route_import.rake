@@ -67,7 +67,7 @@ namespace :routes do
           @other_variants.each do |other_variant|
             @route_hash[route][direction][other_variant].each do |stop_hash|
               stop_hash.each_key do |hastus_id|
-                if @stop_list.include?(hastus_id)
+                if !@stop_list.include?(hastus_id)
                   sequence += 1
                   # add to sequenced_hash
                   @sequenced_hash[route][direction][sequence] ||= []
