@@ -18,12 +18,12 @@ namespace :routes do
         direction = row['direction']
         variant = row['variant']
         stop_id = row['stp_identifier']
-        rank = row['stop_variant_rank']
+        sequence = row['stop_variant_rank']
 
         @route_hash[route] ||= {}
         @route_hash[route][direction] ||= {}
         @route_hash[route][direction][variant] ||= []
-        @route_hash[route][direction][variant] << { stop_id => rank }
+        @route_hash[route][direction][variant] << { stop_id => sequence }
         @sequenced_hash[route] ||= {}
         @sequenced_hash[route][direction] ||= {}
       end
