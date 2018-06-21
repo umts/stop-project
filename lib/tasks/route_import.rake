@@ -52,8 +52,9 @@ namespace :routes do
         @route_hash[route][direction][@main_variant].each do |stop_hash|
           stop_hash.each do |hastus_id, rank|
             sequence = rank.to_i
-            @sequenced_bsrs << { hastus_stop_id: hastus_id, route: route, direction: direction, sequence: sequence }
-            @stop_list << hastus_id
+            stop_id = BusStop.find_by(hastus_id: hastus_id).id
+            @sequenced_bsrs << { bus_stop_id: stop_id, route: route, direction: direction, sequence: sequence }
+            @stop_list << stop_id
           end
         end
 
@@ -63,9 +64,10 @@ namespace :routes do
           @other_variants.each do |other_variant|
             @route_hash[route][direction][other_variant].each do |stop_hash|
               stop_hash.each_key do |hastus_id|
-                next if @stop_list.include?(hastus_id)
+                stop_id = BusStop.find_by(hastus_id: hastus_id).id
+                next if @stop_list.include?(stop_id)
                 sequence += 1
-                @sequenced_bsrs << { hastus_stop_id: hastus_id, route: route, direction: direction, sequence: sequence }
+                @sequenced_bsrs << { bus_stop_id: stop_id, route: route, direction: direction, sequence: sequence }
               end
             end
           end
@@ -79,6 +81,7 @@ namespace :routes do
 
     # create bus stops routes here by looping through sequenced_hash
     @sequenced_bsrs.each do |bsr_attrs|
+      binding.pry
       BusStopsRoute.create! bsr_attrs
     end
   end
