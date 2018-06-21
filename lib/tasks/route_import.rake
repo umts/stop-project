@@ -81,8 +81,7 @@ namespace :routes do
 
     # create bus stops routes here by looping through sequenced_hash
     @sequenced_bsrs.each do |bsr_attrs|
-      binding.pry
-      BusStopsRoute.create! bsr_attrs
+      BusStopsRoute.create bsr_attrs
     end
   end
 end
