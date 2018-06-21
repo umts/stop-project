@@ -31,7 +31,8 @@ namespace :routes do
 
     @route_hash.each do |route, directions|
       directions.each do |direction, variants|
-        # don't want the main variant to have a different direction, set it to nil with each different variant
+        @sequenced_hash = {}
+        # don't want the main variant to have a different direction, set it to nil when direction changes
         @main_variant = nil
         @max_length = 0
         variants.each_key do |variant|
@@ -48,13 +49,8 @@ namespace :routes do
         end
         @route_hash[route][direction][@main_variant].each do |stop_hash|
           stop_hash.each do |hastus_id, rank|
+            # add stop to sequenced_hash
             stop_id = BusStop.find_by(hastus_id: hastus_id).id
-            sequence = rank.to_i
-            bus_stops_route = BusStopsRoute.create sequence: sequence,
-                                                   bus_stop_id: stop_id,
-                                                   route: route,
-                                                   direction: direction
-            route.bus_stops_routes << bus_stops_route
             @stop_list << stop_id
           end
         end
@@ -65,12 +61,7 @@ namespace :routes do
                 stop_id = BusStop.find_by(hastus_id: hastus_id).id
                 if @stop_list.include?(stop_id)
                   @max_length += 1
-                  # might be happening here
-                  bus_stops_route = BusStopsRoute.create sequence: @max_length,
-                                                         bus_stop_id: stop_id,
-                                                         route: route,
-                                                         direction: direction
-                  route.bus_stops_routes << bus_stops_route
+                  # add stop to sequenced_hash
                 end
               end
             end
@@ -81,6 +72,7 @@ namespace :routes do
         # remove stops from the array
         @stop_list = []
       end
+      # create bus stop routes here by looping through sequenced_hash
     end
   end
 end
