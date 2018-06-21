@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20180620175204) do
     t.boolean "has_power"
     t.boolean "solar_lighting"
     t.boolean "system_map_exists"
-    t.integer "mounting_clearance"
+    t.string "mounting_clearance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "completed"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20180620175204) do
     t.boolean "ada_landing_pad"
     t.string "real_time_information"
     t.boolean "state_road"
-    t.integer "need_work"
+    t.string "need_work"
     t.string "obstructions"
     t.boolean "accessible"
     t.string "stop_sticker"
