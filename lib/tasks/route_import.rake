@@ -49,19 +49,21 @@ namespace :routes do
         end
         @route_hash[route][direction][@main_variant].each do |stop_hash|
           stop_hash.each do |hastus_id, rank|
-            # add stop to sequenced_hash
+            sequence = rank + 1
             stop_id = BusStop.find_by(hastus_id: hastus_id).id
+            @sequenced_hash << { bus_stop_id: stop_id, route: route, direction: direction, sequence: sequence }
             @stop_list << stop_id
           end
         end
         if @other_variants.present?
+          sequence = @max_length
           @other_variants.each do |other_variant|
             @route_hash[route][direction][other_variant].each do |stop_hash|
               stop_hash.each_key do |hastus_id|
                 stop_id = BusStop.find_by(hastus_id: hastus_id).id
                 if @stop_list.include?(stop_id)
-                  @max_length += 1
-                  @sequenced_hash << { bus_stop_id: stop_id, route: route, direction: direction, sequence: @max_length }
+                  sequence += 1
+                  @sequenced_hash << { bus_stop_id: stop_id, route: route, direction: direction, sequence: sequence }
                 end
               end
             end
