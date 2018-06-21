@@ -9,7 +9,6 @@ namespace :routes do
     Route.delete_all
     BusStopsRoute.delete_all
     route_hash = {}
-    sequenced_bsrs = []
     CSV.foreach(args[:csv_file], headers: true, col_sep: ';') do |row|
       stop = BusStop.find_by hastus_id: row['stp_identifier']
       if stop.present?
@@ -27,62 +26,34 @@ namespace :routes do
       end
     end
 
-    stop_list = []
-    other_variants = []
-
     route_hash.each do |route, directions|
-      stop_list = []
-      # determine the longest variant
       directions.each do |direction, variants|
-        main_variant = nil
-        max_length = 0
-        variants.each_key do |variant|
-          if max_length.zero?
-            main_variant = variant
-            max_length = route_hash[route][direction][main_variant].length
-          elsif route_hash[route][direction][variant].length > max_length
-            other_variants << main_variant
-            max_length = route_hash[route][direction][variant].length
-            main_variant = variant
-          else
-            other_variants << variant
-          end
-        end
+        sequences = []
+        stop_list = []
 
-        # take longest variant and assign sequence number to stops
-        route_hash[route][direction][main_variant].each do |stop_hash|
-          stop_hash.each do |hastus_id, rank|
-            sequence = rank.to_i
-            stop_id = BusStop.find_by(hastus_id: hastus_id).id
-            sequenced_bsrs << { bus_stop_id: stop_id, route: route, direction: direction, sequence: sequence }
-            stop_list << stop_id
-          end
-        end
+        # sort the variants by the length of their stops
+        sorted_variants = variants.sort_by do |_variant, stops|
+          stops.length
+        end.reverse!
 
-        # stops not in longest variant but on route are added to end of longest variant
-        if other_variants.present?
-          sequence = max_length
-          other_variants.each do |other_variant|
-            route_hash[route][direction][other_variant].each do |stop_hash|
-              stop_hash.each_key do |hastus_id|
-                stop_id = BusStop.find_by(hastus_id: hastus_id).id
-                next if stop_list.include?(stop_id)
-                sequence += 1
-                sequenced_bsrs << { bus_stop_id: stop_id, route: route, direction: direction, sequence: sequence }
+        sorted_variants.each do |variant, stops|
+          stops.each do |stop_hash|
+            stop_hash.each do |hastus_id, rank|
+              sequence = rank.to_i
+              stop = BusStop.find_by hastus_id: hastus_id
+              next if stop_list.include? stop
+              stop_list << stop
+              if sequences.include? sequence
+                sequence = sequences.last.to_i + 1
               end
+              sequences << sequence
+              BusStopsRoute.create(
+                bus_stop: stop, route: route, direction: direction, sequence: sequence 
+              )
             end
           end
         end
-        # remove variants from the array if there were any in there to begin with
-        other_variants = []
-        # remove stops from the array
-        stop_list = []
       end
-    end
-
-    # create bus stops routes here by looping through sequenced bus stops routes
-    sequenced_bsrs.each do |bsr_attrs|
-      BusStopsRoute.create bsr_attrs
     end
   end
 end
