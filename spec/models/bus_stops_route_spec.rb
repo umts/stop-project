@@ -5,7 +5,7 @@ describe BusStopsRoute do
     context 'same route and direction' do
       let!(:route) { create :route }
       let!(:direction) { 'West' }
-      context 'same bus stop' do
+      context 'same sequence' do
         it 'is not valid' do
           stop_1 = create :bus_stop
           stop_2 = create :bus_stop
@@ -17,7 +17,7 @@ describe BusStopsRoute do
           expect(invalid_bsr).not_to be_valid
         end
       end
-      context 'same sequence' do
+      context 'same bus_stop' do
         it 'is not valid' do
         end
       end
