@@ -10,7 +10,6 @@ describe BusStopsRoute do
         bs1 = create :bus_stop
         bs2 = create :bus_stop
 
-        # create bus_stops_route with same sequence number and direction
         bsr1 = create :bus_stops_route, route: route, bus_stop: bs1, sequence: sequence, direction: direction
         bsr2 = build :bus_stops_route, route: route, bus_stop: bs2, sequence: sequence, direction: direction
         
