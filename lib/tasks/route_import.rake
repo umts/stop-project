@@ -44,7 +44,7 @@ namespace :routes do
               next if stop_list.include? stop
               stop_list << stop
               if sequences.include? sequence
-                sequence = sequences.last.to_i + 1
+                sequence = sequences.last + 1
               end
               sequences << sequence
               BusStopsRoute.create(
