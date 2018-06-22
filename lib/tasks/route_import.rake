@@ -47,7 +47,7 @@ namespace :routes do
                 sequence = sequences.last + 1
               end
               sequences << sequence
-              BusStopsRoute.create(
+              BusStopsRoute.create!(
                 bus_stop: stop, route: route, direction: direction, sequence: sequence 
               )
             end
