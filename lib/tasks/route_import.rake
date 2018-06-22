@@ -31,7 +31,7 @@ namespace :routes do
         sequences = []
         stop_list = []
 
-        # sort the variants by the length of their stops
+        # sort the variants by the length of their stops, longest variant first
         sorted_variants = variants.sort_by do |_variant, stops|
           stops.length
         end.reverse!
