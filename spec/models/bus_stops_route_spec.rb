@@ -13,9 +13,9 @@ describe BusStopsRoute do
           stop_2 = create :bus_stop
 
           invalid_bsr = build :bus_stops_route, route: valid_bsr.route,
-                                            direction: valid_bsr.direction,
-                                              sequence: valid_bsr.sequence,
-                                              bus_stop: stop_2
+                                                direction: valid_bsr.direction,
+                                                sequence: valid_bsr.sequence,
+                                                bus_stop: stop_2
           expect(invalid_bsr).not_to be_valid
         end
       end
