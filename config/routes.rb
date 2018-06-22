@@ -13,12 +13,13 @@ Rails.application.routes.draw do
   resources :bus_stops, except: :show do
     collection do
       post :autocomplete
-      get  :by_route
+      get  :by_sequence
+      get  :by_status
       post :id_search
       get  :manage
       post :name_search
       get  :outdated
-      get :field_guide
+      get  :field_guide
     end
   end
 end
