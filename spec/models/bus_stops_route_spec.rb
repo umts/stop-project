@@ -3,12 +3,12 @@ require 'spec_helper'
 describe BusStopsRoute do
   describe 'validations' do
     context 'same route and direction' do
+      let!(:route) { create :route }
+      let!(:direction) { 'West' }
       context 'same bus stop' do
         it 'is not valid' do
-          route = create :route
           stop_1 = create :bus_stop
           stop_2 = create :bus_stop
-          direction = 'West'
           sequence = 1
 
           valid_bsr = create :bus_stops_route, route: route, bus_stop: stop_1, sequence: sequence, direction: direction
