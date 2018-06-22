@@ -21,6 +21,8 @@ describe BusStopsRoute do
         it 'is not valid' do
           valid_bsr = create :bus_stops_route, route: route, bus_stop: stop_1, direction: direction
           invalid_bsr = build :bus_stops_route, route: route, bus_stop: stop_1, direction: direction
+          
+          expect(invalid_bsr).not_to be_valid
         end
       end
     end
