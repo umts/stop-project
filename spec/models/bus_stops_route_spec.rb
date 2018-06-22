@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe BusStopsRoute do
@@ -13,7 +15,7 @@ describe BusStopsRoute do
 
           valid_bsr = create :bus_stops_route, route: route, bus_stop: stop_1, sequence: sequence, direction: direction
           invalid_bsr = build :bus_stops_route, route: route, bus_stop: stop_2, sequence: sequence, direction: direction
-          
+
           expect(invalid_bsr).not_to be_valid
         end
       end
@@ -21,7 +23,7 @@ describe BusStopsRoute do
         it 'is not valid' do
           valid_bsr = create :bus_stops_route, route: route, bus_stop: stop_1, direction: direction
           invalid_bsr = build :bus_stops_route, route: route, bus_stop: stop_1, direction: direction
-          
+
           expect(invalid_bsr).not_to be_valid
         end
       end
