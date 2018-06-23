@@ -32,9 +32,18 @@ describe BusStop do
   end
 
   describe 'completed scope' do
+    it 'bus stops are completed' do
+    end
   end
 
   describe 'not_started scope' do
+    it 'bus stops data has not been entered' do
+    end
+  end
+
+  describe 'pending scope' do
+    it 'bus stops data has been entered but not complete' do
+    end
   end
 
   describe 'pending scope' do
