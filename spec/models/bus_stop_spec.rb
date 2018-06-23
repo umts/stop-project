@@ -30,4 +30,13 @@ describe BusStop do
       end
     end
   end
+
+  describe 'completed scope' do
+  end
+
+  describe 'not_started scope' do
+  end
+
+  describe 'pending scope' do
+  end
 end
