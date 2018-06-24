@@ -25,21 +25,36 @@ describe BusStop do
   end
 
   describe 'completed scope' do
-    it 'bus stops are completed' do
+    let!(:pending_stop) { create :bus_stop, :pending }
+    let!(:completed_stop) { create :bus_stop, :completed }
+    let!(:not_started_stop) { create :bus_stop }
+    it 'returns completed bus stops' do
+      expect(BusStop.all.completed).to include completed_stop
+      expect(BusStop.all.completed).not_to include pending_stop
+      expect(BusStop.all.completed).not_to include not_started_stop
     end
   end
 
   describe 'not_started scope' do
-    it 'bus stops data has not been entered' do
+    let!(:pending_stop) { create :bus_stop, :pending }
+    let!(:completed_stop) { create :bus_stop, :completed }
+    let!(:not_started_stop) { create :bus_stop }
+    it 'returns bus stops without data entered' do
+      expect(BusStop.all.not_started).to include not_started_stop
+      expect(BusStop.all.not_started).not_to include completed_stop
+      expect(BusStop.all.not_started).not_to include pending_stop
     end
   end
 
   describe 'pending scope' do
-    it 'bus stops data has been entered but not complete' do
+    let!(:pending_stop) { create :bus_stop, :pending }
+    let!(:completed_stop) { create :bus_stop, :completed }
+    let!(:not_started_stop) { create :bus_stop }
+    it 'returns pending bus stops' do
+      expect(BusStop.all.pending).to include pending_stop
+      expect(BusStop.all.pending).not_to include completed_stop
+      expect(BusStop.all.pending).not_to include not_started_stop
     end
-  end
-
-  describe 'pending scope' do
   end
 
   describe 'validations' do
