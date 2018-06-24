@@ -5,41 +5,21 @@ FactoryBot.define do
     name 'stop'
     sequence :hastus_id
     trait :pending do
-      name 'shit'
+      %i[name bench curb_cut lighting mounting mounting_direction
+        schedule_holder shelter sidewalk_width trash mounting_clearance
+        sign_type shelter_condition shelter_pad_condition shelter_pad_material
+        shelter_type shared_sign_post garage_responsible need_work obstructions
+        stop_sticker route_stickers bike_rack real_time_information].each do |s|
+        send(s, 'not blank')
+      end
       sequence :hastus_id
-      bench 'hi'
-      curb_cut 'yo'
-      lighting 'solar'
-      mounting 'hi'
-      mounting_direction 'shit'
-      schedule_holder 'shit'
-      shelter 'shit'
-      sidewalk_width 'shit'
-      trash 'to'
-      mounting_clearance 'yeah'
       created_at Date.yesterday
       updated_at Date.today
-      sign_type 'shit'
-      shelter_condition 'good'
-      shelter_pad_condition 'ugh'
-      shelter_pad_material 'shit'
-      shelter_type 'shit'
-      shared_sign_post 'shit'
-      garage_responsible 'UMTs'
-      bike_rack 'shit'
-      real_time_information 'shit'
-      need_work 'shit'
-      obstructions 'shit'
-      stop_sticker 'shit'
-      route_stickers 'shit'
-      bolt_on_base true
-      bus_pull_out_exists true
-      has_power true
-      solar_lighting true
-      system_map_exists true
-      shelter_ada_compliance true
-      ada_landing_pad true
-      state_road true
+      %i[bolt_on_base bus_pull_out_exists has_power solar_lighting
+        system_map_exists shelter_ada_compliance ada_landing_pad
+        state_road].each do |b|
+        send(b, 'true')
+      end
       # all attrs except for accessible
     end
     trait :completed do
