@@ -19,6 +19,7 @@ describe BusStop do
         it 'assigns user to completed by' do
           stop_1 = create :bus_stop, completed: true
           stop_1.update! completed: false
+          binding.pry
           # how to access current user
           # stop_1.decide_if_completed_by current_user
           # user.fetch(:completed_by).to be current_user
@@ -47,5 +48,12 @@ describe BusStop do
   end
 
   describe 'pending scope' do
+  end
+
+  describe 'validations' do
+    context 'bus stop is not completed but assigned completed' do
+      it 'is not valid' do
+      end
+    end
   end
 end
