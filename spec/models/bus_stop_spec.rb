@@ -1,19 +1,6 @@
 require 'spec_helper'
 
 describe BusStop do
-  # need some time cop up in here
-  describe 'assign_completion_timestamp' do
-    context 'bus stop is completed' do
-      it 'assigns the current time to completed_at' do
-      end
-    end
-    context 'bus stop is not completed' do
-      it 'assigns nil to completed at' do
-      end
-    end
-  end
-
-  # use time_cop
   describe 'decide_if_completed_by' do
     let(:user) { create :user }
     let(:stop) { create :bus_stop, :pending }
