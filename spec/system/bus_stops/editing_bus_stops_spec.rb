@@ -22,4 +22,19 @@ describe 'editing a bus stop as a user' do
       expect(page.current_url).to end_with bus_stops_path
     end
   end
+  context 'with data changes' do
+    before :each do
+      within 'table.edit-form' do
+        select 'UMTS', from: 'Garage responsible'
+        click_button 'Save stop'
+      end
+    end
+    it 'updates the stop' do
+      expect(page).to have_selector 'p.notice',
+                                    text: 'Bus stop was updated.'
+    end
+    it 'redirects to the bus stops page' do
+      expect(page.current_url).to end_with bus_stops_path
+    end
+  end
 end
