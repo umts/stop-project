@@ -23,12 +23,12 @@ group :development do
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rails', require: false
   gem 'capistrano-passenger', require: false
-  gem 'timecop', '~> 0.9.1'
 end
 
 group :development, :test do
   gem 'factory_bot_rails'
   gem 'pry-byebug'
+  gem 'timecop', '~> 0.9.1'
 end
 
 group :test do
