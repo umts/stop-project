@@ -64,9 +64,20 @@ describe 'editing a bus stop as a user' do
     end
   end
   context 'with a bus stop that has been previously edited' do
-    it 'displays who updated' do
-    end
-    it 'displays when it was updated' do
+    let!(:last_user) { create :user }
+    let!(:user) { create :user }
+    let!(:edit_stop) { create :bus_stop }
+    it 'displays who updated it and when' do
+        Timecop.freeze 1.day.ago do
+          when_current_user_is last_user
+          visit edit_bus_stop_path(edit_stop.hastus_id)
+          within 'table.edit-form' do
+            click_button 'Save stop'
+          end
+        end
+        when_current_user_is user
+        visit edit_bus_stop_path(edit_stop.hastus_id)
+        expect(page).to have_content "Last updated by #{last_user.name} at #{format_datetime(1.day.ago)}"
     end
   end
 end
