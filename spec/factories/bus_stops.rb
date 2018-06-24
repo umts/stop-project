@@ -4,11 +4,11 @@ FactoryBot.define do
   factory :bus_stop do
     name 'stop'
     sequence :hastus_id
-    trait :completed do
+    trait :pending do
       name 'shit'
       sequence :hastus_id
-      bench 'PVTA'
-      curb_cut 'ok'
+      bench 'hi'
+      curb_cut 'yo'
       lighting 'solar'
       mounting 'hi'
       mounting_direction 'shit'
@@ -31,7 +31,7 @@ FactoryBot.define do
       need_work 'shit'
       obstructions 'shit'
       stop_sticker 'shit'
-      route_stickers 'shits'
+      route_stickers 'shit'
       bolt_on_base true
       bus_pull_out_exists true
       has_power true
@@ -40,6 +40,10 @@ FactoryBot.define do
       shelter_ada_compliance true
       ada_landing_pad true
       state_road true
+      # all attrs except for accessible
+    end
+    trait :completed do
+      pending
       accessible true
       completed true
     end
