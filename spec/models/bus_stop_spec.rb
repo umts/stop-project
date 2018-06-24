@@ -14,18 +14,16 @@ describe BusStop do
   end
 
   describe 'decide_if_completed_by' do
-    before :each do
-       current_user = create :user
-    end
+    let(:current_user) { create :user }
     context 'bus stop completed attribute changed' do
       context 'bus stop is completed' do
         it 'assigns user to completed by' do
           when_current_user_is current_user
-          stop_1 = create :bus_stop, :completed
+          stop_1 = create :bus_stop, :pending
           stop_1.update! accessible: true, completed: true
           
           stop_1.decide_if_completed_by current_user
-          expect(user.fetch(:completed_by)).to be current_user
+          expect(stop_1.fetch(:completed_by)).to be current_user
         end
       end
       context 'bus stop is not completed' do
