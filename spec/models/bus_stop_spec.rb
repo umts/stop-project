@@ -60,7 +60,8 @@ describe BusStop do
   describe 'validations' do
     context 'bus stop is not completed but assigned completed' do
       it 'is not valid' do
-      
+        invalid_stop = build :bus_stop, completed: true
+        expect(invalid_stop).not_to be_valid
       end
     end
   end
