@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe BusStop do
+  # need some time cop up in here
   describe 'assign_completion_timestamp' do
     context 'bus stop is completed' do
-      # need some time cop up in here
       it 'assigns the current time to completed_at' do
       end
     end
@@ -16,20 +16,20 @@ describe BusStop do
   # use time_cop
   describe 'decide_if_completed_by' do
     let(:user) { create :user }
+    let(:stop) { create :bus_stop, :pending }
     context 'bus stop completed attribute changed' do
       context 'bus stop is completed' do
         it 'assigns user to completed by' do
-          stop = create :bus_stop, :pending
-          stop.update! accessible: true, completed: true
-          
+          Timecop.freeze Date.today do
+            stop.update! accessible: true
+            stop.completed = true
+          end
           stop.decide_if_completed_by user
           expect(stop.completed_by).to be user
         end
       end
       context 'bus stop is not completed' do
         it 'assigns nil to completed by' do
-          stop = create :bus_stop, :pending
-
           stop.decide_if_completed_by user
           expect(stop.completed_by).to be nil
         end
@@ -58,6 +58,7 @@ describe BusStop do
   describe 'validations' do
     context 'bus stop is not completed but assigned completed' do
       it 'is not valid' do
+      
       end
     end
   end
