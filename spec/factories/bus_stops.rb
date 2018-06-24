@@ -12,7 +12,6 @@ FactoryBot.define do
         stop_sticker route_stickers bike_rack real_time_information].each do |s|
         send(s, 'not blank')
       end
-      sequence :hastus_id
       created_at Date.yesterday
       updated_at Date.today
       %i[bolt_on_base bus_pull_out_exists has_power solar_lighting
