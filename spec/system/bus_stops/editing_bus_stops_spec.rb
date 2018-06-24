@@ -63,4 +63,10 @@ describe 'editing a bus stop as a user' do
       expect(page.current_url).to end_with field_guide_bus_stops_path
     end
   end
+  context 'with a bus stop that has been previously edited' do
+    it 'displays who updated' do
+    end
+    it 'displays when it was updated' do
+    end
+  end
 end
