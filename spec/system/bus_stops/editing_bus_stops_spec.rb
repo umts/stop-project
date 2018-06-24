@@ -37,14 +37,16 @@ describe 'editing a bus stop as a user' do
       expect(page.current_url).to end_with bus_stops_path
     end
   end
+  #this context block is failing. TODO: figure out why
   context 'with errors' do
     before :each do
       within 'table.edit-form' do
         check 'Completed'
+        click_button 'Save stop'
       end
     end
     it 'sends a helpful error message' do
-      expect(page).to have_selector 'p.errors',
+      expect(page).to have_selector 'p.error',
                                     text: "Bench can't be blank"
     end
     it 'stays on the edit page' do
