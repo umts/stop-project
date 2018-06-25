@@ -2,7 +2,7 @@
 
 %div
   = link_to 'View by status', by_status_bus_stops_path(number: @route.number)
-- if @collection.first.first.nil?
+- if @stops.empty?
   No stops on this route
 - else
   - @collection.each do |direction, bsrs|
