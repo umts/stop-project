@@ -83,7 +83,7 @@ describe 'searching for a bus stop by stop name' do
   end
 end
 
-describe 'searching for a bus stop by route' do
+describe 'searching for a bus stop by sequence' do
   let(:user) { create :user }
   let!(:route) { create :route }
   let!(:bus_stop) { create :bus_stop, routes: [route] }
@@ -101,4 +101,7 @@ describe 'searching for a bus stop by route' do
       expect(page.current_path).to end_with by_route_bus_stops_path
     end
   end
+end
+
+describe 'searching for a bus stop by status' do
 end
