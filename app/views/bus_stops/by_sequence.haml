@@ -10,9 +10,8 @@
       = direction
       - bsrs.each do |bus_stop_route|
         .row
-          .col-sm-1=bus_stop_route.sequence
           .col-sm-7
-            =link_to edit_bus_stop_path(bus_stop_route.bus_stop.hastus_id) do
-              -bus_stop_route.bus_stop.name
+            = link_to edit_bus_stop_path(bus_stop_route.bus_stop.hastus_id) do
+              = bus_stop_route.bus_stop.name
           .col-sm-1
             = bus_stop_route.bus_stop.hastus_id
