@@ -8,18 +8,7 @@ class BusStopsController < ApplicationController
     render json: stops.pluck(:name).sort
   end
 
-  def by_sequence
-    @route = Route.find_by number: params.require(:number)
-    if @route.present?
-      @collection = @route.bus_stops_routes.group_by(&:direction).each do |_dir, bsrs|
-        bsrs.sort_by(&:sequence)
-      end
-    else redirect_to bus_stops_path,
-                     notice: "Route #{params[:number]} not found"
-    end
-  end
-
-  def by_status
+  def by_route
     @route = Route.find_by number: params.require(:number)
     if @route.present?
       @stops = @route.bus_stops

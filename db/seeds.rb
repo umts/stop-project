@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'timecop'
 
 User.create! name: 'David Faulkenberry',
@@ -43,31 +41,14 @@ hastus_ids = {
   'Townhouse Apts'       => 30
 }
 
-# if this array changes then the logic below has to also change
-directions = ['North', 'South']
-
 stops.each do |route_number, stop_names|
-  directions.each do |direction|
-    if direction == 'North'
-      sequence = 0
-    else
-      sequence = stop_names.length
-    end
-    stop_names.each do |stop_name|
-      if direction == 'North'
-        sequence += 1
-      else
-        sequence -= 1
-      end
-      # Anytime in the last two months
-      Timecop.freeze rand(86_400).minutes.ago do
-        stop = BusStop.find_or_initialize_by name: stop_name
-        stop.hastus_id = hastus_ids.fetch(stop_name)
-        stop.save!
-        
-        route = routes.fetch(route_number)
-        BusStopsRoute.create route: route, sequence: sequence, bus_stop: stop, direction: direction
-      end
+  stop_names.each do |stop_name|
+    # Anytime in the last two months
+    Timecop.freeze rand(86_400).minutes.ago do
+      stop = BusStop.find_or_initialize_by name: stop_name
+      stop.hastus_id = hastus_ids.fetch(stop_name)
+      stop.routes << routes.fetch(route_number)
+      stop.save!
     end
   end
 end
