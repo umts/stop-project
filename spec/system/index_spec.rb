@@ -92,16 +92,33 @@ describe 'searching for a bus stop by sequence' do
     visit root_url
   end
   context 'route from the dropdown' do
-    it 'redirects to bus stops by route page' do
+    it 'redirects to bus stops by sequence' do
       within 'form', text: 'Select a route' do
         select route.number, from: 'Select a route'
-        click_button 'Search'
+        click_button 'View stops by sequence'
       end
       expect(page).to have_content route.number
-      expect(page.current_path).to end_with by_route_bus_stops_path
+      expect(page.current_path).to end_with by_sequence_bus_stops_path
     end
   end
 end
 
 describe 'searching for a bus stop by status' do
+  let(:user) { create :user }
+  let!(:route) { create :route }
+  let!(:bus_stop) { create :bus_stop, routes: [route] }
+  before :each do
+    when_current_user_is user
+    visit root_url
+  end
+  context 'route from the dropdown' do
+    it 'redirects to bus stops by status' do
+      within 'form', text: 'Select a route' do
+        select route.number, from: 'Select a route'
+        click_button 'View stops by status'
+      end
+      expect(page).to have_content route.number
+      expect(page.current_path).to end_with by_status_bus_stops_path
+    end
+  end
 end
