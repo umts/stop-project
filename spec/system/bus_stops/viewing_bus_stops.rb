@@ -16,11 +16,17 @@ describe 'viewing stops by status' do
   context 'with pending, not started, and completed stops' do
     it 'displays according to status' do
       expect(page).to have_content 'Pending Stops'
-      expect(page).to have_content pending_stop.name
+      within 'div div', text: 'Pending Stops' do
+        expect(page).to have_selector('ul li a', text: pending_stop.name)
+      end
       expect(page).to have_content 'Not Started Stops'
-      expect(page).to have_content not_started_stop.name
+      within 'div div', text: 'Not Started Stops' do
+        expect(page).to have_selector('ul li a', text: not_started_stop.name)
+      end
       expect(page).to have_content 'Completed Stops'
-      expect(page).to have_content completed_stop.name
+      within 'div div', text: 'Completed Stops' do
+        expect(page).to have_selector('ul li a', text: completed_stop.name)
+      end
     end
   end
 end
