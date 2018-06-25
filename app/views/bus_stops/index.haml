@@ -13,8 +13,4 @@ or
 = form_tag by_status_bus_stops_path, method: :get do
   = label_tag :number, 'Select a route'
   = select_tag :number, options_for_select(Route.pluck :number)
-  = submit_tag 'View stops by status'
-= form_tag by_sequence_bus_stops_path, method: :get do
-  = label_tag :number, 'Select a route'
-  = select_tag :number, options_for_select(Route.pluck :number)
-  = submit_tag 'View stops by sequence'
+  = submit_tag 'View stops'
