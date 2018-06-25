@@ -15,11 +15,11 @@ Rails.application.routes.draw do
       post :autocomplete
       get  :by_sequence
       get  :by_status
+      get  :field_guide
       post :id_search
       get  :manage
       post :name_search
       get  :outdated
-      get  :field_guide
     end
   end
 end
