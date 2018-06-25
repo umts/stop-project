@@ -11,8 +11,6 @@ STRING_COLUMN_ROW_NAMES = {
   schedule_holder:    %w(stp_ud_schedule_holder_on_pole    stp_ud_schedule_holder_in_shelter                            ),
   shelter:            %w(stp_ud_shelter_pvta               stp_ud_shelter_other              stp_ud_shelter_building    ),
   sidewalk_width:           %w(stp_ud_sidewalk_more_than_36in    stp_ud_sidewalk_less_than_36in    stp_ud_sidewalk_no_sidewalk),
-  # sign:               %w(stp_ud_sign_flag_stop             stp_ud_sign_missing               stp_ud_sign_needs_attention),
-  # apparently sign's not needed :/
   trash:              %w(stp_ud_trash_pvta                 stp_ud_trash_municipal            stp_ud_trash_other         )
 }
 
@@ -30,9 +28,7 @@ STRING_COLUMN_OPTIONS = {
   shelter_pad_material: %w[Asphalt Concrete Other],
   shelter_type: %w[Modern Modern\ half Victorian Dome Wooden Extra\ large Other],
   sidewalk_width: ['More than 36"', 'Less than 36"', 'None'],
-  # sign: ['Flag stop', 'Missing sign', 'Needs attention'],
-  # sign_type: ['Axehead (2014+)', 'Rectangle (<2014)', 'MGM + Axhead (2018+)'],
-  # sign type is not in hastus yet
+  sign_type: ['Axehead (2014+)', 'Rectangle (<2014)', 'MGM + Axhead (2018+)'],
   trash: %w[PVTA Municipal Other],
 }
 
