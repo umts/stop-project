@@ -2,7 +2,7 @@
 
 .container
   - @collection.each do |direction, bsrs|
-    = direction + 'bound'
+    = direction
     - bsrs.each do |bus_stop_route|
       .row
         .col-sm-1=bus_stop_route.sequence
