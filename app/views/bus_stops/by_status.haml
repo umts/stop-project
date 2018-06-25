@@ -1,8 +1,7 @@
 .page-title Route #{@route.number} Bus Stops
 
-= link_to 'View by sequence', by_sequence_bus_stops_path(number: @route.number)
-%br
-%br
+%div
+  = link_to 'View by sequence', by_sequence_bus_stops_path(number: @route.number)
 - if @stops.empty?
   No stops on this route
 - else
