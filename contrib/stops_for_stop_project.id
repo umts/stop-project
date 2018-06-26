@@ -39,6 +39,7 @@ file stops_details_with_routes
       }
       
    foreach stop
+      condition 'stp_is_public'
       {
       sort_by stopSort
          {
