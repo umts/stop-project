@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include DateAndTimeMethods
 
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :exception, prepend: true
   before_action :authenticate_user!
   before_action :set_paper_trail_whodunnit
 
