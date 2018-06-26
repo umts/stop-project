@@ -13,7 +13,7 @@ file stops_with_routes {
     item 5 { value '"stop_variant_rank"' }
   }
   foreach trip {
-    condition 'trp_via_variant <> NULL'
+    condition 'trp_via_variant <> NULL AND Object(route, trp_route).rte_for_public_info'
     unique_on 'trp_via_variant'
     foreach trip_pattern {
       var v_rank { assign '1' }
