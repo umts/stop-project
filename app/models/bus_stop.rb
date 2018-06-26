@@ -18,19 +18,19 @@ class BusStop < ApplicationRecord
   strings_required_for_completion = %i[name hastus_id bench curb_cut lighting
                                        mounting mounting_direction
                                        schedule_holder shelter sidewalk_width
-                                       trash mounting_clearance created_at
+                                       mounting_clearance created_at
                                        updated_at sign_type shelter_condition
-                                       shelter_pad_condition
+                                       shelter_pad_condition has_power
                                        shelter_pad_material shelter_type
-                                       shared_sign_post garage_responsible
-                                       bike_rack real_time_information
-                                       need_work obstructions stop_sticker
-                                       route_stickers]
+                                       garage_responsible bike_rack
+                                       real_time_information need_work
+                                       obstructions stop_sticker
+                                       route_stickers system_map_exists]
 
   boolean_required_for_completion = %i[bolt_on_base bus_pull_out_exists
-                                       has_power solar_lighting
-                                       system_map_exists shelter_ada_compliance
-                                       ada_landing_pad state_road accessible]
+                                       solar_lighting shelter_ada_compliant
+                                       ada_landing_pad state_road accessible
+                                       shared_sign_post trash]
 
   validates *strings_required_for_completion, presence: true, if: :completed?
   validates *boolean_required_for_completion,
@@ -50,30 +50,25 @@ class BusStop < ApplicationRecord
   }
 
   SIGN_OPTIONS = {
-    sign_type: ['Axehead (2014+)',
-                'Rectangle (<2014)',
-                'MGM + Axhead (2018+)',
+    sign_type: ['Axehead',
+                'Rectangle',
+                'MGM and Axehead',
                 'Other',
-                'No sign'],
+                'Non PVTA'],
     mounting: ['PVTA pole',
-               'Other pole',
                'City pole',
                'Utility pole',
                'Structure',
                'No sign'],
-    shared_sign_post: ['No',
-                       'Yes - Traffic sign',
-                       'Yes - FRTA',
-                       'Yes - Other',
-                       'Sign not on pole'],
+    shared_sign_post: :boolean,
     mounting_direction: ['Towards street',
                          'Away from street',
                          'Center',
                          'No sign'],
     mounting_clearance: ['Less than 60 inches',
-                         '60-83 inches',
+                         '60-84 inches',
                          'Greater than 84 inches',
-                         'No sign'],
+                         'No sign face'],
     bolt_on_base: :boolean,
     stop_sticker: ['No sticker',
                    'Sticker incorrect',
@@ -86,9 +81,9 @@ class BusStop < ApplicationRecord
   SHELTER_OPTIONS = {
     shelter: ['No shelter',
               'PVTA shelter',
-              'Other',
-              'Building'],
-    shelter_type: ['Modern',
+              'Other shelter',
+              'Nearby building'],
+    shelter_type: ['Modern full',
                    'Modern half',
                    'Victorian',
                    'Dome',
@@ -96,7 +91,7 @@ class BusStop < ApplicationRecord
                    'Extra large',
                    'Other',
                    'No shelter'],
-    shelter_ada_compliance: :boolean,
+    shelter_ada_compliant: :boolean,
     shelter_condition: ['Great',
                         'Good',
                         'Fair',
@@ -117,22 +112,24 @@ class BusStop < ApplicationRecord
     bench: ['PVTA bench',
             'Other bench',
             'Other structure',
+            'PVTA and other bench',
             'None'],
     bike_rack: ['PVTA bike rack',
                 'Other bike rack',
-                'Bike locker',
+                'PVTA and other bike rack',
                 'None'],
     schedule_holder: ['On pole',
                       'In shelter',
                       'None'],
-    system_map_exists: :boolean,
-    trash: %w[PVTA Municipal Other None]
+    system_map_exists: ['New map',
+                        'Old map',
+                        'No map'],
+    trash: :boolean
   }.freeze
 
   ACCESSIBILITY = {
     accessible: :boolean,
     curb_cut: ['Within 20 feet',
-               '20 - 50 feet ',
                'No curb cut',
                'No curb'],
     sidewalk_width: ['More than 36 inches',
@@ -142,10 +139,10 @@ class BusStop < ApplicationRecord
     ada_landing_pad: :boolean,
     obstructions: ['Yes - Tree/Branch',
                    'Yes - Bollard/Structure',
+                   'Yes - Sign/Post',
                    'Yes - Parking',
                    'Yes - Other',
                    'No']
-
   }.freeze
 
   SECURITY_AND_SAFETY = {
@@ -155,7 +152,9 @@ class BusStop < ApplicationRecord
   }.freeze
 
   TECHNOLOGY = { solar_lighting: :boolean,
-                 has_power: :boolean,
+                 has_power: ['Yes - Stub up',
+                             'Yes - Outlet',
+                             'No'],
                  real_time_information: ['Yes - Solar',
                                          'Yes - Power',
                                          'No']
