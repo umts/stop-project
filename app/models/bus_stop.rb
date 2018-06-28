@@ -30,7 +30,7 @@ class BusStop < ApplicationRecord
   boolean_required_for_completion = %i[bolt_on_base bus_pull_out_exists
                                        solar_lighting shelter_ada_compliant
                                        ada_landing_pad state_road accessible
-                                       shared_sign_post trash]
+                                       shared_sign_post_frta trash]
 
   validates *strings_required_for_completion, presence: true, if: :completed?
   validates *boolean_required_for_completion,
@@ -60,7 +60,7 @@ class BusStop < ApplicationRecord
                'Utility pole',
                'Structure',
                'No sign'],
-    shared_sign_post: :boolean,
+    shared_sign_post_frta: :boolean,
     mounting_direction: ['Towards street',
                          'Away from street',
                          'Center',

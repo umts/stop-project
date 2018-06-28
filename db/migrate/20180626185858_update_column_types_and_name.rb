@@ -3,6 +3,7 @@ class UpdateColumnTypesAndName < ActiveRecord::Migration[5.1]
     rename_column :bus_stops, :shelter_ada_compliance, :shelter_ada_compliant
     change_column :bus_stops, :has_power, :string
     change_column :bus_stops, :shared_sign_post, :boolean
+    rename_column :bus_stops, :shared_sign_post, :shared_sign_post_frta
     change_column :bus_stops, :system_map_exists, :string
     change_column :bus_stops, :trash, :boolean
   end

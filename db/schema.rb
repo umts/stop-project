@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20180626185858) do
     t.string "shelter_pad_condition"
     t.string "shelter_pad_material"
     t.string "shelter_type"
-    t.boolean "shared_sign_post"
+    t.boolean "shared_sign_post_frta"
     t.boolean "shelter_ada_compliant"
     t.string "garage_responsible"
     t.string "bike_rack"
