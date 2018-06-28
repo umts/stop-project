@@ -8,11 +8,17 @@ namespace :routes do
   task :import, [:csv_file] => :environment do |_, args|
     Route.delete_all
     BusStopsRoute.delete_all
+    stop_hash = {}
     CSV.foreach(args[:csv_file], headers: true, col_sep: ';') do |row|
-      stop = BusStop.find_by hastus_id: row['stp_identifier']
-      if stop.present?
-        route = Route.find_or_create_by number: row['rte_identifier'].strip
-      end
+      route = row['rte_identifier']
+      stop = row['stp_identifier']
+      dir = row['direction']
+      variant = row['variant']
+      sequence = row['stop_variant_rank']
+
+      stop_hash[[route, dir]] ||= {}
+      stop_hash[[route, dir]][variant] ||= []
+      stop_hash[[route, dir]][variant][sequence] = stop
     end
   end
 end
