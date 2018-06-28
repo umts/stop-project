@@ -3,7 +3,7 @@
 require 'csv'
 
 namespace :bus_stops do
-  task import_data: :environment do
+  task import_old_data: :environment do
     csv = CSV.parse(File.read('old_stop_data.csv'), headers: true)
     csv.each do |row|
       import_data = row.to_hash
