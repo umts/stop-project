@@ -35,4 +35,34 @@ describe BusStopsRoute do
       end
     end
   end
+  describe 'import' do
+    context 'all stops are in longest variant' do
+      it 'sequences stops correctly' do
+      end
+    end
+    context 'stop (but not first stop) is not in longest variant' do
+      context 'one stop is in other variant' do
+        it 'sequences stops correctly' do
+        end
+      end
+      context 'multiple stops are in other variant' do
+        it 'sequences stops correctly' do
+        end
+      end
+    end
+    context 'first stop is not in longest variant' do
+      context 'one stop is in other variant' do
+        it 'sequences stops correctly' do
+        end
+      end
+      context 'multiple stops are in other variant' do
+        it 'sequences stops correctly' do
+        end
+      end
+    end
+    context 'no stop is in the longest variant' do
+      it 'sequences stops correctly' do
+      end
+    end
+  end
 end
