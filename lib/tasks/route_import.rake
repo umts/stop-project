@@ -23,10 +23,13 @@ namespace :routes do
     Route.delete_all
     BusStopsRoute.delete_all
     
-    stop_hash.each_pair do |(route, direction), stops|
+    stop_hash.each_pair do |(route, direction), stop_ids|
       Route.find_or_create_by! number: route.strip
-      stops.each.with_index_1 do |stop, sequence|
-        BusStopsRoute.create!(route: route, direction: direction, stop: stop, sequence: sequence)
+      stop_ids.each.with_index(1) do |stop_id, sequence|
+        stop = BusStop.find_by(hastus_id: stop_id)
+        if stop.present?
+          BusStopsRoute.create!(route: route, direction: direction, bus_stop: stop, sequence: sequence)
+        end
       end
     end
   end
