@@ -6,24 +6,23 @@ namespace :bus_stops do
   task import_data: :environment do
     csv = CSV.parse(File.read('old_stop_data.csv'), headers: true)
     csv.each do |row|
-      hash = row.to_hash
+      import_data = row.to_hash
       new_attributes = {}
-      conversions = { 'has_power' =>
-                          (hash['has_power'] == 'true' ? 'Yes - Stub up' : 'No'),
-                      'shared_sign_post_frta' =>
-                          (hash['shared_sign_post'] == 'Yes - FRTA'),
-                      'system_map_exists' =>
-                          (hash['system_map_exists'] == 'true' ? 'Old map' : 'No map'),
-                      'trash' => (hash['trash'] != 'None') }
-      conversions.each do |k, v|
-        if k == 'shared_sign_post_frta'
-          new_attributes[k] = v unless hash['shared_sign_post'].nil?
+      conversion_methods = { 'has_power' =>
+                                 (import_data['has_power'] == 'true' ? 'Yes - Stub up' : 'No'),
+                             'shared_sign_post_frta' =>
+                                 (import_data['shared_sign_post'] == 'Yes - FRTA'),
+                             'system_map_exists' =>
+                                 (import_data['system_map_exists'] == 'true' ? 'Old map' : 'No map'),
+                             'trash' => (import_data['trash'] != 'None') }
+      conversion_methods.each do |attribute, conversion|
+        if attribute == 'shared_sign_post_frta'
+          new_attributes[attribute] = conversion unless import_data['shared_sign_post'].nil?
         else
-          new_attributes[k] = v unless hash[k].nil?
+          new_attributes[attribute] = conversion unless import_data[attribute].nil?
         end
       end
-      binding.pry
-      stop = BusStop.find_by_id(hash['id'])
+      stop = BusStop.find_by_id(import_data['id'])
       stop.update_attributes(new_attributes)
     end
   end
