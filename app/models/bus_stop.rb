@@ -1,48 +1,188 @@
+# frozen_string_literal: true
+
 require 'csv'
 
-include DateAndTimeMethods
-
 class BusStop < ApplicationRecord
+  include DateAndTimeMethods
   has_paper_trail
   validates :name, presence: true
   validates :hastus_id, presence: true, uniqueness: true
-  has_and_belongs_to_many :routes
+  has_many :bus_stops_routes
+  has_many :routes, through: :bus_stops_routes
+  belongs_to :completed_by, class_name: 'User', foreign_key: :completed_by
 
   before_save :assign_completion_timestamp, if: -> { completed_changed? }
 
-  scope :not_updated_since, -> (date) { where 'updated_at < ?', date.to_datetime }
+  scope :not_updated_since,
+        ->(date) { where 'updated_at < ?', date.to_datetime }
+  strings_required_for_completion = %i[name hastus_id bench curb_cut lighting
+                                       mounting mounting_direction
+                                       schedule_holder shelter sidewalk_width
+                                       trash mounting_clearance created_at
+                                       updated_at sign_type shelter_condition
+                                       shelter_pad_condition
+                                       shelter_pad_material shelter_type
+                                       shared_sign_post garage_responsible
+                                       bike_rack real_time_information
+                                       need_work obstructions stop_sticker
+                                       route_stickers]
 
-  STRING_COLUMN_OPTIONS = {
-    accessible: ['When necessary', 'Not recommended'],
-    bench: %w[PVTA Other],
-    curb_cut: ["Within 20'", 'No curb cut', 'No curb'],
-    lighting: ["Within 20'", "20' - 50'", 'None'],
-    mounting: ['PVTA pole', 'Other pole', 'City Pole', 'Utility Pole', 'Structure'],
-    mounting_direction: ['Towards street', 'Away from street'],
-    schedule_holder: ['On pole', 'In shelter'],
-    shelter: %w[PVTA Other Building],
-    shelter_condition: %w[Great Good Fair Poor],
-    shelter_pad_condition: %w[Great Good Fair Poor],
-    shelter_pad_material: %w[Asphalt Concrete Other],
-    shelter_type: %w[Modern Modern\ half Victorian Dome Wooden Extra\ large Other],
-    sidewalk: ['More than 36"', 'Less than 36"', 'None'],
-    sign: ['Flag stop', 'Missing sign', 'Needs attention'],
-    sign_type: ['Axehead (2014+)', 'Rectangle (<2014)', 'MGM + Axhead (2018+)'],
-    trash: %w[PVTA Municipal Other],
+  boolean_required_for_completion = %i[bolt_on_base bus_pull_out_exists
+                                       has_power solar_lighting
+                                       system_map_exists shelter_ada_compliance
+                                       ada_landing_pad state_road accessible]
+
+  validates *strings_required_for_completion, presence: true, if: :completed?
+  validates *boolean_required_for_completion,
+            inclusion: {
+                in: [true, false],
+                message: "can't be blank"
+            }, if: :completed?
+
+  scope :completed, -> { where completed: true }
+  scope :not_started, lambda {
+    (where 'created_at = updated_at')
+      .where completed: [false, nil]
+  }
+  scope :pending, lambda {
+    (where 'updated_at > created_at')
+      .where completed: [false, nil]
   }
 
-  BOOLEAN_COLUMNS = %i(bolt_on_base bus_pull_out_exists extend_pole has_power
-    new_anchor new_pole solar_lighting straighten_pole system_map_exists)
+  SIGN_OPTIONS = {
+    sign_type: ['Axehead (2014+)',
+                'Rectangle (<2014)',
+                'MGM + Axhead (2018+)',
+                'Other',
+                'No sign'],
+    mounting: ['PVTA pole',
+               'Other pole',
+               'City pole',
+               'Utility pole',
+               'Structure',
+               'No sign'],
+    shared_sign_post: ['No',
+                       'Yes - Traffic sign',
+                       'Yes - FRTA',
+                       'Yes - Other',
+                       'Sign not on pole'],
+    mounting_direction: ['Towards street',
+                         'Away from street',
+                         'Center',
+                         'No sign'],
+    mounting_clearance: ['Less than 60 inches',
+                         '60-83 inches',
+                         'Greater than 84 inches',
+                         'No sign'],
+    bolt_on_base: :boolean,
+    stop_sticker: ['No sticker',
+                   'Sticker incorrect',
+                   'Sticker correct'],
+    route_stickers: ['No stickers',
+                     'Stickers incorrect',
+                     'Stickers correct']
+  }.freeze
+
+  SHELTER_OPTIONS = {
+    shelter: ['No shelter',
+              'PVTA shelter',
+              'Other',
+              'Building'],
+    shelter_type: ['Modern',
+                   'Modern half',
+                   'Victorian',
+                   'Dome',
+                   'Wooden',
+                   'Extra large',
+                   'Other',
+                   'No shelter'],
+    shelter_ada_compliance: :boolean,
+    shelter_condition: ['Great',
+                        'Good',
+                        'Fair',
+                        'Poor',
+                        'No shelter'],
+    shelter_pad_condition: ['Great',
+                            'Good',
+                            'Fair',
+                            'Poor',
+                            'No shelter'],
+    shelter_pad_material: ['Asphalt',
+                           'Concrete',
+                           'Other',
+                           'No shelter']
+  }.freeze
+
+  AMENITIES = {
+    bench: ['PVTA bench',
+            'Other bench',
+            'Other structure',
+            'None'],
+    bike_rack: ['PVTA bike rack',
+                'Other bike rack',
+                'Bike locker',
+                'None'],
+    schedule_holder: ['On pole',
+                      'In shelter',
+                      'None'],
+    system_map_exists: :boolean,
+    trash: %w[PVTA Municipal Other None]
+  }.freeze
+
+  ACCESSIBILITY = {
+    accessible: :boolean,
+    curb_cut: ['Within 20 feet',
+               '20 - 50 feet ',
+               'No curb cut',
+               'No curb'],
+    sidewalk_width: ['More than 36 inches',
+                     'Less than 36 inches',
+                     'None'],
+    bus_pull_out_exists: :boolean,
+    ada_landing_pad: :boolean,
+    obstructions: ['Yes - Tree/Branch',
+                   'Yes - Bollard/Structure',
+                   'Yes - Parking',
+                   'Yes - Other',
+                   'No']
+
+  }.freeze
+
+  SECURITY_AND_SAFETY = {
+    lighting: ['Within 20 feet',
+               '20 - 50 feet',
+               'None']
+  }.freeze
+
+  TECHNOLOGY = { solar_lighting: :boolean,
+                 has_power: :boolean,
+                 real_time_information: ['Yes - Solar',
+                                         'Yes - Power',
+                                         'No']
+  }.freeze
 
   LIMITED_ATTRS = {
     name: 'Stop Name',
     hastus_id: 'Hastus ID',
-    route_list: 'Routes',
+    stop_routes: 'Routes',
     updated_at: 'Last updated'
-  }
+  }.freeze
 
-  STRING_COLUMN_OPTIONS.each do |attribute, options|
-    validates attribute, inclusion: { in: options }, allow_blank: true
+  SUPER_HASH = {
+    sign: SIGN_OPTIONS,
+    shelter: SHELTER_OPTIONS,
+    amenities: AMENITIES,
+    accessibility: ACCESSIBILITY,
+    security_and_safety: SECURITY_AND_SAFETY,
+    technology: TECHNOLOGY
+  }.freeze
+
+  SUPER_HASH.each do |hash|
+    hash.each do |name, options|
+      if options.kind_of?(Array)
+        validates name, inclusion: { in: options }, allow_blank: true
+      end
+    end
   end
 
   def last_updated
@@ -71,10 +211,16 @@ class BusStop < ApplicationRecord
               Hash[columns.map{ |c| [c.name, c.name.humanize] }].merge(route_list: 'Routes')
             end
     CSV.generate headers: true do |csv|
-       csv << attrs.values
-       all.each do |stop|
-         csv << attrs.keys.map { |attr| stop.send attr }
-       end
+      csv << attrs.values
+      all.each do |stop|
+        csv << attrs.keys.map { |attr| stop.send attr }
+      end
+    end
+  end
+
+  def decide_if_completed_by(user)
+    if completed_changed?
+      assign_attributes(completed_by: (completed? ? user : nil))
     end
   end
 
@@ -83,5 +229,4 @@ class BusStop < ApplicationRecord
   def assign_completion_timestamp
     assign_attributes completed_at: (completed? ? DateTime.current : nil)
   end
-
 end

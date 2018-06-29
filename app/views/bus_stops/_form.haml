@@ -3,35 +3,49 @@
     Last updated by #{stop.last_updated_by} at #{stop.last_updated_at}
 - if stop.completed_at.present?
   .smalltext.last-updated
-    Completed at #{format_datetime stop.completed_at}
-= form_for stop, url: creation_url(stop) do |f|
+    Completed by #{stop.completed_by.try :name} at #{format_datetime stop.completed_at}
+= form_for stop, url: bus_stop_path(stop.hastus_id) do |f|
   %table.edit-form
-    %tr
-      %td= f.label :name
-      %td= f.text_field :name, required: true, disabled: current_user.not_admin?
-    %tr
-      %td= f.label :hastus_id, 'Hastus ID'
-      %td= f.number_field :hastus_id, required: true, disabled: current_user.not_admin?
-    - if current_user.admin?
+    %th
+      Stop Info
       %tr
-        %td= f.label :route
-        %td= f.collection_select :route_ids, Route.all, :id, :number, {}, multiple: true
-    - BusStop::STRING_COLUMN_OPTIONS.each do |attribute, options|
+        %td= f.label :name
+        %td= stop.name
       %tr
-        %td= f.label attribute
-        %td= f.select attribute, options, include_blank: true
-    - BusStop::BOOLEAN_COLUMNS.each do |attribute|
+        %td= f.label :hastus_id, 'Hastus ID'
+        %td= stop.hastus_id
+        %tr
+          %td= f.label :routes
+          %td= stop.route_list
       %tr
-        %td= f.label attribute
-        %td= f.check_box attribute
+        %td= f.label :garage_responsible
+        %td= f.select :garage_responsible, %w[SATCo UMTS VATCo], include_blank: true
+      %tr
+        %td= f.label :state_road
+        %td= f.select :state_road, [['Yes', true], ['No', false]], include_blank: true
+      %tr
+        %td= f.label :need_work
+        %td= f.select :need_work, ['1 - No issues',
+        '2 - Needs cleaning, no safety concern',
+        '3 - Minor issues, non safety',
+        '4 - Potential safety concern',
+        '5 - Immediate safety concern'],
+        include_blank: true
+    - BusStop::SUPER_HASH.each do |category, hash|
+      %th
+        = f.label category
+        - hash.each do |name, options|
+          %tr
+            %td= f.label name
+            - if options.kind_of?(Array)
+              %td= f.select name, options, include_blank: true
+            - else
+              %td= f.select name, [['Yes', true], ['No', false]], include_blank: true
+    %th
+      Inventory
+      %tr
+        %td= f.label :completed, 'Completed'
+        %td= f.check_box :completed, class: 'triple-zoom'
     %tr
-      %td= f.label :mounting_clearance_after
-      %td= f.number_field :mounting_clearance_after
-    %tr
-      %td= f.label :mounting_clearance_before
-      %td= f.number_field :mounting_clearance_before
-    %tr
-      %td= f.label :completed, 'Completed?'
-      %td= f.check_box :completed
-    %tr
-      %td= submit_tag 'Save stop', class: 'btn btn-primary submit'
+      %td= submit_tag 'Save stop', class: 'btn btn-primary btn-lg btn-block submit'
+      %td= link_to 'Field Guide', field_guide_bus_stops_path
