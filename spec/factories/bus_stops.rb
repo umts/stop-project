@@ -31,15 +31,15 @@ FactoryBot.define do
       real_time_information
       created_at Date.yesterday
       updated_at Date.today
-      bolt_on_base
-      bus_pull_out_exists
-      has_power
-      solar_lighting
-      system_map_exists
-      shelter_ada_compliance
-      ada_landing_pad
-      state_road
-    # all attrs except for accessible
+      bolt_on_base true
+      bus_pull_out_exists true
+      has_power true
+      solar_lighting true
+      system_map_exists true
+      shelter_ada_compliance true
+      ada_landing_pad true
+      state_road true
+      # all attrs except for accessible
     end
     trait :completed do
       pending
