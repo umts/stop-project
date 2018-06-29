@@ -32,12 +32,13 @@ class BusStopsRoute < ApplicationRecord
                 # add the stop onto the end of the longest variant
                 longest_variant << stop
               end
+            else
+              # the previous stop will already be in the longest variant
+              previous_stop = other_variant[sequence - 1]
+              previous_stop_index_in_longest_variant = longest_variant.index(previous_stop)
+              # Array#insert inserts before the given index.
+              longest_variant.insert(previous_stop_index_in_longest_variant + 1, stop)
             end
-            # the previous stop will already be in the longest variant
-            previous_stop = other_variant[sequence - 1]
-            previous_stop_index_in_longest_variant = longest_variant.index(previous_stop)
-            # Array#insert inserts before the given index.
-            longest_variant.insert(previous_stop_index_in_longest_variant + 1, stop)
           end
         end
       end
