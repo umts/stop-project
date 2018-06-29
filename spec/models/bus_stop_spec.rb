@@ -29,9 +29,9 @@ describe BusStop do
     let!(:completed_stop) { create :bus_stop, :completed }
     let!(:not_started_stop) { create :bus_stop }
     it 'returns completed bus stops' do
-      expect(BusStop.all.completed).to include completed_stop
-      expect(BusStop.all.completed).not_to include pending_stop
-      expect(BusStop.all.completed).not_to include not_started_stop
+      expect(BusStop.completed).to include completed_stop
+      expect(BusStop.completed).not_to include pending_stop
+      expect(BusStop.completed).not_to include not_started_stop
     end
   end
 
@@ -40,9 +40,9 @@ describe BusStop do
     let!(:completed_stop) { create :bus_stop, :completed }
     let!(:not_started_stop) { create :bus_stop }
     it 'returns bus stops without data entered' do
-      expect(BusStop.all.not_started).to include not_started_stop
-      expect(BusStop.all.not_started).not_to include completed_stop
-      expect(BusStop.all.not_started).not_to include pending_stop
+      expect(BusStop.not_started).to include not_started_stop
+      expect(BusStop.not_started).not_to include completed_stop
+      expect(BusStop.not_started).not_to include pending_stop
     end
   end
 
@@ -51,9 +51,9 @@ describe BusStop do
     let!(:completed_stop) { create :bus_stop, :completed }
     let!(:not_started_stop) { create :bus_stop }
     it 'returns pending bus stops' do
-      expect(BusStop.all.pending).to include pending_stop
-      expect(BusStop.all.pending).not_to include completed_stop
-      expect(BusStop.all.pending).not_to include not_started_stop
+      expect(BusStop.pending).to include pending_stop
+      expect(BusStop.pending).not_to include completed_stop
+      expect(BusStop.pending).not_to include not_started_stop
     end
   end
 
