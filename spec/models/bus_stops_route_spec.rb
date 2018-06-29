@@ -49,9 +49,10 @@ describe BusStopsRoute do
       context 'one stop is in other variant' do
         it 'sequences stops correctly' do
           sequenced_stops = %w[A F B C D E]
+          other_variant = %w[A F E]
           stop_hash = { route_dir =>
                         { 'm_North' => main_variant,
-                          'o_North' => %w[A F E] } }
+                          'o_North' => other_variant } }
           BusStopsRoute.import(stop_hash)
           expect(stop_hash[route_dir]).to eql sequenced_stops
         end
