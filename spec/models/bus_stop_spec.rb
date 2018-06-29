@@ -12,7 +12,7 @@ describe BusStop do
             stop.completed = true
           end
           stop.decide_if_completed_by user
-          expect(stop.completed_by).to be user
+          expect(stop.completed_by).to eql user
         end
       end
       context 'bus stop is not completed' do
