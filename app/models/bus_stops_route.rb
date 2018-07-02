@@ -10,12 +10,12 @@ class BusStopsRoute < ApplicationRecord
   validates_uniqueness_of :sequence, scope: %i[route direction]
   validates_uniqueness_of :bus_stop, scope: %i[route direction]
   
-  # This method is used in lib/tasks/route_import.rake.
-  # On input, the stop_hash has a route and direction array pointing to variants
-  # with stops (ordered by sequence). This method combines all stops per route
-  # and direction, and sequences those stops accordingly.
+  # This method is used for importing a csv of routes. The input stop_hash
+  # has a route and direction array pointing to variants with stops (ordered
+  # by sequence). import combines all stops per route direction, and
+  # sequences those stops accordingly.
   def self.import(stop_hash)
-    # The route direction array key isn't used here because it doesn't matter here.
+    # The route direction array key isn't used because it doesn't matter here.
     # Since stop_hash is used for creating routes and bus_stops_routes, though,
     # we need to keep those keys.
     stop_hash.each_pair do |route_dir, direction_variants|
