@@ -41,7 +41,7 @@ describe BusStopsRoute do
         @stop_hash = { route_dir: { key_1: main_variant, key_2: other_variant } }
     end
     let(:resequence!) { BusStopsRoute.import(@stop_hash) }
-    let(:other_variant) { [] }
+    let(:other_variant) { %w[A B C D E] }
     context 'all stops are in longest variant' do
       it 'sequences stops correctly' do
         resequence!
