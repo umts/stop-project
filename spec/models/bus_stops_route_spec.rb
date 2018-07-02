@@ -43,7 +43,7 @@ describe BusStopsRoute do
     let(:resequence!) { BusStopsRoute.import(@stop_hash) }
     let(:other_variant) { %w[A B C D E] }
     context 'all stops are in longest variant' do
-      it 'sequences stops correctly' do
+      it 'preserves sequence of longest variant' do
         resequence!
         expect(@stop_hash[:route_dir]).to eql %w[A B C D E]
       end
@@ -51,14 +51,14 @@ describe BusStopsRoute do
     context 'stop (but not first stop) is not in longest variant' do
       context 'one stop is in other variant' do
         let(:other_variant) { %w[A F E] }
-        it 'sequences stops correctly' do
+        it 'inserts that stop into longest variant after common stop' do
           resequence!
           expect(@stop_hash[:route_dir]).to eql %w[A F B C D E]
         end
       end
       context 'multiple stops are in other variant' do
         let(:other_variant) { %w[A F G H E] }
-        it 'sequences stops correctly' do
+        it 'inserts those stops into longest variant after common stop' do
           resequence!
           expect(@stop_hash[:route_dir]).to eql %w[A F G H B C D E]
         end
@@ -67,14 +67,14 @@ describe BusStopsRoute do
     context 'first stop is not in longest variant' do
       context 'one stop is in other variant' do
         let(:other_variant) { %w[F D E] }
-        it 'sequences stops correctly' do
+        it 'inserts that stop into longest variant before common stop' do
           resequence!
           expect(@stop_hash[:route_dir]).to eql %w[A B C F D E]
         end
       end
       context 'multiple stops are in other variant' do
         let(:other_variant) { %w[F G H D E] }
-        it 'sequences stops correctly' do
+        it 'inserts those stops into longest variant before common stop' do
           resequence!
           expect(@stop_hash[:route_dir]).to eql %w[A B C F G H D E]
         end
@@ -82,7 +82,7 @@ describe BusStopsRoute do
     end
     context 'no stop is in the longest variant' do
       let(:other_variant) { %w[F G H I] }
-      it 'sequences stops correctly' do
+      it 'appends other variant to end of longest variant' do
         resequence!
         expect(@stop_hash[:route_dir]).to eql %w[A B C D E F G H I]
       end
