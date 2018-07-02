@@ -57,7 +57,7 @@ describe BusStopsRoute do
         end
       end
       context 'multiple stops are in other variant' do
-        let(:other_variant) { %w[A F G H E]}
+        let(:other_variant) { %w[A F G H E] }
         it 'sequences stops correctly' do
           resequence!
           expect(@stop_hash[:route_dir]).to eql %w[A F G H B C D E]
@@ -66,37 +66,25 @@ describe BusStopsRoute do
     end
     context 'first stop is not in longest variant' do
       context 'one stop is in other variant' do
+        let(:other_variant) { %w[F D E] }
         it 'sequences stops correctly' do
-          sequenced_stops = %w[A B C F D E]
-          other_variant = %w[F D E]
-          stop_hash = { route_dir =>
-                        { 'm_North' => main_variant,
-                          'o_North' => other_variant } }
-          BusStopsRoute.import(stop_hash)
-          expect(stop_hash[route_dir]).to eql sequenced_stops
+          resequence!
+          expect(@stop_hash[:route_dir]).to eql %w[A B C F D E]
         end
       end
       context 'multiple stops are in other variant' do
+        let(:other_variant) { %w[F G H D E]}
         it 'sequences stops correctly' do
-          sequenced_stops = %w[A B C F G H D E]
-          other_variant = %w[F G H D E]
-          stop_hash = { route_dir =>
-                        { 'm_North' => main_variant,
-                          'o_North' => other_variant } }
-          BusStopsRoute.import(stop_hash)
-          expect(stop_hash[route_dir]).to eql sequenced_stops
+          resequence!
+          expect(@stop_hash[:route_dir]).to eql %w[A B C F G H D E]
         end
       end
     end
     context 'no stop is in the longest variant' do
+      let(:other_variant) { %w[F G H I] }
       it 'sequences stops correctly' do
-        sequenced_stops = %w[A B C D E F G H I]
-        other_variant = %w[F G H I]
-        stop_hash = { route_dir =>
-                      { 'm_North' => main_variant,
-                        'o_North' => other_variant } }
-        BusStopsRoute.import(stop_hash)
-        expect(stop_hash[route_dir]).to eql sequenced_stops
+        resequence!
+        expect(@stop_hash[:route_dir]).to eql %w[A B C D E F G H I]
       end
     end
   end
