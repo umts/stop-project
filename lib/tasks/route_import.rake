@@ -9,9 +9,9 @@ namespace :routes do
     stop_hash = {}
     CSV.foreach(args[:csv_file], headers: true, col_sep: ';') do |row|
       route = row['rte_identifier']
-      stop = row['stp_identifier']
-      dir = row['direction']
       variant = row['variant']
+      dir = row['direction']
+      stop = row['stp_identifier']
       sequence = row['stop_variant_rank'].to_i
 
       stop_hash[[route, dir]] ||= {}
