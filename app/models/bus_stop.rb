@@ -164,7 +164,7 @@ class BusStop < ApplicationRecord
   LIMITED_ATTRS = {
     name: 'Stop Name',
     hastus_id: 'Hastus ID',
-    stop_routes: 'Routes',
+    route_list: 'Routes',
     updated_at: 'Last updated'
   }.freeze
 
