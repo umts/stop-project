@@ -4,9 +4,8 @@ require 'csv'
 
 namespace :bus_stops do
   task export_old_data: :environment do
-    CSV.open('old_stop_data.csv', 'w') do |csv|
-      headers = %w[id has_power shared_sign_post system_map_exists trash]
-      csv << headers
+    CSV.open('old_stop_data.csv', 'w', write_headers: true,
+             headers: %w[id has_power shared_sign_post system_map_exists trash]) do |csv|
       BusStop.all.each do |stop|
         csv << [stop.id,
                 stop.has_power,
