@@ -18,6 +18,8 @@ class BusStopsRoute < ApplicationRecord
       other_variants.each do |other_variant|
         other_variant.each.with_index do |stop, sequence|
           unless longest_variant.include? stop
+            # if sequence is zero, then it is the first stop. We can't rely on
+            # its previous stop like we do in the corresponding else statement.
             if sequence == 0
               # first stop on longest variant that's on the other variant
               first_known_stop = longest_variant.find do |known_stop|
@@ -27,7 +29,7 @@ class BusStopsRoute < ApplicationRecord
                 # insert stop before first known stop on longest variant
                 first_known_stop_index = longest_variant.index(first_known_stop)
                 longest_variant.insert(first_known_stop_index, stop)
-              # stop isn't on the other variant and longest variant
+              # the other variant has no stops in common with the longest variant
               else
                 # add the stop onto the end of the longest variant
                 longest_variant << stop
