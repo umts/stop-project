@@ -7,10 +7,8 @@ describe BusStop do
     context 'bus stop completed attribute changed' do
       context 'bus stop is completed' do
         it 'assigns user to completed by' do
-          Timecop.freeze Date.today do
-            stop.update! accessible: true
-            stop.completed = true
-          end
+          stop.update! accessible: true
+          stop.completed = true
           stop.decide_if_completed_by user
           expect(stop.completed_by).to eql user
         end
