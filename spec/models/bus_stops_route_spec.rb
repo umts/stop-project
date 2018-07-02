@@ -49,8 +49,6 @@ describe BusStopsRoute do
       end
     end
     context 'stop (but not first stop) is not in longest variant' do
-      before :each do
-      end
       context 'one stop is in other variant' do
         let(:other_variant) { %w[A F E] }
         it 'sequences stops correctly' do
@@ -66,8 +64,6 @@ describe BusStopsRoute do
         end
       end
     end
-
-
     context 'first stop is not in longest variant' do
       context 'one stop is in other variant' do
         it 'sequences stops correctly' do
