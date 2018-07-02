@@ -18,9 +18,9 @@ class BusStopsRoute < ApplicationRecord
       other_variants.each do |other_variant|
         other_variant.each.with_index do |stop, sequence|
           unless longest_variant.include? stop
-            # if sequence is zero, then it is the first stop. We can't rely on
-            # its previous stop like we do in the corresponding else statement.
-            if sequence == 0
+            # We can't rely on the previous stop here
+            # like we do in the corresponding else statement.
+            if stop == other_variant.first
               # first stop on longest variant that's on the other variant
               first_known_stop = longest_variant.find do |known_stop|
                 other_variant.include? known_stop
