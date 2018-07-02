@@ -38,7 +38,7 @@ describe BusStopsRoute do
   describe 'import' do
     let(:main_variant) { %w[A B C D E] }
     before :each do
-      @stop_hash = { route_dir: { doesnt_matter: main_variant, doesnt_matter_either: other_variant } }
+        @stop_hash = { route_dir: { key_1: main_variant, key_2: other_variant } }
     end
     let(:resequence!) { BusStopsRoute.import(@stop_hash) }
     let(:other_variant) { [] }
