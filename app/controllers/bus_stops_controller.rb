@@ -63,9 +63,7 @@ class BusStopsController < ApplicationController
   end
 
   def update
-    binding.pry
-    @stop
-    #@stop.bus_stop_fields.each{|e| e.update_attributes(params[:user_information])}
+    # TODO: fill in
     redirect_to bus_stops_path
   end
 
