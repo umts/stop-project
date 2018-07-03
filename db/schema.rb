@@ -23,12 +23,9 @@ ActiveRecord::Schema.define(version: 20180626185858) do
     t.string "schedule_holder"
     t.string "shelter"
     t.string "sidewalk_width"
-    t.boolean "trash"
     t.boolean "bolt_on_base"
     t.boolean "bus_pull_out_exists"
-    t.string "has_power"
     t.boolean "solar_lighting"
-    t.string "system_map_exists"
     t.string "mounting_clearance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -39,7 +36,6 @@ ActiveRecord::Schema.define(version: 20180626185858) do
     t.string "shelter_pad_condition"
     t.string "shelter_pad_material"
     t.string "shelter_type"
-    t.boolean "shared_sign_post_frta"
     t.boolean "shelter_ada_compliant"
     t.string "garage_responsible"
     t.string "bike_rack"
@@ -52,6 +48,10 @@ ActiveRecord::Schema.define(version: 20180626185858) do
     t.string "stop_sticker"
     t.string "route_stickers"
     t.integer "completed_by"
+    t.string "has_power"
+    t.boolean "shared_sign_post_frta"
+    t.string "system_map_exists"
+    t.boolean "trash"
   end
 
   create_table "bus_stops_routes", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
