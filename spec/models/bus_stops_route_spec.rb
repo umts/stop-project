@@ -41,14 +41,14 @@ describe BusStopsRoute do
         @stop_hash = { route_dir: { key_1: main_variant, key_2: other_variant } }
     end
     let(:resequence!) { BusStopsRoute.import(@stop_hash) }
-    let(:other_variant) { %w[A B C D E] }
-    context 'all stops are in longest variant' do
+    let(:other_variant) { %w[A] }
+    context 'all stops in other variant are in longest variant' do
       it 'preserves sequence of longest variant' do
         resequence!
         expect(@stop_hash[:route_dir]).to eql %w[A B C D E]
       end
     end
-    context 'stop (but not first stop) is not in longest variant' do
+    context 'stop (but not first stop) in other variant is not in longest variant' do
       context 'one stop is in other variant' do
         let(:other_variant) { %w[A F E] }
         it 'inserts that stop into longest variant after common stop' do
@@ -64,7 +64,7 @@ describe BusStopsRoute do
         end
       end
     end
-    context 'first stop is not in longest variant' do
+    context 'first stop in other variant is not in longest variant' do
       context 'one stop is in other variant' do
         let(:other_variant) { %w[F D E] }
         it 'inserts that stop into longest variant before common stop' do
@@ -80,7 +80,7 @@ describe BusStopsRoute do
         end
       end
     end
-    context 'no stop is in the longest variant' do
+    context 'no stop in other variant is in the longest variant' do
       let(:other_variant) { %w[F G H I] }
       it 'appends other variant to end of longest variant' do
         resequence!
