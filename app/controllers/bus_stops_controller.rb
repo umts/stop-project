@@ -77,11 +77,11 @@ class BusStopsController < ApplicationController
 
   def find_stop
     @stop = BusStop.find_by hastus_id: params.require(:id)
-    @data_fields = @stop.data_fields
     unless @stop.present?
       redirect_back(fallback_location: root_path,
         notice: "Stop #{params[:id]} not found") and return
     end
+    @data_fields = @stop.data_fields
   end
 
   def stop_params
