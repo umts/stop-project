@@ -63,14 +63,10 @@ class BusStopsController < ApplicationController
   end
 
   def update
-    @stop.assign_attributes stop_params
-    if @stop.save
-      flash[:notice] = 'Bus stop was updated.'
-      redirect_to bus_stops_path
-    else
-      flash[:errors] = @stop.errors.full_messages
-      render 'edit'
-    end
+    binding.pry
+    @stop
+    #@stop.bus_stop_fields.each{|e| e.update_attributes(params[:user_information])}
+    redirect_to bus_stops_path
   end
 
   private
@@ -83,9 +79,8 @@ class BusStopsController < ApplicationController
     end
     @data_fields = @stop.data_fields
   end
-
   def stop_params
     # no attributes that people aren't supposed to be able to edit
-    params.require(:bus_stop).permit(:completed, {bus_stop_field_attributes: [:value]})
+    params.require(:bus_stop).permit(:completed, bus_stop_fields_attributes: [:id, :value])
   end
 end
