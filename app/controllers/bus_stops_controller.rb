@@ -79,6 +79,7 @@ class BusStopsController < ApplicationController
     end
     @data_fields = @stop.data_fields
   end
+
   def stop_params
     # no attributes that people aren't supposed to be able to edit
     params.require(:bus_stop).permit(:completed, bus_stop_fields_attributes: [:id, :value])
