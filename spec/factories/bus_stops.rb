@@ -27,7 +27,7 @@ FactoryBot.define do
       stop_sticker 'Sticker correct'
       route_stickers 'No stickers'
       bike_rack 'Bike locker'
-      real_time_information 'Yes -- Solar'
+      real_time_information 'Yes - Solar'
       garage_responsible 'SATCo'
       created_at Date.yesterday
       updated_at Date.today
