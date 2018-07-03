@@ -7,7 +7,7 @@ describe BusStopsRoute do
     context 'same route and direction' do
       let(:route) { create :route }
       let(:stop_1) { create :bus_stop }
-      let(:valid_bsr) do
+      let :valid_bsr do
         create :bus_stops_route,
                route: route,
                bus_stop: stop_1
