@@ -165,6 +165,7 @@ class BusStop < ApplicationRecord
     name: 'Stop Name',
     hastus_id: 'Hastus ID',
     route_list: 'Routes',
+    created_at: 'Created',
     updated_at: 'Last updated'
   }.freeze
 
@@ -208,9 +209,12 @@ class BusStop < ApplicationRecord
     attrs = if limited_attributes
               LIMITED_ATTRS
             else
-              #binding.pry
               LIMITED_ATTRS.merge Hash[columns.reject do |v|
-                (v.name == 'name' || v.name == 'hastus_id' || v.name == 'updated_at' || v.name == 'route_list')
+                (v.name == 'name' ||
+                    v.name == 'hastus_id' ||
+                    v.name == 'updated_at' ||
+                    v.name == 'created_at' ||
+                    v.name == 'route_list')
               end.map { |c| [c.name, c.name.humanize] }]
             end
     CSV.generate headers: true do |csv|
