@@ -31,14 +31,14 @@
         '4 - Potential safety concern',
         '5 - Immediate safety concern'],
         include_blank: true
-    - BusStop::SUPER_HASH.each do |category, hash|
+    - @fields.each do |category, hash|
       %th
         = f.label category
         - hash.each do |name, options|
           %tr
             %td= f.label name
             - if options.kind_of?(Array)
-              %td= f.select name, options |= [stop.send(name)], include_blank: true
+              %td= f.select name, options, include_blank: true
             - else
               %td= f.select name, [['Yes', true], ['No', false]], include_blank: true
     %th
