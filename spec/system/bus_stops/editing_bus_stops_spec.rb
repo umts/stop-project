@@ -37,7 +37,6 @@ describe 'editing a bus stop as a user' do
       expect(page.current_url).to end_with bus_stops_path
     end
   end
-  #this context block is failing. TODO: figure out why
   context 'with errors' do
     before :each do
       within 'table.edit-form' do
