@@ -19,6 +19,7 @@ class BusStopsController < ApplicationController
 
   def destroy
     @stop.destroy
+    # TODO: delete the corresponding fields, too
     redirect_to manage_bus_stops_path,
       notice: "#{@stop.name} has been deleted."
   end
@@ -64,6 +65,8 @@ class BusStopsController < ApplicationController
 
   def update
     # TODO: fill in
+    binding.pry
+    params
     redirect_to bus_stops_path
   end
 
