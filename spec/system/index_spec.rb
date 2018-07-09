@@ -101,5 +101,16 @@ describe 'searching for a bus stop by route' do
       expect(page).to have_content route.number
       expect(page.current_path).to end_with by_status_bus_stops_path
     end
+    context 'view by route order' do
+      it 'redirects to bus stops by sequence' do
+        within 'form', text: 'Select a route' do
+          select route.number, from: 'Select a route'
+          click_button 'View stops'
+        end
+        click_link 'View by route order'
+        expect(page).to have_content route.number
+        expect(page.current_path).to end_with by_sequence_bus_stops_path
+      end
+    end
   end
 end
