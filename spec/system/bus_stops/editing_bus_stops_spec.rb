@@ -45,8 +45,7 @@ describe 'editing a bus stop as a user' do
       end
     end
     it 'sends a helpful error message' do
-      expect(page).to have_selector 'p.error',
-                                    text: "Bench can't be blank"
+      expect(page).to have_text "Bench can't be blank"
     end
     it 'stays on the edit page' do
       expect(page).to have_current_path(edit_bus_stop_path(edit_stop.hastus_id))
