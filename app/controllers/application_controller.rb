@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
       current_user: current_user
     }
   end
+  
   def restrict_to_admin
     head :unauthorized and return unless current_user.admin?
   end
