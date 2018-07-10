@@ -67,16 +67,22 @@ class BusStopsController < ApplicationController
   # TODO: implement BSFs
   def update
     binding.pry
-    # find BSF by name, assign corresponding attribute value to BSF.
-    # if errors are present, show them
-    # else it's saved
-    @stop.assign_attributes stop_params
-    if @stop.save
+    params['bus_stop']['bus_stop_fields_attributes'].each_pair do |f_id, attrs|
+      value = attrs['value']
+      name = attrs['name']
+      binding.pry
+      name = Field.find(field_id)
+      # bsf = BusStopField.where(field_name: name)
+      # bsf.assign_attribute value: value
+      # unless bsf.save
+      #  flash[:errors] << bsf.errors.full_messages
+      # end
+    end
+    if flash[:errors].present?
+      render 'edit'
+    else
       flash[:notice] = 'Bus stop was updated.'
       redirect_to bus_stops_path
-    else
-      flash[:errors] = @stop.errors.full_messages
-      render 'edit'
     end
   end
 
@@ -93,6 +99,6 @@ class BusStopsController < ApplicationController
 
   def stop_params
     # no attributes that people aren't supposed to be able to edit
-    params.require(:bus_stop).permit(:completed, bus_stop_fields_attributes: [:id, :value])
+    params.require(:bus_stop).permit(:completed, bus_stop_fields_attributes: [:id, :field_name, :value])
   end
 end
