@@ -66,6 +66,10 @@ class BusStopsController < ApplicationController
 
   # TODO: implement BSFs
   def update
+    binding.pry
+    # find BSF by name, assign corresponding attribute value to BSF.
+    # if errors are present, show them
+    # else it's saved
     @stop.assign_attributes stop_params
     if @stop.save
       flash[:notice] = 'Bus stop was updated.'
