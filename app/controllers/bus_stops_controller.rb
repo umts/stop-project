@@ -64,7 +64,6 @@ class BusStopsController < ApplicationController
     end
   end
 
-  # TODO: implement BSFs
   def update
     @stop.assign_attributes stop_params
     if @stop.save
