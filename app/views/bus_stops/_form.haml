@@ -33,8 +33,8 @@
               = data_field_form.hidden_field :field_name, value: data_field.field_name
               - case data_field.field.field_type
               - when 'boolean'
-                %td= data_field_form.check_box :value
+                %td= data_field_form.check_box :value, value: data_field.value
               - when 'choice'
-                %td= data_field_form.select :value, data_field.field.choices, include_blank: true
+                %td= data_field_form.select :value, data_field.field.choices, include_blank: true, selected: data_field.value
     %tr
       %td= submit_tag 'Save stop', class: 'btn btn-primary submit'
