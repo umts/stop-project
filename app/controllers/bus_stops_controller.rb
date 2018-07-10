@@ -17,7 +17,6 @@ class BusStopsController < ApplicationController
     end
   end
 
-  # TODO: implement BSFs
   def destroy
     @stop.destroy
     redirect_to manage_bus_stops_path,
