@@ -17,6 +17,7 @@ class BusStopsController < ApplicationController
     end
   end
 
+  # TODO: implement BSFs
   def destroy
     @stop.destroy
     redirect_to manage_bus_stops_path,
@@ -27,6 +28,7 @@ class BusStopsController < ApplicationController
     redirect_to edit_bus_stop_path(@stop.hastus_id)
   end
 
+  # TODO: implement BSFs
   def manage
     @stops = BusStop.order(:name)
                     .paginate(page: params[:page], per_page: 10)
@@ -48,6 +50,7 @@ class BusStopsController < ApplicationController
     end
   end
 
+  # TODO: implement BSFs
   def outdated
     @date = Date.parse(params[:date]) rescue 1.month.ago.to_date
     @stops = BusStop.not_updated_since(@date)
@@ -62,6 +65,7 @@ class BusStopsController < ApplicationController
     end
   end
 
+  # TODO: implement BSFs
   def update
     @stop.assign_attributes stop_params
     if @stop.save
@@ -84,6 +88,7 @@ class BusStopsController < ApplicationController
     @data_fields = @stop.data_fields
   end
 
+  # TODO: implement BSFs
   def stop_params
     # no attributes that people aren't supposed to be able to edit
     params.require(:bus_stop).permit!
