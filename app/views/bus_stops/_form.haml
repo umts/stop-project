@@ -27,7 +27,7 @@
         %tr
           %th{ colspan: 2 }= category
         - category_fields.each do |data_field|
-          = fields_for data_field do |data_field_form|
+          = f.fields_for data_field do |data_field_form|
             %tr
               %td= data_field_form.label :value, data_field.field_name
               - case data_field.field.field_type
