@@ -215,11 +215,12 @@ class BusStop < ApplicationRecord
               LIMITED_ATTRS
             else
               hashed_columns = Hash[columns.map { |c| [c.name, c.name.humanize] }]
-              duplicates = %w[name hastus_id id updated_at created_at route_list
-                              completed completed_at completed_by]
-              duplicates.each do |v|
-                hashed_columns = hashed_columns.except(v)
-              end
+                               .except('name',
+                                       'hastus_id',
+                                       'id',
+                                       'updated_at',
+                                       'created_at',
+                                       'route_list')
               LIMITED_ATTRS.merge hashed_columns
             end
     CSV.generate headers: true do |csv|
