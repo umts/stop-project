@@ -23,8 +23,7 @@ class BusStop < ApplicationRecord
   def data_fields
     Field.categories.map do |category|
       category_fields = Field.in_category(category).order(:rank).map do |field|
-        # need to find last version of BusStopField or create it.
-        BusStopField.where(field: field, bus_stop: self).order(:created_at).last rescue BusStopField.create(field: field, bus_stop: self)
+        BusStopField.where(field: field, bus_stop: self).first_or_create
       end
       [category, category_fields]
     end.to_h
