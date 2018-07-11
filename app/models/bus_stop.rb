@@ -209,13 +209,12 @@ class BusStop < ApplicationRecord
     attrs = if limited_attributes
               LIMITED_ATTRS
             else
-              LIMITED_ATTRS.merge Hash[columns.reject do |v|
-                (v.name == 'name' ||
-                    v.name == 'hastus_id' ||
-                    v.name == 'updated_at' ||
-                    v.name == 'created_at' ||
-                    v.name == 'route_list')
-              end.map { |c| [c.name, c.name.humanize] }]
+              hashed_columns = Hash[columns.map { |c| [c.name, c.name.humanize] }]
+              duplicates = %w[name hastus_id updated_at created_at route_list]
+              duplicates.each do |v|
+                hashed_columns = hashed_columns.except(v)
+              end
+              LIMITED_ATTRS.merge hashed_columns
             end
     CSV.generate headers: true do |csv|
       csv << attrs.values
