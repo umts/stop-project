@@ -163,10 +163,15 @@ class BusStop < ApplicationRecord
 
   LIMITED_ATTRS = {
     name: 'Stop Name',
+    id: 'Id',
     hastus_id: 'Hastus ID',
     route_list: 'Routes',
-    created_at: 'Created',
-    updated_at: 'Last updated'
+    created_at: 'Created at',
+    updated_at: 'Last updated',
+    updated_by: 'Last updated by',
+    completed: 'Completed',
+    completed_by: 'Completed by',
+    completed_at: 'Completed at'
   }.freeze
 
   SUPER_HASH = {
@@ -210,7 +215,8 @@ class BusStop < ApplicationRecord
               LIMITED_ATTRS
             else
               hashed_columns = Hash[columns.map { |c| [c.name, c.name.humanize] }]
-              duplicates = %w[name hastus_id updated_at created_at route_list]
+              duplicates = %w[name hastus_id id updated_at created_at route_list
+                              completed completed_at completed_by]
               duplicates.each do |v|
                 hashed_columns = hashed_columns.except(v)
               end
@@ -219,7 +225,13 @@ class BusStop < ApplicationRecord
     CSV.generate headers: true do |csv|
       csv << attrs.values
       all.each do |stop|
-        csv << attrs.keys.map { |attr| stop.send attr }
+        csv << attrs.keys.map do |attr|
+          if attr == :updated_by
+            stop.last_updated_by
+          else
+            stop.send attr
+          end
+        end
       end
     end
   end
