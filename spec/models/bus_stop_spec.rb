@@ -18,8 +18,9 @@ describe BusStop do
       end
       context 'bus stop is not completed' do
         it 'assigns nil to completed by' do
-          stop.decide_if_completed_by user
-          expect(stop.completed_by).to be nil
+          completed_stop.completed = false
+          completed_stop.decide_if_completed_by user
+          expect(completed_stop.completed_by).to be nil
         end
       end
     end
