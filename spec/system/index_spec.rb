@@ -84,7 +84,11 @@ describe 'searching for a bus stop by route' do
   let(:user) { create :user }
   let!(:route) { create :route }
   let!(:bus_stop) { create :bus_stop }
-  let!(:bus_stops_route) { create :bus_stops_route, bus_stop: bus_stop, route: route }
+  let!(:bus_stops_route) do
+    create :bus_stops_route,
+           bus_stop: bus_stop,
+           route: route
+  end
   let(:incorrect_route_number) { '-1' }
   before :each do
     when_current_user_is user
