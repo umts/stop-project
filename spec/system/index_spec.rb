@@ -73,7 +73,7 @@ describe 'searching for a bus stop by stop name' do
       within 'form', text: 'Enter stop name' do
         click_button 'Search'
       end
-      expect(page).to have_content 'Editing Mill Valley Apartments'
+      expect(page).to have_content "Editing #{bus_stop.name}"
     end
   end
 end
