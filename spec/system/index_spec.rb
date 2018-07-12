@@ -93,23 +93,27 @@ describe 'searching for a bus stop by route' do
     visit root_url
   end
   context 'route from the dropdown' do
-    it 'redirects to bus stops by status' do
+    before :each do
       within 'form', text: 'Select a route' do
         select route.number, from: 'Select a route'
         click_button 'View stops'
       end
+    end
+    it 'redirects to bus stops by status' do
       expect(page).to have_content route.number
       expect(page.current_path).to end_with by_status_bus_stops_path
     end
+    it 'displays stops by status' do
+    end
     context 'click view by route order' do
-      it 'redirects to bus stops by sequence' do
-        within 'form', text: 'Select a route' do
-          select route.number, from: 'Select a route'
-          click_button 'View stops'
-        end
+      before :each do
         click_link 'View by route order'
+      end
+      it 'redirects to bus stops by sequence' do
         expect(page).to have_content route.number
         expect(page.current_path).to end_with by_sequence_bus_stops_path
+      end
+      it 'displays stops by sequence' do
       end
     end
   end
