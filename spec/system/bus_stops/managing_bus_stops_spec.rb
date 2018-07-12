@@ -40,7 +40,7 @@ describe 'viewing outdated' do
   let!(:present_stop) { create :bus_stop }
   # default date for outdated is from a month ago
   let!(:date) { Date.today - 1.month }
-  let(:picked_date) { date.change(day: 28)}
+  let(:picked_date) { date.change(day: 28) }
   let!(:old_stop_1) { create :bus_stop, updated_at: (date - 2.months) }
   let!(:old_stop_2) { create :bus_stop, updated_at: (date - 3.months) }
   before :each do
@@ -59,7 +59,7 @@ describe 'viewing outdated' do
     expect(page).to have_selector 'table.manage tbody tr',
                                   text: format_time(old_stop_2.updated_at)
     expect(page).not_to have_selector 'table.manage tbody tr',
-                                  text: format_time(present_stop.updated_at)
+                                      text: format_time(present_stop.updated_at)
   end
   it 'allows editing of outdated stops' do
     within 'tr', text: format_time(old_stop_1.updated_at) do
