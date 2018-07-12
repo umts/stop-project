@@ -67,10 +67,9 @@ describe 'searching for a bus stop by stop name' do
     end
   end
   context 'without completing stop name' do
-    let!(:bus_stop) { create :bus_stop, name: 'Mill Valley Apartments' }
     it 'autofills' do
-      fill_in 'Enter stop name', with: 'Mill Valley'
-      find('div', text: 'Mill Valley Apartments').click
+      fill_in 'Enter stop name', with: bus_stop.name.chars.first
+      find('div', text: bus_stop.name).click
       within 'form', text: 'Enter stop name' do
         click_button 'Search'
       end
