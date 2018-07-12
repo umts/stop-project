@@ -38,7 +38,9 @@ end
 describe 'viewing outdated' do
   let(:admin) { create :user, :admin }
   let!(:present_stop) { create :bus_stop }
-  let!(:date) { Date.today }
+  # default date for outdated is from a month ago
+  let!(:date) { Date.today - 1.month }
+  let(:picked_date) { date.change(day: 28)}
   let!(:old_stop_1) { create :bus_stop, updated_at: (date - 2.months) }
   let!(:old_stop_2) { create :bus_stop, updated_at: (date - 3.months) }
   before :each do
@@ -57,7 +59,7 @@ describe 'viewing outdated' do
     expect(page).to have_selector 'table.manage tbody tr',
                                   text: format_time(old_stop_2.updated_at)
     expect(page).not_to have_selector 'table.manage tbody tr',
-                                      text: format_time(present_stop.updated_at)
+                                  text: format_time(present_stop.updated_at)
   end
   it 'allows editing of outdated stops' do
     within 'tr', text: format_time(old_stop_1.updated_at) do
@@ -65,6 +67,19 @@ describe 'viewing outdated' do
     end
     expect(page).to have_content "Editing #{old_stop_1.name}"
   end
-  it 'can be narrowed down with a different date' do
+  context 'using datepicker to specify different date' do
+    it 'displays outdated stops from that time' do
+      within 'form' do
+        page.find_by_id('date').click
+        # datapicker pops up
+      end
+      within 'table.ui-datepicker-calendar tbody tr td', text: '28' do
+        page.find('.ui-state-default').click
+      end
+      within 'form' do
+        click_on 'Change date'
+      end
+      expect(page).to have_content format_time(picked_date)
+    end
   end
 end
