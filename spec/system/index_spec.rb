@@ -103,8 +103,6 @@ describe 'searching for a bus stop by route' do
       expect(page).to have_content route.number
       expect(page.current_path).to end_with by_status_bus_stops_path
     end
-    it 'displays stops by status' do
-    end
     context 'click view by route order' do
       before :each do
         click_link 'View by route order'
@@ -112,8 +110,6 @@ describe 'searching for a bus stop by route' do
       it 'redirects to bus stops by sequence' do
         expect(page).to have_content route.number
         expect(page.current_path).to end_with by_sequence_bus_stops_path
-      end
-      it 'displays stops by sequence' do
       end
     end
   end
