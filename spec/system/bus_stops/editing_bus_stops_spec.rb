@@ -67,16 +67,18 @@ describe 'editing a bus stop as a user' do
     let!(:user) { create :user }
     let!(:edit_stop) { create :bus_stop }
     it 'displays who updated it and when' do
-        Timecop.freeze 1.day.ago do
-          when_current_user_is last_user
-          visit edit_bus_stop_path(edit_stop.hastus_id)
-          within 'table.edit-form' do
-            click_button 'Save stop'
-          end
+      Timecop.freeze Date.yesterday do
+        when_current_user_is last_user
+        visit edit_bus_stop_path(edit_stop.hastus_id)
+        within 'table.edit-form' do
+          click_button 'Save stop'
         end
+      end
+      Timecop.freeze Date.today do
         when_current_user_is user
         visit edit_bus_stop_path(edit_stop.hastus_id)
-        expect(page).to have_content "Last updated by #{last_user.name} at #{format_datetime(1.day.ago)}"
+        expect(page).to have_content "Last updated by #{last_user.name} at #{format_datetime(Date.yesterday)}"
+      end
     end
   end
   context 'with a bus stop that has been completed' do
@@ -84,18 +86,20 @@ describe 'editing a bus stop as a user' do
     let!(:user) { create :user }
     let!(:edit_stop) { create :bus_stop, :pending }
     it 'displays who updated it and when' do
-        Timecop.freeze 1.day.ago do
-          when_current_user_is last_user
-          visit edit_bus_stop_path(edit_stop.hastus_id)
-          within 'table.edit-form' do
-            select 'Yes', from: 'Accessible'
-            check 'Completed'
-            click_button 'Save stop'
-          end
+      Timecop.freeze Date.yesterday do
+        when_current_user_is last_user
+        visit edit_bus_stop_path(edit_stop.hastus_id)
+        within 'table.edit-form' do
+          select 'Yes', from: 'Accessible'
+          check 'Completed'
+          click_button 'Save stop'
         end
+      end
+      Timecop.freeze Date.today do
         when_current_user_is user
         visit edit_bus_stop_path(edit_stop.hastus_id)
-        expect(page).to have_content "Completed by #{last_user.name} at #{format_datetime(1.day.ago)}"
+        expect(page).to have_content "Completed by #{last_user.name} at #{format_datetime(Date.yesterday)}"
+      end
     end
   end
 end
