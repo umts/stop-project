@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :bus_stop do
-    name 'stop'
+    name 'test_stop'
     sequence :hastus_id
     trait :pending do
       %i[name bench curb_cut lighting mounting mounting_direction
