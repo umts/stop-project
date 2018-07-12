@@ -33,16 +33,6 @@ describe 'searching for a bus stop by stop id' do
                                     text: 'Stop -1 not found'
     end
   end
-  context 'without completing stop id' do
-    it 'autofills' do
-      fill_in 'Enter stop ID', with: bus_stop.hastus_id.to_s.chars.first
-      find('div', text: bus_stop.hastus_id.to_s).click
-      within 'form', text: 'Enter stop ID' do
-        click_button 'Search'
-      end
-      expect(page).to have_content "Editing #{bus_stop.name}"
-    end
-  end
 end
 
 describe 'searching for a bus stop by stop name' do
