@@ -10,8 +10,8 @@ class BusStopsController < ApplicationController
 
   def by_sequence
     @route = Route.find_by number: params.require(:number)
-    @stops = @route.bus_stops
     if @route.present?
+      @stops = @route.bus_stops
       @collection = @route.bus_stops_routes.group_by(&:direction).each do |_dir, bsrs|
         bsrs.sort_by(&:sequence)
       end
