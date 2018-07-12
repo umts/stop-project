@@ -5,6 +5,7 @@ require 'spec_helper'
 describe 'searching for a bus stop by stop id' do
   let(:user) { create :user }
   let!(:bus_stop) { create :bus_stop }
+  let(:incorrect_stop_id) { '-1' }
   before :each do
     when_current_user_is user
     visit root_url
@@ -21,7 +22,7 @@ describe 'searching for a bus stop by stop id' do
   context 'incorrect stop id' do
     before :each do
       within 'form', text: 'Enter stop ID' do
-        fill_in 'Enter stop ID', with: -1
+        fill_in 'Enter stop ID', with: incorrect_stop_id
         click_button 'Search'
       end
     end
@@ -30,7 +31,7 @@ describe 'searching for a bus stop by stop id' do
     end
     it 'displays a helpful message' do
       expect(page).to have_selector 'p.notice',
-                                    text: 'Stop -1 not found'
+                                    text: "Stop #{incorrect_stop_id} not found"
     end
   end
 end
@@ -38,6 +39,7 @@ end
 describe 'searching for a bus stop by stop name' do
   let(:user) { create :user }
   let!(:bus_stop) { create :bus_stop }
+  let(:incorrect_stop_name) { 'stahp' }
   before :each do
     when_current_user_is user
     visit root_url
@@ -54,7 +56,7 @@ describe 'searching for a bus stop by stop name' do
   context 'incorrect stop name' do
     before :each do
       within 'form', text: 'Enter stop name' do
-        fill_in 'Enter stop name', with: '1234'
+        fill_in 'Enter stop name', with: incorrect_stop_name
         click_button 'Search'
       end
     end
@@ -63,7 +65,7 @@ describe 'searching for a bus stop by stop name' do
     end
     it 'displays a helpful message' do
       expect(page).to have_selector 'p.notice',
-                                    text: 'Stop 1234 not found'
+                                    text: "Stop #{incorrect_stop_name} not found"
     end
   end
   context 'without completing stop name' do
