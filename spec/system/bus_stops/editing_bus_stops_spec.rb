@@ -79,7 +79,6 @@ describe 'editing a bus stop as a user' do
         expect(page).to have_content "Last updated by #{last_user.name} at #{format_datetime(1.day.ago)}"
     end
   end
-  # same issue as above context with check 'Completed'
   context 'with a bus stop that has been completed' do
     let!(:last_user) { create :user }
     let!(:user) { create :user }
