@@ -113,4 +113,18 @@ describe 'searching for a bus stop by route' do
       end
     end
   end
+  context 'incorrect route in params' do
+    context 'viewing stops by status' do
+      it 'redirects to index page' do
+      end
+      it 'displays a helpful notice' do
+      end
+    end
+    context 'viewing stops by sequence' do
+      it 'redirects to index page' do
+      end
+      it 'displays a helpful notice' do
+      end
+    end
+  end
 end
