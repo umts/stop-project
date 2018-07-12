@@ -88,6 +88,7 @@ describe 'searching for a bus stop by route' do
   let!(:route) { create :route }
   let!(:bus_stop) { create :bus_stop }
   let!(:bus_stops_route) { create :bus_stops_route, bus_stop: bus_stop, route: route }
+  let(:incorrect_route_number) { '-1' }
   before :each do
     when_current_user_is user
     visit root_url
@@ -115,15 +116,27 @@ describe 'searching for a bus stop by route' do
   end
   context 'incorrect route in params' do
     context 'viewing stops by status' do
-      it 'redirects to index page' do
+      before :each do
+        visit by_status_bus_stops_path(incorrect_route_number)
       end
-      it 'displays a helpful notice' do
+      it 'redirects to index page' do
+        expect(page.current_path).to end_with bus_stops_path
+      end
+      it 'displays a helpful message' do
+        expect(page).to have_selector 'p.notice',
+                                      text: 'Route -1 not found'
       end
     end
     context 'viewing stops by sequence' do
-      it 'redirects to index page' do
+      before :each do
+        visit by_sequence_bus_stops_path(incorrect_route_number)
       end
-      it 'displays a helpful notice' do
+      it 'redirects to index page' do
+        expect(page.current_path).to end_with bus_stops_path
+      end
+      it 'displays a helpful message' do
+        expect(page).to have_selector 'p.notice',
+                                      text: 'Route -1 not found'
       end
     end
   end
