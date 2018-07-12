@@ -14,7 +14,7 @@ describe 'editing a bus stop as a user' do
         click_button 'Save stop'
       end
     end
-    it 'updates the stop' do
+    it 'displays a message that says stop was updated' do
       expect(page).to have_selector 'p.notice',
                                     text: 'Bus stop was updated.'
     end
@@ -29,7 +29,7 @@ describe 'editing a bus stop as a user' do
         click_button 'Save stop'
       end
     end
-    it 'updates the stop' do
+    it 'displays a message that says stop was updated' do
       expect(page).to have_selector 'p.notice',
                                     text: 'Bus stop was updated.'
     end
