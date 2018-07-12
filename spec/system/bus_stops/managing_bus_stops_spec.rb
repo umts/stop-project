@@ -79,7 +79,7 @@ describe 'viewing outdated' do
       within 'form' do
         click_on 'Change date'
       end
-      expect(page).to have_content format_time(picked_date)
+      expect(page).to have_content "Bus stops not updated since #{picked_date}"
     end
   end
 end
