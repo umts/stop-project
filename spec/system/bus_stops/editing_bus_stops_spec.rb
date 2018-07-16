@@ -90,7 +90,7 @@ describe 'editing a bus stop as a user' do
         when_current_user_is last_user
         visit edit_bus_stop_path(edit_stop.hastus_id)
         within 'table.edit-form' do
-          select 'Yes', from: 'Accessible'
+          select 'UMTS', from: 'Garage responsible'
           check 'Completed'
           click_button 'Save stop'
         end
