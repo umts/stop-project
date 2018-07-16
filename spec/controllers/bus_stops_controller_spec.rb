@@ -27,8 +27,12 @@ describe BusStopsController, type: :controller do
     end
     context 'incorrect route in params' do
       it 'redirects to index page' do
+        submit
+        expect(response).to redirect_to bus_stops_path
       end
       it 'displays a helpful message' do
+        submit
+        expect(flash[:notice]).to eq "Route #{incorrect_route_number} not found"
       end
     end
   end
