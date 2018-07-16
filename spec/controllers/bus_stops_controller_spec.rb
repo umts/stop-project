@@ -13,7 +13,7 @@ describe BusStopsController, type: :controller do
     context 'incorrect route in params' do
       it 'redirects to index page' do
         submit
-        expect(response).to redirect_to :index
+        expect(response).to redirect_to bus_stops_path
       end
       it 'displays a helpful message' do
         submit
