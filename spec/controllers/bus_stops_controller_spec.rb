@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe BusStopsController, type: :controller do
   let(:incorrect_route_number) { '-1' }
+  let!(:user) { create :user }
+  before :each do
+    when_current_user_is user
+  end
   describe 'by_status' do
     let :submit do
       get :by_status, params: { number: incorrect_route_number }
