@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe BusStopsController, type: :controller do
+  let(:incorrect_route_number) { '-1' }
   context 'incorrect route in params' do
     context 'viewing stops by status' do
       before :each do

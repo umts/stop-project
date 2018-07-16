@@ -89,7 +89,6 @@ describe 'searching for a bus stop by route' do
            bus_stop: bus_stop,
            route: route
   end
-  let(:incorrect_route_number) { '-1' }
   before :each do
     when_current_user_is user
     visit root_url
