@@ -28,7 +28,6 @@ FactoryBot.define do
       route_stickers 'No stickers'
       bike_rack 'Bike locker'
       real_time_information 'Yes - Solar'
-      garage_responsible 'SATCo'
       created_at Date.yesterday
       updated_at Date.today
       bolt_on_base true
@@ -39,11 +38,12 @@ FactoryBot.define do
       shelter_ada_compliance true
       ada_landing_pad true
       state_road true
-      # all attrs except for accessible
+      accessible true
+      # all attrs except for garage_responsible
     end
     trait :completed do
       pending
-      accessible true
+      garage_responsible 'SATCo'
       completed true
     end
   end
