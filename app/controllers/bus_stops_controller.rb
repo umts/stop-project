@@ -65,7 +65,7 @@ class BusStopsController < ApplicationController
   end
 
   def update
-    if @stop.update stop_params
+    if @stop.update bsf_attrs
       flash[:notice] = 'Bus stop was updated.'
       redirect_to bus_stops_path
     else
@@ -85,8 +85,16 @@ class BusStopsController < ApplicationController
     @data_fields = @stop.data_fields
   end
 
-  def stop_params
+  # rewrite params in order to update stop
+  def bsf_attrs
     # no attributes that people aren't supposed to be able to edit
-    params.require(:bus_stop).permit(bus_stop_fields_attributes: [:id, :field_name, :value])
+    stop_params = params.require(:bus_stop).permit(bus_stop_fields_attributes: [:id, :field_name, :value, :_destroy])
+    stop_params[:bus_stop_fields_attributes].each_pair do |rank, bsf_attrs|
+      bsf_attrs.delete :id
+      if bsf_attrs[:value].empty?
+        stop_params[:bus_stop_fields_attributes].delete rank
+      end
+    end
+    stop_params
   end
 end
