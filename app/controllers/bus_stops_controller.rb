@@ -65,7 +65,6 @@ class BusStopsController < ApplicationController
   end
 
   def update
-    binding.pry
     if @stop.update stop_params
       flash[:notice] = 'Bus stop was updated.'
       redirect_to bus_stops_path
