@@ -27,7 +27,7 @@ class BusStopsController < ApplicationController
     redirect_to edit_bus_stop_path(@stop.hastus_id)
   end
 
-  # TODO: fill in csv method, then implement BSFs
+  # TODO: fill in csv method
   def manage
     @stops = BusStop.order(:name)
                     .paginate(page: params[:page], per_page: 10)
@@ -49,7 +49,7 @@ class BusStopsController < ApplicationController
     end
   end
 
-  # TODO: fill in csv method, then implement BSFs
+  # TODO: fill in csv method
   def outdated
     @date = Date.parse(params[:date]) rescue 1.month.ago.to_date
     @stops = BusStop.not_updated_since(@date)
@@ -58,7 +58,7 @@ class BusStopsController < ApplicationController
     respond_to do |format|
       format.html { render :outdated }
       format.csv do
-        send_data @stops.to_csv(limited_attributes: true),
+        send_data @stops.to_csv,
           filename: "outdated-stops-since-#{@date.strftime('%Y%m%d')}.csv"
       end
     end
@@ -85,7 +85,6 @@ class BusStopsController < ApplicationController
     @data_fields = @stop.data_fields
   end
 
-  # rewrite params in order to update stop
   def bsf_attrs
     # no attributes that people aren't supposed to be able to edit
     stop_params = params.require(:bus_stop).permit(bus_stop_fields_attributes: [:id, :field_name, :value, :_destroy])
