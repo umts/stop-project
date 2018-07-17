@@ -48,7 +48,7 @@ class BusStop < ApplicationRecord
     routes.pluck(:number).sort.join(', ')
   end
 
-  def self.to_csv(limited_attributes: false)
+  def self.to_csv
     # TODO
   end
 
