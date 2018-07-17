@@ -49,7 +49,9 @@ class BusStop < ApplicationRecord
   end
 
   def self.to_csv
-    # TODO
+    # Need stop.bus_stop_fields.
+    # Then, attrs on bus_stops that aren't covered in bus_stop_fields.
+    # (will eventually be migrated away)
   end
 
   private
