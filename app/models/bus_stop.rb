@@ -49,17 +49,13 @@ class BusStop < ApplicationRecord
   end
 
   def self.to_csv
-    attrs = Hash[columns.map { |c| [c.name, c.name.humanize] }]
-    binding.pry
+    attrs = { name: 'Stop Name', hastus_id: 'Hastus ID', route_list: 'Routes', updated_at: 'Last updated' }.freeze
     CSV.generate headers: true do |csv|
       csv << attrs.values
       all.each do |stop|
         csv << attrs.keys.map{ |attr| stop.send attr }
       end
     end
-    # Need stop.bus_stop_fields.
-    # Then, attrs on bus_stops that aren't covered in bus_stop_fields.
-    # (will eventually be migrated away)
   end
 
   private
