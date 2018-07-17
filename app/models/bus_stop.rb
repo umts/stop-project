@@ -10,7 +10,7 @@ class BusStop < ApplicationRecord
   has_many :bus_stop_fields, dependent: :destroy
   has_many :fields, through: :bus_stop_fields
 
-  accepts_nested_attributes_for :bus_stop_fields
+  accepts_nested_attributes_for :bus_stop_fields, :update_only => true
 
   validates :name, presence: true
   validates :hastus_id, presence: true, uniqueness: true
@@ -51,9 +51,13 @@ class BusStop < ApplicationRecord
   def self.to_csv
     attrs = { name: 'Stop Name', hastus_id: 'Hastus ID', route_list: 'Routes', updated_at: 'Last updated' }.freeze
     CSV.generate headers: true do |csv|
-      csv << attrs.values
       all.each do |stop|
-        csv << attrs.keys.map{ |attr| stop.send attr }
+        csv << attrs.values
+        csv << attrs.keys.map { |attr| stop.send attr }
+        bsfs = BusStopField.where(bus_stop: stop)
+        bsfs.each do |bsf|
+          attrs.merge { bsf.value => bsf.field_name }
+        end
       end
     end
   end
