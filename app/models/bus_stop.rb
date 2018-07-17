@@ -49,16 +49,20 @@ class BusStop < ApplicationRecord
   end
 
   def self.to_csv
-    attrs = { name: 'Stop Name', hastus_id: 'Hastus ID', route_list: 'Routes', updated_at: 'Last updated' }.freeze
+    stop_attrs = { name: 'Stop Name', hastus_id: 'Hastus ID', route_list: 'Routes', updated_at: 'Last updated' }.freeze
+    attrs = {}
     CSV.generate headers: true do |csv|
       all.each do |stop|
-        csv << attrs.values
-        csv << attrs.keys.map { |attr| stop.send attr }
+        stop_attrs.keys.map! { |stop_attr| stop.send stop_attr }
         bsfs = BusStopField.where(bus_stop: stop)
         bsfs.each do |bsf|
-          attrs.merge { bsf.value => bsf.field_name }
+          attrs.merge!({ bsf.send(:field_name) => bsf.send(:value) })
         end
       end
+      csv << attrs.keys
+      csv << stop_attrs.values
+      csv << attrs.values
+      csv << stop_attrs.keys
     end
   end
 
