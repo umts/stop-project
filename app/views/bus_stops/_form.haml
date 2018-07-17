@@ -30,11 +30,12 @@
           = f.fields_for :bus_stop_fields, data_field do |data_field_form|
             %tr
               %td= data_field_form.label :value, data_field.field_name
-              = data_field_form.hidden_field :field_name, value: data_field.field_name
               - case data_field.field.field_type
               - when 'boolean'
                 %td= data_field_form.check_box :value, value: data_field.value
               - when 'choice'
                 %td= data_field_form.select :value, data_field.field.choices, include_blank: true, selected: data_field.value
+              = data_field_form.hidden_field :id, value: data_field.id
+              = data_field_form.hidden_field :field_name, value: data_field.field_name
     %tr
       %td= submit_tag 'Save stop', class: 'btn btn-primary submit'
