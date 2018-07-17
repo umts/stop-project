@@ -3,7 +3,7 @@ class BusStopField < ApplicationRecord
   belongs_to :field, foreign_key: :field_name
   
   validate :check_choice_included
-  validates_uniqueness_of :field_name, :scope => :bus_stop_id
+  validates_uniqueness_of :field_name, scope: :bus_stop_id
   
   private
     def check_choice_included
