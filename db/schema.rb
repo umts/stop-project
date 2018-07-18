@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180614232652) do
+ActiveRecord::Schema.define(version: 20180718150606) do
 
-  create_table "bus_stop_fields", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "bus_stop_fields", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "bus_stop_id", null: false
     t.string "value"
     t.datetime "created_at", null: false
