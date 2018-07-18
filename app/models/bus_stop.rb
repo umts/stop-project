@@ -49,16 +49,8 @@ class BusStop < ApplicationRecord
   end
 
   def self.to_csv
-    # need name, hastus_id, etc
-    attrs = {}
     CSV.generate headers: true do |csv|
-      all.each do |stop|
-        BusStopField.where(bus_stop: stop).each do |bsf|
-          attrs.merge!(bsf.send(:field_name) => bsf.send(:value))
-        end
-      end
-      csv << attrs.keys
-      csv << attrs.values
+      csv << Field.all
     end
   end
 
