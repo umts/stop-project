@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BusStopsController < ApplicationController
   before_action :find_stop, only: %i[edit destroy id_search update]
   before_action :restrict_to_admin, only: %i[destroy manage]
@@ -20,7 +22,7 @@ class BusStopsController < ApplicationController
   def destroy
     @stop.destroy
     redirect_to manage_bus_stops_path,
-      notice: "#{@stop.name} has been deleted."
+                notice: "#{@stop.name} has been deleted."
   end
 
   def id_search
@@ -35,7 +37,7 @@ class BusStopsController < ApplicationController
       format.html { render :manage }
       format.csv do
         send_data @stops.to_csv,
-          filename: "all-stops-#{Date.today.strftime('%Y%m%d')}.csv"
+                  filename: "all-stops-#{Date.today.strftime('%Y%m%d')}.csv"
       end
     end
   end
@@ -44,14 +46,18 @@ class BusStopsController < ApplicationController
     stop = BusStop.find_by name: params.require(:name)
     if stop.present?
       redirect_to edit_bus_stop_path(stop.hastus_id)
-    else redirect_to bus_stops_path, 
-                    notice: "Stop #{params[:name]} not found"
+    else redirect_to bus_stops_path,
+                     notice: "Stop #{params[:name]} not found"
     end
   end
 
   # TODO: fill in csv method
   def outdated
-    @date = Date.parse(params[:date]) rescue 1.month.ago.to_date
+    @date = begin
+              Date.parse(params[:date])
+            rescue StandardError
+              1.month.ago.to_date
+            end
     @stops = BusStop.not_updated_since(@date)
                     .order(:updated_at)
                     .paginate(page: params[:page], per_page: 10)
@@ -59,7 +65,7 @@ class BusStopsController < ApplicationController
       format.html { render :outdated }
       format.csv do
         send_data @stops.to_csv,
-          filename: "outdated-stops-since-#{@date.strftime('%Y%m%d')}.csv"
+                  filename: "outdated-stops-since-#{@date.strftime('%Y%m%d')}.csv"
       end
     end
   end
@@ -80,13 +86,13 @@ class BusStopsController < ApplicationController
     @stop = BusStop.find_by hastus_id: params.require(:id)
     unless @stop.present?
       redirect_back(fallback_location: root_path,
-        notice: "Stop #{params[:id]} not found") and return
+                    notice: "Stop #{params[:id]} not found") && return
     end
     @data_fields = @stop.data_fields
   end
 
   def bsf_attrs
     # no attributes that people aren't supposed to be able to edit
-    params.require(:bus_stop).permit(bus_stop_fields_attributes: [:id, :field_name, :value])
+    params.require(:bus_stop).permit(bus_stop_fields_attributes: %i[id field_name value])
   end
 end
