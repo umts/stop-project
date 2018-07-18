@@ -29,7 +29,6 @@ class BusStopsController < ApplicationController
     redirect_to edit_bus_stop_path(@stop.hastus_id)
   end
 
-  # TODO: fill in csv method
   def manage
     @stops = BusStop.order(:name)
                     .paginate(page: params[:page], per_page: 10)
@@ -51,7 +50,6 @@ class BusStopsController < ApplicationController
     end
   end
 
-  # TODO: fill in csv method
   def outdated
     @date = Date.parse(params[:date]) rescue 1.month.ago.to_date
     @stops = BusStop.not_updated_since(@date)
