@@ -53,11 +53,7 @@ class BusStopsController < ApplicationController
 
   # TODO: fill in csv method
   def outdated
-    @date = begin
-              Date.parse(params[:date])
-            rescue StandardError
-              1.month.ago.to_date
-            end
+    @date = Date.parse(params[:date]) rescue 1.month.ago.to_date
     @stops = BusStop.not_updated_since(@date)
                     .order(:updated_at)
                     .paginate(page: params[:page], per_page: 10)
