@@ -53,8 +53,7 @@ class BusStop < ApplicationRecord
     attrs = {}
     CSV.generate headers: true do |csv|
       all.each do |stop|
-        bsfs = BusStopField.where(bus_stop: stop)
-        bsfs.each do |bsf|
+        BusStopField.where(bus_stop: stop).each do |bsf|
           attrs.merge!(bsf.send(:field_name) => bsf.send(:value))
         end
       end
