@@ -70,6 +70,7 @@ describe 'searching for a bus stop by stop name' do
   end
   context 'without completing stop name' do
     it 'autofills' do
+      # use the first character of the stop name so it's incomplete
       fill_in 'Enter stop name', with: bus_stop.name.chars.first
       find('div', text: bus_stop.name).click
       within 'form', text: 'Enter stop name' do
