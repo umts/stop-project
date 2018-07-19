@@ -1,4 +1,4 @@
-class ChangeHastusIdToString < ActiveRecord::Migration[5.1]
+class ChangeHastusIdToString < ActiveRecord::Migration[4.2]
   def up
     change_column :bus_stops, :hastus_id, :string
   end

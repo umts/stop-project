@@ -14,6 +14,8 @@ User.create! name: 'Jake Foreman',
              password_confirmation: 'password',
              admin: false
 
+# Recommended to create fields with `rails bus_stop_fields:create`.
+
 routes = {
   30 => Route.create!(number: '30', description: 'North Amherst / Old Belchertown Rd'),
   31 => Route.create!(number: '31', description: 'Sunderland / South Amherst'),
@@ -60,7 +62,7 @@ stops.each do |route_number, stop_names|
         sequence -= 1
       end
       # Anytime in the last two months
-      Timecop.freeze rand(86_400).minutes.ago do
+      Timecop.freeze Time.now - rand(2.months) do
         stop = BusStop.find_or_initialize_by name: stop_name
         stop.hastus_id = hastus_ids.fetch(stop_name)
         stop.save!

@@ -6,41 +6,32 @@
     Completed by #{stop.completed_by.try :name} at #{format_datetime stop.completed_at}
 = form_for stop, url: bus_stop_path(stop.hastus_id) do |f|
   %table.edit-form
-    %th
-      Stop Info
+    %thead
+      %tr
+        %th
+          Stop Info
+    %tbody
       %tr
         %td= f.label :name
         %td= stop.name
       %tr
         %td= f.label :hastus_id, 'Hastus ID'
         %td= stop.hastus_id
+      %tr
+        %td= f.label :routes
+        %td= stop.route_list
+      - @data_fields.each_pair do |category, category_fields|
         %tr
-          %td= f.label :routes
-          %td= stop.route_list
-      %tr
-        %td= f.label :garage_responsible
-        %td= f.select :garage_responsible, %w[SATCo UMTS VATCo], include_blank: true
-      %tr
-        %td= f.label :state_road
-        %td= f.select :state_road, [['Yes', true], ['No', false]], include_blank: true
-      %tr
-        %td= f.label :need_work
-        %td= f.select :need_work, ['1 - No issues',
-        '2 - Needs cleaning, no safety concern',
-        '3 - Minor issues, non safety',
-        '4 - Potential safety concern',
-        '5 - Immediate safety concern'],
-        include_blank: true
-    - BusStop::SUPER_HASH.each do |category, hash|
-      %th
-        = f.label category
-        - hash.each do |name, options|
-          %tr
-            %td= f.label name
-            - if options.kind_of?(Array)
-              %td= f.select name, options, include_blank: true
-            - else
-              %td= f.select name, [['Yes', true], ['No', false]], include_blank: true
+          %th{ colspan: 2 }= category
+        - category_fields.each do |data_field|
+          = fields_for data_field do |data_field_form|
+            %tr
+              %td= data_field_form.label :value, data_field.field_name
+              - case data_field.field.field_type
+              - when 'boolean'
+                %td= data_field_form.check_box :value
+              - when 'choice'
+                %td= data_field_form.select :value, data_field.field.choices, include_blank: true
     %th
       Inventory
       %tr
