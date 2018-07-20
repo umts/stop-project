@@ -7,13 +7,18 @@ class ApplicationController < ActionController::Base
   before_action :prepare_exception_notifier
 
   helper_method :format_datetime
-  
+
   private
 
   def prepare_exception_notifier
-    request.env['exception_notifier.exception_data'] = {
-      current_user: current_user
-    }
+    if request.env['exception_notifier.exception_data'].nil?
+      request.env['exception_notifier.exception_data'] = {
+        current_user: current_user
+      }
+    else
+      request.env['exception_notifier.exception_data']
+             .merge(current_user: current_user)
+    end
   end
   
   def restrict_to_admin
