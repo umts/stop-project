@@ -11,14 +11,9 @@ class ApplicationController < ActionController::Base
   private
 
   def prepare_exception_notifier
-    if request.env['exception_notifier.exception_data'].nil?
-      request.env['exception_notifier.exception_data'] = {
-        current_user: current_user
-      }
-    else
-      request.env['exception_notifier.exception_data']
-             .merge(current_user: current_user)
-    end
+    request.env['exception_notifier.exception_data'] ||= {}
+    request.env['exception_notifier.exception_data']
+           .merge(current_user: current_user)
   end
   
   def restrict_to_admin
