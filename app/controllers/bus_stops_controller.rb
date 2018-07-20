@@ -12,6 +12,7 @@ class BusStopsController < ApplicationController
     @route = Route.find_by number: params.require(:number)
     @stops = @route.bus_stops
     if @route.present?
+      session[:route_id] = @route.id
       @collection = @route.bus_stops_routes.group_by(&:direction).each do |_dir, bsrs|
         bsrs.sort_by(&:sequence)
       end
@@ -21,6 +22,7 @@ class BusStopsController < ApplicationController
   end
 
   def by_status
+    session.delete(:route_id)
     @route = Route.find_by number: params.require(:number)
     if @route.present?
       @stops = @route.bus_stops
@@ -40,6 +42,7 @@ class BusStopsController < ApplicationController
   end
 
   def id_search
+    session.delete(:route_id)
     redirect_to edit_bus_stop_path(@stop.hastus_id)
   end
 
@@ -56,6 +59,7 @@ class BusStopsController < ApplicationController
   end
 
   def name_search
+    session.delete(:route_id)
     stop = BusStop.find_by name: params.require(:name)
     if stop.present?
       redirect_to edit_bus_stop_path(stop.hastus_id)
@@ -81,13 +85,23 @@ class BusStopsController < ApplicationController
   def update
     @stop.assign_attributes stop_params
     @stop.decide_if_completed_by current_user
-    if @stop.save
+    if params[:commit] == 'Save and next'
+      route_id = session[:route_id]
+      next_stop = Route.find_by_id(route_id)
+                       .next_stop_in_sequence(@stop, route_id, session[:direction])
+      flash[:notice] = 'Bus stop was updated.'
+      redirect_to(edit_bus_stop_url(next_stop))
+    elsif @stop.save
       flash[:notice] = 'Bus stop was updated.'
       redirect_to bus_stops_path
     else
       flash[:errors] = @stop.errors.full_messages
       render 'edit'
     end
+  end
+
+  def edit
+    session[:direction] = params[:direction]
   end
 
   private
