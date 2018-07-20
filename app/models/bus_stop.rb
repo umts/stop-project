@@ -10,7 +10,7 @@ class BusStop < ApplicationRecord
   has_many :bus_stop_fields, dependent: :destroy
   has_many :fields, through: :bus_stop_fields
 
-  accepts_nested_attributes_for :bus_stop_fields, update_only: true
+  accepts_nested_attributes_for :bus_stop_fields
 
   validates :name, presence: true
   validates :hastus_id, presence: true, uniqueness: true
