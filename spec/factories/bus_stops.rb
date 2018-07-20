@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :bus_stop do
-    name 'stop'
+    name 'test_stop'
     sequence :hastus_id
     trait :pending do
       name 'Stop Name'
