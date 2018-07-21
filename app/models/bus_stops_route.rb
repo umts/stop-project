@@ -18,13 +18,13 @@ class BusStopsRoute < ApplicationRecord
     # The route direction array key isn't used because it doesn't matter here.
     # Since stop_hash is used for creating routes and bus_stops_routes, though,
     # we need to keep those keys.
-    stop_hash.each_pair do |route_dir, direction_variants|
-      variants = direction_variants.values
-      longest_variant = variants.max_by(&:length)
-      other_variants = variants - longest_variant
-      other_variants.each do |other_variant|
-        other_variant.each.with_index do |stop, sequence|
-          unless longest_variant.include? stop
+    stop_hash.each_pair do |route_dir, direction_trips|
+      trips = direction_trips.values.uniq.map(&:compact).map(&:uniq)
+      longest_trip = trips.max_by(&:length)
+      other_trips = trips - [longest_trip]
+      other_trips.each do |trip|
+        trip.each.with_index do |stop, sequence|
+          unless longest_trip.include? stop
             # We can't rely on the previous stop here
             # like we do in the corresponding else statement.
             if stop == other_variant.first
