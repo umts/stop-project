@@ -168,7 +168,7 @@ class BusStop < ApplicationRecord
     route_list: 'Routes',
     created_at: 'Created at',
     updated_at: 'Last updated',
-    updated_by: 'Last updated by',
+    last_updated_by: 'Last updated by',
     completed: 'Completed',
     completed_by: 'Completed by',
     completed_at: 'Completed at'
@@ -227,11 +227,7 @@ class BusStop < ApplicationRecord
       csv << attrs.values
       all.each do |stop|
         csv << attrs.keys.map do |attr|
-          if attr == :updated_by
-            stop.last_updated_by
-          else
-            stop.send attr
-          end
+          stop.send attr
         end
       end
     end
