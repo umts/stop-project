@@ -27,26 +27,26 @@ class BusStopsRoute < ApplicationRecord
           unless longest_trip.include? stop
             # We can't rely on the previous stop here
             # like we do in the corresponding else statement.
-            if stop == other_variant.first
-              # first stop on longest variant that's on the other variant
-              first_known_stop = longest_variant.find do |known_stop|
-                other_variant.include? known_stop
+            if stop == trip.first
+              # first stop on longest trip that's on the other trip
+              first_shared_stop = longest_trip.find do |known_stop|
+                trip.include? known_stop
               end
-              if first_known_stop.present?
+              if first_shared_stop.present?
                 # insert stop before first known stop on longest variant
-                first_known_stop_index = longest_variant.index(first_known_stop)
-                longest_variant.insert(first_known_stop_index, stop)
+                first_shared_stop_index = longest_trip.index(first_shared_stop)
+                longest_trip.insert(first_shared_stop_index, stop)
               # the other variant has no stops in common with the longest variant
               else
                 # add the stop onto the end of the longest variant
-                longest_variant << stop
+                longest_trip << stop
               end
             else
               # the previous stop will already be in the longest variant
-              previous_stop = other_variant[sequence - 1]
-              previous_stop_index_in_longest_variant = longest_variant.index(previous_stop)
+              previous_stop = trip[sequence - 1]
+              previous_stop_index_in_longest_trip = longest_trip.index(previous_stop)
               # Array#insert inserts before the given index.
-              longest_variant.insert(previous_stop_index_in_longest_variant + 1, stop)
+              longest_trip.insert(previous_stop_index_in_longest_trip + 1, stop)
             end
           end
         end
@@ -54,7 +54,7 @@ class BusStopsRoute < ApplicationRecord
       # overwrites the data we don't need, that is, the variants and corresponding
       # array of stop ids is condensed into one main variant pointing
       # to an array of ordered stops
-      stop_hash[route_dir] = longest_variant
+      stop_hash[route_dir] = longest_trip
     end
   end
 end
