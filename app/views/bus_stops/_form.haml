@@ -45,7 +45,7 @@
       Inventory
       %tr
         %td= f.label :completed, 'Completed'
-        %td= f.check_box :completed, class: 'triple-zoom'
+        %td= f.check_box :completed
     %tr
       %td= submit_tag 'Save stop', class: 'btn btn-primary btn-lg btn-block submit'
       %td= link_to 'Field Guide', field_guide_bus_stops_path

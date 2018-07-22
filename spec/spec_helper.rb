@@ -48,3 +48,7 @@ end
 def format_time(time)
   time.strftime('%Y-%m-%d %H:%M %P')
 end
+
+def format_datetime(datetime)
+  datetime.strftime('%A, %B %e, %Y - %l:%M %P')
+end
