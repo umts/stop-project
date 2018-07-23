@@ -22,13 +22,13 @@ namespace :bus_stops_route do
       sequence = row['stop_sequence'].to_i
       stop_id = row['stop_id']
 
-      route = stop_data.select do |route_direction, trips|
+      route = stop_data.values.find do |trips|
         trips.keys.include? trip_id
       end
-      if route.empty?
+      if route.nil?
         missing_trips << trip_id
       else
-        route.values.first[trip_id][sequence] = stop_id
+        route[trip_id][sequence] = stop_id
       end
     end
 
