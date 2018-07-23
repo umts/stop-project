@@ -32,7 +32,7 @@ namespace :bus_stops_route do
       end
     end
 
-    BusStopsRoute.import(stop_data)
+    BusStopsRoute.establish_sequences(stop_data)
     
     BusStopsRoute.delete_all
 
