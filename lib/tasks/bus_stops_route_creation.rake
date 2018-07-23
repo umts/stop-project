@@ -48,10 +48,6 @@ namespace :bus_stops_route do
         end
       end
     end
-    ActionMailer::Base.mail(
-      to: 'transit-it@admin.umass.edu',
-      subject: 'missing trips in GTFS export',
-      body: "The following trips were missing from trips.txt: #{missing_trips.join(',')}"
-    )
+    puts "The following trips were missing from trips.txt: #{missing_trips.join(', ')}"
   end
 end
