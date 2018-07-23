@@ -11,7 +11,7 @@ class BusStopsRoute < ApplicationRecord
   validates_uniqueness_of :bus_stop, scope: %i[route direction]
   
   # This method is used for importing a csv of routes. The input stop_hash
-  # has a route and direction array pointing to variants with stops (ordered
+  # has a route and direction array pointing to trips with stops (ordered
   # by sequence). import combines all stops per route direction, and
   # sequences those stops accordingly.
   def self.import(stop_hash)
@@ -33,16 +33,16 @@ class BusStopsRoute < ApplicationRecord
                 trip.include? known_stop
               end
               if first_shared_stop.present?
-                # insert stop before first known stop on longest variant
+                # insert stop before first known stop on longest trip
                 first_shared_stop_index = longest_trip.index(first_shared_stop)
                 longest_trip.insert(first_shared_stop_index, stop)
-              # the other variant has no stops in common with the longest variant
+              # the other trip has no stops in common with the longest trip
               else
-                # add the stop onto the end of the longest variant
+                # add the stop onto the end of the longest trip
                 longest_trip << stop
               end
             else
-              # the previous stop will already be in the longest variant
+              # the previous stop will already be in the longest trip
               previous_stop = trip[sequence - 1]
               previous_stop_index_in_longest_trip = longest_trip.index(previous_stop)
               # Array#insert inserts before the given index.
@@ -51,9 +51,9 @@ class BusStopsRoute < ApplicationRecord
           end
         end
       end
-      # overwrites the data we don't need, that is, the variants and corresponding
-      # array of stop ids is condensed into one main variant pointing
-      # to an array of ordered stops
+      # condenses all trip and stop data into one array of stop ids,
+      # representing the ordered path of all possible stops on that
+      # route in one particular direction.
       stop_hash[route_dir] = longest_trip
     end
   end
