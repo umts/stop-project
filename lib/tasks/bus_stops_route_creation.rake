@@ -3,7 +3,7 @@
 require 'csv'
 
 namespace :bus_stops_route do
-  task :import => :environment do
+  task import: :environment do
     stop_hash = {}
     missing_trips = []
 
