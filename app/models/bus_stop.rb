@@ -50,16 +50,14 @@ class BusStop < ApplicationRecord
 
   def self.to_csv
     CSV.generate headers: true do |csv|
-      all_field_names = Field.pluck(:name)
+      all_field_names = Field.pluck :name
       stop_attrs = { name: 'Stop Name', hastus_id: 'Hastus ID', route_list: 'Routes', updated_at: 'Last updated' }
       csv << stop_attrs.values + all_field_names
       all.each do |stop|
         stop_data = stop_attrs.keys.map { |attr| stop.send attr }
         all_field_names.each do |field_name|
           bsf = BusStopField.find_by(bus_stop: stop, field_name: field_name)
-          if bsf.present?
-            stop_data << bsf.send(:value)
-          end
+          stop_data << bsf.send(:value) if bsf.present?
         end
         csv << stop_data
       end
