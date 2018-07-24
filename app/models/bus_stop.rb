@@ -6,7 +6,6 @@ include DateAndTimeMethods
 class BusStop < ApplicationRecord
   has_paper_trail
 
-  has_and_belongs_to_many :routes
   has_many :bus_stop_fields
   has_many :fields, through: :bus_stop_fields
 
