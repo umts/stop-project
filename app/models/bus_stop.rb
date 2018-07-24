@@ -220,7 +220,10 @@ class BusStop < ApplicationRecord
                                        'id',
                                        'updated_at',
                                        'created_at',
-                                       'route_list')
+                                       'route_list',
+                                       'completed_at',
+                                       'completed_by',
+                                       'completed')
               LIMITED_ATTRS.merge hashed_columns
             end
     CSV.generate headers: true do |csv|
