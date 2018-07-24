@@ -25,7 +25,7 @@ namespace :bus_stops do
                                 when 'None' then false
                                 else true
                                 end
-      stop = BusStop.find_by_id(row['id'])
+      stop = BusStop.find row['id']
       stop.update_attributes(new_attributes)
     end
   end
