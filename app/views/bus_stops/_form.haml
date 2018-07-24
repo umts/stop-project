@@ -3,7 +3,7 @@
     Last updated by #{stop.last_updated_by} at #{stop.last_updated_at}
 - if stop.completed_at.present?
   .smalltext.last-updated
-    Completed at #{format_datetime stop.completed_at}
+    Completed by #{stop.completed_by.try :name} at #{format_datetime stop.completed_at}
 = form_for stop, url: bus_stop_path(stop.hastus_id) do |f|
   %table.edit-form
     %thead
@@ -20,9 +20,6 @@
       %tr
         %td= f.label :routes
         %td= stop.route_list
-      %tr
-        %td= f.label :completed, 'Completed?'
-        %td= f.check_box :completed
       - @data_fields.each_pair do |category, category_fields|
         %tr
           %th{ colspan: 2 }= category
@@ -35,5 +32,11 @@
                 %td= data_field_form.check_box :value
               - when 'choice'
                 %td= data_field_form.select :value, data_field.field.choices, include_blank: true
+    %th
+      Inventory
+      %tr
+        %td= f.label :completed, 'Completed'
+        %td= f.check_box :completed
     %tr
-      %td= submit_tag 'Save stop', class: 'btn btn-primary submit'
+      %td= submit_tag 'Save stop', class: 'btn btn-primary btn-lg btn-block submit'
+      %td= link_to 'Field Guide', field_guide_bus_stops_path
