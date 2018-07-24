@@ -66,7 +66,6 @@ stops.each do |route_number, stop_names|
         stop = BusStop.find_or_initialize_by name: stop_name
         route = routes.fetch(route_number)
         stop.hastus_id = hastus_ids.fetch(stop_name)
-        stop.routes << route
         stop.save!
         
         BusStopsRoute.create route: route, sequence: sequence, bus_stop: stop, direction: direction
