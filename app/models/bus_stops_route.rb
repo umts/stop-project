@@ -10,15 +10,15 @@ class BusStopsRoute < ApplicationRecord
   validates_uniqueness_of :sequence, scope: %i[route direction]
   validates_uniqueness_of :bus_stop, scope: %i[route direction]
   
-  # This method is used for importing a csv of routes. The input stop_hash
+  # This method is used for importing a csv of routes. The input stop_data
   # has a route and direction array pointing to trips with stops (ordered
   # by sequence). establish_sequences combines all stops per route direction, 
   # and sequences those stops accordingly.
-  def self.establish_sequences(stop_hash)
+  def self.establish_sequences(stop_data)
     # The route direction array key isn't used because it doesn't matter here.
-    # Since stop_hash is used for creating routes and bus_stops_routes, though,
+    # Since stop_data is used for creating routes and bus_stops_routes, though,
     # we need to keep those keys.
-    stop_hash.each_pair do |route_dir, direction_trips|
+    stop_data.each_pair do |route_dir, direction_trips|
       trips = direction_trips.values.uniq.map(&:compact).map(&:uniq)
       longest_trip = trips.max_by(&:length)
       other_trips = trips - [longest_trip]
@@ -54,7 +54,7 @@ class BusStopsRoute < ApplicationRecord
       # condenses all trip and stop data into one array of stop ids,
       # representing the ordered path of all possible stops on that
       # route in one particular direction.
-      stop_hash[route_dir] = longest_trip
+      stop_data[route_dir] = longest_trip
     end
   end
 end
