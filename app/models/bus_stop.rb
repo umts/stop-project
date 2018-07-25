@@ -163,9 +163,15 @@ class BusStop < ApplicationRecord
 
   LIMITED_ATTRS = {
     name: 'Stop Name',
+    id: 'Id',
     hastus_id: 'Hastus ID',
-    stop_routes: 'Routes',
-    updated_at: 'Last updated'
+    route_list: 'Routes',
+    created_at: 'Created at',
+    updated_at: 'Last updated',
+    last_updated_by: 'Last updated by',
+    completed: 'Completed',
+    completed_by: 'Completed by',
+    completed_at: 'Completed at'
   }.freeze
 
   SUPER_HASH = {
@@ -207,12 +213,25 @@ class BusStop < ApplicationRecord
   def self.to_csv(limited_attributes: false)
     attrs = if limited_attributes
               LIMITED_ATTRS
-            else Hash[columns.map { |c| [c.name, c.name.humanize] }]
+            else
+              hashed_columns = Hash[columns.map { |c| [c.name, c.name.humanize] }]
+                               .except('name',
+                                       'hastus_id',
+                                       'id',
+                                       'updated_at',
+                                       'created_at',
+                                       'route_list',
+                                       'completed_at',
+                                       'completed_by',
+                                       'completed')
+              LIMITED_ATTRS.merge hashed_columns
             end
     CSV.generate headers: true do |csv|
       csv << attrs.values
       all.each do |stop|
-        csv << attrs.keys.map { |attr| stop.send attr }
+        csv << attrs.keys.map do |attr|
+          stop.send attr
+        end
       end
     end
   end
