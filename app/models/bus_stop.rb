@@ -50,7 +50,8 @@ class BusStop < ApplicationRecord
 
   def self.to_csv
     CSV.generate headers: true do |csv|
-      all_field_names = Field.pluck :name
+      # want BSFs that exist but don't have matching fields, too.
+      all_field_names = BusStopField.pluck(:field_name).uniq
       stop_attrs = { name: 'Stop Name', hastus_id: 'Hastus ID', route_list: 'Routes', updated_at: 'Last updated' }
       csv << stop_attrs.values + all_field_names
       all.each do |stop|
