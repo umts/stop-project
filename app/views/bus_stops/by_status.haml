@@ -1,0 +1,14 @@
+.page-title Route #{@route.number} Bus Stops
+
+%div
+  = link_to 'View by route order', by_sequence_bus_stops_path(number: @route.number)
+- if @stops.empty?
+  No stops on this route
+- else
+  - @stops_hash.each_pair do |status, stops|
+    = status + ' Stops'
+    %ul
+      - stops.each do |stop|
+        %li
+          = link_to edit_bus_stop_path(stop.hastus_id) do
+            = stop.name
