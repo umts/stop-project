@@ -1,10 +1,16 @@
 # frozen_string_literal: true
 
 require 'csv'
+include DateAndTimeMethods
 
 class BusStop < ApplicationRecord
-  include DateAndTimeMethods
   has_paper_trail
+
+  has_many :bus_stop_fields
+  has_many :fields, through: :bus_stop_fields
+
+  accepts_nested_attributes_for :bus_stop_fields
+
   validates :name, presence: true
   validates :hastus_id, presence: true, uniqueness: true
   has_many :bus_stops_routes
@@ -49,146 +55,13 @@ class BusStop < ApplicationRecord
       .where completed: [false, nil]
   }
 
-  SIGN_OPTIONS = {
-    sign_type: ['Axehead (2014+)',
-                'Rectangle (<2014)',
-                'MGM + Axhead (2018+)',
-                'Other',
-                'No sign'],
-    mounting: ['PVTA pole',
-               'Other pole',
-               'City pole',
-               'Utility pole',
-               'Structure',
-               'No sign'],
-    shared_sign_post: ['No',
-                       'Yes - Traffic sign',
-                       'Yes - FRTA',
-                       'Yes - Other',
-                       'Sign not on pole'],
-    mounting_direction: ['Towards street',
-                         'Away from street',
-                         'Center',
-                         'No sign'],
-    mounting_clearance: ['Less than 60 inches',
-                         '60-83 inches',
-                         'Greater than 84 inches',
-                         'No sign'],
-    bolt_on_base: :boolean,
-    stop_sticker: ['No sticker',
-                   'Sticker incorrect',
-                   'Sticker correct'],
-    route_stickers: ['No stickers',
-                     'Stickers incorrect',
-                     'Stickers correct']
-  }.freeze
-
-  SHELTER_OPTIONS = {
-    shelter: ['No shelter',
-              'PVTA shelter',
-              'Other',
-              'Building'],
-    shelter_type: ['Modern',
-                   'Modern half',
-                   'Victorian',
-                   'Dome',
-                   'Wooden',
-                   'Extra large',
-                   'Other',
-                   'No shelter'],
-    shelter_ada_compliance: :boolean,
-    shelter_condition: ['Great',
-                        'Good',
-                        'Fair',
-                        'Poor',
-                        'No shelter'],
-    shelter_pad_condition: ['Great',
-                            'Good',
-                            'Fair',
-                            'Poor',
-                            'No shelter'],
-    shelter_pad_material: ['Asphalt',
-                           'Concrete',
-                           'Other',
-                           'No shelter']
-  }.freeze
-
-  AMENITIES = {
-    bench: ['PVTA bench',
-            'Other bench',
-            'Other structure',
-            'None'],
-    bike_rack: ['PVTA bike rack',
-                'Other bike rack',
-                'Bike locker',
-                'None'],
-    schedule_holder: ['On pole',
-                      'In shelter',
-                      'None'],
-    system_map_exists: :boolean,
-    trash: %w[PVTA Municipal Other None]
-  }.freeze
-
-  ACCESSIBILITY = {
-    accessible: :boolean,
-    curb_cut: ['Within 20 feet',
-               '20 - 50 feet ',
-               'No curb cut',
-               'No curb'],
-    sidewalk_width: ['More than 36 inches',
-                     'Less than 36 inches',
-                     'None'],
-    bus_pull_out_exists: :boolean,
-    ada_landing_pad: :boolean,
-    obstructions: ['Yes - Tree/Branch',
-                   'Yes - Bollard/Structure',
-                   'Yes - Parking',
-                   'Yes - Other',
-                   'No']
-
-  }.freeze
-
-  SECURITY_AND_SAFETY = {
-    lighting: ['Within 20 feet',
-               '20 - 50 feet',
-               'None']
-  }.freeze
-
-  TECHNOLOGY = { solar_lighting: :boolean,
-                 has_power: :boolean,
-                 real_time_information: ['Yes - Solar',
-                                         'Yes - Power',
-                                         'No']
-  }.freeze
-
-  LIMITED_ATTRS = {
-    name: 'Stop Name',
-    id: 'Id',
-    hastus_id: 'Hastus ID',
-    route_list: 'Routes',
-    created_at: 'Created at',
-    updated_at: 'Last updated',
-    last_updated_by: 'Last updated by',
-    completed: 'Completed',
-    completed_by: 'Completed by',
-    completed_at: 'Completed at'
-  }.freeze
-
-  SUPER_HASH = {
-    sign: SIGN_OPTIONS,
-    shelter: SHELTER_OPTIONS,
-    amenities: AMENITIES,
-    accessibility: ACCESSIBILITY,
-    security_and_safety: SECURITY_AND_SAFETY,
-    technology: TECHNOLOGY
-  }.freeze
-
-  SUPER_HASH.each do |hash|
-    hash.each do |name, options|
-      if options.kind_of?(Array)
-        validates name, inclusion: { in: options }, allow_blank: true
+  def data_fields
+    Field.categories.map do |category|
+      category_fields = Field.in_category(category).order(:rank).map do |field|
+        BusStopField.where(field: field, bus_stop: self).first_or_create
       end
-    end
+      [category, category_fields]
+    end.to_h
   end
 
   def last_updated
@@ -211,29 +84,7 @@ class BusStop < ApplicationRecord
   end
 
   def self.to_csv(limited_attributes: false)
-    attrs = if limited_attributes
-              LIMITED_ATTRS
-            else
-              hashed_columns = Hash[columns.map { |c| [c.name, c.name.humanize] }]
-                               .except('name',
-                                       'hastus_id',
-                                       'id',
-                                       'updated_at',
-                                       'created_at',
-                                       'route_list',
-                                       'completed_at',
-                                       'completed_by',
-                                       'completed')
-              LIMITED_ATTRS.merge hashed_columns
-            end
-    CSV.generate headers: true do |csv|
-      csv << attrs.values
-      all.each do |stop|
-        csv << attrs.keys.map do |attr|
-          stop.send attr
-        end
-      end
-    end
+    # TODO
   end
 
   def decide_if_completed_by(user)
