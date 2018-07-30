@@ -11,10 +11,8 @@ namespace :bus_stops_route do
       route_number = row['route_id']
       direction = row['direction_id']
       trip_id = row['trip_id']
-      unless route_number.blank? # Missing rows in the CSV file
-        stop_data[[route_number, direction]] ||= {}
-        stop_data[[route_number, direction]][trip_id] ||= []
-      end
+      stop_data[[route_number, direction]] ||= {}
+      stop_data[[route_number, direction]][trip_id] ||= []
     end
 
     CSV.foreach('stop_times.txt', headers: true) do |row|
