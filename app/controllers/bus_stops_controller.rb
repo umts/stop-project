@@ -101,7 +101,7 @@ class BusStopsController < ApplicationController
   end
 
   def edit
-    session[:direction] = params[:direction]
+    session[:direction] = params[:direction] if params[:direction]
   end
 
   private
