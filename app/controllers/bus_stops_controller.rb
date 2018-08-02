@@ -87,7 +87,7 @@ class BusStopsController < ApplicationController
     @stop.decide_if_completed_by current_user
     if params[:commit] == 'Save and next'
       route_id = session[:route_id]
-      next_stop = Route.find_by_id(route_id)
+      next_stop = Route.find(route_id)
                        .next_stop_in_sequence(@stop, route_id, session[:direction])
       flash[:notice] = 'Bus stop was updated.'
       if next_stop
