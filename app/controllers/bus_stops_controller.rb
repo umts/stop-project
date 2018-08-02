@@ -10,9 +10,9 @@ class BusStopsController < ApplicationController
 
   def by_sequence
     @route = Route.find_by number: params.require(:number)
-    @stops = @route.bus_stops
     if @route.present?
       session[:route_id] = @route.id
+      @stops = @route.bus_stops
       @collection = @route.bus_stops_routes.group_by(&:direction).each do |_dir, bsrs|
         bsrs.sort_by(&:sequence)
       end
@@ -47,12 +47,11 @@ class BusStopsController < ApplicationController
   end
 
   def manage
-    @stops = BusStop.order(:name)
-                    .paginate(page: params[:page], per_page: 10)
+    @stops = BusStop.order(:name).paginate(page: params[:page], per_page: 10)
     respond_to do |format|
       format.html { render :manage }
       format.csv do
-        send_data @stops.to_csv,
+        send_data BusStop.all.to_csv,
                   filename: "all-stops-#{Date.today.strftime('%Y%m%d')}.csv"
       end
     end
@@ -70,11 +69,12 @@ class BusStopsController < ApplicationController
 
   def outdated
     @date = Date.parse(params[:date]) rescue 1.month.ago.to_date
-    @stops = BusStop.not_updated_since(@date)
-                    .order(:updated_at)
-                    .paginate(page: params[:page], per_page: 10)
+    @stops = BusStop.not_updated_since(@date).order(:updated_at)
     respond_to do |format|
-      format.html { render :outdated }
+      format.html do
+        @stops = @stops.paginate(page: params[:page], per_page: 10)
+        render :outdated
+      end
       format.csv do
         send_data @stops.to_csv(limited_attributes: true),
                   filename: "outdated-stops-since-#{@date.strftime('%Y%m%d')}.csv"

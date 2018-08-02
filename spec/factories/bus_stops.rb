@@ -2,28 +2,48 @@
 
 FactoryBot.define do
   factory :bus_stop do
-    name 'stop'
+    name 'test_stop'
     sequence :hastus_id
     trait :pending do
-      %i[name bench curb_cut lighting mounting mounting_direction
-        schedule_holder shelter sidewalk_width trash mounting_clearance
-        sign_type shelter_condition shelter_pad_condition shelter_pad_material
-        shelter_type shared_sign_post garage_responsible need_work obstructions
-        stop_sticker route_stickers bike_rack real_time_information].each do |s|
-        send(s, 'not blank')
-        end
+      name 'Stop Name'
+      bench 'PVTA bench'
+      curb_cut 'Within 20 feet'
+      lighting '20 - 50 feet'
+      mounting 'Structure'
+      mounting_direction 'Towards street'
+      schedule_holder 'None'
+      shelter 'Building'
+      sidewalk_width 'Less than 36 inches'
+      trash 'Municipal'
+      mounting_clearance '60-83 inches'
+      sign_type 'Rectangle (<2014)'
+      shelter_condition 'Poor'
+      shelter_pad_condition 'Great'
+      shelter_pad_material 'Asphalt'
+      shelter_type 'Modern half'
+      shared_sign_post 'Yes - FRTA'
+      need_work '5 - Immediate safety concern'
+      obstructions 'Yes - Bollard/Structure'
+      stop_sticker 'Sticker correct'
+      route_stickers 'No stickers'
+      bike_rack 'Bike locker'
+      real_time_information 'Yes - Solar'
       created_at Date.yesterday
       updated_at Date.today
-        %i[bolt_on_base bus_pull_out_exists has_power solar_lighting
-          system_map_exists shelter_ada_compliance ada_landing_pad
-          state_road].each do |b|
-          send(b, 'true')
-          end
-    # all attrs except for accessible
+      bolt_on_base true
+      bus_pull_out_exists true
+      has_power true
+      solar_lighting true
+      system_map_exists true
+      shelter_ada_compliance true
+      ada_landing_pad true
+      state_road true
+      accessible true
+      # all attrs except for garage_responsible
     end
     trait :completed do
       pending
-      accessible true
+      garage_responsible 'SATCo'
       completed true
     end
   end

@@ -30,7 +30,7 @@ table.edit-form td{
 }
 
 input[type=checkbox]{
-  transform: scale(2,2);
+  transform: scale(4);
 }
 
 input[type=radio]{
