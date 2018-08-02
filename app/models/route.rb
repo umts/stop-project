@@ -14,6 +14,6 @@ class Route < ApplicationRecord
   def next_stop_in_sequence(stop, route_id, direction)
     stops = stops_by_sequence(route_id, direction)
     index = stops.find_index(stop) + 1
-    stops[index].hastus_id
+    stops[index]
   end
 end

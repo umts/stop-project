@@ -47,7 +47,7 @@
         %td= f.label :completed, 'Completed'
         %td= f.check_box :completed, class: 'triple-zoom'
     %tr
-      %td= submit_tag 'Save stop', class: 'btn btn-primary btn-lg submit'
+      %td= submit_tag 'Save stop', class: 'btn btn-primary btn-lg btn-block submit'
       - unless session[:route_id].nil?
         %td= submit_tag 'Save and next', class: 'btn btn-primary btn-lg btn-block submit'
     %tr

@@ -90,7 +90,12 @@ class BusStopsController < ApplicationController
       next_stop = Route.find_by_id(route_id)
                        .next_stop_in_sequence(@stop, route_id, session[:direction])
       flash[:notice] = 'Bus stop was updated.'
-      redirect_to(edit_bus_stop_url(next_stop))
+      if next_stop
+        redirect_to(edit_bus_stop_url(next_stop.hastus_id))
+      else
+        route_number = Route.find(route_id).number
+        redirect_to(by_sequence_bus_stops_url(number: route_number))
+      end
     elsif @stop.save
       flash[:notice] = 'Bus stop was updated.'
       redirect_to bus_stops_path
