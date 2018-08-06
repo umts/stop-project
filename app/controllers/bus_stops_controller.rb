@@ -85,7 +85,6 @@ class BusStopsController < ApplicationController
   def update
     @stop.assign_attributes stop_params
     @stop.decide_if_completed_by current_user
-    binding.pry
     if params[:commit] == 'Save and next' && session[:route_id]
       route_id = session[:route_id]
       next_stop = Route.find(route_id)
@@ -108,6 +107,7 @@ class BusStopsController < ApplicationController
 
   def edit
     session[:direction] = params[:direction] if params[:direction]
+    @route_id = session[:route_id]
   end
 
   private

@@ -48,7 +48,7 @@
         %td= f.check_box :completed
     %tr
       %td= submit_tag 'Save stop', class: 'btn btn-primary btn-lg btn-block submit'
-      - if session[:route_id]
+      - if @route_id
         %td= submit_tag 'Save and next', class: 'btn btn-primary btn-lg btn-block submit'
     %tr
       %td= link_to 'Field Guide', field_guide_bus_stops_path
