@@ -64,10 +64,3 @@ namespace :data do
     end
   end
 end
-
-#### TROUBLESHOOTING:
-# problem: P21E has no stops. WHY?
-# routes.txt has: 921,P21E (route ID is 921)
-# trips.txt has (example): 921,S1803-AMD-Weekday-53,2609250-S1803-AMD-Weekday-53 
-# stop_times.txt has: 2609250-S1803-AMD-Weekday-53,06:27:31,06:27:31,387
-# SO WHAT IS HAPPEN
