@@ -81,23 +81,24 @@ class BusStopsController < ApplicationController
   def update
     @stop.assign_attributes stop_params
     @stop.decide_if_completed_by current_user
-    if params[:commit] == 'Save and next' && params[:route_id]
-      route_id = params[:route_id]
-      next_stop = Route.find(route_id)
-                       .next_stop_in_sequence(@stop, route_id, params[:direction])
+    if @stop.save
       flash[:notice] = 'Bus stop was updated.'
-      if next_stop
-        redirect_to(action: 'edit',
-                    id: next_stop.hastus_id,
-                    direction: params[:direction],
-                    route_id: params[:route_id])
+      if params[:commit] == 'Save and next' && params[:route_id]
+        route_id = params[:route_id]
+        next_stop = Route.find(route_id)
+                         .next_stop_in_sequence(@stop, route_id, params[:direction])
+        if next_stop
+          redirect_to(action: 'edit',
+                      id: next_stop.hastus_id,
+                      direction: params[:direction],
+                      route_id: params[:route_id])
+        else
+          route_number = Route.find(route_id).number
+          redirect_to(by_sequence_bus_stops_url(number: route_number))
+        end
       else
-        route_number = Route.find(route_id).number
-        redirect_to(by_sequence_bus_stops_url(number: route_number))
+        redirect_to bus_stops_path
       end
-    elsif @stop.save
-      flash[:notice] = 'Bus stop was updated.'
-      redirect_to bus_stops_path
     else
       flash[:errors] = @stop.errors.full_messages
       render 'edit'
