@@ -88,13 +88,13 @@ class BusStopsController < ApplicationController
         next_stop = Route.find(route_id)
                          .next_stop_in_sequence(@stop, route_id, params[:direction])
         if next_stop
-          redirect_to(action: 'edit',
+          redirect_to action: 'edit',
                       id: next_stop.hastus_id,
                       direction: params[:direction],
-                      route_id: params[:route_id])
+                      route_id: params[:route_id]
         else
           route_number = Route.find(route_id).number
-          redirect_to(by_sequence_bus_stops_url(number: route_number))
+          redirect_to by_sequence_bus_stops_url(number: route_number)
         end
       else
         redirect_to bus_stops_path
@@ -108,7 +108,7 @@ class BusStopsController < ApplicationController
   def edit
     if params[:route_id]
       @route = Route.find(params[:route_id])
-      @direction = params[:direction]
+      @direction = params.require(:direction)
     end
   end
 
