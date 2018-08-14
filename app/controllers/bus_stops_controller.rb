@@ -86,7 +86,7 @@ class BusStopsController < ApplicationController
       if params[:commit] == 'Save and next' && params[:route_id]
         route_id = params[:route_id]
         next_stop = Route.find(route_id)
-                         .next_stop_in_sequence(@stop, route_id, params[:direction])
+                         .next_stop_in_sequence(@stop, params[:direction])
         if next_stop
           redirect_to action: 'edit',
                       id: next_stop.hastus_id,
