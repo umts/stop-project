@@ -1,8 +1,13 @@
-table.manage{
-  td {
-    padding: 0 0.5em;
-  }
-  th {
-    text-align: center;
-  }
+table {
+  width: 100%;
+}
+td, th {
+  padding: 0 0.5em;
+}
+th{
+  background: #e0e7eb;
+  text-align: center !important;
+}
+input[type="checkbox"]{
+  margin: 0 0 0.3em 0.55em !important;
 }

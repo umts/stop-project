@@ -10,7 +10,7 @@ end
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 
 require 'rspec/rails'
 require 'devise'
@@ -35,4 +35,20 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
+end
+
+def when_current_user_is(user)
+  current_user = case user
+                 when User, nil then user
+                 when Symbol then create(:user, user)
+                 end
+  sign_in current_user
+end
+
+def format_time(time)
+  time.strftime('%Y-%m-%d %H:%M %P')
+end
+
+def format_datetime(datetime)
+  datetime.strftime('%A, %B %e, %Y - %l:%M %P')
 end

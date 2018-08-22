@@ -1,41 +1,32 @@
-att hide_inaccessible_values
-
-file stops_details_with_routes
-   {
-   line headers
-      {
-      item stp_identifier { value ' "stp_identifier" ' }
-      item rte_identifier { value ' "rte_identifier" ' }
-      item rte_description { value ' "rte_description" ' }
-      item rte_in_use { value ' "rte_in_use" ' }
-      item rte_version { value ' "rte_version" ' }
-      item rte_group { value ' "rte_group" ' }
-      item rte_service_type { value ' "rte_service_type" ' }
+var v_rank {
+  assign '1'
+  type integer
+}
+   
+file stops_with_routes {
+  trim 'true'
+  line headers {
+    item 2 { value '"rte_identifier"' }
+    item 3 { value '"variant"' }
+    item 4 { value '"direction"'}
+    item 1 { value '"stp_identifier"' }
+    item 5 { value '"stop_variant_rank"' }
+  }
+  foreach trip {
+    condition 'trp_via_variant <> NULL AND Object(route, trp_route).rte_for_public_info'
+    unique_on 'trp_via_variant'
+    foreach trip_pattern {
+      var v_rank { assign '1' }
+      foreach trip_pattern_point {
+        line stop {
+          item rte_identifier    { value 'tpat_route' }
+          item variant           { value 'tpat_via' }
+          item direction         { value 'ChoiceItemTxt(tpat_direction)'}
+          item stp_identifier    { value 'tpatpt_stop_id' }
+          item stop_variant_rank { value 'v_rank' }
+        }
+        var v_rank { assign 'v_rank + 1' }
       }
-   foreach stop
-      {
-      foreach route
-         {
-         sort_by routeSort
-            {
-            criteria rte_identifier { value 'rte_identifier' }
-            }
-
-         condition '(with a route_version from rte_version
-                       {
-                       rtev_last_effective_date >= p_JobDate and rtev_last_effective_date <> NULL and
-                       rtev_effective_date <= p_JobDate and rtev_effective_date <> NULL
-                       } )'
-         line route
-            {
-            item stp_identifier { value 'stp_identifier' }
-            item rte_identifier { value 'rte_identifier' }
-            item rte_description { value 'rte_description' }
-            item rte_in_use { value 'rte_in_use' }
-            item rte_version { value 'rte_version' }
-            item rte_group { value 'rte_group' }
-            item rte_service_type { value 'rte_service_type' }
-            }
-         }
-      }
-   }
+    }
+  }
+}

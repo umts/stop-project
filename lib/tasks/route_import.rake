@@ -1,16 +1,35 @@
+# frozen_string_literal: true
+
 require 'csv'
 
 # Example invocation rake 'routes:import[some_csv_file.csv]'
 
 namespace :routes do
   task :import, [:csv_file] => :environment do |_, args|
-    Route.delete_all
+    stop_hash = {}
     CSV.foreach(args[:csv_file], headers: true, col_sep: ';') do |row|
-      stop = BusStop.find_by hastus_id: row['stp_identifier']
-      if stop.present?
-        route = Route.find_or_create_by number: row['rte_identifier'].strip,
-                                        description: row['rte_description']
-        stop.routes << route
+      route = row['rte_identifier']
+      variant = row['variant']
+      dir = row['direction']
+      stop = row['stp_identifier']
+      sequence = row['stop_variant_rank'].to_i
+
+      stop_hash[[route, dir]] ||= {}
+      stop_hash[[route, dir]][variant] ||= []
+      stop_hash[[route, dir]][variant][sequence] = stop
+    end
+    BusStopsRoute.import(stop_hash)
+    
+    Route.delete_all
+    BusStopsRoute.delete_all
+    
+    stop_hash.each_pair do |(route, direction), stop_ids|
+      Route.find_or_create_by! number: route.strip
+      stop_ids.each.with_index(1) do |stop_id, sequence|
+        stop = BusStop.find_by(hastus_id: stop_id)
+        if stop.present?
+          BusStopsRoute.create!(route: route, direction: direction, bus_stop: stop, sequence: sequence)
+        end
       end
     end
   end

@@ -14,11 +14,47 @@ class BusStop < ApplicationRecord
 
   validates :name, presence: true
   validates :hastus_id, presence: true, uniqueness: true
+  has_many :bus_stops_routes
+  has_many :routes, through: :bus_stops_routes
+  belongs_to :completed_by, class_name: 'User', foreign_key: :completed_by
 
   before_save :assign_completion_timestamp, if: -> { completed_changed? }
 
   scope :not_updated_since,
         ->(date) { where 'updated_at < ?', date.to_datetime }
+  strings_required_for_completion = %i[name hastus_id bench curb_cut lighting
+                                       mounting mounting_direction
+                                       schedule_holder shelter sidewalk_width
+                                       trash mounting_clearance created_at
+                                       updated_at sign_type shelter_condition
+                                       shelter_pad_condition
+                                       shelter_pad_material shelter_type
+                                       shared_sign_post garage_responsible
+                                       bike_rack real_time_information
+                                       need_work obstructions stop_sticker
+                                       route_stickers]
+
+  boolean_required_for_completion = %i[bolt_on_base bus_pull_out_exists
+                                       has_power solar_lighting
+                                       system_map_exists shelter_ada_compliance
+                                       ada_landing_pad state_road accessible]
+
+  validates *strings_required_for_completion, presence: true, if: :completed?
+  validates *boolean_required_for_completion,
+            inclusion: {
+                in: [true, false],
+                message: "can't be blank"
+            }, if: :completed?
+
+  scope :completed, -> { where completed: true }
+  scope :not_started, lambda {
+    (where 'created_at = updated_at')
+      .where completed: [false, nil]
+  }
+  scope :pending, lambda {
+    (where 'updated_at > created_at')
+      .where completed: [false, nil]
+  }
 
   def data_fields
     Field.categories.map do |category|
@@ -62,6 +98,12 @@ class BusStop < ApplicationRecord
         end
         csv << stop_data
       end
+    end
+  end
+
+  def decide_if_completed_by(user)
+    if completed_changed?
+      assign_attributes(completed_by: (completed? ? user : nil))
     end
   end
 

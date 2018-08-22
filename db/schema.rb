@@ -10,19 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180718150606) do
+ActiveRecord::Schema.define(version: 20180606143538) do
 
-  create_table "bus_stop_fields", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "bus_stop_fields", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.bigint "bus_stop_id", null: false
+    t.bigint "field_id", null: false
     t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "field_name"
   end
 
-  create_table "bus_stops", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "bus_stops", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
     t.string "hastus_id", null: false
+    t.string "accessible"
     t.string "bench"
     t.string "curb_cut"
     t.string "lighting"
@@ -30,14 +31,20 @@ ActiveRecord::Schema.define(version: 20180718150606) do
     t.string "mounting_direction"
     t.string "schedule_holder"
     t.string "shelter"
-    t.string "sidewalk_width"
+    t.string "sidewalk"
+    t.string "sign"
     t.string "trash"
     t.boolean "bolt_on_base"
     t.boolean "bus_pull_out_exists"
+    t.boolean "extend_pole"
     t.boolean "has_power"
+    t.boolean "new_anchor"
+    t.boolean "new_pole"
     t.boolean "solar_lighting"
+    t.boolean "straighten_pole"
     t.boolean "system_map_exists"
-    t.string "mounting_clearance"
+    t.integer "mounting_clearance_after"
+    t.integer "mounting_clearance_before"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "completed"
@@ -47,45 +54,21 @@ ActiveRecord::Schema.define(version: 20180718150606) do
     t.string "shelter_pad_condition"
     t.string "shelter_pad_material"
     t.string "shelter_type"
-    t.string "shared_sign_post"
-    t.boolean "shelter_ada_compliance"
-    t.string "garage_responsible"
-    t.string "bike_rack"
-    t.boolean "ada_landing_pad"
-    t.string "real_time_information"
-    t.boolean "state_road"
-    t.string "need_work"
-    t.string "obstructions"
-    t.boolean "accessible"
-    t.string "stop_sticker"
-    t.string "route_stickers"
   end
 
   create_table "bus_stops_routes", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "bus_stop_id", null: false
     t.integer "route_id", null: false
-    t.integer "sequence"
-    t.string "direction"
   end
 
-  create_table "fields", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "name"
-    t.string "category"
-    t.text "description"
-    t.integer "rank"
-    t.string "field_type"
-    t.text "choices"
-    t.index ["name"], name: "index_fields_on_name"
-  end
-
-  create_table "routes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "routes", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "description"
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", default: "", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -98,12 +81,11 @@ ActiveRecord::Schema.define(version: 20180718150606) do
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.boolean "admin", default: false, null: false
-    t.datetime "created_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "versions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "versions", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci" do |t|
     t.string "item_type", limit: 191, null: false
     t.integer "item_id", null: false
     t.string "event", null: false
