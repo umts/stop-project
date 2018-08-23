@@ -231,7 +231,7 @@ class BusStop < ApplicationRecord
       all.each do |stop|
         csv << attrs.keys.map do |attr|
           if attr == :completed_by
-            stop.completed_by&.name
+            stop.completed_by.try(:name)
           else
             stop.send attr
           end
