@@ -90,6 +90,17 @@ class BusStopsController < ApplicationController
     end
   end
 
+  def edit
+    @fields = BusStop::SUPER_HASH
+    @fields.each_pair do |category, fields|
+      fields.each_pair do |field, options|
+        if options.is_a?(Array) && options.exclude?(@stop.send(field))
+          @fields[category][field] << @stop.send(field)
+        end
+      end
+    end
+  end
+
   private
 
   def find_stop
