@@ -12,9 +12,7 @@ class BusStopsController < ApplicationController
     @route = Route.find_by number: params.require(:number)
     if @route.present?
       @stops = @route.bus_stops
-      @collection = @route.bus_stops_routes.group_by(&:direction).each do |_dir, bsrs|
-        bsrs.sort_by(&:sequence)
-      end
+      @collection = @route.bus_stops_routes.order(:direction, sequence: :asc).group_by(&:direction)
     else redirect_to bus_stops_path,
                      notice: "Route #{params[:number]} not found"
     end
