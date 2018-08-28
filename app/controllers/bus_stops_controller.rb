@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BusStopsController < ApplicationController
   before_action :find_stop, only: %i[edit destroy id_search update]
   before_action :restrict_to_admin, only: %i[destroy manage]
@@ -72,16 +74,14 @@ class BusStopsController < ApplicationController
         render :outdated
       end
       format.csv do
-        send_data @stops.to_csv(limited_attributes: true),
+        send_data @stops.to_csv,
                   filename: "outdated-stops-since-#{@date.strftime('%Y%m%d')}.csv"
       end
     end
   end
 
   def update
-    @stop.assign_attributes stop_params
-    @stop.decide_if_completed_by current_user
-    if @stop.save
+    if @stop.update bsf_attrs
       flash[:notice] = 'Bus stop was updated.'
       redirect_to bus_stops_path
     else
@@ -94,15 +94,15 @@ class BusStopsController < ApplicationController
 
   def find_stop
     @stop = BusStop.find_by hastus_id: params.require(:id)
-    @data_fields = @stop.data_fields
     unless @stop.present?
       redirect_back(fallback_location: root_path,
                     notice: "Stop #{params[:id]} not found") and return
     end
+    @data_fields = @stop.data_fields
   end
 
-  def stop_params
+  def bsf_attrs
     # no attributes that people aren't supposed to be able to edit
-    params.require(:bus_stop).permit!
+    params.require(:bus_stop).permit(bus_stop_fields_attributes: %i[id field_name value])
   end
 end

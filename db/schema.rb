@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 20180606143538) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "versions", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+  create_table "versions", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci" do |t|
     t.string "item_type", limit: 191, null: false
     t.integer "item_id", null: false
     t.string "event", null: false

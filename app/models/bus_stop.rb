@@ -6,7 +6,8 @@ include DateAndTimeMethods
 class BusStop < ApplicationRecord
   has_paper_trail
 
-  has_many :bus_stop_fields
+  has_and_belongs_to_many :routes
+  has_many :bus_stop_fields, dependent: :destroy
   has_many :fields, through: :bus_stop_fields
 
   accepts_nested_attributes_for :bus_stop_fields
@@ -83,8 +84,21 @@ class BusStop < ApplicationRecord
     routes.pluck(:number).sort.join(', ')
   end
 
-  def self.to_csv(limited_attributes: false)
-    # TODO
+  def self.to_csv
+    CSV.generate do |csv|
+      # want BSFs that exist but don't have matching fields, too.
+      all_field_names = BusStopField.pluck(:field_name).uniq
+      stop_attrs = { name: 'Stop Name', hastus_id: 'Hastus ID', route_list: 'Routes', updated_at: 'Last updated' }
+      csv << stop_attrs.values + all_field_names
+      all.each do |stop|
+        stop_data = stop_attrs.keys.map { |attr| stop.send attr }
+        all_field_names.each do |field_name|
+          bsf = BusStopField.find_by(bus_stop: stop, field_name: field_name)
+          stop_data << bsf.value if bsf.present?
+        end
+        csv << stop_data
+      end
+    end
   end
 
   def decide_if_completed_by(user)
