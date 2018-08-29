@@ -49,9 +49,7 @@ hastus_ids = {
 
 stops.each do |route_number, stops_and_directions|
   stops_and_directions.each do |direction, stop_names|
-    sequence = 0
-    stop_names.each do |stop_name|
-      sequence += 1
+    stop_names.each.with_index(1) do |stop_name, sequence|
       # Anytime in the last two months
       Timecop.freeze rand(86_400).minutes.ago do
         stop = BusStop.find_or_initialize_by name: stop_name
