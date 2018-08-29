@@ -2,15 +2,28 @@
 
 require 'csv'
 
-namespace :bus_stops_route do
+namespace :gtfs_routes_and_trips do
   task import: :environment do
+    route_data = {}
     stop_data = {}
     missing_trips = []
 
+    Route.delete_all
+
+    CSV.foreach('routes.txt', headers: true) do |row|
+      route_id = row['route_id']
+      number = row['route_short_name']
+      description = row['route_long_name']
+      route = Route.find_or_create_by! number: number
+      route.update! description: description
+      route_data[route_id] = number
+    end
+
     CSV.foreach('trips.txt', headers: true) do |row|
-      route_number = row['route_id']
+      route_id = row['route_id']
       direction = row['direction_id']
       trip_id = row['trip_id']
+      route_number = route_data[route_id]
       stop_data[[route_number, direction]] ||= {}
       stop_data[[route_number, direction]][trip_id] ||= []
     end
@@ -46,6 +59,8 @@ namespace :bus_stops_route do
         end
       end
     end
-    puts "The following trips were missing from trips.txt: #{missing_trips.join(', ')}"
+    if missing_trips.present?
+      puts "The following trips were missing from trips.txt: #{missing_trips.join(', ')}"
+    end
   end
 end
