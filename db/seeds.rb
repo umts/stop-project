@@ -2,14 +2,14 @@
 
 require 'timecop'
 
-User.create! name: 'David Faulkenberry',
-             email: 'dave@example.com',
+User.create! name: 'Admin User',
+             email: 'admin@example.com',
              password: 'password',
              password_confirmation: 'password',
              admin: true
 
-User.create! name: 'Jake Foreman',
-             email: 'jake@example.com',
+User.create! name: 'Non-Admin User',
+             email: 'user@example.com',
              password: 'password',
              password_confirmation: 'password',
              admin: false
@@ -21,9 +21,12 @@ routes = {
 }
 
 stops = {
-  30 => ['Puffton Village', 'GRC', 'Cowles Ln', 'Colonial Village', 'Old Belchertown Rd', 'Amherst Post Office', 'Studio Arts Building'],
-  31 => ['Sugarloaf Estates', 'Townhouse Apts', 'GRC', 'Cowles Ln', 'The Boulders', 'Amherst Post Office', 'Studio Arts Building'],
-  38 => ['Haigis Mall', 'Cowles Ln', 'Amherst College', 'Hampshire College', 'Blanchard Hall']
+  30 => { North: ['Old Belchertown Rd', 'Colonial Village', 'Amherst Post Office', 'Studio Arts Building'],
+          South: ['Puffton Village', 'GRC', 'Cowles Ln', 'Colonial Village', 'Old Belchertown Rd'] },
+  31 => { North: ['The Boulders', 'Amherst Post Office', 'Studio Arts Building', 'Cliffside Apts'],
+          South: ['Sugarloaf Estates', 'Townhouse Apts', 'GRC', 'Cowles Ln', 'The Boulders'] },
+  38 => { North: ['Blanchard Hall', 'Hampshire College', 'Amherst College', 'Haigis Mall'],
+          South: ['Haigis Mall', 'Amherst College', 'Hampshire College', 'Blanchard Hall'] }
 }
 
 hastus_ids = {
@@ -40,33 +43,25 @@ hastus_ids = {
   'Studio Arts Building' => 72,
   'Sugarloaf Estates'    => 9,
   'The Boulders'         => 157,
-  'Townhouse Apts'       => 30
+  'Townhouse Apts'       => 30,
+  'Cliffside Apts'       => 11
 }
 
-# if this array changes then the logic below has to also change
-directions = ['North', 'South']
-
-stops.each do |route_number, stop_names|
-  directions.each do |direction|
-    if direction == 'North'
-      sequence = 0
-    else
-      sequence = stop_names.length
-    end
+stops.each do |route_number, stops_and_directions|
+  stops_and_directions.each do |direction, stop_names|
+    sequence = 0
     stop_names.each do |stop_name|
-      if direction == 'North'
-        sequence += 1
-      else
-        sequence -= 1
-      end
+      sequence += 1
       # Anytime in the last two months
       Timecop.freeze rand(86_400).minutes.ago do
         stop = BusStop.find_or_initialize_by name: stop_name
         stop.hastus_id = hastus_ids.fetch(stop_name)
         stop.save!
-        
         route = routes.fetch(route_number)
-        BusStopsRoute.create route: route, sequence: sequence, bus_stop: stop, direction: direction
+        BusStopsRoute.create route: route,
+                             sequence: sequence,
+                             bus_stop: stop,
+                             direction: direction
       end
     end
   end
