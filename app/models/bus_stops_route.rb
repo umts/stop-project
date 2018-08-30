@@ -8,7 +8,7 @@ class BusStopsRoute < ApplicationRecord
                        numericality: { greater_than_or_equal_to: 1 }
   validates :direction, presence: true
   validates_uniqueness_of :sequence, scope: %i[route direction]
-  validates_uniqueness_of :bus_stop, scope: %i[route direction]
+  validates_uniqueness_of :bus_stop, scope: :route
   
   # This method is used for importing a csv of routes. The input stop_data
   # has a route and direction array pointing to trips with stops (ordered
