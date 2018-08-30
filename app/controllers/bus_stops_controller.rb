@@ -84,7 +84,7 @@ class BusStopsController < ApplicationController
       redirect_to bus_stops_path
     else
       flash[:errors] = @stop.errors.full_messages
-      render 'edit'
+      redirect_to edit_bus_stop_path(@stop.hastus_id)
     end
   end
 

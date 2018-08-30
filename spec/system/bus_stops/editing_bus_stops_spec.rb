@@ -49,7 +49,7 @@ describe 'editing a bus stop as a user' do
     end
     it 'stays on the edit page' do
       # url doesn't change to edit page
-      expect(page.current_url).to end_with edit_stop.hastus_id
+      expect(page.current_url).to end_with "#{edit_stop.hastus_id}/edit"
     end
   end
   context 'clicking on the field guide link' do
