@@ -246,6 +246,10 @@ class BusStop < ApplicationRecord
     end
   end
 
+  def add_hastus_id_to_name
+    self.name = name + " (#{hastus_id})"
+  end
+
   private
 
   def assign_completion_timestamp
