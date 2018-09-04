@@ -31,7 +31,7 @@
         '4 - Potential safety concern',
         '5 - Immediate safety concern'],
         include_blank: true
-    - BusStop::SUPER_HASH.each do |category, hash|
+    - @fields.each do |category, hash|
       %th
         = f.label category
         - hash.each do |name, options|

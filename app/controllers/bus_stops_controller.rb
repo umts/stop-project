@@ -13,9 +13,7 @@ class BusStopsController < ApplicationController
     @route = Route.find_by number: params.require(:number)
     if @route.present?
       @stops = @route.bus_stops
-      @collection = @route.bus_stops_routes.group_by(&:direction).each do |_dir, bsrs|
-        bsrs.sort_by(&:sequence)
-      end
+      @collection = @route.bus_stops_routes.order(:direction, sequence: :asc).group_by(&:direction)
     else redirect_to bus_stops_path,
                      notice: "Route #{params[:number]} not found"
     end
@@ -89,6 +87,17 @@ class BusStopsController < ApplicationController
     else
       flash[:errors] = @stop.errors.full_messages
       render 'edit'
+    end
+  end
+
+  def edit
+    @fields = BusStop::SUPER_HASH
+    @fields.each_pair do |category, fields|
+      fields.each_pair do |field, options|
+        if options.is_a?(Array) && options.exclude?(@stop.send(field))
+          @fields[category][field] << @stop.send(field)
+        end
+      end
     end
   end
 
