@@ -48,8 +48,8 @@ describe 'editing a bus stop as a user' do
       expect(page).to have_text "Bench can't be blank"
     end
     it 'stays on the edit page' do
-      # url doesn't change to edit page
-      expect(page.current_url).to end_with edit_stop.hastus_id
+      # it redirects to the edit page of same object
+      expect(page.current_url).to end_with "#{edit_stop.hastus_id}/edit"
     end
   end
   context 'clicking on the field guide link' do
