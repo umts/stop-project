@@ -21,7 +21,7 @@ class BusStopsController < ApplicationController
   def by_status
     @route = Route.find_by number: params.require(:number)
     if @route.present?
-      @stops = @route.bus_stops
+      @stops = @route.bus_stops.distinct
       @stops_hash = {}
       @stops_hash['Pending'] = @stops.pending
       @stops_hash['Not Started'] = @stops.not_started
