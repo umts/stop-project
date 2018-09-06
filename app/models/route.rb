@@ -6,7 +6,7 @@ class Route < ApplicationRecord
 
   def stops_by_sequence(direction)
     bus_stops.where(bus_stops_routes: { direction: direction })
-             .order('bus_stops_routes.sequence')
+             .order('sequence')
   end
 
   def next_stop_in_sequence(stop, direction)
