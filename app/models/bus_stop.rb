@@ -246,7 +246,7 @@ class BusStop < ApplicationRecord
   end
 
   def add_hastus_id_to_name
-    self.name = name + " (#{hastus_id})"
+    name + " (#{hastus_id})"
   end
 
   private

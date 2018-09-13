@@ -5,8 +5,11 @@ class BusStopsController < ApplicationController
   def autocomplete
     stops = BusStop.where 'lower(name) like ?',
                           "%#{params.require(:term)}%"
-    stops.each &:add_hastus_id_to_name
-    render json: stops.pluck(:name).sort
+    names = []
+    stops.each do |stop|
+      names << stop.add_hastus_id_to_name
+    end
+    render json: names.sort
   end
 
   def by_sequence
