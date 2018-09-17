@@ -77,6 +77,7 @@ class BusStopsController < ApplicationController
   end
 
   def update
+    edit
     @stop.assign_attributes stop_params
     @stop.decide_if_completed_by current_user
     if @stop.save
