@@ -77,7 +77,7 @@ class BusStopsController < ApplicationController
   end
 
   def update
-    edit
+    set_fields_for_stop
     @stop.assign_attributes stop_params
     @stop.decide_if_completed_by current_user
     if @stop.save
@@ -90,6 +90,10 @@ class BusStopsController < ApplicationController
   end
 
   def edit
+    set_fields_for_stop
+  end
+
+  def set_fields_for_stop
     @fields = BusStop::SUPER_HASH
     @fields.each_pair do |category, fields|
       fields.each_pair do |field, options|
