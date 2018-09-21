@@ -1,6 +1,7 @@
 class BusStopsController < ApplicationController
   before_action :find_stop, only: %i[edit destroy id_search update]
   before_action :restrict_to_admin, only: %i[destroy manage]
+  before_action :set_fields_for_stop, only: %i[update edit]
 
   def autocomplete
     stops = BusStop.where 'lower(name) like ?',
@@ -77,7 +78,6 @@ class BusStopsController < ApplicationController
   end
 
   def update
-    set_fields_for_stop
     @stop.assign_attributes stop_params
     @stop.decide_if_completed_by current_user
     if @stop.save
@@ -90,7 +90,6 @@ class BusStopsController < ApplicationController
   end
 
   def edit
-    set_fields_for_stop
   end
 
   def set_fields_for_stop
