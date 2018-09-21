@@ -89,9 +89,6 @@ class BusStopsController < ApplicationController
     end
   end
 
-  def edit
-  end
-
   def set_fields_for_stop
     @fields = BusStop::SUPER_HASH
     @fields.each_pair do |category, fields|
