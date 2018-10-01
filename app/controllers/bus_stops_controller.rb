@@ -1,6 +1,7 @@
 class BusStopsController < ApplicationController
   before_action :find_stop, only: %i[edit destroy id_search update]
   before_action :restrict_to_admin, only: %i[destroy manage]
+  before_action :set_fields_for_stop, only: %i[update edit]
 
   def autocomplete
     stops = BusStop.where 'lower(name) like ?',
@@ -105,6 +106,9 @@ class BusStopsController < ApplicationController
       @route = Route.find(params[:route_id])
       @direction = params.require(:direction)
     end
+  end
+
+  def set_fields_for_stop
     @fields = BusStop::SUPER_HASH
     @fields.each_pair do |category, fields|
       fields.each_pair do |field, options|
