@@ -245,8 +245,12 @@ class BusStop < ApplicationRecord
     end
   end
 
-  def add_hastus_id_to_name
-    name + " (#{hastus_id})"
+  def name_with_id
+    "#{name} (#{hastus_id})"
+  end
+
+  def self.strip_id_from_name(name_with_id)
+    name_with_id[/[^(]+/].strip
   end
 
   private
