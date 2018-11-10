@@ -16,7 +16,7 @@ namespace :bus_stops do
     end
   end
   task export_modern_shelter_data: :environment do
-    attributes = #something
+    attributes = BusStop.attribute_names
     CSV.open('shelter_type_stop_data.csv', 'w', write_headers: true, headers: attributes) do |csv|
       BusStop.where(shelter_type: 'Modern').each do |stop|
         csv << attributes.map{|attr| stop.send(attr)}
