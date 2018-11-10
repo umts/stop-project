@@ -245,6 +245,14 @@ class BusStop < ApplicationRecord
     end
   end
 
+  def name_with_id
+    "#{name} (#{hastus_id})"
+  end
+
+  def self.strip_id_from_name(name_with_id)
+    name_with_id[/[^(]+/].strip
+  end
+
   private
 
   def assign_completion_timestamp

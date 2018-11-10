@@ -6,7 +6,7 @@ class BusStopsController < ApplicationController
   def autocomplete
     stops = BusStop.where 'lower(name) like ?',
                           "%#{params.require(:term)}%"
-    render json: stops.pluck(:name).sort
+    render json: stops.map(&:name_with_id).sort
   end
 
   def by_sequence
@@ -54,7 +54,8 @@ class BusStopsController < ApplicationController
   end
 
   def name_search
-    stop = BusStop.find_by name: params.require(:name)
+    name = BusStop.strip_id_from_name(params[:name])
+    stop = BusStop.find_by(name: name) unless name.nil?
     if stop.present?
       redirect_to edit_bus_stop_path(stop.hastus_id)
     else redirect_to bus_stops_path,
