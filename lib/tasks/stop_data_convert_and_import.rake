@@ -33,9 +33,10 @@ namespace :bus_stops do
     csv = CSV.read('all_stop_data.csv', headers: true)
     csv.each do |row|
       attrs = {}
-      attrs['shelter_type'] = case row['shelter_type']
-                                     when 'Modern' then 'Modern full'
-                                     end
+      if row['shelter_type'] == 'Modern'
+        attrs['shelter_type'] = 'Modern full'
+      else attrs['shelter_type'] = row['shelter_type']
+      end
       stop = BusStop.find row['id']
       stop.update_attributes(attrs)
     end
