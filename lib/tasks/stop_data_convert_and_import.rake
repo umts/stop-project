@@ -34,7 +34,7 @@ namespace :bus_stops do
     csv.each do |row|
       shelter_type = {}
       shelter_type['shelter_type'] = case row['shelter_type']
-                                     when 'Modern' then 'Modern Full'
+                                     when 'Modern' then 'Modern full'
                                      end
       stop = BusStop.find row['id']
       stop.update_attributes(shelter_type)
