@@ -32,12 +32,12 @@ namespace :bus_stops do
   task import_shelter_type_data: :environment do
     csv = CSV.read('all_stop_data.csv', headers: true)
     csv.each do |row|
-      shelter_type = {}
-      shelter_type['shelter_type'] = case row['shelter_type']
+      attrs = {}
+      attrs['shelter_type'] = case row['shelter_type']
                                      when 'Modern' then 'Modern full'
                                      end
       stop = BusStop.find row['id']
-      stop.update_attributes(shelter_type)
+      stop.update_attributes(attrs)
     end
   end
 end
