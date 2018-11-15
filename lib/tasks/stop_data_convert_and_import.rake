@@ -29,4 +29,16 @@ namespace :bus_stops do
       stop.update_attributes(new_attributes)
     end
   end
+  task import_shelter_type_data: :environment do
+    csv = CSV.read('all_stop_data.csv', headers: true)
+    csv.each do |row|
+      attrs = {}
+      if row['shelter_type'] == 'Modern'
+        attrs['shelter_type'] = 'Modern full'
+      else attrs['shelter_type'] = row['shelter_type']
+      end
+      stop = BusStop.find row['id']
+      stop.update_attributes(attrs)
+    end
+  end
 end
