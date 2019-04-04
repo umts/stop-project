@@ -50,6 +50,10 @@ class BusStopsController < ApplicationController
         send_data BusStop.all.to_csv,
                   filename: "all-stops-#{Date.today.strftime('%Y%m%d')}.csv"
       end
+      format.xml do
+        send_data BusStop.all.to_hastus_xml,
+                  filename: "all-stops-#{Date.today.strftime('%Y%m%d')}.xml"
+      end
     end
   end
 
