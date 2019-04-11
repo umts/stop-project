@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :route do
     sequence :number
-    description 'route description'
+    description { 'route description' }
   end
 end

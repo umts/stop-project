@@ -6,7 +6,7 @@ FactoryBot.define do
     sequence(:email) { |n| "user#{n}@umass.edu" }
 
     trait :admin do
-      admin true
+      admin { true }
     end
   end
 end

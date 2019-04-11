@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :bus_stops_route do
     sequence :sequence
-    direction 'North'
+    direction { 'North' }
   end
 end
