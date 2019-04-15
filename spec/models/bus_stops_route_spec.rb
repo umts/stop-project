@@ -35,12 +35,12 @@ describe BusStopsRoute do
       end
     end
   end
-  describe 'import' do
+  describe 'establish_sequences' do
     let(:main_variant) { %w[A B C D E] }
     before :each do
         @stop_hash = { route_dir: { key_1: main_variant, key_2: other_variant } }
     end
-    let(:resequence!) { BusStopsRoute.import(@stop_hash) }
+    let(:resequence!) { BusStopsRoute.establish_sequences(@stop_hash) }
     let(:other_variant) { %w[A] }
     context 'all stops in other variant are in longest variant' do
       it 'preserves sequence of longest variant' do
