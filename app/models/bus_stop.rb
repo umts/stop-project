@@ -9,7 +9,8 @@ class BusStop < ApplicationRecord
   validates :hastus_id, presence: true, uniqueness: true
   has_many :bus_stops_routes
   has_many :routes, through: :bus_stops_routes
-  belongs_to :completed_by, class_name: 'User', foreign_key: :completed_by
+  belongs_to :completed_by, optional: true,
+             class_name: 'User', foreign_key: :completed_by
 
   before_save :assign_completion_timestamp, if: -> { completed_changed? }
 

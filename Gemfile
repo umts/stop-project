@@ -2,14 +2,15 @@ source 'https://rubygems.org'
 
 gem 'bootstrap-sass'
 gem 'coffee-rails', '~> 4.2'
-gem 'devise', '~> 4.4'
+gem 'devise', '~> 4.6'
 gem 'haml-rails', '~> 1.0'
 gem 'jquery-rails', '~> 4.3'
 gem 'jquery-ui-rails', '~> 6.0'
 gem 'mysql2', '~> 0.4'
-gem 'paper_trail', '~> 8.1'
+gem 'paper_trail', '~> 9.2'
 gem 'rails', '~> 5.1'
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails'
+gem 'spring'
 gem 'underscore-rails', '~> 1.8'
 gem 'will_paginate', '~> 3.1'
 
@@ -33,9 +34,9 @@ end
 
 group :test do
   gem 'capybara', '~> 2.16'
-  gem 'chromedriver-helper', '~> 1.1'
   gem 'puma', '~> 3.7'
   gem 'rspec-rails', '~> 3.7'
   gem 'selenium-webdriver', '~> 3.8'
   gem 'simplecov'
+  gem 'webdrivers'
 end
