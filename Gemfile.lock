@@ -257,6 +257,8 @@ GEM
     timecop (0.9.1)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
+    uglifier (4.1.20)
+      execjs (>= 0.3.0, < 3)
     underscore-rails (1.8.3)
     warden (1.2.8)
       rack (>= 2.0.6)
@@ -301,6 +303,7 @@ DEPENDENCIES
   simplecov
   spring
   timecop (~> 0.9.1)
+  uglifier
   underscore-rails (~> 1.8)
   webdrivers
   will_paginate (~> 3.1)

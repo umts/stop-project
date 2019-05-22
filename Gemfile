@@ -17,6 +17,7 @@ gem 'will_paginate', '~> 3.1'
 
 group :production do
   gem 'exception_notification', '~> 4.2'
+  gem 'uglifier'
 end
 
 group :development do
