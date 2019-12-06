@@ -36,7 +36,7 @@ end
 
 group :test do
   gem 'capybara', '~> 3.18'
-  gem 'puma', '~> 3.7'
+  gem 'puma', '~> 3.12'
   gem 'rspec-rails', '~> 3.7'
   gem 'selenium-webdriver', '~> 3.8'
   gem 'simplecov'
