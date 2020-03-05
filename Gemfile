@@ -42,3 +42,5 @@ group :test do
   gem 'simplecov'
   gem 'webdrivers'
 end
+
+gem "listen", "~> 3.2"
