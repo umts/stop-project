@@ -58,4 +58,26 @@ describe BusStop do
       end
     end
   end
+
+  describe 'strip id from name' do
+
+    context 'normal input' do
+      let!(:stop_name) { 'Old Belchertown Rd (Out) (148)' }
+      let!(:call) { BusStop.strip_id_from_name(stop_name) }
+
+      it 'removes id successfully' do
+        expect(call).to eq 'Old Belchertown Rd (Out)'
+      end
+    end
+
+    context 'no removal necessary' do
+      let!(:stop_name) { 'Old Belchertown Rd (Out)' }
+      let!(:call) { BusStop.strip_id_from_name(stop_name) }
+
+      it 'doesn\'t change string'  do
+        expect(call).to eq 'Old Belchertown Rd (Out)'
+      end
+    end
+
+  end
 end

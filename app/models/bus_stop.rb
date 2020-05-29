@@ -251,7 +251,9 @@ class BusStop < ApplicationRecord
   end
 
   def self.strip_id_from_name(name_with_id)
-    name_with_id[/[^(]+/].strip
+    id_string_matches = name_with_id.match(/ \(\d+\)$/)
+    return name_with_id.gsub id_string_matches[0], '' if id_string_matches.present?
+    name_with_id
   end
 
   private
