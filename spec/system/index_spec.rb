@@ -74,9 +74,6 @@ describe 'searching for a bus stop by stop name' do
       # in order to be completed by autocomplete
       fill_in 'Enter stop name', with: bus_stop.name.chars.first
       find('div', text: bus_stop.name).click
-      within 'form', text: 'Enter stop name' do
-        click_button 'Search'
-      end
       expect(page).to have_content "Editing #{bus_stop.name}"
     end
   end
