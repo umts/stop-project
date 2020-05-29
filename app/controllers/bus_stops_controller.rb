@@ -5,9 +5,11 @@ class BusStopsController < ApplicationController
 
   def autocomplete
     stops = BusStop.where 'lower(name) like ?', "%#{params.require(:term)}%"
-    jsondata = stops.map { |stop| {label: stop.name_with_id,
-                                   value: stop.name_with_id,
-                                   hastus_id: stop.hastus_id} }
+    jsondata = stops.map do |stop|
+      {label: stop.name_with_id,
+       value: stop.name_with_id,
+       hastus_id: stop.hastus_id}
+    end
     render json: jsondata
   end
 
