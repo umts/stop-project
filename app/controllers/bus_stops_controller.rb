@@ -54,8 +54,7 @@ class BusStopsController < ApplicationController
   end
 
   def name_search
-    name = BusStop.strip_id_from_name(params[:name])
-    stop = BusStop.find_by(name: name) unless name.nil?
+    stop = BusStop.find_by_name_search(params[:name])
     if stop.present?
       redirect_to edit_bus_stop_path(stop.hastus_id)
     else redirect_to bus_stops_path,

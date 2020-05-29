@@ -59,25 +59,27 @@ describe BusStop do
     end
   end
 
-  describe 'strip id from name' do
-
-    context 'normal input' do
-      let!(:stop_name) { 'Old Belchertown Rd (Out) (148)' }
-      let!(:call) { BusStop.strip_id_from_name(stop_name) }
-
-      it 'removes id successfully' do
-        expect(call).to eq 'Old Belchertown Rd (Out)'
+  describe 'find_by_name_search' do
+    context 'name given' do
+      let!(:query) { completed_stop.name }
+      let!(:call) { BusStop.find_by_name_search(query).name }
+      it('finds correct stop') do
+        expect(call).to eq completed_stop.name
       end
     end
-
-    context 'no removal necessary' do
-      let!(:stop_name) { 'Old Belchertown Rd (Out)' }
-      let!(:call) { BusStop.strip_id_from_name(stop_name) }
-
-      it 'doesn\'t change string'  do
-        expect(call).to eq 'Old Belchertown Rd (Out)'
+    context 'id given' do
+      let!(:query) { completed_stop.name_with_id }
+      let!(:call) { BusStop.find_by_name_search(query) }
+      it('finds correct stop') do
+        expect(call).to eq completed_stop
       end
     end
-
+    context 'wrong id but valid name given' do
+      let!(:query) { "#{completed_stop.name} (999999)" }
+      let!(:call) { BusStop.find_by_name_search(query) }
+      it('defaults to name search') do
+        expect(call.name).to eq completed_stop.name
+      end
+    end
   end
 end
