@@ -250,10 +250,16 @@ class BusStop < ApplicationRecord
     "#{name} (#{hastus_id})"
   end
 
-  def self.strip_id_from_name(name_with_id)
-    id_string_matches = name_with_id.match(/ \(\d+\)$/)
-    return name_with_id.gsub id_string_matches[0], '' if id_string_matches.present?
-    name_with_id
+  def self.find_by_name_search(search_query)
+    id_string_matches = search_query.match(/ +\(\d+\)$/)
+    if id_string_matches.present?
+      extracted_id_string = id_string_matches[0]
+      extracted_hastus_id = extracted_id_string[/\d+/].to_i
+      stop_by_id = BusStop.find_by(hastus_id: extracted_hastus_id)
+      return stop_by_id if stop_by_id.present?
+      search_query = search_query.gsub extracted_id_string, ''
+    end
+    BusStop.find_by(name: search_query)
   end
 
   private
