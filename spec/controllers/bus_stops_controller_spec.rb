@@ -36,4 +36,27 @@ describe BusStopsController do
       end
     end
   end
+  describe 'update' do
+    let!(:route) { create :route }
+    let!(:bus_stop_1) { create :bus_stop }
+    let!(:bus_stop_2) { create :bus_stop }
+    let!(:bus_stops_route_1) { create :bus_stops_route,
+                                    route: route,
+                                    bus_stop: bus_stop_1 }
+    let!(:bus_stops_route_2) { create :bus_stops_route,
+                                    route: route,
+                                    bus_stop: bus_stop_2 }
+    context 'update on sequence of routes' do
+      before :each do
+        put :update, params: { id: bus_stop_1.hastus_id,
+                               bus_stop: { name: bus_stop_1.name },
+                               commit: 'Save and next',
+                               route_id: route.id,
+                               direction: bus_stops_route_1.direction }
+      end
+      it 'redirects to edit next stop' do
+        expect(response).to redirect_to edit_bus_stop_path(id: bus_stop_2.hastus_id, direction: bus_stops_route_2.direction, route_id: route.id)
+      end
+    end
+  end
 end
