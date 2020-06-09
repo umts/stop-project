@@ -58,4 +58,28 @@ describe BusStop do
       end
     end
   end
+
+  describe 'find_by_name_search' do
+    context 'name given' do
+      let(:query) { completed_stop.name }
+      let(:call) { BusStop.find_by_name_search(query).name }
+      it('finds correct stop') do
+        expect(call).to eq completed_stop.name
+      end
+    end
+    context 'id given' do
+      let(:query) { completed_stop.name_with_id }
+      let(:call) { BusStop.find_by_name_search(query) }
+      it('finds correct stop') do
+        expect(call).to eq completed_stop
+      end
+    end
+    context 'wrong id but valid name given' do
+      let(:query) { "#{completed_stop.name} (999999)" }
+      let(:call) { BusStop.find_by_name_search(query) }
+      it('defaults to name search') do
+        expect(call.name).to eq completed_stop.name
+      end
+    end
+  end
 end

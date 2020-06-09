@@ -4,9 +4,13 @@ class BusStopsController < ApplicationController
   before_action :set_fields_for_stop, only: %i[update edit]
 
   def autocomplete
-    stops = BusStop.where 'lower(name) like ?',
-                          "%#{params.require(:term)}%"
-    render json: stops.map(&:name_with_id).sort
+    stops = BusStop.where 'lower(name) like ?', "%#{params.require(:term)}%"
+    jsondata = stops.map do |stop|
+      {label: stop.name_with_id,
+       value: stop.name_with_id,
+       hastus_id: stop.hastus_id}
+    end
+    render json: jsondata
   end
 
   def by_sequence
@@ -54,12 +58,11 @@ class BusStopsController < ApplicationController
   end
 
   def name_search
-    name = BusStop.strip_id_from_name(params[:name])
-    stop = BusStop.find_by(name: name) unless name.nil?
+    stop = BusStop.find_by_name_search(params[:name])
     if stop.present?
       redirect_to edit_bus_stop_path(stop.hastus_id)
-    else redirect_to bus_stops_path,
-                     notice: "Stop #{params[:name]} not found"
+    else
+      redirect_to bus_stops_path, notice: "Stop #{params[:name]} not found"
     end
   end
 
