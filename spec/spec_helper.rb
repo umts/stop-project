@@ -18,6 +18,7 @@ require 'factory_bot_rails'
 
 ActiveRecord::Migration.maintain_test_schema!
 Capybara.default_driver = :selenium
+
 RSpec.configure do |config|
   config.order = :random
   config.include FactoryBot::Syntax::Methods
@@ -26,12 +27,15 @@ RSpec.configure do |config|
   config.before :all do
     FactoryBot.reload
   end
+
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
+
   config.mock_with :rspec do |mocks|
     mocks.verify_partial_doubles = true
   end
+
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
@@ -43,12 +47,4 @@ def when_current_user_is(user)
                  when Symbol then create(:user, user)
                  end
   sign_in current_user
-end
-
-def format_time(time)
-  time.strftime('%Y-%m-%d %H:%M %P')
-end
-
-def format_datetime(datetime)
-  datetime.strftime('%A, %B%e, %Y - %l:%M %P')
 end

@@ -3,7 +3,6 @@
 require 'csv'
 
 class BusStop < ApplicationRecord
-  include DateAndTimeMethods
   has_paper_trail
   validates :name, presence: true
   validates :hastus_id, presence: true, uniqueness: true
@@ -197,7 +196,7 @@ class BusStop < ApplicationRecord
 
   def last_updated_at
     if last_updated.present?
-      format_datetime last_updated.created_at
+      last_updated.created_at.to_formatted_s(:long_with_time)
     else 'Unknown'
     end
   end
