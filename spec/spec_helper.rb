@@ -50,5 +50,5 @@ def format_time(time)
 end
 
 def format_datetime(datetime)
-  datetime.strftime('%A, %B%e, %Y - %l:%M %P')
+  datetime.strftime('%A, %B %e, %Y - %l:%M %P')
 end
