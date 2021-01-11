@@ -28,7 +28,6 @@ module StopProject
     # the framework and any gems in your application.
     config.encoding = 'utf-8'
     config.time_zone = 'Eastern Time (US & Canada)'
-    config.autoload_paths << Rails.root.join('lib')
     config.filter_parameters += [:password, :secret]
   end
 end

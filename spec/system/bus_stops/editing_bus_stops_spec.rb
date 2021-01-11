@@ -77,7 +77,8 @@ describe 'editing a bus stop as a user' do
       Timecop.freeze Date.today do
         when_current_user_is user
         visit edit_bus_stop_path(edit_stop.hastus_id)
-        expect(page).to have_content "Last updated by #{last_user.name} at #{format_datetime(Date.yesterday)}"
+        updated = Date.yesterday.to_formatted_s(:long_with_time)
+        expect(page).to have_content "Last updated by #{last_user.name} at #{updated}"
       end
     end
   end
@@ -98,7 +99,8 @@ describe 'editing a bus stop as a user' do
       Timecop.freeze Date.today do
         when_current_user_is user
         visit edit_bus_stop_path(edit_stop.hastus_id)
-        expect(page).to have_content "Completed by #{last_user.name} at #{format_datetime(Date.yesterday)}"
+        completed = Date.yesterday.to_formatted_s(:long_with_time)
+        expect(page).to have_content "Completed by #{last_user.name} at #{completed}"
       end
     end
   end
