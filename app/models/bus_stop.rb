@@ -5,7 +5,7 @@ require 'csv'
 class BusStop < ApplicationRecord
   has_paper_trail
   validates :name, presence: true
-  validates :hastus_id, presence: true, uniqueness: true
+  validates :hastus_id, presence: true, uniqueness: { case_sensitive: false }
   has_many :bus_stops_routes
   has_many :routes, through: :bus_stops_routes
   belongs_to :completed_by, optional: true,
