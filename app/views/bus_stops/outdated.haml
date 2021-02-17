@@ -14,13 +14,14 @@ Bus stops not updated since #{@date} (#{@stops.count})
       %th Routes
       %th Updated
       %th
-    - @stops.each do |stop|
-      %tr
-        %td= stop.name
-        %td= stop.hastus_id
-        %td= stop.route_list
-        %td= stop.updated_at.to_formatted_s :db_hm
-        %td= link_to 'Edit', edit_bus_stop_path(stop.hastus_id)
+    %tbody
+      - @stops.each do |stop|
+        %tr
+          %td= stop.name
+          %td= stop.hastus_id
+          %td= stop.route_list
+          %td= stop.updated_at.to_formatted_s :db_hm
+          %td= link_to 'Edit', edit_bus_stop_path(stop.hastus_id)
   = will_paginate @stops
 - else
   No such stops.
