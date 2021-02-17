@@ -7,7 +7,7 @@ describe 'managing users as an admin' do
   let!(:manage_user) { create :user }
   before :each do
     when_current_user_is admin
-    visit users_url
+    visit users_path
   end
   context 'delete button' do
     it 'deletes the specific user' do
