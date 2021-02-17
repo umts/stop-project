@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 ruby IO.read(File.expand_path('.ruby-version', __dir__)).strip
 
 gem 'bootstrap-sass'
-gem 'coffee-rails', '~> 4.2'
 gem 'devise', '~> 4.6'
 gem 'haml-rails', '~> 1.0'
 gem 'jquery-rails', '~> 4.3'
