@@ -10,7 +10,7 @@ describe 'managing stops as an admin' do
     visit manage_bus_stops_url
   end
   context 'delete button' do
-    it 'deletes the specific bus stop' do
+    it 'deletes the specific bus stop', js: true do
       expect(page).to have_selector 'table.manage tbody tr', count: 1
       within 'tr', text: bus_stop.hastus_id do
         click_button 'Delete'
@@ -67,7 +67,7 @@ describe 'viewing outdated' do
     end
     expect(page).to have_content "Editing #{old_stop_1.name}"
   end
-  context 'using datepicker to specify different date' do
+  context 'using datepicker to specify different date', js: true do
     it 'displays outdated stops from that time' do
       within 'form' do
         page.find_by_id('date').click

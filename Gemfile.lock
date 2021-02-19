@@ -298,7 +298,6 @@ DEPENDENCIES
   rails (~> 5.1)
   rspec-rails (~> 3.7)
   sassc-rails
-  selenium-webdriver (~> 3.8)
   simplecov
   spring
   timecop (~> 0.9.1)

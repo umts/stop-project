@@ -69,7 +69,7 @@ describe 'searching for a bus stop by stop name' do
     end
   end
   context 'without completing stop name' do
-    it 'autofills' do
+    it 'autofills', js: true do
       # use the first character of the stop name so it's incomplete,
       # in order to be completed by autocomplete
       fill_in 'Enter stop name', with: bus_stop.name.chars.first
