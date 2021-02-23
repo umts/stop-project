@@ -19,7 +19,7 @@ describe 'editing a bus stop as a user' do
                                     text: 'Bus stop was updated.'
     end
     it 'redirects to the bus stops page' do
-      expect(page.current_url).to end_with bus_stops_path
+      expect(page).to have_current_path bus_stops_path
     end
   end
   context 'with data changes' do
@@ -34,7 +34,7 @@ describe 'editing a bus stop as a user' do
                                     text: 'Bus stop was updated.'
     end
     it 'redirects to the bus stops page' do
-      expect(page.current_url).to end_with bus_stops_path
+      expect(page).to have_current_path bus_stops_path
     end
   end
   context 'with errors' do
@@ -49,7 +49,7 @@ describe 'editing a bus stop as a user' do
     end
     it 'stays on the edit page' do
       # url doesn't change to edit page
-      expect(page.current_url).to end_with edit_stop.hastus_id
+      expect(page).to have_current_path bus_stop_path(edit_stop.hastus_id)
     end
   end
   context 'clicking on the field guide link' do
@@ -59,7 +59,7 @@ describe 'editing a bus stop as a user' do
       end
     end
     it 'redirects to the field guide' do
-      expect(page.current_url).to end_with field_guide_bus_stops_path
+      expect(page).to have_current_path field_guide_bus_stops_path
     end
   end
   context 'with a bus stop that has been previously edited' do

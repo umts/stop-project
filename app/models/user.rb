@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   devise :database_authenticatable
-  validates :name, :email, presence: true, uniqueness: true
+  validates :name, :email, presence: true, uniqueness: { case_sensitive: false }
   validate :confirmation_matches, if: -> { password.present? }
   has_many :stops_completed, class_name: 'BusStop', foreign_key: 'completed_by'
 

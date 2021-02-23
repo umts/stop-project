@@ -8,7 +8,7 @@ describe 'searching for a bus stop by stop id' do
   let(:incorrect_stop_id) { '-1' }
   before :each do
     when_current_user_is user
-    visit root_url
+    visit root_path
   end
   context 'correct stop id' do
     it 'redirects to the edit page' do
@@ -27,7 +27,7 @@ describe 'searching for a bus stop by stop id' do
       end
     end
     it 'stays on the same page' do
-      expect(page.current_url).to end_with root_path
+      expect(page).to have_current_path root_path
     end
     it 'displays a helpful message' do
       expect(page).to have_selector 'p.notice',
@@ -42,7 +42,7 @@ describe 'searching for a bus stop by stop name' do
   let(:incorrect_stop_name) { 'stahp' }
   before :each do
     when_current_user_is user
-    visit root_url
+    visit root_path
   end
   context 'correct stop name' do
     it 'redirects to the edit page' do
@@ -61,7 +61,7 @@ describe 'searching for a bus stop by stop name' do
       end
     end
     it 'stays on the same page' do
-      expect(page.current_url).to end_with bus_stops_path
+      expect(page).to have_current_path bus_stops_path
     end
     it 'displays a helpful message' do
       expect(page).to have_selector 'p.notice',
@@ -90,7 +90,7 @@ describe 'searching for a bus stop by route' do
   end
   before :each do
     when_current_user_is user
-    visit root_url
+    visit root_path
   end
   context 'route from the dropdown' do
     before :each do
