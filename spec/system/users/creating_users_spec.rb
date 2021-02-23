@@ -6,7 +6,7 @@ describe 'creating users as an admin' do
   let!(:admin) { create :user, :admin }
   before :each do
     when_current_user_is admin
-    visit new_user_url
+    visit new_user_path
   end
   context 'with all fields' do
     before :each do
@@ -25,7 +25,7 @@ describe 'creating users as an admin' do
                                     text: 'User was created.'
     end
     it 'redirects to the users page' do
-      expect(page.current_url).to end_with users_path
+      expect(page).to have_current_path users_path
     end
   end
   context 'with errors' do
@@ -61,7 +61,7 @@ describe 'creating users as an admin' do
       end
       expect(page).to have_selector 'p.notice',
                                     text: 'User was created.'
-      expect(page.current_url).to end_with users_path
+      expect(page).to have_current_path users_path
     end
   end
   context "password and password_confirmation don't match" do

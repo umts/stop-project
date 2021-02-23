@@ -7,7 +7,7 @@ describe 'managing stops as an admin' do
   let!(:bus_stop) { create :bus_stop }
   before :each do
     when_current_user_is admin
-    visit manage_bus_stops_url
+    visit manage_bus_stops_path
   end
   context 'delete button' do
     it 'deletes the specific bus stop', js: true do
@@ -29,8 +29,7 @@ describe 'managing stops as an admin' do
         click_link 'Edit'
       end
       expect(page).to have_content "Editing #{bus_stop.name}"
-      expect(page.current_url)
-        .to end_with edit_bus_stop_path(bus_stop.hastus_id)
+      expect(page).to have_current_path edit_bus_stop_path(bus_stop.hastus_id)
     end
   end
 end
@@ -45,11 +44,11 @@ describe 'viewing outdated' do
   let!(:old_stop_2) { create :bus_stop, updated_at: (date - 3.months) }
   before :each do
     when_current_user_is admin
-    visit manage_bus_stops_url
+    visit manage_bus_stops_path
     click_link 'View Outdated'
   end
   it 'redirects to outdated page' do
-    expect(page.current_url).to end_with outdated_bus_stops_path
+    expect(page).to have_current_path outdated_bus_stops_path
   end
   it 'displays only outdated stops' do
     expect(page).to have_selector 'table.manage tbody tr',

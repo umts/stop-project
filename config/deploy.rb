@@ -1,4 +1,4 @@
-lock '~> 3.14.1'
+lock '~> 3.14'
 
 set :application, 'stop-project'
 set :repo_url, 'https://github.com/umts/stop-project.git'
