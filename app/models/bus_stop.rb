@@ -239,6 +239,44 @@ class BusStop < ApplicationRecord
     end
   end
 
+  def self.to_hastus_xml
+    Nokogiri::XML::Builder.new do |doc|
+      doc.data do
+        all.each do |stop|
+          doc.stop do
+            doc.stp_identifier                    stop.hastus_id
+            doc.stp_ud_accessible_when_necessary  stop.accessible == 'When necessary'
+            doc.stp_ud_accessible_not_recommended stop.accessible == 'Not recommended'
+            doc.stp_ud_bench_pvta_bench           stop.bench == 'PVTA'
+            doc.stp_ud_bench_other_bench          stop.bench == 'Other'
+            doc.stp_ud_curb_cut_drive_within_20ft stop.curb_cut == "Within 20'"
+            doc.stp_ud_curb_cut_no_curb_cut       stop.curb_cut == 'No curb cut'
+            doc.stp_ud_curb_cut_no_curb           stop.curb_cut == 'No curb'
+            doc.stp_ud_lighting_solar             stop.solar_lighting?
+            doc.stp_ud_lighting_within_20ft       stop.lighting == "Within 20'"
+            doc.stp_ud_lighting_within_50ft       stop.lighting == "Within 50'"
+            doc.stp_ud_lighting_no_lighting       stop.lighting == 'None'
+            doc.stp_ud_mounting_pvta_pole         stop.mounting == 'PVTA pole'
+            doc.stp_ud_mounting_pole_other        stop.mounting == 'Other pole'
+            doc.stp_ud_mounting_structure         stop.mounting == 'Structure'
+            doc.stp_ud_schedule_holder_on_pole    stop.schedule_holder == 'On pole'
+            doc.stp_ud_schedule_holder_in_shelter stop.schedule_holder == 'In shelter'
+            doc.stp_ud_shelter_pvta               stop.shelter == 'PVTA'
+            doc.stp_ud_shelter_other              stop.shelter == 'Other'
+            doc.stp_ud_shelter_building           stop.shelter == 'Building'
+            doc.stp_ud_sidewalk_more_than_36in    stop.sidewalk_width == "More than 36'"
+            doc.stp_ud_sidewalk_less_than_36in    stop.sidewalk_width == "Less than 36'"
+            doc.stp_ud_sidewalk_no_sidewalk       stop.sidewalk_width == 'None'
+            doc.stp_ud_system_map                 stop.system_map_exists?
+            doc.stp_ud_trash_pvta                 stop.trash == 'PVTA'
+            doc.stp_ud_trash_municipal            stop.trash == 'Municipal'
+            doc.stp_ud_trash_other                stop.trash == 'Other'
+          end
+        end
+      end
+    end.to_xml
+  end
+
   def decide_if_completed_by(user)
     if completed_changed?
       assign_attributes(completed_by: (completed? ? user : nil))
