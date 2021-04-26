@@ -2,6 +2,8 @@ require 'csv'
 
 # Example invocation: rake 'bus_stops:import[some_csv_file.csv]'
 
+# rubocop:disable Layout/HashAlignment
+# rubocop:disable Layout/SpaceInsideArrayPercentLiteral, Layout/SpaceInsidePercentLiteralDelimiters
 STRING_COLUMN_ROW_NAMES = {
   accessible:      %w[stp_ud_accessible_when_necessary  stp_ud_accessible_not_recommended                            ],
   bench:           %w[stp_ud_bench_pvta_bench           stp_ud_bench_other_bench                                     ],
@@ -13,6 +15,8 @@ STRING_COLUMN_ROW_NAMES = {
   sidewalk_width:  %w[stp_ud_sidewalk_more_than_36in    stp_ud_sidewalk_less_than_36in    stp_ud_sidewalk_no_sidewalk],
   trash:           %w[stp_ud_trash_pvta                 stp_ud_trash_municipal            stp_ud_trash_other         ]
 }
+# rubocop:enable Layout/HashAlignment
+# rubocop:enable Layout/SpaceInsideArrayPercentLiteral, Layout/SpaceInsidePercentLiteralDelimiters
 
 STRING_COLUMN_OPTIONS = {
   accessible: ['When necessary', 'Not recommended'],
@@ -33,9 +37,9 @@ STRING_COLUMN_OPTIONS = {
 }
 
 COLUMN_NAMES = {
-  hastus_id:         'stp_identifier',
-  name:              'sloc_description',
-  solar_lighting:    'stp_ud_lighting_solar',
+  hastus_id: 'stp_identifier',
+  name: 'sloc_description',
+  solar_lighting: 'stp_ud_lighting_solar',
   system_map_exists: 'stp_ud_system_map'
 }
 

@@ -20,6 +20,7 @@ Metrics/ClassLength:
 Metrics/BlockLength:
   Exclude:
     - 'config/routes.rb'
+    - 'lib/tasks/**/*'
     - 'spec/**/*'
 
 # Don't worry about documentation for now.
