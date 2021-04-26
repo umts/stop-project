@@ -233,9 +233,9 @@ class BusStop < ApplicationRecord
   end
 
   def decide_if_completed_by(user)
-    if completed_changed?
-      assign_attributes(completed_by: (completed? ? user : nil))
-    end
+    return unless completed_changed?
+
+    assign_attributes(completed_by: (completed? ? user : nil))
   end
 
   def name_with_id

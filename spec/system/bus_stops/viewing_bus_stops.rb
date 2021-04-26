@@ -35,13 +35,13 @@ end
 
 describe 'viewing stops by sequence' do
   let(:user) { create :user }
-  let!(:route) { create :route }
-  let!(:stop_1) { create :bus_stop, :pending }
-  let!(:stop_2) { create :bus_stop }
-  let!(:stop_3) { create :bus_stop, :completed }
-  let!(:bsr1) { create :bus_stops_route, route: route, bus_stop: stop_1 }
-  let!(:bsr2) { create :bus_stops_route, route: route, bus_stop: stop_2 }
-  let!(:bsr3) { create :bus_stops_route, route: route, bus_stop: stop_3 }
+  let(:route) { create :route }
+  let(:stop1) { create :bus_stop, :pending }
+  let(:stop2) { create :bus_stop }
+  let(:stop3) { create :bus_stop, :completed }
+  let!(:bsr1) { create :bus_stops_route, route: route, bus_stop: stop1 }
+  let!(:bsr2) { create :bus_stops_route, route: route, bus_stop: stop2 }
+  let!(:bsr3) { create :bus_stops_route, route: route, bus_stop: stop3 }
   before :each do
     when_current_user_is user
     visit by_sequence_bus_stops_path(number: route.number)

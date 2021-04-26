@@ -112,10 +112,10 @@ class BusStopsController < ApplicationController
   end
 
   def edit
-    if params[:route_id]
-      @route = Route.find(params[:route_id])
-      @direction = params.require(:direction)
-    end
+    return unless params[:route_id].present?
+
+    @route = Route.find(params[:route_id])
+    @direction = params.require(:direction)
   end
 
   def set_fields_for_stop
@@ -131,10 +131,9 @@ class BusStopsController < ApplicationController
 
   def find_stop
     @stop = BusStop.find_by hastus_id: params.require(:id)
-    unless @stop.present?
-      redirect_back(fallback_location: root_path,
-                    notice: "Stop #{params[:id]} not found") and return
-    end
+    return if @stop.present?
+
+    redirect_back(fallback_location: root_path, notice: "Stop #{params[:id]} not found")
   end
 
   def stop_params
