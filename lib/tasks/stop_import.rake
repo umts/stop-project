@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'csv'
 
 # Example invocation: rake 'bus_stops:import[some_csv_file.csv]'
@@ -14,7 +16,7 @@ STRING_COLUMN_ROW_NAMES = {
   shelter:         %w[stp_ud_shelter_pvta               stp_ud_shelter_other              stp_ud_shelter_building    ],
   sidewalk_width:  %w[stp_ud_sidewalk_more_than_36in    stp_ud_sidewalk_less_than_36in    stp_ud_sidewalk_no_sidewalk],
   trash:           %w[stp_ud_trash_pvta                 stp_ud_trash_municipal            stp_ud_trash_other         ]
-}
+}.freeze
 # rubocop:enable Layout/HashAlignment
 # rubocop:enable Layout/SpaceInsideArrayPercentLiteral, Layout/SpaceInsidePercentLiteralDelimiters
 
@@ -34,14 +36,14 @@ STRING_COLUMN_OPTIONS = {
   sidewalk_width: ['More than 36"', 'Less than 36"', 'None'],
   sign_type: ['Axehead (2014+)', 'Rectangle (<2014)', 'MGM + Axhead (2018+)'],
   trash: %w[PVTA Municipal Other]
-}
+}.freeze
 
 COLUMN_NAMES = {
   hastus_id: 'stp_identifier',
   name: 'sloc_description',
   solar_lighting: 'stp_ud_lighting_solar',
   system_map_exists: 'stp_ud_system_map'
-}
+}.freeze
 
 namespace :bus_stops do
   task :import, [:csv_file] => :environment do |_, args|

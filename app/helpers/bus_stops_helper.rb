@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BusStopsHelper
   def check_image(attribute)
     if attribute

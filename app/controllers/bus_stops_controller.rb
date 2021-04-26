@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BusStopsController < ApplicationController
   before_action :find_stop, only: %i[edit destroy id_search update]
   before_action :restrict_to_admin, only: %i[destroy manage]

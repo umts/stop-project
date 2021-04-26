@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 %w[setup deploy scm/git pending bundler rails passenger].each do |lib|
   require "capistrano/#{lib}"
 end
