@@ -1,13 +1,13 @@
 class UsersController < ApplicationController
   before_action :restrict_to_admin
-  before_action :find_user, only: %i(destroy edit update)
-  
+  before_action :find_user, only: %i[destroy edit update]
+
   def destroy
     @user.destroy!
     flash[:notice] = 'User was deleted.'
     redirect_to users_path
   end
-  
+
   def create
     @user = User.new user_params
     if @user.save
@@ -38,9 +38,7 @@ class UsersController < ApplicationController
 
   def find_user
     @user = User.find_by id: params.require(:id)
-    unless @user.present?
-      render nothing: true, status: :not_found and return
-    end
+    render nothing: true, status: :not_found and return unless @user.present?
   end
 
   def user_params

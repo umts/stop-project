@@ -1,5 +1,4 @@
 module BusStopsHelper
-
   def check_image(attribute)
     if attribute
       content_tag :span, nil, class: 'glyphicon glyphicon-ok'

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   devise_for :users
   as :user do
     get 'users/edit', to: 'devise/registrations#edit', as: :edit_user_registration
-    put 'users', to: 'devise/registrations#update', as: :user_registration           
+    put 'users', to: 'devise/registrations#update', as: :user_registration
   end
   scope :admin do
     resources :users, except: :show

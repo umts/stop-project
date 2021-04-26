@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   def display_name(item)
     case item
     when User

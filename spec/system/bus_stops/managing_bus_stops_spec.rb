@@ -58,7 +58,7 @@ describe 'viewing outdated' do
     expect(page).to have_selector 'table.manage tbody tr',
                                   text: old_stop_2.updated_at.to_formatted_s(:db_hm)
     expect(page).not_to have_selector 'table.manage tbody tr',
-                                  text: present_stop.updated_at.to_formatted_s(:db_hm)
+                                      text: present_stop.updated_at.to_formatted_s(:db_hm)
   end
   it 'allows editing of outdated stops' do
     within 'tr', text: old_stop_1.updated_at.to_formatted_s(:db_hm) do

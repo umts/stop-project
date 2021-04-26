@@ -1,4 +1,3 @@
-
 require 'spec_helper'
 
 describe 'editing a bus stop as a user' do

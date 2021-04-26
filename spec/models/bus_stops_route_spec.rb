@@ -38,7 +38,7 @@ describe BusStopsRoute do
   describe 'establish_sequences' do
     let(:main_variant) { %w[A B C D E] }
     before :each do
-        @stop_hash = { route_dir: { key_1: main_variant, key_2: other_variant } }
+      @stop_hash = { route_dir: { key_1: main_variant, key_2: other_variant } }
     end
     let(:resequence!) { BusStopsRoute.establish_sequences(@stop_hash) }
     let(:other_variant) { %w[A] }
