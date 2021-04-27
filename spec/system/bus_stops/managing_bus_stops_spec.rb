@@ -5,10 +5,12 @@ require 'spec_helper'
 describe 'managing stops as an admin' do
   let(:admin) { create :user, :admin }
   let!(:bus_stop) { create :bus_stop }
-  before :each do
+
+  before do
     when_current_user_is admin
     visit manage_bus_stops_path
   end
+
   context 'delete button' do
     it 'deletes the specific bus stop', js: true do
       expect(page).to have_selector 'table.manage tbody tr', count: 1
@@ -22,6 +24,7 @@ describe 'managing stops as an admin' do
                                         text: bus_stop.hastus_id
     end
   end
+
   context 'edit button' do
     it 'redirects to edit bus stop page' do
       expect(page).to have_selector 'table.manage tbody tr', count: 1
@@ -42,14 +45,17 @@ describe 'viewing outdated' do
   let(:picked_date) { date.change(day: 28) }
   let!(:old_stop1) { create :bus_stop, updated_at: (date - 2.months) }
   let!(:old_stop2) { create :bus_stop, updated_at: (date - 3.months) }
-  before :each do
+
+  before do
     when_current_user_is admin
     visit manage_bus_stops_path
     click_link 'View Outdated'
   end
+
   it 'redirects to outdated page' do
     expect(page).to have_current_path outdated_bus_stops_path
   end
+
   it 'displays only outdated stops' do
     expect(page).to have_selector 'table.manage tbody tr',
                                   count: 2
@@ -60,12 +66,14 @@ describe 'viewing outdated' do
     expect(page).not_to have_selector 'table.manage tbody tr',
                                       text: present_stop.updated_at.to_formatted_s(:db_hm)
   end
+
   it 'allows editing of outdated stops' do
     within 'tr', text: old_stop1.updated_at.to_formatted_s(:db_hm) do
       click_link 'Edit'
     end
     expect(page).to have_content "Editing #{old_stop1.name}"
   end
+
   context 'using datepicker to specify different date', js: true do
     it 'displays outdated stops from that time' do
       within 'form' do

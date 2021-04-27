@@ -6,9 +6,11 @@ describe BusStop do
   let!(:pending_stop) { create :bus_stop, :pending }
   let!(:completed_stop) { create :bus_stop, :completed }
   let!(:not_started_stop) { create :bus_stop }
+
   describe 'decide_if_completed_by' do
     let(:user) { create :user }
     let(:stop) { create :bus_stop, :pending }
+
     context 'bus stop completed attribute changed' do
       context 'bus stop is completed' do
         it 'assigns user to completed by' do
@@ -18,6 +20,7 @@ describe BusStop do
           expect(stop.completed_by).to eql user
         end
       end
+
       context 'bus stop is not completed' do
         it 'assigns nil to completed by' do
           completed_stop.completed = false
@@ -65,20 +68,25 @@ describe BusStop do
     context 'name given' do
       let(:query) { completed_stop.name }
       let(:call) { BusStop.find_by_name_search(query).name }
+
       it('finds correct stop') do
         expect(call).to eq completed_stop.name
       end
     end
+
     context 'id given' do
       let(:query) { completed_stop.name_with_id }
       let(:call) { BusStop.find_by_name_search(query) }
+
       it('finds correct stop') do
         expect(call).to eq completed_stop
       end
     end
+
     context 'wrong id but valid name given' do
       let(:query) { "#{completed_stop.name} (999999)" }
       let(:call) { BusStop.find_by_name_search(query) }
+
       it('defaults to name search') do
         expect(call.name).to eq completed_stop.name
       end

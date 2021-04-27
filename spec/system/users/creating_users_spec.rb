@@ -4,12 +4,14 @@ require 'spec_helper'
 
 describe 'creating users as an admin' do
   let!(:admin) { create :user, :admin }
-  before :each do
+
+  before do
     when_current_user_is admin
     visit new_user_path
   end
+
   context 'with all fields' do
-    before :each do
+    before do
       expect(page).to have_text 'New User'
       within 'form#new_user.new_user' do
         fill_in 'Name', with: 'Ben K'
@@ -20,16 +22,19 @@ describe 'creating users as an admin' do
         click_on 'Save user'
       end
     end
+
     it 'notifies the user has been created' do
       expect(page).to have_selector 'p.notice',
                                     text: 'User was created.'
     end
+
     it 'redirects to the users page' do
       expect(page).to have_current_path users_path
     end
   end
+
   context 'with errors' do
-    before :each do
+    before do
       within 'form#new_user.new_user' do
         check 'Admin'
         fill_in 'Name', with: 'someone'
@@ -39,10 +44,12 @@ describe 'creating users as an admin' do
         click_on 'Save user'
       end
     end
+
     it 'sends a helpful error message' do
       expect(page).to have_selector 'p.errors',
                                     text: 'Email has already been taken'
     end
+
     it 'redirects to edit user page' do
       expect(page).to have_current_path users_path
       expect(page).to have_selector("input#user_name[value='someone']")
@@ -50,6 +57,7 @@ describe 'creating users as an admin' do
         .to have_selector("input#user_email[value='#{admin.email}']")
     end
   end
+
   context 'without password' do
     it 'creates the user' do
       within 'form#new_user.new_user' do
@@ -64,8 +72,9 @@ describe 'creating users as an admin' do
       expect(page).to have_current_path users_path
     end
   end
+
   context "password and password_confirmation don't match" do
-    before :each do
+    before do
       within 'form#new_user.new_user' do
         check 'Admin'
         fill_in 'Name', with: 'Brody'
@@ -75,11 +84,13 @@ describe 'creating users as an admin' do
         click_on 'Save user'
       end
     end
+
     it 'sends a helpful error message' do
       expect(page)
         .to have_selector 'p.errors',
                           text: 'Password confirmation does not match password'
     end
+
     it 'redirects to edit user page' do
       expect(page).to have_current_path users_path
       expect(page).to have_selector("input#user_name[value='Brody']")
