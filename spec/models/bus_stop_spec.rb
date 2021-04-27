@@ -33,25 +33,25 @@ describe BusStop do
 
   describe 'completed scope' do
     it 'returns completed bus stops' do
-      expect(BusStop.completed).to include completed_stop
-      expect(BusStop.completed).not_to include pending_stop
-      expect(BusStop.completed).not_to include not_started_stop
+      expect(described_class.completed).to include completed_stop
+      expect(described_class.completed).not_to include pending_stop
+      expect(described_class.completed).not_to include not_started_stop
     end
   end
 
   describe 'not_started scope' do
     it 'returns bus stops without data entered' do
-      expect(BusStop.not_started).to include not_started_stop
-      expect(BusStop.not_started).not_to include completed_stop
-      expect(BusStop.not_started).not_to include pending_stop
+      expect(described_class.not_started).to include not_started_stop
+      expect(described_class.not_started).not_to include completed_stop
+      expect(described_class.not_started).not_to include pending_stop
     end
   end
 
   describe 'pending scope' do
     it 'returns pending bus stops' do
-      expect(BusStop.pending).to include pending_stop
-      expect(BusStop.pending).not_to include completed_stop
-      expect(BusStop.pending).not_to include not_started_stop
+      expect(described_class.pending).to include pending_stop
+      expect(described_class.pending).not_to include completed_stop
+      expect(described_class.pending).not_to include not_started_stop
     end
   end
 
@@ -67,7 +67,7 @@ describe BusStop do
   describe 'find_by_name_search' do
     context 'name given' do
       let(:query) { completed_stop.name }
-      let(:call) { BusStop.find_by_name_search(query).name }
+      let(:call) { described_class.find_by_name_search(query).name }
 
       it('finds correct stop') do
         expect(call).to eq completed_stop.name
@@ -76,7 +76,7 @@ describe BusStop do
 
     context 'id given' do
       let(:query) { completed_stop.name_with_id }
-      let(:call) { BusStop.find_by_name_search(query) }
+      let(:call) { described_class.find_by_name_search(query) }
 
       it('finds correct stop') do
         expect(call).to eq completed_stop
@@ -85,7 +85,7 @@ describe BusStop do
 
     context 'wrong id but valid name given' do
       let(:query) { "#{completed_stop.name} (999999)" }
-      let(:call) { BusStop.find_by_name_search(query) }
+      let(:call) { described_class.find_by_name_search(query) }
 
       it('defaults to name search') do
         expect(call.name).to eq completed_stop.name

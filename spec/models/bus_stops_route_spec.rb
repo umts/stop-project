@@ -38,7 +38,7 @@ describe BusStopsRoute do
 
   describe 'establish_sequences' do
     let(:main_variant) { %w[A B C D E] }
-    let(:resequence!) { BusStopsRoute.establish_sequences(@stop_hash) }
+    let(:resequence!) { described_class.establish_sequences(@stop_hash) }
     let(:other_variant) { %w[A] }
 
     before do
