@@ -2,17 +2,17 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_26_185858) do
+ActiveRecord::Schema.define(version: 2021_04_27_202737) do
 
-  create_table "bus_stops", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "bus_stops", charset: "utf8", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "hastus_id", null: false
     t.string "bench"
@@ -52,23 +52,27 @@ ActiveRecord::Schema.define(version: 2018_06_26_185858) do
     t.boolean "shared_sign_post_frta"
     t.string "system_map_exists"
     t.boolean "trash"
+    t.index ["hastus_id"], name: "index_bus_stops_on_hastus_id", unique: true
   end
 
-  create_table "bus_stops_routes", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "bus_stops_routes", id: false, charset: "utf8", force: :cascade do |t|
     t.bigint "bus_stop_id", null: false
     t.bigint "route_id", null: false
     t.integer "sequence"
     t.string "direction"
+    t.index ["bus_stop_id", "route_id", "direction"], name: "index_bus_stops_routes_on_bus_stop_id_and_route_id_and_direction", unique: true
+    t.index ["sequence", "route_id", "direction"], name: "index_bus_stops_routes_on_sequence_and_route_id_and_direction", unique: true
   end
 
-  create_table "routes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "routes", charset: "utf8", force: :cascade do |t|
     t.string "number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "description"
+    t.index ["number"], name: "index_routes_on_number", unique: true
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", charset: "utf8", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -82,15 +86,16 @@ ActiveRecord::Schema.define(version: 2018_06_26_185858) do
     t.string "last_sign_in_ip"
     t.boolean "admin", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["name"], name: "index_users_on_name", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "versions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+  create_table "versions", charset: "utf8mb4", force: :cascade do |t|
     t.string "item_type", limit: 191, null: false
     t.integer "item_id", null: false
     t.string "event", null: false
     t.string "whodunnit"
-    t.text "object", limit: 4294967295
+    t.text "object", size: :long
     t.datetime "created_at"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
