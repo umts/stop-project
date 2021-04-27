@@ -68,16 +68,9 @@ describe 'viewing outdated' do
   end
   context 'using datepicker to specify different date', js: true do
     it 'displays outdated stops from that time' do
-      within 'form' do
-        page.find_by_id('date').click
-        # datapicker pops up
-      end
-      within 'table.ui-datepicker-calendar tbody tr td', text: '28' do
-        page.find('.ui-state-default').click
-      end
-      within 'form' do
-        click_on 'Change date'
-      end
+      page.find_field('date').click # datapicker pops up
+      within('table.ui-datepicker-calendar tbody') { click_on '28' }
+      click_on 'Change date'
       expect(page).to have_content "Bus stops not updated since #{picked_date}"
     end
   end

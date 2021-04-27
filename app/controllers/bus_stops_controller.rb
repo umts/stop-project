@@ -112,7 +112,7 @@ class BusStopsController < ApplicationController
   end
 
   def edit
-    return unless params[:route_id].present?
+    return if params[:route_id].blank?
 
     @route = Route.find(params[:route_id])
     @direction = params.require(:direction)

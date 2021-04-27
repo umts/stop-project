@@ -40,7 +40,7 @@ class UsersController < ApplicationController
 
   def find_user
     @user = User.find_by id: params.require(:id)
-    render nothing: true, status: :not_found and return unless @user.present?
+    render nothing: true, status: :not_found and return if @user.blank?
   end
 
   def user_params

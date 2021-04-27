@@ -220,7 +220,7 @@ class BusStop < ApplicationRecord
             end
     CSV.generate headers: true do |csv|
       csv << attrs.values
-      all.each do |stop|
+      find_each do |stop|
         csv << attrs.keys.map do |attr|
           if attr == :completed_by
             stop.completed_by.try(:name)
