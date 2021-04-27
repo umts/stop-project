@@ -75,12 +75,11 @@ describe 'editing a bus stop as a user' do
           click_button 'Save stop'
         end
       end
-      Timecop.freeze Date.today do
-        when_current_user_is user
-        visit edit_bus_stop_path(edit_stop.hastus_id)
-        updated = Date.yesterday.to_formatted_s(:long_with_time)
-        expect(page).to have_content "Last updated by #{last_user.name} at #{updated}"
-      end
+
+      when_current_user_is user
+      visit edit_bus_stop_path(edit_stop.hastus_id)
+      updated = Date.yesterday.to_formatted_s(:long_with_time)
+      expect(page).to have_content "Last updated by #{last_user.name} at #{updated}"
     end
   end
   context 'with a bus stop that has been completed' do
@@ -97,12 +96,10 @@ describe 'editing a bus stop as a user' do
           click_button 'Save stop'
         end
       end
-      Timecop.freeze Date.today do
-        when_current_user_is user
-        visit edit_bus_stop_path(edit_stop.hastus_id)
-        completed = Date.yesterday.to_formatted_s(:long_with_time)
-        expect(page).to have_content "Completed by #{last_user.name} at #{completed}"
-      end
+      when_current_user_is user
+      visit edit_bus_stop_path(edit_stop.hastus_id)
+      completed = Date.yesterday.to_formatted_s(:long_with_time)
+      expect(page).to have_content "Completed by #{last_user.name} at #{completed}"
     end
   end
 end

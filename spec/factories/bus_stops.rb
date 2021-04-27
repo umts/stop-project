@@ -28,8 +28,8 @@ FactoryBot.define do
       route_stickers { 'No stickers' }
       bike_rack { 'Bike locker' }
       real_time_information { 'Yes - Solar' }
-      created_at { Date.yesterday }
-      updated_at { Date.today }
+      created_at { 2.days.ago }
+      updated_at { 1.day.ago }
       bolt_on_base { true }
       bus_pull_out_exists { true }
       has_power { true }
