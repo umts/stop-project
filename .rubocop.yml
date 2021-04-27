@@ -26,6 +26,10 @@ Metrics/BlockLength:
     - 'lib/tasks/**/*'
     - 'spec/**/*'
 
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/system/**/*'
+
 # Don't worry about documentation for now.
 # In particular, this fails for things like
 # controller files, which seems unnecessary.

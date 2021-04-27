@@ -38,17 +38,14 @@ describe BusStopsRoute do
 
   describe 'establish_sequences' do
     let(:main_variant) { %w[A B C D E] }
-    let(:resequence!) { described_class.establish_sequences(@stop_hash) }
     let(:other_variant) { %w[A] }
+    let(:stop_hash) { { route_dir: { key1: main_variant, key2: other_variant } } }
 
-    before do
-      @stop_hash = { route_dir: { key1: main_variant, key2: other_variant } }
-    end
+    before { described_class.establish_sequences(stop_hash) }
 
     context 'all stops in other variant are in longest variant' do
       it 'preserves sequence of longest variant' do
-        resequence!
-        expect(@stop_hash[:route_dir]).to eql %w[A B C D E]
+        expect(stop_hash[:route_dir]).to eql %w[A B C D E]
       end
     end
 
@@ -57,8 +54,7 @@ describe BusStopsRoute do
         let(:other_variant) { %w[A F E] }
 
         it 'inserts that stop into longest variant after common stop' do
-          resequence!
-          expect(@stop_hash[:route_dir]).to eql %w[A F B C D E]
+          expect(stop_hash[:route_dir]).to eql %w[A F B C D E]
         end
       end
 
@@ -66,8 +62,7 @@ describe BusStopsRoute do
         let(:other_variant) { %w[A F G H E] }
 
         it 'inserts those stops into longest variant after common stop' do
-          resequence!
-          expect(@stop_hash[:route_dir]).to eql %w[A F G H B C D E]
+          expect(stop_hash[:route_dir]).to eql %w[A F G H B C D E]
         end
       end
     end
@@ -77,8 +72,7 @@ describe BusStopsRoute do
         let(:other_variant) { %w[F D E] }
 
         it 'inserts that stop into longest variant before common stop' do
-          resequence!
-          expect(@stop_hash[:route_dir]).to eql %w[A B C F D E]
+          expect(stop_hash[:route_dir]).to eql %w[A B C F D E]
         end
       end
 
@@ -86,8 +80,7 @@ describe BusStopsRoute do
         let(:other_variant) { %w[F G H D E] }
 
         it 'inserts those stops into longest variant before common stop' do
-          resequence!
-          expect(@stop_hash[:route_dir]).to eql %w[A B C F G H D E]
+          expect(stop_hash[:route_dir]).to eql %w[A B C F G H D E]
         end
       end
     end
@@ -96,8 +89,7 @@ describe BusStopsRoute do
       let(:other_variant) { %w[F G H I] }
 
       it 'appends other variant to end of longest variant' do
-        resequence!
-        expect(@stop_hash[:route_dir]).to eql %w[A B C D E F G H I]
+        expect(stop_hash[:route_dir]).to eql %w[A B C D E F G H I]
       end
     end
   end
