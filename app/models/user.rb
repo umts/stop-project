@@ -4,6 +4,14 @@ class User < ApplicationRecord
   validate :confirmation_matches, if: -> { password.present? }
   has_many :stops_completed, class_name: 'BusStop', foreign_key: 'completed_by'
 
+  # :nocov:
+  def self.dev_login_options
+    order(:name).group_by { |u| u.admin? ? 'Admins' : 'Non-Admins' }.transform_values do |users|
+      users.map { |u| [u.name, u.id] }
+    end
+  end
+  # :nocov:
+
   def not_admin?
     !admin?
   end
