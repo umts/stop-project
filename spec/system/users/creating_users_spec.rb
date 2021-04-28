@@ -3,99 +3,115 @@
 require 'spec_helper'
 
 describe 'creating users as an admin' do
-  let!(:admin) { create :user, :admin }
+  subject(:click_save) { click_on 'Save user' }
+
+  let(:admin) { create :user, :admin }
 
   before do
     when_current_user_is admin
     visit new_user_path
   end
 
+  it 'says it is the new user page' do
+    expect(page).to have_text 'New User'
+  end
+
   context 'with all fields filled in' do
     before do
-      expect(page).to have_text 'New User'
-      within 'form#new_user.new_user' do
-        fill_in 'Name', with: 'Ben K'
-        fill_in 'Email', with: 'ben@example.com'
-        check 'Admin'
-        fill_in 'Password', with: 'password'
-        fill_in 'Password confirmation', with: 'password'
-        click_on 'Save user'
-      end
+      fill_in 'Name', with: 'Ben K'
+      fill_in 'Email', with: 'ben@example.com'
+      check 'Admin'
+      fill_in 'Password', with: 'password'
+      fill_in 'Password confirmation', with: 'password'
     end
 
     it 'notifies the user has been created' do
-      expect(page).to have_selector 'p.notice',
-                                    text: 'User was created.'
+      click_save
+      expect(page).to have_selector 'p.notice', text: 'User was created.'
     end
 
     it 'redirects to the users page' do
+      click_save
       expect(page).to have_current_path users_path
     end
   end
 
   context 'with errors' do
     before do
-      within 'form#new_user.new_user' do
-        check 'Admin'
-        fill_in 'Name', with: 'someone'
-        fill_in 'Email', with: admin.email
-        fill_in 'Password', with: 'password'
-        fill_in 'Password confirmation', with: 'password'
-        click_on 'Save user'
-      end
+      check 'Admin'
+      fill_in 'Name', with: 'someone'
+      fill_in 'Email', with: admin.email
+      fill_in 'Password', with: 'password'
+      fill_in 'Password confirmation', with: 'password'
     end
 
     it 'sends a helpful error message' do
-      expect(page).to have_selector 'p.errors',
-                                    text: 'Email has already been taken'
+      click_save
+      expect(page).to have_selector 'p.errors', text: 'Email has already been taken'
     end
 
     it 'redirects to edit user page' do
+      click_save
       expect(page).to have_current_path users_path
-      expect(page).to have_selector("input#user_name[value='someone']")
-      expect(page)
-        .to have_selector("input#user_email[value='#{admin.email}']")
+    end
+
+    it 'keeps valid submitted data' do
+      click_save
+      expect(page).to have_field('Name', with: 'someone')
+    end
+
+    it 'keeps invalid submitted data' do
+      click_save
+      expect(page).to have_field('Email', with: admin.email)
     end
   end
 
   context 'without a password' do
+    before do
+      fill_in 'Name', with: 'Adam'
+      fill_in 'Email', with: 'adam@example.com'
+      check 'Admin'
+      fill_in 'Password confirmation', with: 'password'
+    end
+
     it 'creates the user' do
-      within 'form#new_user.new_user' do
-        fill_in 'Name', with: 'Adam'
-        fill_in 'Email', with: 'adam@example.com'
-        check 'Admin'
-        fill_in 'Password confirmation', with: 'password'
-        click_on 'Save user'
-      end
-      expect(page).to have_selector 'p.notice',
-                                    text: 'User was created.'
+      expect { click_save }.to change(User, :count).by(1)
+    end
+
+    it 'informs you of success' do
+      click_save
+      expect(page).to have_selector 'p.notice', text: 'User was created.'
+    end
+
+    it 'redirects to the users index' do
+      click_save
       expect(page).to have_current_path users_path
     end
   end
 
   context "when the password and password confirmation don't match" do
     before do
-      within 'form#new_user.new_user' do
-        check 'Admin'
-        fill_in 'Name', with: 'Brody'
-        fill_in 'Email', with: 'brody@example.com'
-        fill_in 'Password', with: 'password'
-        fill_in 'Password confirmation', with: 'password7'
-        click_on 'Save user'
-      end
+      check 'Admin'
+      fill_in 'Name', with: 'Brody'
+      fill_in 'Email', with: 'brody@example.com'
+      fill_in 'Password', with: 'password'
+      fill_in 'Password confirmation', with: 'password7'
     end
 
     it 'sends a helpful error message' do
+      click_save
       expect(page)
-        .to have_selector 'p.errors',
-                          text: 'Password confirmation does not match password'
+        .to have_selector 'p.errors', text: 'Password confirmation does not match password'
     end
 
     it 'redirects to edit user page' do
+      click_save
       expect(page).to have_current_path users_path
-      expect(page).to have_selector("input#user_name[value='Brody']")
-      expect(page)
-        .to have_selector("input#user_email[value='brody@example.com']")
+    end
+
+    it 'keeps submitted data' do
+      click_save
+      expect(page).to have_field('Name', with: 'Brody')
     end
   end
 end
