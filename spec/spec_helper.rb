@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 require 'simplecov'
-SimpleCov.start 'rails'
-SimpleCov.start do
-  add_filter '/config/'
-  add_filter '/spec/'
+SimpleCov.start 'rails' do
   refuse_coverage_drop if ENV['CI']
 end
 
@@ -17,13 +14,15 @@ require 'devise'
 require 'factory_bot_rails'
 
 ActiveRecord::Migration.maintain_test_schema!
-Capybara.default_driver = :selenium
 
 RSpec.configure do |config|
   config.order = :random
+  Kernel.srand config.seed
+
   config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :system
+
   config.before :all do
     FactoryBot.reload
   end
@@ -36,9 +35,16 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
+  config.shared_context_metadata_behavior = :apply_to_host_groups
+  config.disable_monkey_patching!
+
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
+
+  config.filter_run_when_matching :focus
+  config.default_formatter = 'doc' if config.files_to_run.one?
+  config.example_status_persistence_file_path = "spec/examples.txt"
 
   config.before :each, type: :system do
     driven_by :rack_test
