@@ -30,27 +30,27 @@ describe BusStop do
   end
 
   describe 'completed scope' do
-    it 'returns completed bus stops' do
-      expect(described_class.completed).to include completed_stop
-      expect(described_class.completed).not_to include pending_stop
-      expect(described_class.completed).not_to include not_started_stop
-    end
+    subject(:scope) { described_class.completed }
+
+    it { is_expected.to include completed_stop }
+    it { is_expected.not_to include pending_stop }
+    it { is_expected.not_to include not_started_stop }
   end
 
   describe 'not_started scope' do
-    it 'returns bus stops without data entered' do
-      expect(described_class.not_started).to include not_started_stop
-      expect(described_class.not_started).not_to include completed_stop
-      expect(described_class.not_started).not_to include pending_stop
-    end
+    subject(:scope) { described_class.not_started }
+
+    it { is_expected.to include not_started_stop }
+    it { is_expected.not_to include completed_stop }
+    it { is_expected.not_to include pending_stop }
   end
 
   describe 'pending scope' do
-    it 'returns pending bus stops' do
-      expect(described_class.pending).to include pending_stop
-      expect(described_class.pending).not_to include completed_stop
-      expect(described_class.pending).not_to include not_started_stop
-    end
+    subject(:scope) { described_class.pending }
+
+    it { is_expected.to include pending_stop }
+    it { is_expected.not_to include completed_stop }
+    it { is_expected.not_to include not_started_stop }
   end
 
   describe 'validations' do

@@ -12,24 +12,25 @@ describe BusStopsRoute do
       end
 
       context 'when they have the same sequence' do
-        it 'is not valid' do
-          stop2 = create :bus_stop
+        let :invalid_bsr do
+          build :bus_stops_route, route: valid_bsr.route,
+                                  direction: valid_bsr.direction,
+                                  sequence: valid_bsr.sequence
+        end
 
-          invalid_bsr = build :bus_stops_route,
-                              route: valid_bsr.route,
-                              direction: valid_bsr.direction,
-                              sequence: valid_bsr.sequence,
-                              bus_stop: stop2
+        it 'is not valid' do
           expect(invalid_bsr).not_to be_valid
         end
       end
 
       context 'when they have the same bus stop' do
+        let :invalid_bsr do
+          build :bus_stops_route, route: valid_bsr.route,
+                                  direction: valid_bsr.direction,
+                                  bus_stop: valid_bsr.bus_stop
+        end
+
         it 'is not valid' do
-          invalid_bsr = build :bus_stops_route,
-                              route: valid_bsr.route,
-                              direction: valid_bsr.direction,
-                              bus_stop: valid_bsr.bus_stop
           expect(invalid_bsr).not_to be_valid
         end
       end
