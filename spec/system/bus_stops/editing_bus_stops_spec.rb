@@ -77,48 +77,49 @@ describe 'editing a bus stop as a user' do
   end
 
   context 'with a bus stop that has been previously edited' do
-    let!(:last_user) { create :user }
-    let!(:user) { create :user }
-    let!(:edit_stop) { create :bus_stop }
+    let(:last_user) { create :user }
+    let(:user) { create :user }
+    let(:edit_stop) { create :bus_stop }
 
-    it 'displays who updated it and when' do
+    before do
       Timecop.freeze Date.yesterday do
         when_current_user_is last_user
         visit edit_bus_stop_path(edit_stop.hastus_id)
-        within 'table.edit-form' do
-          click_button 'Save stop'
-        end
+        click_button 'Save stop'
       end
-      Timecop.freeze Date.today do
-        when_current_user_is user
-        visit edit_bus_stop_path(edit_stop.hastus_id)
-        updated = Date.yesterday.to_formatted_s(:long_with_time)
-        expect(page).to have_content "Last updated by #{last_user.name} at #{updated}"
-      end
+
+      when_current_user_is user
+      visit edit_bus_stop_path(edit_stop.hastus_id)
+    end
+
+    it 'displays who updated it and when' do
+      updated = Date.yesterday.to_s(:long_with_time)
+      expect(page).to have_content "Last updated by #{last_user.name} at #{updated}"
     end
   end
 
   context 'with a bus stop that has been completed' do
-    let!(:last_user) { create :user }
-    let!(:user) { create :user }
-    let!(:edit_stop) { create :bus_stop, :pending }
+    let(:last_user) { create :user }
+    let(:user) { create :user }
+    let(:edit_stop) { create :bus_stop, :pending }
 
-    it 'displays who updated it and when' do
+    before do
       Timecop.freeze Date.yesterday do
         when_current_user_is last_user
         visit edit_bus_stop_path(edit_stop.hastus_id)
-        within 'table.edit-form' do
-          select 'UMTS', from: 'Garage responsible'
-          check 'Completed'
-          click_button 'Save stop'
-        end
+
+        select 'UMTS', from: 'Garage responsible'
+        check 'Completed'
+        click_button 'Save stop'
       end
-      Timecop.freeze Date.today do
-        when_current_user_is user
-        visit edit_bus_stop_path(edit_stop.hastus_id)
-        completed = Date.yesterday.to_formatted_s(:long_with_time)
-        expect(page).to have_content "Completed by #{last_user.name} at #{completed}"
-      end
+
+      when_current_user_is user
+      visit edit_bus_stop_path(edit_stop.hastus_id)
+    end
+
+    it 'displays who updated it and when' do
+      completed = Date.yesterday.to_s(:long_with_time)
+      expect(page).to have_content "Completed by #{last_user.name} at #{completed}"
     end
   end
 end

@@ -3,34 +3,46 @@
 require 'spec_helper'
 
 describe 'viewing stops by status' do
-  let(:user) { create :user }
-  let!(:route) { create :route }
-  let!(:pending_stop) { create :bus_stop, :pending }
-  let!(:not_started_stop) { create :bus_stop }
-  let!(:completed_stop) { create :bus_stop, :completed }
-  let!(:bsr1) { create :bus_stops_route, route: route, bus_stop: pending_stop }
-  let!(:bsr2) { create :bus_stops_route, route: route, bus_stop: not_started_stop }
-  let!(:bsr3) { create :bus_stops_route, route: route, bus_stop: completed_stop }
+  let(:route) { create :route }
+  let(:pending_stop) { create :bus_stop, :pending }
+  let(:not_started_stop) { create :bus_stop }
+  let(:completed_stop) { create :bus_stop, :completed }
 
   before do
-    when_current_user_is user
+    create :bus_stops_route, route: route, bus_stop: pending_stop
+    create :bus_stops_route, route: route, bus_stop: not_started_stop
+    create :bus_stops_route, route: route, bus_stop: completed_stop
+    when_current_user_is :anyone
     visit by_status_bus_stops_path(number: route.number)
   end
 
-  context 'with pending, not started, and completed stops' do
-    it 'displays according to status' do
-      expect(page).to have_content 'Pending Stops'
-      within 'div div', text: 'Pending Stops' do
-        expect(page).to have_selector('ul li a', text: pending_stop.name)
-      end
-      expect(page).to have_content 'Not Started Stops'
-      within 'div div', text: 'Not Started Stops' do
-        expect(page).to have_selector('ul li a', text: not_started_stop.name)
-      end
-      expect(page).to have_content 'Completed Stops'
-      within 'div div', text: 'Completed Stops' do
-        expect(page).to have_selector('ul li a', text: completed_stop.name)
-      end
+  it 'has a section for pending stops' do
+    expect(page).to have_content 'Pending Stops'
+  end
+
+  it 'displays pending stops' do
+    within 'ul.pending' do
+      expect(page).to have_link(text: pending_stop.name)
+    end
+  end
+
+  it 'has a section for not-started stops' do
+    expect(page).to have_content 'Not Started Stops'
+  end
+
+  it 'displays not-started stops' do
+    within 'ul.not-started' do
+      expect(page).to have_link(text: not_started_stop.name)
+    end
+  end
+
+  it 'has a section for completed stops' do
+    expect(page).to have_content 'Completed Stops'
+  end
+
+  it 'displays completed stops' do
+    within 'ul.completed' do
+      expect(page).to have_link(text: completed_stop.name)
     end
   end
 end
