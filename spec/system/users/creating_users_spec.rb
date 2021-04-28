@@ -15,8 +15,8 @@ describe 'creating users as an admin' do
         fill_in 'Name', with: 'Ben K'
         fill_in 'Email', with: 'ben@example.com'
         check 'Admin'
-        fill_in 'Password', with: 'password'
-        fill_in 'Password confirmation', with: 'password'
+        fill_in 'Password', with: 'password$367'
+        fill_in 'Password confirmation', with: 'password$367'
         click_on 'Save user'
       end
     end
