@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'managing stops as an admin' do
+RSpec.describe 'managing stops as an admin' do
   let(:admin) { create :user, :admin }
   let!(:bus_stop) { create :bus_stop }
   before :each do
@@ -34,7 +34,7 @@ describe 'managing stops as an admin' do
   end
 end
 
-describe 'viewing outdated' do
+RSpec.describe 'viewing outdated' do
   let(:admin) { create :user, :admin }
   let!(:present_stop) { create :bus_stop }
   # default date for outdated is from a month ago
