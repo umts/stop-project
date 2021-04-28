@@ -11,7 +11,7 @@ describe 'managing users as an admin' do
     visit users_path
   end
 
-  context 'delete button' do
+  describe 'the delete button' do
     it 'deletes the specific user' do
       expect(page).to have_selector 'table.index tbody tr', count: 2
       within 'tr', text: manage_user.name do
@@ -23,7 +23,7 @@ describe 'managing users as an admin' do
     end
   end
 
-  context 'edit button' do
+  describe 'the edit button' do
     it 'redirects to edit user page' do
       expect(page).to have_selector 'table.index tbody tr', count: 2
       within 'tr', text: manage_user.name do

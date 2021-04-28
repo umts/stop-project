@@ -4,14 +4,14 @@ require 'spec_helper'
 
 describe BusStopsRoute do
   describe 'validations' do
-    context 'same route and direction' do
+    context 'when two bus stops have the same route and direction' do
       let(:route) { create :route }
       let(:stop1) { create :bus_stop }
       let :valid_bsr do
         create :bus_stops_route, route: route, bus_stop: stop1
       end
 
-      context 'same sequence' do
+      context 'when they have the same sequence' do
         it 'is not valid' do
           stop2 = create :bus_stop
 
@@ -24,7 +24,7 @@ describe BusStopsRoute do
         end
       end
 
-      context 'same bus_stop' do
+      context 'when they have the same bus stop' do
         it 'is not valid' do
           invalid_bsr = build :bus_stops_route,
                               route: valid_bsr.route,
@@ -43,14 +43,14 @@ describe BusStopsRoute do
 
     before { described_class.establish_sequences(stop_hash) }
 
-    context 'all stops in other variant are in longest variant' do
+    context 'when all stops in other variant are in longest variant' do
       it 'preserves sequence of longest variant' do
         expect(stop_hash[:route_dir]).to eql %w[A B C D E]
       end
     end
 
-    context 'stop (but not first stop) in other variant is not in longest variant' do
-      context 'one stop is in other variant' do
+    context 'when a stop (but not the 1st stop) in another variant is not in the longest variant' do
+      context 'when one stop is in the other variant' do
         let(:other_variant) { %w[A F E] }
 
         it 'inserts that stop into longest variant after common stop' do
@@ -58,7 +58,7 @@ describe BusStopsRoute do
         end
       end
 
-      context 'multiple stops are in other variant' do
+      context 'when multiple stops are in the other variant' do
         let(:other_variant) { %w[A F G H E] }
 
         it 'inserts those stops into longest variant after common stop' do
@@ -67,8 +67,8 @@ describe BusStopsRoute do
       end
     end
 
-    context 'first stop in other variant is not in longest variant' do
-      context 'one stop is in other variant' do
+    context 'when the first stop in another variant is not in the longest variant' do
+      context 'when one stop is in the other variant' do
         let(:other_variant) { %w[F D E] }
 
         it 'inserts that stop into longest variant before common stop' do
@@ -76,7 +76,7 @@ describe BusStopsRoute do
         end
       end
 
-      context 'multiple stops are in other variant' do
+      context 'when multiple stops are in the other variant' do
         let(:other_variant) { %w[F G H D E] }
 
         it 'inserts those stops into longest variant before common stop' do
@@ -85,10 +85,10 @@ describe BusStopsRoute do
       end
     end
 
-    context 'no stop in other variant is in the longest variant' do
+    context 'when no stop in the other variant is in the longest variant' do
       let(:other_variant) { %w[F G H I] }
 
-      it 'appends other variant to end of longest variant' do
+      it 'appends the other variant to the end of the longest variant' do
         expect(stop_hash[:route_dir]).to eql %w[A B C D E F G H I]
       end
     end

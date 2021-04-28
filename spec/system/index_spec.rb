@@ -12,7 +12,7 @@ describe 'searching for a bus stop by stop id' do
     visit root_path
   end
 
-  context 'correct stop id' do
+  context 'with a correct stop id' do
     it 'redirects to the edit page' do
       within 'form', text: 'Enter stop ID' do
         fill_in 'Enter stop ID', with: bus_stop.hastus_id.to_s
@@ -22,7 +22,7 @@ describe 'searching for a bus stop by stop id' do
     end
   end
 
-  context 'incorrect stop id' do
+  context 'with an incorrect stop id' do
     before do
       within 'form', text: 'Enter stop ID' do
         fill_in 'Enter stop ID', with: incorrect_stop_id
@@ -51,7 +51,7 @@ describe 'searching for a bus stop by stop name' do
     visit root_path
   end
 
-  context 'correct stop name' do
+  context 'with a correct stop name' do
     it 'redirects to the edit page' do
       within 'form', text: 'Enter stop name' do
         fill_in 'Enter stop name', with: bus_stop.name
@@ -61,7 +61,7 @@ describe 'searching for a bus stop by stop name' do
     end
   end
 
-  context 'incorrect stop name' do
+  context 'with an incorrect stop name' do
     before do
       within 'form', text: 'Enter stop name' do
         fill_in 'Enter stop name', with: incorrect_stop_name
@@ -105,7 +105,7 @@ describe 'searching for a bus stop by route' do
     visit root_path
   end
 
-  context 'route from the dropdown' do
+  context 'when selecting a route from the dropdown' do
     before do
       within 'form', text: 'Select a route' do
         select route.number, from: 'Select a route'
@@ -118,7 +118,7 @@ describe 'searching for a bus stop by route' do
       expect(page.current_path).to end_with by_status_bus_stops_path
     end
 
-    context 'click view by route order' do
+    context 'when viewing by route order' do
       before do
         click_link 'View by route order'
       end

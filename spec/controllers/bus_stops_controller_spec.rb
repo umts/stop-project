@@ -15,7 +15,7 @@ describe BusStopsController do
       get :by_status, params: { number: incorrect_route_number }
     end
 
-    context 'incorrect route in params' do
+    context 'with an incorrect route in params' do
       it 'redirects to index page' do
         submit
         expect(response).to redirect_to bus_stops_path
@@ -33,7 +33,7 @@ describe BusStopsController do
       get :by_sequence, params: { number: incorrect_route_number }
     end
 
-    context 'incorrect route in params' do
+    context 'with an incorrect route in params' do
       it 'redirects to index page' do
         submit
         expect(response).to redirect_to bus_stops_path
@@ -57,7 +57,7 @@ describe BusStopsController do
       create :bus_stops_route, route: route, bus_stop: bus_stop2
     end
 
-    context 'update on sequence of routes' do
+    context 'when updating a sequence of routes' do
       before do
         put :update, params: { id: bus_stop1.hastus_id,
                                bus_stop: { name: bus_stop1.name },

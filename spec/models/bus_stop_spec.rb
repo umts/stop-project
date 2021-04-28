@@ -11,22 +11,20 @@ describe BusStop do
     let(:user) { create :user }
     let(:stop) { create :bus_stop, :pending }
 
-    context 'bus stop completed attribute changed' do
-      context 'bus stop is completed' do
-        it 'assigns user to completed by' do
-          stop.update! accessible: true
-          stop.completed = true
-          stop.decide_if_completed_by user
-          expect(stop.completed_by).to eql user
-        end
+    context 'when the bus stop completed attribute changed to true' do
+      it 'assigns user to completed by' do
+        stop.update! accessible: true
+        stop.completed = true
+        stop.decide_if_completed_by user
+        expect(stop.completed_by).to eql user
       end
+    end
 
-      context 'bus stop is not completed' do
-        it 'assigns nil to completed by' do
-          completed_stop.completed = false
-          completed_stop.decide_if_completed_by user
-          expect(completed_stop.completed_by).to be nil
-        end
+    context 'when the bus stop completed attribute changed to false' do
+      it 'assigns nil to completed by' do
+        completed_stop.completed = false
+        completed_stop.decide_if_completed_by user
+        expect(completed_stop.completed_by).to be nil
       end
     end
   end
@@ -56,16 +54,14 @@ describe BusStop do
   end
 
   describe 'validations' do
-    context 'bus stop is not completed but assigned completed' do
-      it 'is not valid' do
-        invalid_stop = build :bus_stop, completed: true, accessible: nil
-        expect(invalid_stop).not_to be_valid
-      end
+    it 'is not valid if bus stop is not completed but assigned completed' do
+      invalid_stop = build :bus_stop, completed: true, accessible: nil
+      expect(invalid_stop).not_to be_valid
     end
   end
 
   describe 'find_by_name_search' do
-    context 'name given' do
+    context 'when a name is given' do
       let(:query) { completed_stop.name }
       let(:call) { described_class.find_by_name_search(query).name }
 
@@ -74,7 +70,7 @@ describe BusStop do
       end
     end
 
-    context 'id given' do
+    context 'when an id is given' do
       let(:query) { completed_stop.name_with_id }
       let(:call) { described_class.find_by_name_search(query) }
 
@@ -83,7 +79,7 @@ describe BusStop do
       end
     end
 
-    context 'wrong id but valid name given' do
+    context 'when a wrong id but a valid name is given' do
       let(:query) { "#{completed_stop.name} (999999)" }
       let(:call) { described_class.find_by_name_search(query) }
 

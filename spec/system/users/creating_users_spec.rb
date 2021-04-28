@@ -10,7 +10,7 @@ describe 'creating users as an admin' do
     visit new_user_path
   end
 
-  context 'with all fields' do
+  context 'with all fields filled in' do
     before do
       expect(page).to have_text 'New User'
       within 'form#new_user.new_user' do
@@ -58,7 +58,7 @@ describe 'creating users as an admin' do
     end
   end
 
-  context 'without password' do
+  context 'without a password' do
     it 'creates the user' do
       within 'form#new_user.new_user' do
         fill_in 'Name', with: 'Adam'
@@ -73,7 +73,7 @@ describe 'creating users as an admin' do
     end
   end
 
-  context "password and password_confirmation don't match" do
+  context "when the password and password confirmation don't match" do
     before do
       within 'form#new_user.new_user' do
         check 'Admin'

@@ -64,7 +64,7 @@ describe 'editing a bus stop as a user' do
     end
   end
 
-  context 'clicking on the field guide link' do
+  context 'when clicking on the field guide link' do
     before do
       within 'table.edit-form' do
         click_on 'Field Guide'
