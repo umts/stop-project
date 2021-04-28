@@ -1,18 +1,9 @@
 class User < ApplicationRecord
-  devise :database_authenticatable
-  validates :name, :email, presence: true, uniqueness: { case_sensitive: false }
-  validate :confirmation_matches, if: -> { password.present? }
+  devise :database_authenticatable, :validatable
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
   has_many :stops_completed, class_name: 'BusStop', foreign_key: 'completed_by'
 
   def not_admin?
     !admin?
-  end
-
-  private
-
-  def confirmation_matches
-    if password != password_confirmation
-      errors.add :password_confirmation, 'does not match password'
-    end
   end
 end
