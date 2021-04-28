@@ -13,6 +13,8 @@ require 'rspec/rails'
 require 'devise'
 require 'factory_bot_rails'
 
+Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
+
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
@@ -22,6 +24,7 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :system
+  config.include CurrentUserHelpers
 
   config.before :all do
     FactoryBot.reload
@@ -53,12 +56,4 @@ RSpec.configure do |config|
   config.before :each, type: :system, js: true do
     driven_by :selenium, using: :headless_chrome
   end
-end
-
-def when_current_user_is(user)
-  current_user = case user
-                 when User, nil then user
-                 when Symbol then create(:user, user)
-                 end
-  sign_in current_user
 end
