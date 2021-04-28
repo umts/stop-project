@@ -267,6 +267,7 @@ GEM
     sshkit (1.21.2)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    strong_password (0.0.9)
     temple (0.8.2)
     thor (1.1.0)
     tilt (2.0.10)
@@ -319,6 +320,7 @@ DEPENDENCIES
   sassc-rails
   simplecov
   spring
+  strong_password
   timecop
   uglifier
   underscore-rails (~> 1.8)
