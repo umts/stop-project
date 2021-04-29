@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe BusStopsController do
+RSpec.describe BusStopsController do
   let(:incorrect_route_number) { '-1' }
   let!(:user) { create :user }
   before :each do

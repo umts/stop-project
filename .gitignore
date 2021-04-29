@@ -18,3 +18,5 @@
 /coverage/index.html
 /coverage/assets/*
 /coverage/.resultset.*
+
+/spec/examples.txt

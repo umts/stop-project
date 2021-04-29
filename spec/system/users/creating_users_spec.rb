@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'creating users as an admin' do
+RSpec.describe 'creating users as an admin' do
   let!(:admin) { create :user, :admin }
   before :each do
     when_current_user_is admin
@@ -15,8 +15,8 @@ describe 'creating users as an admin' do
         fill_in 'Name', with: 'Ben K'
         fill_in 'Email', with: 'ben@example.com'
         check 'Admin'
-        fill_in 'Password', with: 'password'
-        fill_in 'Password confirmation', with: 'password'
+        fill_in 'Password', with: 'password$367'
+        fill_in 'Password confirmation', with: 'password$367'
         click_on 'Save user'
       end
     end
@@ -50,20 +50,6 @@ describe 'creating users as an admin' do
         .to have_selector("input#user_email[value='#{admin.email}']")
     end
   end
-  context 'without password' do
-    it 'creates the user' do
-      within 'form#new_user.new_user' do
-        fill_in 'Name', with: 'Adam'
-        fill_in 'Email', with: 'adam@example.com'
-        check 'Admin'
-        fill_in 'Password confirmation', with: 'password'
-        click_on 'Save user'
-      end
-      expect(page).to have_selector 'p.notice',
-                                    text: 'User was created.'
-      expect(page).to have_current_path users_path
-    end
-  end
   context "password and password_confirmation don't match" do
     before :each do
       within 'form#new_user.new_user' do
@@ -78,7 +64,7 @@ describe 'creating users as an admin' do
     it 'sends a helpful error message' do
       expect(page)
         .to have_selector 'p.errors',
-                          text: 'Password confirmation does not match password'
+                          text: "Password confirmation doesn't match Password"
     end
     it 'redirects to edit user page' do
       expect(page).to have_current_path users_path
