@@ -1,7 +1,7 @@
 
 require 'spec_helper'
 
-describe 'editing a bus stop as a user' do
+RSpec.describe 'editing a bus stop as a user' do
   let!(:user) { create :user }
   let!(:edit_stop) { create :bus_stop }
   before :each do
