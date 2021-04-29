@@ -5,8 +5,4 @@ class User < ApplicationRecord
   validates :password, password_strength: true, if: :password_required?
 
   has_many :stops_completed, class_name: 'BusStop', foreign_key: 'completed_by'
-
-  def not_admin?
-    !admin?
-  end
 end

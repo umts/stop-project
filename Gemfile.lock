@@ -276,7 +276,6 @@ GEM
       concurrent-ruby (~> 1.0)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
-    underscore-rails (1.8.3)
     warden (1.2.9)
       rack (>= 2.0.9)
     webdrivers (4.6.0)
@@ -323,7 +322,6 @@ DEPENDENCIES
   strong_password
   timecop
   uglifier
-  underscore-rails (~> 1.8)
   webdrivers
   will_paginate (~> 3.1)
 
