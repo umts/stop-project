@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe BusStopsController do
@@ -37,25 +39,29 @@ RSpec.describe BusStopsController do
     end
   end
   describe 'update' do
-    let!(:route) { create :route }
-    let!(:bus_stop_1) { create :bus_stop }
-    let!(:bus_stop_2) { create :bus_stop }
-    let!(:bus_stops_route_1) { create :bus_stops_route,
-                                    route: route,
-                                    bus_stop: bus_stop_1 }
-    let!(:bus_stops_route_2) { create :bus_stops_route,
-                                    route: route,
-                                    bus_stop: bus_stop_2 }
+    let(:route) { create :route }
+    let(:bus_stop1) { create :bus_stop }
+    let(:bus_stop2) { create :bus_stop }
+    let!(:bus_stops_route1) do
+      create :bus_stops_route, route: route, bus_stop: bus_stop1
+    end
+    let!(:bus_stops_route2) do
+      create :bus_stops_route, route: route, bus_stop: bus_stop2
+    end
+
     context 'update on sequence of routes' do
       before :each do
-        put :update, params: { id: bus_stop_1.hastus_id,
-                               bus_stop: { name: bus_stop_1.name },
+        put :update, params: { id: bus_stop1.hastus_id,
+                               bus_stop: { name: bus_stop1.name },
                                commit: 'Save and next',
                                route_id: route.id,
-                               direction: bus_stops_route_1.direction }
+                               direction: bus_stops_route1.direction }
       end
       it 'redirects to edit next stop' do
-        expect(response).to redirect_to edit_bus_stop_path(id: bus_stop_2.hastus_id, direction: bus_stops_route_2.direction, route_id: route.id)
+        path = edit_bus_stop_path id: bus_stop2.hastus_id,
+                                  direction: bus_stops_route2.direction,
+                                  route_id: route.id
+        expect(response).to redirect_to(path)
       end
     end
   end

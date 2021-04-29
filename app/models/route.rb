@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Route < ApplicationRecord
   validates :number, presence: true, uniqueness: { case_sensitive: false }
   has_many :bus_stops_routes

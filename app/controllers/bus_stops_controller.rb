@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BusStopsController < ApplicationController
   before_action :find_stop, only: %i[edit destroy id_search update]
   before_action :restrict_to_admin, only: %i[destroy manage]
@@ -6,9 +8,9 @@ class BusStopsController < ApplicationController
   def autocomplete
     stops = BusStop.where 'lower(name) like ?', "%#{params.require(:term)}%"
     jsondata = stops.map do |stop|
-      {label: stop.name_with_id,
-       value: stop.name_with_id,
-       hastus_id: stop.hastus_id}
+      { label: stop.name_with_id,
+        value: stop.name_with_id,
+        hastus_id: stop.hastus_id }
     end
     render json: jsondata
   end
@@ -67,7 +69,11 @@ class BusStopsController < ApplicationController
   end
 
   def outdated
-    @date = Date.parse(params[:date]) rescue 1.month.ago.to_date
+    @date = begin
+      Date.parse(params[:date])
+    rescue StandardError
+      1.month.ago.to_date
+    end
     @stops = BusStop.not_updated_since(@date).order(:updated_at)
     respond_to do |format|
       format.html do
@@ -106,19 +112,17 @@ class BusStopsController < ApplicationController
   end
 
   def edit
-    if params[:route_id]
-      @route = Route.find(params[:route_id])
-      @direction = params.require(:direction)
-    end
+    return unless params[:route_id].present?
+
+    @route = Route.find(params[:route_id])
+    @direction = params.require(:direction)
   end
 
   def set_fields_for_stop
     @fields = BusStop::SUPER_HASH
     @fields.each_pair do |category, fields|
       fields.each_pair do |field, options|
-        if options.is_a?(Array) && options.exclude?(@stop.send(field))
-          @fields[category][field] << @stop.send(field)
-        end
+        @fields[category][field] << @stop.send(field) if options.is_a?(Array) && options.exclude?(@stop.send(field))
       end
     end
   end
@@ -127,10 +131,9 @@ class BusStopsController < ApplicationController
 
   def find_stop
     @stop = BusStop.find_by hastus_id: params.require(:id)
-    unless @stop.present?
-      redirect_back(fallback_location: root_path,
-                    notice: "Stop #{params[:id]} not found") and return
-    end
+    return if @stop.present?
+
+    redirect_back(fallback_location: root_path, notice: "Stop #{params[:id]} not found")
   end
 
   def stop_params

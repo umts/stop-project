@@ -8,8 +8,7 @@ class BusStop < ApplicationRecord
   validates :hastus_id, presence: true, uniqueness: { case_sensitive: false }
   has_many :bus_stops_routes
   has_many :routes, through: :bus_stops_routes
-  belongs_to :completed_by, optional: true,
-             class_name: 'User', foreign_key: :completed_by
+  belongs_to :completed_by, optional: true, class_name: 'User', foreign_key: :completed_by
 
   before_save :assign_completion_timestamp, if: -> { completed_changed? }
 
@@ -32,12 +31,9 @@ class BusStop < ApplicationRecord
                                        ada_landing_pad state_road accessible
                                        shared_sign_post_frta trash]
 
-  validates *strings_required_for_completion, presence: true, if: :completed?
-  validates *boolean_required_for_completion,
-            inclusion: {
-                in: [true, false],
-                message: "can't be blank"
-            }, if: :completed?
+  validates(*strings_required_for_completion, presence: true, if: :completed?)
+  validates(*boolean_required_for_completion, inclusion: { in: [true, false], message: "can't be blank" },
+                                              if: :completed?)
 
   scope :completed, -> { where completed: true }
   scope :not_started, lambda {
@@ -157,8 +153,7 @@ class BusStop < ApplicationRecord
                              'No'],
                  real_time_information: ['Yes - Solar',
                                          'Yes - Power',
-                                         'No']
-  }.freeze
+                                         'No'] }.freeze
 
   LIMITED_ATTRS = {
     name: 'Stop Name',
@@ -184,9 +179,7 @@ class BusStop < ApplicationRecord
 
   SUPER_HASH.each do |hash|
     hash.each do |name, options|
-      if options.kind_of?(Array)
-        validates name, inclusion: { in: options }, allow_blank: true
-      end
+      validates name, inclusion: { in: options }, allow_blank: true if options.is_a?(Array)
     end
   end
 
@@ -213,16 +206,16 @@ class BusStop < ApplicationRecord
     attrs = if limited_attributes
               LIMITED_ATTRS
             else
-              hashed_columns = Hash[columns.map { |c| [c.name, c.name.humanize] }]
-                               .except('name',
-                                       'hastus_id',
-                                       'id',
-                                       'updated_at',
-                                       'created_at',
-                                       'route_list',
-                                       'completed_at',
-                                       'completed_by',
-                                       'completed')
+              hashed_columns = columns.map { |c| [c.name, c.name.humanize] }.to_h
+                                      .except('name',
+                                              'hastus_id',
+                                              'id',
+                                              'updated_at',
+                                              'created_at',
+                                              'route_list',
+                                              'completed_at',
+                                              'completed_by',
+                                              'completed')
               LIMITED_ATTRS.merge hashed_columns
             end
     CSV.generate headers: true do |csv|
@@ -240,9 +233,9 @@ class BusStop < ApplicationRecord
   end
 
   def decide_if_completed_by(user)
-    if completed_changed?
-      assign_attributes(completed_by: (completed? ? user : nil))
-    end
+    return unless completed_changed?
+
+    assign_attributes(completed_by: (completed? ? user : nil))
   end
 
   def name_with_id

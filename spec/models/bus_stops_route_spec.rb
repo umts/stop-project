@@ -6,21 +6,19 @@ RSpec.describe BusStopsRoute do
   describe 'validations' do
     context 'same route and direction' do
       let(:route) { create :route }
-      let(:stop_1) { create :bus_stop }
+      let(:stop1) { create :bus_stop }
       let :valid_bsr do
-        create :bus_stops_route,
-               route: route,
-               bus_stop: stop_1
+        create :bus_stops_route, route: route, bus_stop: stop1
       end
       context 'same sequence' do
         it 'is not valid' do
-          stop_2 = create :bus_stop
+          stop2 = create :bus_stop
 
           invalid_bsr = build :bus_stops_route,
                               route: valid_bsr.route,
                               direction: valid_bsr.direction,
                               sequence: valid_bsr.sequence,
-                              bus_stop: stop_2
+                              bus_stop: stop2
           expect(invalid_bsr).not_to be_valid
         end
       end
@@ -38,7 +36,7 @@ RSpec.describe BusStopsRoute do
   describe 'establish_sequences' do
     let(:main_variant) { %w[A B C D E] }
     before :each do
-        @stop_hash = { route_dir: { key_1: main_variant, key_2: other_variant } }
+      @stop_hash = { route_dir: { key1: main_variant, key2: other_variant } }
     end
     let(:resequence!) { BusStopsRoute.establish_sequences(@stop_hash) }
     let(:other_variant) { %w[A] }

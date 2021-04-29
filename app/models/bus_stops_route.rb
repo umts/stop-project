@@ -11,7 +11,7 @@ class BusStopsRoute < ApplicationRecord
 
   # This method is used for importing a csv of routes. The input stop_data
   # has a route and direction array pointing to trips with stops (ordered
-  # by sequence). establish_sequences combines all stops per route direction, 
+  # by sequence). establish_sequences combines all stops per route direction,
   # and sequences those stops accordingly.
   def self.establish_sequences(stop_data)
     # The route direction array key isn't used because it doesn't matter here.

@@ -1,5 +1,6 @@
-module ApplicationHelper
+# frozen_string_literal: true
 
+module ApplicationHelper
   def display_name(item)
     case item
     when User

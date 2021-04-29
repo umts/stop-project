@@ -44,10 +44,9 @@ namespace :gtfs_routes_and_trips do
     end
 
     BusStopsRoute.establish_sequences(stop_data)
-    
+
     BusStopsRoute.delete_all
 
-    
     stop_data.each_pair do |(route_number, direction), stop_ids|
       route = Route.find_or_create_by! number: route_number.strip
       stop_ids.each.with_index(1) do |stop_id, sequence|
@@ -59,8 +58,6 @@ namespace :gtfs_routes_and_trips do
         end
       end
     end
-    if missing_trips.present?
-      puts "The following trips were missing from trips.txt: #{missing_trips.join(', ')}"
-    end
+    puts "The following trips were missing from trips.txt: #{missing_trips.join(', ')}" if missing_trips.present?
   end
 end

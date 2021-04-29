@@ -1,0 +1,30 @@
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+    - 'config/{environments,initializers}/*'
+    - 'config/{application,boot,environment}.rb'
+    - 'db/migrate/**/*'
+    - 'db/schema.rb'
+    - 'vendor/**/*'
+    - 'config.ru'
+  NewCops: enable
+
+# Relax complexity testing to codeclimate standards (roughly).
+Metrics/AbcSize:
+  Max: 20
+Metrics/MethodLength:
+  Max: 20
+Metrics/ClassLength:
+  Max: 160
+
+Metrics/BlockLength:
+  Exclude:
+    - 'config/routes.rb'
+    - 'lib/tasks/**/*'
+    - 'spec/**/*'
+
+# Don't worry about documentation for now.
+# In particular, this fails for things like
+# controller files, which seems unnecessary.
+Style/Documentation:
+  Enabled: false
