@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'editing a user as an admin' do
+RSpec.describe 'editing a user as an admin' do
   let!(:admin) { create :user, :admin }
   let!(:edit_user) { create :user }
   before :each do

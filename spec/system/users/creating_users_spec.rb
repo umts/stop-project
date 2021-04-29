@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'creating users as an admin' do
+RSpec.describe 'creating users as an admin' do
   let!(:admin) { create :user, :admin }
   before :each do
     when_current_user_is admin
