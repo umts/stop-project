@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'creating users as an admin' do
+RSpec.describe 'creating users as an admin' do
   subject(:click_save) { click_on 'Save user' }
 
   let(:admin) { create :user, :admin }
@@ -21,8 +21,8 @@ describe 'creating users as an admin' do
       fill_in 'Name', with: 'Ben K'
       fill_in 'Email', with: 'ben@example.com'
       check 'Admin'
-      fill_in 'Password', with: 'password'
-      fill_in 'Password confirmation', with: 'password'
+      fill_in 'Password', with: 'password$367'
+      fill_in 'Password confirmation', with: 'password$367'
     end
 
     it 'notifies the user has been created' do
@@ -66,29 +66,6 @@ describe 'creating users as an admin' do
     end
   end
 
-  context 'without a password' do
-    before do
-      fill_in 'Name', with: 'Adam'
-      fill_in 'Email', with: 'adam@example.com'
-      check 'Admin'
-      fill_in 'Password confirmation', with: 'password'
-    end
-
-    it 'creates the user' do
-      expect { click_save }.to change(User, :count).by(1)
-    end
-
-    it 'informs you of success' do
-      click_save
-      expect(page).to have_selector 'p.notice', text: 'User was created.'
-    end
-
-    it 'redirects to the users index' do
-      click_save
-      expect(page).to have_current_path users_path
-    end
-  end
-
   context "when the password and password confirmation don't match" do
     before do
       check 'Admin'
@@ -101,7 +78,7 @@ describe 'creating users as an admin' do
     it 'sends a helpful error message' do
       click_save
       expect(page)
-        .to have_selector 'p.errors', text: 'Password confirmation does not match password'
+        .to have_selector 'p.errors', text: "Password confirmation doesn't match Password"
     end
 
     it 'redirects to edit user page' do

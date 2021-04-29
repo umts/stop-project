@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'viewing stops by status' do
+RSpec.describe 'viewing stops by status' do
   let(:route) { create :route }
   let(:pending_stop) { create :bus_stop, :pending }
   let(:not_started_stop) { create :bus_stop }

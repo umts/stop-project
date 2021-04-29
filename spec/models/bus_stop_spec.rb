@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe BusStop do
+RSpec.describe BusStop do
   let!(:pending_stop) { create :bus_stop, :pending }
   let!(:completed_stop) { create :bus_stop, :completed }
   let!(:not_started_stop) { create :bus_stop }

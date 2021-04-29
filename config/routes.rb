@@ -12,6 +12,10 @@ Rails.application.routes.draw do
     resources :users, except: :show
   end
 
+  if Rails.env.development?
+    post '/dev_login', to: 'dev_login#create', as: 'dev_login'
+  end
+
   resources :bus_stops, except: :show do
     collection do
       post :autocomplete

@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'managing users as an admin' do
+RSpec.describe 'managing users as an admin' do
   let!(:manage_user) { create :user }
 
   before do

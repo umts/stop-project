@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'searching for a bus stop by stop name' do
+RSpec.describe 'searching for a bus stop by stop name' do
   let(:user) { create :user }
   let!(:bus_stop) { create :bus_stop }
   let(:incorrect_stop_name) { 'stahp' }

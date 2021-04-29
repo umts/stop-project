@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'viewing outdated' do
+RSpec.describe 'viewing outdated' do
   let!(:present_stop) { create :bus_stop }
   # default date for outdated is from a month ago
   let!(:date) { Date.today - 1.month }

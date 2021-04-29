@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'searching for a bus stop by route' do
+RSpec.describe 'searching for a bus stop by route' do
   let(:route) { create :route }
 
   before do

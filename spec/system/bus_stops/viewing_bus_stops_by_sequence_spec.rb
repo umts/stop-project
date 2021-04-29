@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'viewing stops by sequence' do
+RSpec.describe 'viewing stops by sequence' do
   subject(:by_sequence_view) { page }
 
   let(:route) { create :route }

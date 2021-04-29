@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'managing stops as an admin' do
+RSpec.describe 'managing stops as an admin' do
   let(:admin) { create :user, :admin }
   let!(:bus_stop) { create :bus_stop }
 
