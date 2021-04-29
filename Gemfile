@@ -10,6 +10,7 @@ gem 'mysql2', '~> 0.4'
 gem 'paper_trail', '~> 11.1'
 gem 'rails', '~> 6.1.3'
 gem 'sassc-rails'
+gem 'strong_password'
 gem 'will_paginate', '~> 3.1'
 
 group :production do
