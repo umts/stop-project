@@ -12,10 +12,6 @@ class User < ApplicationRecord
   end
   # :nocov:
 
-  def not_admin?
-    !admin?
-  end
-
   private
 
   def confirmation_matches
