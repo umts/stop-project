@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'viewing stops by status' do
+RSpec.describe 'viewing stops by status' do
   let(:user) { create :user }
   let!(:route) { create :route }
   let!(:pending_stop) { create :bus_stop, :pending }
@@ -33,7 +33,7 @@ describe 'viewing stops by status' do
   end
 end
 
-describe 'viewing stops by sequence' do
+RSpec.describe 'viewing stops by sequence' do
   let(:user) { create :user }
   let(:route) { create :route }
   let(:stop1) { create :bus_stop, :pending }

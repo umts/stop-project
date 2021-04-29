@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'editing a user as an admin' do
+RSpec.describe 'editing a user as an admin' do
   let!(:admin) { create :user, :admin }
   let!(:edit_user) { create :user }
   before :each do
@@ -31,8 +31,8 @@ describe 'editing a user as an admin' do
         fill_in 'Name', with: 'newname'
         fill_in 'Email', with: 'newemail@example.com'
         check 'Admin'
-        fill_in 'Password', with: 'newpass'
-        fill_in 'Password confirmation', with: 'newpass'
+        fill_in 'Password', with: 'newpass!834'
+        fill_in 'Password confirmation', with: 'newpass!834'
         click_button 'Save user'
       end
       expect(page).to have_css 'td', text: 'newname'

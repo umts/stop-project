@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe BusStopsRoute do
+RSpec.describe BusStopsRoute do
   describe 'validations' do
     context 'same route and direction' do
       let(:route) { create :route }

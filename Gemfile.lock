@@ -289,6 +289,7 @@ GEM
     sshkit (1.21.2)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    strong_password (0.0.9)
     temple (0.8.2)
     thor (1.1.0)
     tilt (2.0.10)
@@ -297,7 +298,6 @@ GEM
       concurrent-ruby (~> 1.0)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
-    underscore-rails (1.8.3)
     unicode-display_width (2.0.0)
     warden (1.2.9)
       rack (>= 2.0.9)
@@ -344,9 +344,9 @@ DEPENDENCIES
   sassc-rails
   simplecov
   spring
+  strong_password
   timecop
   uglifier
-  underscore-rails (~> 1.8)
   webdrivers
   will_paginate (~> 3.1)
 
