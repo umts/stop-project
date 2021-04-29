@@ -6,10 +6,6 @@ class User < ApplicationRecord
   validate :confirmation_matches, if: -> { password.present? }
   has_many :stops_completed, class_name: 'BusStop', foreign_key: 'completed_by'
 
-  def not_admin?
-    !admin?
-  end
-
   private
 
   def confirmation_matches
