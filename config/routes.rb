@@ -4,10 +4,14 @@ Rails.application.routes.draw do
   devise_for :users
   as :user do
     get 'users/edit', to: 'devise/registrations#edit', as: :edit_user_registration
-    put 'users', to: 'devise/registrations#update', as: :user_registration           
+    put 'users', to: 'devise/registrations#update', as: :user_registration
   end
   scope :admin do
     resources :users, except: :show
+  end
+
+  if Rails.env.development?
+    post '/dev_login', to: 'dev_login#create', as: 'dev_login'
   end
 
   resources :bus_stops, except: :show do
