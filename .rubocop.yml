@@ -1,3 +1,6 @@
+require:
+  - rubocop-rspec
+
 AllCops:
   Exclude:
     - 'bin/**/*'
@@ -22,6 +25,13 @@ Metrics/BlockLength:
     - 'config/routes.rb'
     - 'lib/tasks/**/*'
     - 'spec/**/*'
+
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/system/**/*'
+
+RSpec/NestedGroups:
+  Max: 4
 
 # Don't worry about documentation for now.
 # In particular, this fails for things like

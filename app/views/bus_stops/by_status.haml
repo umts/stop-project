@@ -7,7 +7,7 @@
 - else
   - @stops_hash.each_pair do |status, stops|
     = status + ' Stops'
-    %ul
+    %ul{ class: status.parameterize }
       - stops.each do |stop|
         %li
           = link_to edit_bus_stop_path(stop.hastus_id) do
