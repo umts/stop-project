@@ -29,6 +29,7 @@ group :development do
   gem 'capistrano-rails', require: false
   gem 'ed25519', '>= 1.2', '< 2.0', require: false
   gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
   gem 'spring'
 end
 

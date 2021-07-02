@@ -38,8 +38,8 @@ RSpec.describe 'viewing outdated' do
   let(:admin) { create :user, :admin }
   let!(:present_stop) { create :bus_stop }
   # default date for outdated is from a month ago
-  let!(:date) { Date.today - 1.month }
-  let(:picked_date) { date.change(day: 28) }
+  let!(:date) { 1.month.ago }
+  let(:picked_date) { date.change(day: 28).to_date }
   let!(:old_stop1) { create :bus_stop, updated_at: (date - 2.months) }
   let!(:old_stop2) { create :bus_stop, updated_at: (date - 3.months) }
   before :each do
@@ -68,16 +68,9 @@ RSpec.describe 'viewing outdated' do
   end
   context 'using datepicker to specify different date', js: true do
     it 'displays outdated stops from that time' do
-      within 'form' do
-        page.find_by_id('date').click
-        # datapicker pops up
-      end
-      within 'table.ui-datepicker-calendar tbody tr td', text: '28' do
-        page.find('.ui-state-default').click
-      end
-      within 'form' do
-        click_on 'Change date'
-      end
+      page.find_field('date').click # datapicker pops up
+      within('table.ui-datepicker-calendar tbody') { click_on '28' }
+      click_on 'Change date'
       expect(page).to have_content "Bus stops not updated since #{picked_date}"
     end
   end

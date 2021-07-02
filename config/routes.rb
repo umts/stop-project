@@ -12,9 +12,7 @@ Rails.application.routes.draw do
     resources :users, except: :show
   end
 
-  if Rails.env.development?
-    post '/dev_login', to: 'dev_login#create', as: 'dev_login'
-  end
+  post '/dev_login', to: 'dev_login#create', as: 'dev_login' if Rails.env.development?
 
   resources :bus_stops, except: :show do
     collection do

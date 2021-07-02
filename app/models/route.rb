@@ -2,7 +2,7 @@
 
 class Route < ApplicationRecord
   validates :number, presence: true, uniqueness: { case_sensitive: false }
-  has_many :bus_stops_routes
+  has_many :bus_stops_routes, dependent: :destroy
   has_many :bus_stops, through: :bus_stops_routes
   default_scope { order :number }
 

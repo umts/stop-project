@@ -54,7 +54,7 @@ class BusStopsController < ApplicationController
       format.html { render :manage }
       format.csv do
         send_data BusStop.all.to_csv,
-                  filename: "all-stops-#{Date.today.strftime('%Y%m%d')}.csv"
+                  filename: "all-stops-#{Time.zone.today.strftime('%Y%m%d')}.csv"
       end
     end
   end
@@ -112,7 +112,7 @@ class BusStopsController < ApplicationController
   end
 
   def edit
-    return unless params[:route_id].present?
+    return if params[:route_id].blank?
 
     @route = Route.find(params[:route_id])
     @direction = params.require(:direction)

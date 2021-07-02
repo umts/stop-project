@@ -6,7 +6,8 @@ class User < ApplicationRecord
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :password, password_strength: true, if: :password_required?
 
-  has_many :stops_completed, class_name: 'BusStop', foreign_key: 'completed_by'
+  has_many :stops_completed, class_name: 'BusStop', foreign_key: 'completed_by',
+                             inverse_of: :completed_by, dependent: :nullify
 
   # :nocov:
   def self.dev_login_options
