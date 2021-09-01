@@ -5,11 +5,11 @@ require 'spec_helper'
 RSpec.describe 'viewing outdated' do
   let!(:present_stop) { create :bus_stop }
   # default date for outdated is from a month ago
-  let!(:date) { Date.today - 1.month }
-  let!(:old_stop) { create :bus_stop, updated_at: (date - 2.months) }
+  let!(:date) { 1.month.ago.to_date }
+  let!(:old_stop) { create :bus_stop, updated_at: 2.months.ago }
 
   before do
-    create :bus_stop, updated_at: (date - 3.months)
+    create :bus_stop, updated_at: 3.months.ago
     when_current_user_is :admin
     visit outdated_bus_stops_path
   end
