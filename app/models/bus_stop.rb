@@ -6,9 +6,10 @@ class BusStop < ApplicationRecord
   has_paper_trail
   validates :name, presence: true
   validates :hastus_id, presence: true, uniqueness: { case_sensitive: false }
-  has_many :bus_stops_routes
+  has_many :bus_stops_routes, dependent: :destroy
   has_many :routes, through: :bus_stops_routes
-  belongs_to :completed_by, optional: true, class_name: 'User', foreign_key: :completed_by
+  belongs_to :completed_by, optional: true, class_name: 'User',
+                            foreign_key: :completed_by, inverse_of: :stops_completed
 
   before_save :assign_completion_timestamp, if: -> { completed_changed? }
 
@@ -36,14 +37,8 @@ class BusStop < ApplicationRecord
                                               if: :completed?)
 
   scope :completed, -> { where completed: true }
-  scope :not_started, lambda {
-    (where 'created_at = updated_at')
-      .where completed: [false, nil]
-  }
-  scope :pending, lambda {
-    (where 'updated_at > created_at')
-      .where completed: [false, nil]
-  }
+  scope :not_started, -> { where('created_at = updated_at').where(completed: [false, nil]) }
+  scope :pending, -> { where('updated_at > created_at').where(completed: [false, nil]) }
 
   SIGN_OPTIONS = {
     sign_type: ['Axehead',
@@ -220,7 +215,7 @@ class BusStop < ApplicationRecord
             end
     CSV.generate headers: true do |csv|
       csv << attrs.values
-      all.each do |stop|
+      find_each do |stop|
         csv << attrs.keys.map do |attr|
           if attr == :completed_by
             stop.completed_by.try(:name)

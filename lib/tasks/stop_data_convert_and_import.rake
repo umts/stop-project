@@ -26,7 +26,7 @@ namespace :bus_stops do
                                 else true
                                 end
       stop = BusStop.find row['id']
-      stop.update_attributes(new_attributes)
+      stop.update(new_attributes)
     end
   end
   task import_shelter_type_data: :environment do
@@ -38,7 +38,7 @@ namespace :bus_stops do
                               else row['shelter_type']
                               end
       stop = BusStop.find row['id']
-      stop.update_attributes(attrs)
+      stop.update(attrs)
     end
   end
 end
