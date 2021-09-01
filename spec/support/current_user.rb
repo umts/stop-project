@@ -2,10 +2,10 @@
 
 module CurrentUserHelpers
   def when_current_user_is(user)
-    current_user = case user
-                   when User, nil then user
-                   when Symbol then create(:user, user)
-                   end
-    sign_in current_user
+    sign_in case user
+            when User, nil then user
+            when :anyone, :anybody then create :user
+            when Symbol then create(:user, user)
+            end
   end
 end
