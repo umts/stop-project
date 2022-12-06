@@ -13,7 +13,7 @@ require 'rspec/rails'
 require 'devise'
 require 'factory_bot_rails'
 
-Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
+Dir['./spec/support/**/*.rb'].each { |f| require f }
 
 ActiveRecord::Migration.maintain_test_schema!
 
