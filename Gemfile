@@ -12,6 +12,7 @@ gem 'mysql2', '~> 0.4'
 gem 'paper_trail', '~> 12.3'
 gem 'rails', '~> 7.0.4'
 gem 'sassc-rails'
+gem 'sprockets-rails'
 gem 'strong_password'
 gem 'will_paginate', '~> 3.1'
 
