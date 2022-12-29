@@ -93,7 +93,7 @@ RSpec.describe 'editing a bus stop as a user' do
     end
 
     it 'displays who updated it and when' do
-      updated = Date.yesterday.to_s(:long_with_time)
+      updated = Date.yesterday.to_fs(:long_with_time)
       expect(page).to have_content "Last updated by #{last_user.name} at #{updated}"
     end
   end
@@ -118,7 +118,7 @@ RSpec.describe 'editing a bus stop as a user' do
     end
 
     it 'displays who updated it and when' do
-      completed = Date.yesterday.to_s(:long_with_time)
+      completed = Date.yesterday.to_fs(:long_with_time)
       expect(page).to have_content "Completed by #{last_user.name} at #{completed}"
     end
   end

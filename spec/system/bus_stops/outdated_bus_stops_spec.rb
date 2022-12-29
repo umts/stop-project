@@ -20,12 +20,12 @@ RSpec.describe 'viewing outdated' do
 
   it 'displays outdated stops' do
     expect(page).to have_selector 'table.manage tbody tr',
-                                  text: old_stop.updated_at.to_s(:db_hm)
+                                  text: old_stop.updated_at.to_fs(:db_hm)
   end
 
   it 'does not display non-outdated stops' do
     expect(page).not_to have_selector 'table.manage tbody tr',
-                                      text: present_stop.updated_at.to_s(:db_hm)
+                                      text: present_stop.updated_at.to_fs(:db_hm)
   end
 
   it 'allows editing of outdated stops' do
