@@ -13,14 +13,11 @@ RSpec.describe 'editing a bus stop as a user' do
 
   context 'with no changes' do
     before do
-      within 'table.edit-form' do
-        click_button 'Save stop'
-      end
+      click_button 'Save stop'
     end
 
     it 'displays a message that says stop was updated' do
-      expect(page).to have_selector 'p.notice',
-                                    text: 'Bus stop was updated.'
+      expect(page).to have_text('Bus stop was updated.')
     end
 
     it 'redirects to the bus stops page' do
@@ -30,15 +27,12 @@ RSpec.describe 'editing a bus stop as a user' do
 
   context 'with data changes' do
     before do
-      within 'table.edit-form' do
-        select 'UMTS', from: 'Garage responsible'
-        click_button 'Save stop'
-      end
+      select 'UMTS', from: 'Garage responsible'
+      click_button 'Save stop'
     end
 
     it 'displays a message that says stop was updated' do
-      expect(page).to have_selector 'p.notice',
-                                    text: 'Bus stop was updated.'
+      expect(page).to have_text('Bus stop was updated.')
     end
 
     it 'redirects to the bus stops page' do
@@ -48,10 +42,8 @@ RSpec.describe 'editing a bus stop as a user' do
 
   context 'with errors' do
     before do
-      within 'table.edit-form' do
-        check 'Completed'
-        click_button 'Save stop'
-      end
+      check 'Completed'
+      click_button 'Save stop'
     end
 
     it 'sends a helpful error message' do
@@ -66,9 +58,7 @@ RSpec.describe 'editing a bus stop as a user' do
 
   context 'when clicking on the field guide link' do
     before do
-      within 'table.edit-form' do
-        click_on 'Field Guide'
-      end
+      click_on 'Field Guide'
     end
 
     it 'redirects to the field guide' do

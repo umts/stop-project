@@ -4,8 +4,6 @@ require 'spec_helper'
 
 RSpec.describe 'viewing outdated' do
   let!(:present_stop) { create :bus_stop }
-  # default date for outdated is from a month ago
-  let!(:date) { 1.month.ago.to_date }
   let!(:old_stop) { create :bus_stop, updated_at: 2.months.ago }
 
   before do
@@ -15,17 +13,15 @@ RSpec.describe 'viewing outdated' do
   end
 
   it 'displays the correct number of stops' do
-    expect(page).to have_selector 'table.manage tbody tr', count: 2
+    expect(page).to have_selector 'tr', count: 2
   end
 
   it 'displays outdated stops' do
-    expect(page).to have_selector 'table.manage tbody tr',
-                                  text: old_stop.updated_at.to_fs(:db_hm)
+    expect(page).to have_selector 'tr', text: old_stop.updated_at.to_fs(:db_hm)
   end
 
   it 'does not display non-outdated stops' do
-    expect(page).not_to have_selector 'table.manage tbody tr',
-                                      text: present_stop.updated_at.to_fs(:db_hm)
+    expect(page).not_to have_selector 'tr', text: present_stop.updated_at.to_fs(:db_hm)
   end
 
   it 'allows editing of outdated stops' do
@@ -35,15 +31,14 @@ RSpec.describe 'viewing outdated' do
     expect(page).to have_content "Editing #{old_stop.name}"
   end
 
-  context 'when using datepicker to specify different date', js: true do
+  context 'when specifying a different date' do
     before do
-      page.find_field('date').click # datepicker pops up
-      within('table.ui-datepicker-calendar') { click_on '28' }
+      fill_in 'date', with: Date.yesterday
       click_on 'Change date'
     end
 
     it 'displays outdated stops from that time' do
-      expect(page).to have_content "Bus stops not updated since #{date.change day: 28}"
+      expect(page).to have_content "Bus stops not updated since #{Date.yesterday}"
     end
   end
 end

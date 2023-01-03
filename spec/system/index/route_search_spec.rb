@@ -18,8 +18,11 @@ RSpec.describe 'searching for a bus stop by route' do
     end
 
     it 'redirects to bus stops by status' do
-      path = by_status_bus_stops_path(number: route.number)
-      expect(page).to have_current_path(path)
+      expect(page).to have_current_path(by_status_bus_stops_path, ignore_query: true)
+    end
+
+    it 'searches by route number' do
+      expect(page).to have_text "Route #{route.number} Bus Stops"
     end
 
     context 'when viewing by route order' do
