@@ -1,26 +1,23 @@
 %h1 Login
 
 = form_for resource, as: resource_name, url: session_path(resource_name) do |f|
-  .field
+  .form-group
     = f.label :email
-    %br
-    = f.email_field :email, autofocus: true, autocomplete: 'email'
-  .field
+    = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control'
+  .form-group
     = f.label :password
-    %br
-    = f.password_field :password, autocomplete: 'current-password'
+    = f.password_field :password, autocomplete: 'current-password', class: 'form-control'
   - if devise_mapping.rememberable?
-    .field
-      = f.check_box :remember_me
-      = f.label :remember_me
-  .actions= f.submit 'Log in'
+    .custom-control.custom-checkbox
+      = f.check_box :remember_me, class: 'custom-control-input'
+      = f.label :remember_me, class: 'custom-control-label'
+  .form-group= f.submit 'Log in', class: 'btn btn-primary'
 
 - if Rails.env.development?
   %hr
   %h1 Dev Login
   = form_with url: dev_login_path, local: true do |f|
-    .field
+    .form-group
       = f.label :user_id
-      %br
-      = f.select :user_id, User.dev_login_options
-    .actions= f.submit 'Log in'
+      = f.select :user_id, User.dev_login_options, {}, class: 'form-control custom-select'
+    .form-group= f.submit 'Log in', class: 'btn btn-primary'

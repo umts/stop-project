@@ -1,57 +1,55 @@
 - if stop.last_updated.present?
-  .smalltext.last-updated
-    Last updated by #{stop.last_updated_by} at #{stop.last_updated_at}
+  %p Last updated by #{stop.last_updated_by} at #{stop.last_updated_at}
 - if stop.completed_at.present?
-  .smalltext.last-updated
+  %p
     Completed by #{stop.completed_by.try :name}
     at #{stop.completed_at.to_formatted_s(:long_with_time)}
-= form_for stop, url: bus_stop_path(stop.hastus_id) do |f|
-  %table.edit-form
-    %th
-      Stop Info
-      %tr
-        %td= f.label :name
-        %td= stop.name
-      %tr
-        %td= f.label :hastus_id, 'Hastus ID'
-        %td= stop.hastus_id
-        %tr
-          %td= f.label :routes
-          %td= stop.route_list
-      %tr
-        %td= f.label :garage_responsible
-        %td= f.select :garage_responsible, %w[SATCo UMTS VATCo], include_blank: true
-      %tr
-        %td= f.label :state_road
-        %td= f.select :state_road, [['Yes', true], ['No', false]], include_blank: true
-      %tr
-        %td= f.label :need_work
-        %td= f.select :need_work, ['1 - No issues',
+= form_for stop, url: bus_stop_path(stop.hastus_id), class: 'container-fluid' do |f|
+  %fieldset
+    %legend Stop Info
+    .form-group
+      = f.label :name
+      = f.text_field :name, disabled: true, class: 'form-control-plaintext'
+    .form-group
+      = f.label :hastus_id, 'Hastus ID'
+      = f.text_field :hastus_id, disabled: true, class: 'form-control-plaintext'
+    .form-group
+      = f.label :routes
+      %p= stop.route_list
+    .form-group
+      = f.label :garage_responsible
+      = f.select :garage_responsible, %w[SATCo UMTS VATCo],
+        { include_blank: true }, class: 'form-control custom-select'
+    .form-group
+      %td= f.label :state_road
+      %td= f.select :state_road, [['Yes', true], ['No', false]],
+        { include_blank: true }, class: 'form-control custom-select'
+    .form-group
+      - work_opts = ['1 - No issues',
         '2 - Needs cleaning, no safety concern',
         '3 - Minor issues, non safety',
         '4 - Potential safety concern',
-        '5 - Immediate safety concern'],
-        include_blank: true
-    - @fields.each do |category, hash|
-      %th
-        = f.label category
-        - hash.each do |name, options|
-          %tr
-            %td= f.label name
-            - if options.kind_of?(Array)
-              %td= f.select name, options, include_blank: true
-            - else
-              %td= f.select name, [['Yes', true], ['No', false]], include_blank: true
-    %th
-      Inventory
-      %tr
-        %td= f.label :completed, 'Completed'
-        %td= f.check_box :completed
-    %tr
-      %td= submit_tag 'Save stop', class: 'btn btn-primary btn-lg btn-block submit'
-      - if @route
-        = hidden_field_tag :route_id, @route.id
-        = hidden_field_tag :direction, @direction
-        %td= submit_tag 'Save and next', class: 'btn btn-primary btn-lg btn-block submit'
-    %tr
-      %td= link_to 'Field Guide', field_guide_bus_stops_path
+        '5 - Immediate safety concern']
+      %td= f.label :need_work
+      %td= f.select :need_work, work_opts, { include_blank: true }, class: 'form-control custom-select'
+  - @fields.each do |category, hash|
+    %fieldset
+      %legend= category.to_s.titleize
+      - hash.each do |name, options|
+        .form-group
+          = f.label name
+          - field_opts = options.is_a?(Array) ? options : [['Yes', true], ['No', false]]
+          = f.select name, field_opts, { include_blank: true }, class: 'form-control custom-select'
+  %fieldset
+    %legend Inventory
+    .form-check
+      = f.check_box :completed, class: 'custom-control-input'
+      = f.label :completed, class: 'custom-control-label'
+  .form-row
+    = f.submit 'Save stop', class: 'btn btn-primary btn-lg btn-block col mx-2'
+    - if @route
+      = hidden_field_tag :route_id, @route.id
+      = hidden_field_tag :direction, @direction
+      = f.submit 'Save and next', class: 'btn btn-primary btn-lg btn-block col mx-2'
+
+= link_to 'Field Guide', field_guide_bus_stops_path

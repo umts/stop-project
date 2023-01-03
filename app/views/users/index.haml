@@ -1,6 +1,6 @@
 .page-title Users
 
-%table.index
+%table.table
   %thead
     %tr
       %th Name
@@ -15,6 +15,4 @@
         %td= user.email
         %td= 'Yes' if user.admin?
         %td= link_to 'Edit', edit_user_path(user)
-        %td
-          = button_to 'Delete', user_path(user), method: :delete,
-            class: %w[btn btn-danger]
+        %td= button_to 'Delete', user_path(user), method: :delete, class: %w[btn btn-danger]

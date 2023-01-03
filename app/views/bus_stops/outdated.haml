@@ -7,7 +7,7 @@ Bus stops not updated since #{@date} (#{@stops.count})
 = link_to 'Export as CSV', outdated_bus_stops_path(date: params[:date], format: :csv)
 
 - if @stops.present?
-  %table.manage
+  %table.table
     %thead
       %th Stop
       %th ID
