@@ -8,17 +8,17 @@
     = csrf_meta_tags
   %body
     = render partial: 'layouts/navbar'
-    #main-panel.panel.panel-default
-      .panel-body
-        .info
-          - unless user_signed_in?
-            %p.login-notice
-              To request a login, please
-              = succeed '.' do
-                = mail_to 'transit-it@admin.umass.edu', 'contact UMTS IT'
-          - if flash[:notice].present?
-            %p.notice= flash[:notice]
-          - if flash[:errors].present?
+    #main-panel.card
+      .card-body
+        - unless user_signed_in?
+          .alert.alert-info
+            To request a login, please
+            = succeed '.' do
+              = mail_to 'transit-it@admin.umass.edu', 'contact UMTS IT'
+        - if flash[:notice].present?
+          .alert.alert-success= flash[:notice]
+        - if flash[:errors].present?
+          .alert.alert-danger
             - flash[:errors].each do |error|
-              %p.errors= error
+              %p= error
         = yield
