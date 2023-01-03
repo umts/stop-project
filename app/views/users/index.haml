@@ -13,7 +13,7 @@
       %tr
         %td= user.name
         %td= user.email
-        %td= check_image user.admin?
+        %td= 'Yes' if user.admin?
         %td= link_to 'Edit', edit_user_path(user)
         %td
           = button_to 'Delete', user_path(user), method: :delete,
