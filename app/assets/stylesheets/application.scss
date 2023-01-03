@@ -1,15 +1,12 @@
 /*
  *= require jquery-ui
- *= require_tree .
- *= require_self
  */
 
-@import "bootstrap-sprockets";
-@import "bootstrap";
+@import 'bootstrap';
+@import 'navbar';
 
 body{
   background: #d7bea3 !important;
-  font-size: 400% !important;
 }
 
 #main-panel{
@@ -24,33 +21,4 @@ body{
   font-size: 50px;
   text-align: center;
   margin-bottom: 1em;
-}
-
-.smalltext{
-  font-size: 50%;
-}
-
-button.btn.btn-default{
-  font-size: 30px;
-  border: 2px solid grey;
-  border-radius: 6px;
-  margin-left: 10px;
-}
-
-.info p{
-  border: 3px solid lightgrey;
-  border-radius: 6px;
-  text-align: center;
-}
-
-.info p.login-notice{
-  background-color: #d1a8bb;
-}
-
-.info p.notice{
-  background-color: #b5e8ce;
-}
-
-.info p.errors{
-  background-color: #e8b5b5;
 }

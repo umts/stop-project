@@ -1,21 +1,7 @@
-.navbar.navbar-default{
-  border-bottom: 2px solid grey;
-}
-
-.navbar .container-fluid{
+.navbar {
   background: #e0e7eb;
 }
 
-a.navbar-brand img{
-  background: white;
-  border: 2px solid grey;
-  border-radius: 6px;
-  height: 57px;
-  margin-top: -7px;
-  padding: 5px;
-}
-
-.navbar button.auth{
-  border: 2px solid grey;
-  margin-right: 5px;
+.navbar-brand img{
+  height: 5ex;
 }
