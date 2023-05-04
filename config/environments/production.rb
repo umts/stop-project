@@ -84,9 +84,11 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.middleware.use ExceptionNotification::Rack, email: {
-    email_prefix: 'New stop-project exception: ',
-    sender_address: 'transit-it@admin.umass.edu',
-    exception_recipients: %w(programmers@admin.umass.edu)
-  }
+  config.middleware.use ExceptionNotification::Rack,
+                        email: {
+                          email_prefix: 'New stop-project exception: ',
+                          sender_address: 'transit-it@admin.umass.edu',
+                          exception_recipients: %w[programmers@admin.umass.edu]
+                        },
+                        error_grouping: true
 end
