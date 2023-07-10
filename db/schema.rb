@@ -10,9 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[6.1].define(version: 2021_04_27_202737) do
-
-  create_table "bus_stops", charset: "utf8", force: :cascade do |t|
+ActiveRecord::Schema[7.0].define(version: 2023_07_10_133909) do
+  create_table "bus_stops", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "hastus_id", null: false
     t.string "bench"
@@ -27,10 +26,10 @@ ActiveRecord::Schema[6.1].define(version: 2021_04_27_202737) do
     t.boolean "bus_pull_out_exists"
     t.boolean "solar_lighting"
     t.string "mounting_clearance"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "completed"
-    t.datetime "completed_at"
+    t.datetime "completed_at", precision: nil
     t.string "sign_type"
     t.string "shelter_condition"
     t.string "shelter_pad_condition"
@@ -55,33 +54,33 @@ ActiveRecord::Schema[6.1].define(version: 2021_04_27_202737) do
     t.index ["hastus_id"], name: "index_bus_stops_on_hastus_id", unique: true
   end
 
-  create_table "bus_stops_routes", id: false, charset: "utf8", force: :cascade do |t|
-    t.bigint "bus_stop_id", null: false
-    t.bigint "route_id", null: false
+  create_table "bus_stops_routes", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
+    t.integer "bus_stop_id", null: false
+    t.integer "route_id", null: false
     t.integer "sequence"
     t.string "direction"
     t.index ["bus_stop_id", "route_id", "direction"], name: "index_bus_stops_routes_on_bus_stop_id_and_route_id_and_direction", unique: true
     t.index ["sequence", "route_id", "direction"], name: "index_bus_stops_routes_on_sequence_and_route_id_and_direction", unique: true
   end
 
-  create_table "routes", charset: "utf8", force: :cascade do |t|
+  create_table "routes", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
     t.string "number"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "description"
     t.index ["number"], name: "index_routes_on_number", unique: true
   end
 
-  create_table "users", charset: "utf8", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.boolean "admin", default: false, null: false
@@ -90,13 +89,13 @@ ActiveRecord::Schema[6.1].define(version: 2021_04_27_202737) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "versions", charset: "utf8mb4", force: :cascade do |t|
+  create_table "versions", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
     t.string "item_type", limit: 191, null: false
     t.integer "item_id", null: false
     t.string "event", null: false
     t.string "whodunnit"
     t.text "object", size: :long
-    t.datetime "created_at"
+    t.datetime "created_at", precision: nil
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
