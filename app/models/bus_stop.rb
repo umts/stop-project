@@ -172,9 +172,9 @@ class BusStop < ApplicationRecord
     technology: TECHNOLOGY
   }.freeze
 
-  SUPER_HASH.each do |hash|
-    hash.each do |name, options|
-      validates name, inclusion: { in: options }, allow_blank: true if options.is_a?(Array)
+  SUPER_HASH.each do |_, subhash|
+    subhash.each do |field, options|
+      validates field, inclusion: { in: options }, allow_blank: true if options.is_a?(Array)
     end
   end
 
