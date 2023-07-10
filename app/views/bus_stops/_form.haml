@@ -1,10 +1,10 @@
 - if stop.last_updated.present?
   .smalltext.last-updated
-    Last updated by #{stop.last_updated_by} at #{stop.last_updated_at}
+    Last updated by #{stop.last_updated_by} on #{stop.last_updated_at}
 - if stop.completed_at.present?
   .smalltext.last-updated
     Completed by #{stop.completed_by.try :name}
-    at #{stop.completed_at.to_formatted_s(:long_with_time)}
+    on #{stop.completed_at.to_formatted_s(:long_with_time)}
 = form_for stop, url: bus_stop_path(stop.hastus_id) do |f|
   %table.edit-form
     %th
