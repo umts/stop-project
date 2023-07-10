@@ -12,11 +12,11 @@ FactoryBot.define do
       mounting { 'Structure' }
       mounting_direction { 'Towards street' }
       schedule_holder { 'None' }
-      shelter { 'Building' }
+      shelter { 'PVTA shelter' }
       sidewalk_width { 'Less than 36 inches' }
       trash { 'Municipal' }
-      mounting_clearance { '60-83 inches' }
-      sign_type { 'Rectangle (<2014)' }
+      mounting_clearance { '60-84 inches' }
+      sign_type { 'Rectangle' }
       shelter_condition { 'Poor' }
       shelter_pad_condition { 'Great' }
       shelter_pad_material { 'Asphalt' }
@@ -26,15 +26,15 @@ FactoryBot.define do
       obstructions { 'Yes - Bollard/Structure' }
       stop_sticker { 'Sticker correct' }
       route_stickers { 'No stickers' }
-      bike_rack { 'Bike locker' }
+      bike_rack { 'Other bike rack' }
       real_time_information { 'Yes - Solar' }
       created_at { 2.days.ago }
       updated_at { 1.day.ago }
       bolt_on_base { true }
       bus_pull_out_exists { true }
-      has_power { true }
+      has_power { 'No' }
       solar_lighting { true }
-      system_map_exists { true }
+      system_map_exists { 'No map' }
       shelter_ada_compliant { true }
       ada_landing_pad { true }
       state_road { true }
