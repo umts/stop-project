@@ -41,7 +41,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_10_133909) do
     t.boolean "ada_landing_pad"
     t.string "real_time_information"
     t.boolean "state_road"
-    t.string "need_work"
+    t.string "needs_work"
     t.string "obstructions"
     t.boolean "accessible"
     t.string "stop_sticker"

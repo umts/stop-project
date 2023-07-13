@@ -23,7 +23,7 @@ class BusStop < ApplicationRecord
                                        shelter_pad_condition has_power
                                        shelter_pad_material shelter_type
                                        garage_responsible bike_rack
-                                       real_time_information need_work
+                                       real_time_information needs_work
                                        obstructions stop_sticker
                                        route_stickers system_map_exists]
 

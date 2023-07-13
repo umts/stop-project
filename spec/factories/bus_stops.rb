@@ -22,7 +22,7 @@ FactoryBot.define do
       shelter_pad_material { 'Asphalt' }
       shelter_type { 'Modern half' }
       shared_sign_post_frta { false }
-      need_work { '5 - Immediate safety concern' }
+      needs_work { '5 - Immediate safety concern' }
       obstructions { 'Yes - Bollard/Structure' }
       stop_sticker { 'Sticker correct' }
       route_stickers { 'No stickers' }
