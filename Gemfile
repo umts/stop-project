@@ -46,6 +46,6 @@ group :test do
   gem 'capybara'
   gem 'puma'
   gem 'rspec-rails'
+  gem 'selenium-webdriver'
   gem 'simplecov'
-  gem 'webdrivers'
 end
