@@ -6,6 +6,7 @@ ruby IO.read(File.expand_path('.ruby-version', __dir__)).strip
 gem 'bootstrap-sass'
 gem 'devise', '~> 4.6'
 gem 'haml-rails'
+gem 'importmap-rails'
 gem 'jquery-rails', '~> 4.3'
 gem 'jquery-ui-rails', '~> 6.0'
 gem 'mysql2', '~> 0.4'
@@ -49,3 +50,4 @@ group :test do
   gem 'selenium-webdriver'
   gem 'simplecov'
 end
+
