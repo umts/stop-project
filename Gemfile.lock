@@ -308,6 +308,8 @@ GEM
     sshkit (1.21.2)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    stimulus-rails (1.2.2)
+      railties (>= 6.0.0)
     strong_password (0.0.10)
     temple (0.8.2)
     thor (1.2.2)
@@ -365,6 +367,7 @@ DEPENDENCIES
   simplecov
   spring
   sprockets-rails
+  stimulus-rails
   strong_password
   timecop
   uglifier

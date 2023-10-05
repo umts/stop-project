@@ -14,6 +14,7 @@ gem 'paper_trail', '~> 12.3'
 gem 'rails', '~> 7.0.4'
 gem 'sassc-rails'
 gem 'sprockets-rails'
+gem 'stimulus-rails'
 gem 'strong_password'
 gem 'will_paginate', '~> 3.1'
 
@@ -50,4 +51,3 @@ group :test do
   gem 'selenium-webdriver'
   gem 'simplecov'
 end
-
