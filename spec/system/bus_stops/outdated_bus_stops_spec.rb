@@ -35,15 +35,15 @@ RSpec.describe 'viewing outdated' do
     expect(page).to have_content "Editing #{old_stop.name}"
   end
 
-  context 'when using datepicker to specify different date', js: true do
+  context 'when specifying a different date' do
+    let(:date_since) { Date.new(2012,3,4) }
     before do
-      page.find_field('date').click # datepicker pops up
-      within('table.ui-datepicker-calendar') { click_on '28' }
-      click_on 'Change date'
+      fill_in 'date', with: date_since
+      click_on 'Change Date'
     end
 
     it 'displays outdated stops from that time' do
-      expect(page).to have_content "Bus stops not updated since #{date.change day: 28}"
+      expect(page).to have_content "Bus stops not updated since #{date_since}"
     end
   end
 end

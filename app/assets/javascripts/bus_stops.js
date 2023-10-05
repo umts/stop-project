@@ -3,10 +3,6 @@ $(document).ready(function(){
     source: searchStops,
     select: stopSelected
   });
-
-  $('.datepick').datepicker({
-    dateFormat: 'yy-mm-dd'
-  });
 });
 
 function searchStops(request, response){
