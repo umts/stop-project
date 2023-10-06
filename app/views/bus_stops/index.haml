@@ -1,22 +1,21 @@
 .page-title Bus Stops
 
-= form_tag search_bus_stops_path do
-  = label_tag :id, 'Enter stop ID'
-  = text_field_tag :id, '', required: true
-  = submit_tag 'Search'
-or
-= form_tag search_bus_stops_path do
-  = label_tag :name, 'Enter stop name'
+= form_with url: search_bus_stops_path, local: true do |f|
+  = f.label :id, 'Enter Stop ID'
+  = f.text_field :id, required: true
+  = f.submit 'Search'
+
+= form_with url: search_bus_stops_path, local: true do |f|
+  = f.label :name, 'Enter Stop Name'
   %div{ data: { controller: 'autocomplete',
       autocomplete_url_value: autocomplete_bus_stops_path,
       autocomplete_query_param_value: 'term' }, role: 'combobox' }
-    = text_field_tag :name, '', required: true, data: { autocomplete_target: 'input' }
-    = hidden_field_tag :id, '', data: { autocomplete_target: 'hidden' }
+    = f.text_field :name, required: true, data: { autocomplete_target: 'input' }
+    = f.hidden_field :id, data: { autocomplete_target: 'hidden' }
     %ul.list_group{ data: { autocomplete_target: 'results' } }
-  = submit_tag 'Search'
-or
-= form_tag by_status_bus_stops_path, method: :get do
-  = label_tag :number, 'Select a route'
-  = select_tag :number, options_for_select(Route.pluck(:number))
-  = button_tag name: nil, type: :submit do
-    View stops
+  = f.submit 'Search'
+
+= form_with url: by_status_bus_stops_path, method: :get, local: true do |f|
+  = f.label :number, 'Select a Route'
+  = f.select :number, options_for_select(Route.pluck(:number))
+  = f.submit 'View Stops'
