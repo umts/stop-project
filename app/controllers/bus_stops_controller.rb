@@ -1,18 +1,13 @@
 # frozen_string_literal: true
 
 class BusStopsController < ApplicationController
-  before_action :find_stop, only: %i[edit destroy id_search update]
+  before_action :find_stop, only: %i[edit destroy update]
   before_action :restrict_to_admin, only: %i[destroy manage]
   before_action :set_fields_for_stop, only: %i[update edit]
 
   def autocomplete
     stops = BusStop.where 'lower(name) like ?', "%#{params.require(:term)}%"
-    jsondata = stops.map do |stop|
-      { label: stop.name_with_id,
-        value: stop.name_with_id,
-        hastus_id: stop.hastus_id }
-    end
-    render json: jsondata
+    render partial: 'autocomplete', collection: stops, as: :stop
   end
 
   def by_sequence
@@ -44,10 +39,6 @@ class BusStopsController < ApplicationController
                 notice: "#{@stop.name} has been deleted."
   end
 
-  def id_search
-    redirect_to edit_bus_stop_path(@stop.hastus_id)
-  end
-
   def manage
     @stops = BusStop.order(:name).paginate(page: params[:page], per_page: 10)
     respond_to do |format|
@@ -59,12 +50,17 @@ class BusStopsController < ApplicationController
     end
   end
 
-  def name_search
-    stop = BusStop.find_by_name_search(params[:name])
+  def search
+    stop = if params[:id].present?
+             BusStop.find_by hastus_id: params[:id]
+           elsif params[:name].present?
+             BusStop.find_by "name LIKE ?", "%#{params[:name]}%"
+           end
+
     if stop.present?
       redirect_to edit_bus_stop_path(stop.hastus_id)
     else
-      redirect_to bus_stops_path, notice: "Stop #{params[:name]} not found"
+      redirect_back fallback_location: bus_stops_path, notice: "Stop #{params[:name]} not found".squish
     end
   end
 

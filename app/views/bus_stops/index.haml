@@ -1,13 +1,18 @@
 .page-title Bus Stops
 
-= form_tag id_search_bus_stops_path do
+= form_tag search_bus_stops_path do
   = label_tag :id, 'Enter stop ID'
   = text_field_tag :id, '', required: true
   = submit_tag 'Search'
 or
-= form_tag name_search_bus_stops_path do
+= form_tag search_bus_stops_path do
   = label_tag :name, 'Enter stop name'
-  = text_field_tag :name, '', required: true, class: 'name-autocomplete'
+  %div{ data: { controller: 'autocomplete',
+      autocomplete_url_value: autocomplete_bus_stops_path,
+      autocomplete_query_param_value: 'term' }, role: 'combobox' }
+    = text_field_tag :name, '', required: true, data: { autocomplete_target: 'input' }
+    = hidden_field_tag :id, '', data: { autocomplete_target: 'hidden' }
+    %ul.list_group{ data: { autocomplete_target: 'results' } }
   = submit_tag 'Search'
 or
 = form_tag by_status_bus_stops_path, method: :get do
