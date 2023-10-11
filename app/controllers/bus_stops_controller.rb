@@ -6,7 +6,7 @@ class BusStopsController < ApplicationController
   before_action :set_fields_for_stop, only: %i[update edit]
 
   def autocomplete
-    stops = BusStop.where 'lower(name) like ?', "%#{params.require(:term)}%"
+    stops = BusStop.search_names(params.require(:term)).order(:name).limit(10)
     render partial: 'autocomplete', collection: stops, as: :stop
   end
 
@@ -54,7 +54,7 @@ class BusStopsController < ApplicationController
     stop = if params[:id].present?
              BusStop.find_by hastus_id: params[:id]
            elsif params[:name].present?
-             BusStop.find_by "name LIKE ?", "%#{params[:name]}%"
+             BusStop.search_names(params[:name]).first
            end
 
     if stop.present?

@@ -197,6 +197,10 @@ class BusStop < ApplicationRecord
     routes.pluck(:number).uniq.sort.join(', ')
   end
 
+  def self.search_names(text)
+    where('LOWER(name) LIKE ?', "%#{text}%")
+  end
+
   def self.to_csv(limited_attributes: false)
     attrs = if limited_attributes
               LIMITED_ATTRS
