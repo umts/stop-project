@@ -1,2 +1,2 @@
-%li.list-group-item{ role: 'option', data: { autocomplete_label: stop.name, autocomplete_value: stop.hastus_id } }
-  = link_to stop.name_with_id, edit_bus_stop_path(stop.hastus_id)
+= link_to stop.name_with_id, edit_bus_stop_path(stop.hastus_id), class: 'list-group-item',
+  role: 'option', data: { autocomplete_label: stop.name, autocomplete_value: stop.hastus_id }
