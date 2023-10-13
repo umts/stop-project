@@ -310,6 +310,10 @@ GEM
     tilt (2.0.10)
     timecop (0.9.4)
     timeout (0.4.0)
+    turbo-rails (1.5.0)
+      actionpack (>= 6.0.0)
+      activejob (>= 6.0.0)
+      railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uglifier (4.2.0)
@@ -362,6 +366,7 @@ DEPENDENCIES
   stimulus-rails
   strong_password
   timecop
+  turbo-rails
   uglifier
   will_paginate (~> 3.1)
 
