@@ -16,6 +16,7 @@
         %td= stop.hastus_id
         %td= stop.route_list
         %td= link_to 'Edit', edit_bus_stop_path(stop.hastus_id)
-        %td= button_to 'Delete', bus_stop_path(stop.hastus_id), method: :delete,
-          data: { confirm: "Are you sure you want to delete #{stop.name}? This cannot be undone." }
+        %td
+          = button_to 'Delete', bus_stop_path(stop.hastus_id), method: :delete,
+            data: { turbo_confirm: "Are you sure you want to delete #{stop.name}? This cannot be undone." }
 = will_paginate @stops
