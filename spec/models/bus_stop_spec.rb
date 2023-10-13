@@ -59,33 +59,4 @@ RSpec.describe BusStop do
       expect(invalid_stop).not_to be_valid
     end
   end
-
-  describe 'find_by_name_search' do
-    context 'when a name is given' do
-      let(:query) { completed_stop.name }
-      let(:call) { described_class.find_by_name_search(query).name }
-
-      it('finds correct stop') do
-        expect(call).to eq completed_stop.name
-      end
-    end
-
-    context 'when an id is given' do
-      let(:query) { completed_stop.name_with_id }
-      let(:call) { described_class.find_by_name_search(query) }
-
-      it('finds correct stop') do
-        expect(call).to eq completed_stop
-      end
-    end
-
-    context 'when a wrong id but a valid name is given' do
-      let(:query) { "#{completed_stop.name} (999999)" }
-      let(:call) { described_class.find_by_name_search(query) }
-
-      it('defaults to name search') do
-        expect(call.name).to eq completed_stop.name
-      end
-    end
-  end
 end

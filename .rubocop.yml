@@ -6,7 +6,7 @@ AllCops:
   Exclude:
     - 'bin/**/*'
     - 'config/{environments,initializers}/*'
-    - 'config/{application,boot,environment}.rb'
+    - 'config/{application,boot,environment,importmap}.rb'
     - 'db/migrate/**/*'
     - 'db/schema.rb'
     - 'vendor/**/*'

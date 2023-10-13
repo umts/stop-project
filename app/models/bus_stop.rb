@@ -197,6 +197,10 @@ class BusStop < ApplicationRecord
     routes.pluck(:number).uniq.sort.join(', ')
   end
 
+  def self.search_names(text)
+    where('LOWER(name) LIKE ?', "%#{text}%")
+  end
+
   def self.to_csv(limited_attributes: false)
     attrs = if limited_attributes
               LIMITED_ATTRS
@@ -235,13 +239,6 @@ class BusStop < ApplicationRecord
 
   def name_with_id
     "#{name} (#{hastus_id})"
-  end
-
-  def self.find_by_name_search(search_query)
-    hastus_string = search_query.match(/ +\(\d+\)$/).to_s
-    hastus_id = hastus_string.match(/\d+/).to_s
-    name = search_query.gsub hastus_string, ''
-    BusStop.find_by(hastus_id: hastus_id) || BusStop.find_by(name: name)
   end
 
   private

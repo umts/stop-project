@@ -13,13 +13,16 @@ RSpec.describe 'searching for a bus stop by route' do
 
   context 'when selecting a route from the dropdown' do
     before do
-      select route.number, from: 'Select a route'
-      click_button 'View stops'
+      select route.number, from: 'Select a Route'
+      click_button 'View Stops'
     end
 
     it 'redirects to bus stops by status' do
-      path = by_status_bus_stops_path(number: route.number)
-      expect(page).to have_current_path(path)
+      expect(page).to have_current_path(by_status_bus_stops_path, ignore_query: true)
+    end
+
+    it 'shows the by-status page for the correct route' do
+      expect(page).to have_text("Route #{route.number} Bus Stops")
     end
 
     context 'when viewing by route order' do
