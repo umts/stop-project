@@ -16,18 +16,3 @@ table.index td{
   text-align: center;
   padding: 0 0.5em;
 }
-
-/* Temporary */
-form .checkbox {
-  label {
-    padding-left: 80px;
-  }
-  input[type=checkbox]{
-    transform: scale(4);
-    margin-left: -80px;
-  }
-}
-
-input.btn.btn-primary.submit{
-  font-size: 30px;
-}

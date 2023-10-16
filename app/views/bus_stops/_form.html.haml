@@ -1,8 +1,8 @@
 - if stop.last_updated.present?
-  .smalltext.last-updated
+  .last-updated
     Last updated by #{stop.last_updated_by} on #{stop.last_updated_at}
 - if stop.completed_at.present?
-  .smalltext.last-updated
+  .last-updated
     Completed by #{stop.completed_by.try :name}
     on #{stop.completed_at.to_formatted_s(:long_with_time)}
 
@@ -66,10 +66,10 @@
               = f.check_box :completed
               = l
 
-  = f.submit 'Save stop', class: 'btn btn-primary btn-lg btn-block submit'
+  = f.submit 'Save stop', class: 'btn btn-primary btn-block'
   - if @route
     = hidden_field_tag :route_id, @route.id
     = hidden_field_tag :direction, @direction
-    = f.submit 'Save and next', class: 'btn btn-primary btn-lg btn-block submit'
+    = f.submit 'Save and next', class: 'btn btn-primary btn-block'
 
 = link_to 'Field Guide', field_guide_bus_stops_path
