@@ -1,4 +1,4 @@
-Bus stops not updated since #{@date} (#{@stops.count})
+%h1.page-title Bus stops not updated since #{@date} (#{@stops.count})
 
 = form_with url: outdated_bus_stops_path, local: true, method: :get do |f|
   = f.date_field :date, value: @date
