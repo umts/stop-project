@@ -14,6 +14,7 @@ gem 'sassc-rails'
 gem 'sprockets-rails'
 gem 'stimulus-rails'
 gem 'strong_password'
+gem 'turbo-rails'
 gem 'will_paginate', '~> 3.1'
 
 group :production do
