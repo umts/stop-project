@@ -66,12 +66,10 @@
               = f.check_box :completed
               = l
 
-  .form-group
-    = f.submit 'Save stop', class: 'btn btn-primary btn-lg btn-block submit'
+  = f.submit 'Save stop', class: 'btn btn-primary btn-lg btn-block submit'
   - if @route
     = hidden_field_tag :route_id, @route.id
     = hidden_field_tag :direction, @direction
-    .form-group
-      = f.submit 'Save and next', class: 'btn btn-primary btn-lg btn-block submit'
+    = f.submit 'Save and next', class: 'btn btn-primary btn-lg btn-block submit'
 
 = link_to 'Field Guide', field_guide_bus_stops_path
