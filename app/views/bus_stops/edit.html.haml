@@ -1,5 +1,3 @@
-.page-title
-  Editing
-  = display_name @stop
+%h1.page-title Editing #{ display_name @stop }
 
 = render partial: 'form', locals: { stop: @stop }
