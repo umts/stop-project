@@ -5,6 +5,7 @@
   .last-updated
     Completed by #{stop.completed_by.try :name}
     on #{stop.completed_at.to_formatted_s(:long_with_time)}
+= link_to 'Field Guide', field_guide_bus_stops_path
 
 = form_with model: stop, local: true, class: 'form-horizontal' do |f|
   %fieldset.panel.panel-default
@@ -72,5 +73,3 @@
       = hidden_field_tag :route_id, @route.id
       = hidden_field_tag :direction, @direction
       = f.submit 'Save and next', class: 'btn btn-primary btn-block'
-
-= link_to 'Field Guide', field_guide_bus_stops_path
