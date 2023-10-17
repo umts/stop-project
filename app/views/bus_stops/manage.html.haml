@@ -1,8 +1,7 @@
 = link_to 'View Outdated', outdated_bus_stops_path
-%br
 = link_to 'Export all as CSV', manage_bus_stops_path(format: :csv)
 
-%table.manage
+%table.table.table-striped
   %thead
     %th Stop
     %th ID
@@ -17,6 +16,6 @@
         %td= stop.route_list
         %td= link_to 'Edit', edit_bus_stop_path(stop.hastus_id)
         %td
-          = button_to 'Delete', bus_stop_path(stop.hastus_id), method: :delete,
+          = button_to 'Delete', bus_stop_path(stop.hastus_id), method: :delete, class: 'btn btn-danger',
             data: { turbo_confirm: "Are you sure you want to delete #{stop.name}? This cannot be undone." }
 = will_paginate @stops
