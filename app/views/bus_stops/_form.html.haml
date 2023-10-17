@@ -10,58 +10,61 @@
   %fieldset.panel.panel-default
     .panel-heading
       %legend.panel-title Stop Info
-    .form-group
-      = f.label :name, class: 'col-sm-3 control-label'
-      %div{ class: 'col-sm-9' }
-        .form-control-static= stop.name
-    .form-group
-      = f.label :hastus_id, 'Hastus ID', class: 'col-sm-3 control-label'
-      %div{ class: 'col-sm-9' }
-        .form-control-static= stop.hastus_id
-    .form-group
-      = f.label :routes, class: 'col-sm-3 control-label'
-      %div{ class: 'col-sm-9' }
-        .form-control-static= stop.route_list
-    .form-group
-      = f.label :garage_responsible, class: 'col-sm-3 control-label'
-      %div{ class: 'col-sm-9' }
-        = f.select :garage_responsible, %w[SATCo UMTS VATCo], { include_blank: true }, class: 'form-control'
-    .form-group
-      = f.label :state_road, class: 'col-sm-3 control-label'
-      %div{ class: 'col-sm-9' }
-        = f.select :state_road, [['Yes', true], ['No', false]], { include_blank: true }, class: 'form-control'
-    .form-group
-      = f.label :needs_work, class: 'col-sm-3 control-label'
-      %div{ class: 'col-sm-9' }
-        = f.select :needs_work, ['1 - No issues',
-          '2 - Needs cleaning, no safety concern',
-          '3 - Minor issues, non safety',
-          '4 - Potential safety concern',
-          '5 - Immediate safety concern'],
-          { include_blank: true }, class: 'form-control'
+    .panel-body
+      .form-group
+        = f.label :name, class: 'col-sm-3 control-label'
+        %div{ class: 'col-sm-9' }
+          .form-control-static= stop.name
+      .form-group
+        = f.label :hastus_id, 'Hastus ID', class: 'col-sm-3 control-label'
+        %div{ class: 'col-sm-9' }
+          .form-control-static= stop.hastus_id
+      .form-group
+        = f.label :routes, class: 'col-sm-3 control-label'
+        %div{ class: 'col-sm-9' }
+          .form-control-static= stop.route_list
+      .form-group
+        = f.label :garage_responsible, class: 'col-sm-3 control-label'
+        %div{ class: 'col-sm-9' }
+          = f.select :garage_responsible, %w[SATCo UMTS VATCo], { include_blank: true }, class: 'form-control'
+      .form-group
+        = f.label :state_road, class: 'col-sm-3 control-label'
+        %div{ class: 'col-sm-9' }
+          = f.select :state_road, [['Yes', true], ['No', false]], { include_blank: true }, class: 'form-control'
+      .form-group
+        = f.label :needs_work, class: 'col-sm-3 control-label'
+        %div{ class: 'col-sm-9' }
+          = f.select :needs_work, ['1 - No issues',
+            '2 - Needs cleaning, no safety concern',
+            '3 - Minor issues, non safety',
+            '4 - Potential safety concern',
+            '5 - Immediate safety concern'],
+            { include_blank: true }, class: 'form-control'
 
   - @fields.each do |category, hash|
     %fieldset.panel.panel-default
       .panel-heading
         %legend.panel-title= category.to_s.titleize
-      - hash.each do |name, options|
-        .form-group
-          = f.label name, class: 'col-sm-3 control-label'
-          %div{ class: 'col-sm-9' }
-            - if options.kind_of?(Array)
-              = f.select name, options, { include_blank: true }, class: 'form-control'
-            - else
-              = f.select name, [['Yes', true], ['No', false]], { include_blank: true }, class: 'form-control'
+      .panel-body
+        - hash.each do |name, options|
+          .form-group
+            = f.label name, class: 'col-sm-3 control-label'
+            %div{ class: 'col-sm-9' }
+              - if options.kind_of?(Array)
+                = f.select name, options, { include_blank: true }, class: 'form-control'
+              - else
+                = f.select name, [['Yes', true], ['No', false]], { include_blank: true }, class: 'form-control'
 
   %fieldset.panel.panel-default
     .panel-heading
       %legend.panel-title Inventory
-    .form-group
-      %div{ class: 'col-sm-offset-3 col-sm-9' }
-        .checkbox
-          = f.label :completed, 'Completed' do |l|
-            = f.check_box :completed
-            = l
+    .panel-body
+      .form-group
+        %div{ class: 'col-sm-offset-3 col-sm-9' }
+          .checkbox
+            = f.label :completed, 'Completed' do |l|
+              = f.check_box :completed
+              = l
 
   .form-group
     = f.submit 'Save stop', class: 'btn btn-primary btn-lg btn-block submit'
