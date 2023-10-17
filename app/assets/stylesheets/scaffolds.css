@@ -25,20 +25,15 @@ table.index td{
   color: red;
 }
 
-table.edit-form td{
-  padding: 0.25em 1em;
-}
-
-input[type=checkbox]{
-  transform: scale(4);
-}
-
-input[type=radio]{
-  transform: scale(2,2);
-}
-
-select {
-  width: 10em;
+/* Temporary */
+form .checkbox {
+  label {
+    padding-left: 80px;
+  }
+  input[type=checkbox]{
+    transform: scale(4);
+    margin-left: -80px;
+  }
 }
 
 input.btn.btn-primary.submit{
