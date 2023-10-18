@@ -6,7 +6,7 @@
   No stops on this route
 - else
   - @collection.each do |direction, bsrs|
-    = direction
+    %h2.mt-3= direction
     - bsrs.each do |bus_stop_route|
       .row
         .col-sm-7
