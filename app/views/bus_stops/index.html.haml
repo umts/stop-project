@@ -1,14 +1,14 @@
 %h1.page-title Bus Stops
 
-.panel.panel-default
-  .panel-body
+.card
+  .card-body
     = form_with url: search_bus_stops_path, local: true do |f|
       .form-group
         = f.label :id, 'Enter Stop ID'
         = f.text_field :id, required: true, class: 'form-control'
       = f.submit 'Search', class: 'btn btn-primary'
-.panel.panel-default
-  .panel-body
+.card.mt-3
+  .card-body
     = form_with url: search_bus_stops_path, local: true do |f|
       .form-group{ data: { controller: 'autocomplete',
             autocomplete_url_value: autocomplete_bus_stops_path,
@@ -18,8 +18,8 @@
         = f.hidden_field :id, data: { autocomplete_target: 'hidden' }
         .list_group{ data: { autocomplete_target: 'results' } }
       = f.submit 'Search', class: 'btn btn-primary'
-.panel.panel-default
-  .panel-body
+.card.mt-3
+  .card-body
     = form_with url: by_status_bus_stops_path, method: :get, local: true do |f|
       .form-group
         = f.label :number, 'Select a Route'
