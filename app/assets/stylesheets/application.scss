@@ -1,17 +1,9 @@
 @import "bootstrap";
-@import "bus_stops/edit";
 @import "navbar";
-@import "scaffolds";
 
 .page-title{
   background: #e0e7eb;
   border-radius: 6px;
   text-align: center;
   margin-bottom: 1em;
-}
-
-button.btn.btn-default{
-  border: 2px solid grey;
-  border-radius: 6px;
-  margin-left: 10px;
 }
