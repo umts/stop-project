@@ -23,5 +23,5 @@
     = form_with url: by_status_bus_stops_path, method: :get, local: true do |f|
       .form-group
         = f.label :number, 'Select a Route'
-        = f.select :number, options_for_select(Route.pluck(:number)), {}, class: 'form-control'
+        = f.select :number, options_for_select(Route.pluck(:number)), {}, class: 'custom-select'
       = f.submit 'View Stops', class: 'btn btn-primary'
