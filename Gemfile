@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 ruby IO.read(File.expand_path('.ruby-version', __dir__)).strip
 
-gem 'bootstrap-sass'
+gem 'bootstrap', '~> 4.6.2'
 gem 'devise', '~> 4.6'
 gem 'haml-rails'
 gem 'importmap-rails'

@@ -1,10 +1,7 @@
-/*
- *= require_tree .
- *= require_self
- */
-
-@import "bootstrap-sprockets";
 @import "bootstrap";
+@import "bus_stops/edit";
+@import "navbar";
+@import "scaffolds";
 
 body{
   background: #d7bea3 !important;
