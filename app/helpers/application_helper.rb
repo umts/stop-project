@@ -9,4 +9,8 @@ module ApplicationHelper
       item.name || 'New stop'
     end
   end
+
+  def yes_no(value)
+    tag.span (value ? 'Yes' : 'No'), class: (value ? 'text-success' : 'text-danger')
+  end
 end
