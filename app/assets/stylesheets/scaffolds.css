@@ -17,14 +17,6 @@ table.index td{
   padding: 0 0.5em;
 }
 
-.glyphicon-ok{
-  color: green;
-}
-
-.glyphicon-remove{
-  color: red;
-}
-
 table.edit-form td{
   padding: 0.25em 1em;
 }

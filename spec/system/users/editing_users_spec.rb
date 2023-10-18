@@ -51,7 +51,7 @@ RSpec.describe 'editing a user as an admin' do
 
     it "updates the user's admin status" do
       click_save
-      within(user_row) { expect(page).to have_css('.glyphicon-ok') }
+      within(user_row) { expect(page).to have_text('Yes') }
     end
   end
 
