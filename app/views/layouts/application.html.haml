@@ -15,9 +15,12 @@
           = succeed '.' do
             = mail_to 'transit-it@admin.umass.edu', 'contact UMTS IT'
       - if flash[:notice].present?
-        .alert.alert-success= flash[:notice]
+        .alert.alert-success.alert-dismissible.fade.show{ role: 'alert' }
+          = flash[:notice]
+          = button_tag '', class: 'btn-close', data: { bs_dismiss: 'alert' }, aria: { label: 'Close' }
       - if flash[:errors].present?
-        .alert.alert-danger
+        .alert.alert-danger.alert-dismissible.fade.show{ role: 'alert' }
           - flash[:errors].each do |error|
             %p= error
+          = button_tag '', class: 'btn-close', data: { bs_dismiss: 'alert' }, aria: { label: 'Close' }
       = yield
