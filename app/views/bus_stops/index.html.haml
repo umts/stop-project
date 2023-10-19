@@ -16,7 +16,7 @@
         = f.label :name, 'Enter Stop Name'
         = f.text_field :name, required: true, data: { autocomplete_target: 'input' }, class: 'form-control'
         = f.hidden_field :id, data: { autocomplete_target: 'hidden' }
-        .list_group{ data: { autocomplete_target: 'results' } }
+        .list-group{ data: { autocomplete_target: 'results' } }
       = f.submit 'Search', class: 'btn btn-primary'
 .card.mt-3
   .card-body
