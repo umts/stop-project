@@ -35,7 +35,7 @@ RSpec.describe 'searching for a bus stop by stop id' do
     end
 
     it 'displays a helpful message' do
-      expect(page).to have_selector 'p.notice', text: 'Stop not found'
+      expect(page).to have_selector '.alert', text: 'Stop not found'
     end
   end
 end

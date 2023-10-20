@@ -22,7 +22,7 @@ RSpec.describe 'managing users as an admin' do
 
     it 'informs you of success' do
       click_delete
-      expect(page).to have_selector 'p.notice', text: 'User was deleted.'
+      expect(page).to have_selector '.alert', text: 'User was deleted.'
     end
   end
 

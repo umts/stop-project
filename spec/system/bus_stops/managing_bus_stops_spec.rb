@@ -27,7 +27,7 @@ RSpec.describe 'managing stops as an admin' do
 
     it 'informs you of the deletion' do
       click_delete
-      expect(page).to have_selector 'p.notice', text: "#{bus_stop.name} has been deleted."
+      expect(page).to have_selector '.alert', text: "#{bus_stop.name} has been deleted."
     end
   end
 
