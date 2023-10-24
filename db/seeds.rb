@@ -2,17 +2,8 @@
 
 require 'timecop'
 
-User.create! name: 'Admin User',
-             email: 'admin@example.com',
-             password: 'password',
-             password_confirmation: 'password',
-             admin: true
-
-User.create! name: 'Non-Admin User',
-             email: 'user@example.com',
-             password: 'password',
-             password_confirmation: 'password',
-             admin: false
+FactoryBot.create :user, name: 'Admin User', email: 'admin@example.com', admin: true
+FactoryBot.create :user, name: 'Non-Admin User', email: 'user@example.com', admin: false
 
 routes = {
   30 => Route.create!(number: '30', description: 'North Amherst / Old Belchertown Rd'),
