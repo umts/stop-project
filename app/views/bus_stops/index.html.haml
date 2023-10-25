@@ -5,8 +5,8 @@
     = form_with url: search_bus_stops_path, local: true do |f|
       .form-group
         = f.label :id, 'Enter Stop ID'
-        = f.text_field :id, required: true, class: 'form-control input-lg'
-      = f.submit 'Search', class: 'btn btn-primary btn-lg'
+        = f.text_field :id, required: true, class: 'form-control'
+      = f.submit 'Search', class: 'btn btn-primary'
 .panel.panel-default
   .panel-body
     = form_with url: search_bus_stops_path, local: true do |f|
@@ -14,14 +14,14 @@
             autocomplete_url_value: autocomplete_bus_stops_path,
             autocomplete_query_param_value: 'term' }, role: 'combobox' }
         = f.label :name, 'Enter Stop Name'
-        = f.text_field :name, required: true, data: { autocomplete_target: 'input' }, class: 'form-control input-lg'
+        = f.text_field :name, required: true, data: { autocomplete_target: 'input' }, class: 'form-control'
         = f.hidden_field :id, data: { autocomplete_target: 'hidden' }
         .list_group{ data: { autocomplete_target: 'results' } }
-      = f.submit 'Search', class: 'btn btn-primary btn-lg'
+      = f.submit 'Search', class: 'btn btn-primary'
 .panel.panel-default
   .panel-body
     = form_with url: by_status_bus_stops_path, method: :get, local: true do |f|
       .form-group
         = f.label :number, 'Select a Route'
-        = f.select :number, options_for_select(Route.pluck(:number)), {}, class: 'form-control input-lg'
-      = f.submit 'View Stops', class: 'btn btn-primary btn-lg'
+        = f.select :number, options_for_select(Route.pluck(:number)), {}, class: 'form-control'
+      = f.submit 'View Stops', class: 'btn btn-primary'
