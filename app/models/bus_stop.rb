@@ -178,6 +178,10 @@ class BusStop < ApplicationRecord
     end
   end
 
+  def to_param
+    hastus_id
+  end
+
   def last_updated
     versions.where(event: 'update').last
   end

@@ -5,53 +5,71 @@
   .smalltext.last-updated
     Completed by #{stop.completed_by.try :name}
     on #{stop.completed_at.to_formatted_s(:long_with_time)}
-= form_for stop, url: bus_stop_path(stop.hastus_id) do |f|
-  %table.edit-form
-    %th
-      Stop Info
-      %tr
-        %td= f.label :name
-        %td= stop.name
-      %tr
-        %td= f.label :hastus_id, 'Hastus ID'
-        %td= stop.hastus_id
-        %tr
-          %td= f.label :routes
-          %td= stop.route_list
-      %tr
-        %td= f.label :garage_responsible
-        %td= f.select :garage_responsible, %w[SATCo UMTS VATCo], include_blank: true
-      %tr
-        %td= f.label :state_road
-        %td= f.select :state_road, [['Yes', true], ['No', false]], include_blank: true
-      %tr
-        %td= f.label :needs_work
-        %td= f.select :needs_work, ['1 - No issues',
-        '2 - Needs cleaning, no safety concern',
-        '3 - Minor issues, non safety',
-        '4 - Potential safety concern',
-        '5 - Immediate safety concern'],
-        include_blank: true
-    - @fields.each do |category, hash|
-      %th
-        = f.label category
+
+= form_with model: stop, local: true, class: 'form-horizontal' do |f|
+  %fieldset.panel.panel-default
+    .panel-heading
+      %legend.panel-title Stop Info
+    .panel-body
+      .form-group
+        = f.label :name, class: 'col-sm-3 control-label'
+        %div{ class: 'col-sm-9' }
+          .form-control-static= stop.name
+      .form-group
+        = f.label :hastus_id, 'Hastus ID', class: 'col-sm-3 control-label'
+        %div{ class: 'col-sm-9' }
+          .form-control-static= stop.hastus_id
+      .form-group
+        = f.label :routes, class: 'col-sm-3 control-label'
+        %div{ class: 'col-sm-9' }
+          .form-control-static= stop.route_list
+      .form-group
+        = f.label :garage_responsible, class: 'col-sm-3 control-label'
+        %div{ class: 'col-sm-9' }
+          = f.select :garage_responsible, %w[SATCo UMTS VATCo], { include_blank: true }, class: 'form-control'
+      .form-group
+        = f.label :state_road, class: 'col-sm-3 control-label'
+        %div{ class: 'col-sm-9' }
+          = f.select :state_road, [['Yes', true], ['No', false]], { include_blank: true }, class: 'form-control'
+      .form-group
+        = f.label :needs_work, class: 'col-sm-3 control-label'
+        %div{ class: 'col-sm-9' }
+          = f.select :needs_work, ['1 - No issues',
+            '2 - Needs cleaning, no safety concern',
+            '3 - Minor issues, non safety',
+            '4 - Potential safety concern',
+            '5 - Immediate safety concern'],
+            { include_blank: true }, class: 'form-control'
+
+  - @fields.each do |category, hash|
+    %fieldset.panel.panel-default
+      .panel-heading
+        %legend.panel-title= category.to_s.titleize
+      .panel-body
         - hash.each do |name, options|
-          %tr
-            %td= f.label name
-            - if options.kind_of?(Array)
-              %td= f.select name, options, include_blank: true
-            - else
-              %td= f.select name, [['Yes', true], ['No', false]], include_blank: true
-    %th
-      Inventory
-      %tr
-        %td= f.label :completed, 'Completed'
-        %td= f.check_box :completed
-    %tr
-      %td= submit_tag 'Save stop', class: 'btn btn-primary btn-lg btn-block submit'
-      - if @route
-        = hidden_field_tag :route_id, @route.id
-        = hidden_field_tag :direction, @direction
-        %td= submit_tag 'Save and next', class: 'btn btn-primary btn-lg btn-block submit'
-    %tr
-      %td= link_to 'Field Guide', field_guide_bus_stops_path
+          .form-group
+            = f.label name, class: 'col-sm-3 control-label'
+            %div{ class: 'col-sm-9' }
+              - if options.kind_of?(Array)
+                = f.select name, options, { include_blank: true }, class: 'form-control'
+              - else
+                = f.select name, [['Yes', true], ['No', false]], { include_blank: true }, class: 'form-control'
+
+  %fieldset.panel.panel-default
+    .panel-heading
+      %legend.panel-title Inventory
+    .panel-body
+      .form-group
+        %div{ class: 'col-sm-offset-3 col-sm-9' }
+          .checkbox
+            = f.label :completed, 'Completed' do |l|
+              = f.check_box :completed
+              = l
+
+  = f.submit 'Save stop', class: 'btn btn-primary btn-lg btn-block submit'
+  - if @route
+    = hidden_field_tag :route_id, @route.id
+    = hidden_field_tag :direction, @direction
+    = f.submit 'Save and next', class: 'btn btn-primary btn-lg btn-block submit'
+
+= link_to 'Field Guide', field_guide_bus_stops_path
