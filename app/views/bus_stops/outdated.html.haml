@@ -1,13 +1,15 @@
 %h1.page-title Bus stops not updated since #{@date} (#{@stops.count})
 
-= form_with url: outdated_bus_stops_path, local: true, method: :get do |f|
-  = f.date_field :date, value: @date
-  = f.submit 'Change Date'
+= form_with url: outdated_bus_stops_path, local: true, method: :get, class: 'form-inline' do |f|
+  .form-group
+    = f.label :date, class: 'sr-only'
+    = f.date_field :date, value: @date, class: 'form-control'
+    = f.submit 'Change Date', class: 'btn btn-default'
 
 = link_to 'Export as CSV', outdated_bus_stops_path(date: params[:date], format: :csv)
 
 - if @stops.present?
-  %table.manage
+  %table.table.table-striped
     %thead
       %th Stop
       %th ID
