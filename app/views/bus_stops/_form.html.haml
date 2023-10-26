@@ -1,75 +1,74 @@
 - if stop.last_updated.present?
-  .last-updated
+  .mb-3
     Last updated by #{stop.last_updated_by} on #{stop.last_updated_at}
 - if stop.completed_at.present?
-  .last-updated
+  .mb-3
     Completed by #{stop.completed_by.try :name}
     on #{stop.completed_at.to_formatted_s(:long_with_time)}
+
 = link_to 'Field Guide', field_guide_bus_stops_path
 
 = form_with model: stop, local: true, class: 'form-horizontal' do |f|
-  %fieldset.panel.panel-default
-    .panel-heading
-      %legend.panel-title Stop Info
-    .panel-body
-      .form-group
-        = f.label :name, class: 'col-sm-2 control-label'
+  %fieldset.card.my-3
+    .card-header
+      %legend.my-0 Stop Info
+    .card-body
+      .form-group.row
+        = f.label :name, class: 'col-sm-2 col-form-label'
         %div{ class: 'col-sm-10' }
-          .form-control-static= stop.name
-      .form-group
-        = f.label :hastus_id, 'Hastus ID', class: 'col-sm-2 control-label'
+          .form-control-plaintext= stop.name
+      .form-group.row
+        = f.label :hastus_id, 'Hastus ID', class: 'col-sm-2 col-form-label'
         %div{ class: 'col-sm-10' }
-          .form-control-static= stop.hastus_id
-      .form-group
-        = f.label :routes, class: 'col-sm-2 control-label'
+          .form-control-plaintext= stop.hastus_id
+      .form-group.row
+        = f.label :routes, class: 'col-sm-2 col-form-label'
         %div{ class: 'col-sm-10' }
-          .form-control-static= stop.route_list
-      .form-group
-        = f.label :garage_responsible, class: 'col-sm-2 control-label'
+          .form-control-plaintext= stop.route_list
+      .form-group.row
+        = f.label :garage_responsible, class: 'col-sm-2 col-form-label'
         %div{ class: 'col-sm-10' }
-          = f.select :garage_responsible, %w[SATCo UMTS VATCo], { include_blank: true }, class: 'form-control'
-      .form-group
-        = f.label :state_road, class: 'col-sm-2 control-label'
+          = f.select :garage_responsible, %w[SATCo UMTS VATCo], { include_blank: true }, class: 'custom-select'
+      .form-group.row
+        = f.label :state_road, class: 'col-sm-2 col-form-label'
         %div{ class: 'col-sm-10' }
-          = f.select :state_road, [['Yes', true], ['No', false]], { include_blank: true }, class: 'form-control'
-      .form-group
-        = f.label :needs_work, class: 'col-sm-2 control-label'
+          = f.select :state_road, [['Yes', true], ['No', false]], { include_blank: true }, class: 'custom-select'
+      .form-group.row
+        = f.label :needs_work, class: 'col-sm-2 col-form-label'
         %div{ class: 'col-sm-10' }
           = f.select :needs_work, ['1 - No issues',
             '2 - Needs cleaning, no safety concern',
             '3 - Minor issues, non safety',
             '4 - Potential safety concern',
             '5 - Immediate safety concern'],
-            { include_blank: true }, class: 'form-control'
+            { include_blank: true }, class: 'custom-select'
 
   - @fields.each do |category, hash|
-    %fieldset.panel.panel-default
-      .panel-heading
-        %legend.panel-title= category.to_s.titleize
-      .panel-body
+    %fieldset.card.my-3
+      .card-header
+        %legend.my-0= category.to_s.titleize
+      .card-body
         - hash.each do |name, options|
-          .form-group
-            = f.label name, class: 'col-sm-2 control-label'
+          .form-group.row
+            = f.label name, class: 'col-sm-2 col-form-label'
             %div{ class: 'col-sm-10' }
               - if options.kind_of?(Array)
-                = f.select name, options, { include_blank: true }, class: 'form-control'
+                = f.select name, options, { include_blank: true }, class: 'custom-select'
               - else
-                = f.select name, [['Yes', true], ['No', false]], { include_blank: true }, class: 'form-control'
+                = f.select name, [['Yes', true], ['No', false]], { include_blank: true }, class: 'custom-select'
 
-  %fieldset.panel.panel-default
-    .panel-heading
-      %legend.panel-title Inventory
-    .panel-body
-      .form-group
-        %div{ class: 'col-sm-offset-2 col-sm-10' }
-          .checkbox
-            = f.label :completed, 'Completed' do |l|
-              = f.check_box :completed
-              = l
+  %fieldset.card.my-3
+    .card-header
+      %legend.my-0 Inventory
+    .card-body
+      .form-group.row
+        .offset-sm-2.col-sm-10
+          .custom-control.custom-checkbox
+            = f.check_box :completed, class: 'custom-control-input'
+            = f.label :completed, 'Completed', class: 'custom-control-label'
 
-  = f.submit 'Save stop', class: 'btn btn-primary btn-block'
+  = f.submit 'Save stop', class: 'btn btn-primary btn-block mb-3'
   - if @route
-    .stop-additional-button
-      = hidden_field_tag :route_id, @route.id
-      = hidden_field_tag :direction, @direction
-      = f.submit 'Save and next', class: 'btn btn-primary btn-block'
+    = hidden_field_tag :route_id, @route.id
+    = hidden_field_tag :direction, @direction
+    = f.submit 'Save and next', class: 'btn btn-primary btn-block'

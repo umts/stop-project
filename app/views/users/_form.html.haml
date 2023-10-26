@@ -5,10 +5,9 @@
   .form-group
     = f.label :email
     = f.email_field :email, required: true, class: 'form-control'
-  .checkbox
-    = f.label :admin do |l|
-      = f.check_box :admin
-      = l
+  .form-group.custom-control.custom-checkbox
+    = f.check_box :admin, class: 'custom-control-input'
+    = f.label :admin, class: 'custom-control-label'
   .form-group
     = f.label :password
     = f.password_field :password, class: 'form-control'

@@ -6,7 +6,8 @@ module ApplicationHelper
   end
 
   def nav_item(name, options = nil, html_options = nil, &block)
-    tag.li class: (current_page?(options) ? 'active' : nil) do
+    html_options = (html_options || {}).merge({ class: 'nav-link' })
+    tag.li class: ['nav-item', (current_page?(options) ? 'active' : nil)] do
       link_to name, options, html_options, &block
     end
   end

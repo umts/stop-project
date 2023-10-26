@@ -1,7 +1,7 @@
 %h1.page-title Login
 
-.panel.panel-default
-  .panel-body
+.card
+  .card-body
     = form_for resource, as: resource_name, url: session_path(resource_name) do |f|
       .form-group
         = f.label :email
@@ -10,20 +10,17 @@
         = f.label :password
         = f.password_field :password, autocomplete: 'current-password', class: 'form-control'
       - if devise_mapping.rememberable?
-        .form-group
-          .checkbox
-            = f.label :remember_me do |l|
-              = f.check_box :remember_me
-              = l
+        .form-group.custom-control.custom-checkbox
+          = f.check_box :remember_me, class: 'custom-control-input'
+          = f.label :remember_me, class: 'custom-control-label'
       = f.submit 'Log in', class: 'btn btn-primary'
 
 - if Rails.env.development?
-  .panel.panel-default
-    .panel-heading
-      .panel-title Dev Login
-    .panel-body
+  .card.mt-3
+    .card-body
+      %h2.card-title Dev Login
       = form_with url: dev_login_path, local: true do |f|
         .form-group
           = f.label :user_id
-          = f.select :user_id, User.dev_login_options, {}, class: 'form-control'
+          = f.select :user_id, User.dev_login_options, {}, class: 'custom-select'
         = f.submit 'Log in', class: 'btn btn-primary'

@@ -3,8 +3,8 @@
 = form_with url: outdated_bus_stops_path, local: true, method: :get, class: 'form-inline' do |f|
   .form-group
     = f.label :date, class: 'sr-only'
-    = f.date_field :date, value: @date, class: 'form-control'
-    = f.submit 'Change Date', class: 'btn btn-default'
+    = f.date_field :date, value: @date, class: 'form-control mr-sm-3'
+    = f.submit 'Change Date', class: 'btn btn-secondary'
 
 = link_to 'Export as CSV', outdated_bus_stops_path(date: params[:date], format: :csv)
 
