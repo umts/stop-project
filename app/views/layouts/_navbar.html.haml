@@ -1,19 +1,16 @@
-%nav.navbar.navbar-default.with-icon
+%nav.navbar.navbar-default
   .container-fluid
     .navbar-header
-      %a.navbar-brand{href: root_path}= image_tag 'favicon.png'
-    - if user_signed_in?
-      - if current_user.admin?
-        = link_to new_user_path do
-          %button.btn.btn-default.navbar-btn.navbar-left New User
-        = link_to manage_bus_stops_path do
-          %button.btn.btn-default.navbar-btn.navbar-left Manage Stops
-        = link_to users_path do
-          %button.btn.btn-default.navbar-btn.navbar-left Manage Users
-      = link_to destroy_user_session_path, data: { turbo_method: :delete } do
-        %button.btn.btn-default.navbar-btn.navbar-right.auth{type: :button} Logout
-      = link_to edit_user_registration_path do
-        %button.btn.btn-default.navbar-btn.navbar-right.auth Change Password
-    - else
-      = link_to new_user_session_path do
-        %button.btn.btn-default.navbar-btn.navbar-right.auth{type: :button} Log in
+      = link_to root_path, class: 'navbar-brand' do
+        = image_tag 'favicon.png'
+    %ul.nav.navbar-nav
+      - if user_signed_in? && current_user.admin?
+        = nav_item 'New User', new_user_path
+        = nav_item 'Manage Stops', manage_bus_stops_path
+        = nav_item 'Manage Users', users_path
+    %ul.nav.navbar-nav.navbar-right
+      - if user_signed_in?
+        = nav_item 'Logout', destroy_user_session_path, data: { turbo_method: :delete }
+        = nav_item 'Change Password', edit_user_registration_path
+      - else
+        = nav_item 'Log In', new_user_session_path
