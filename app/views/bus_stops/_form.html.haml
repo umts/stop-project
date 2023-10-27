@@ -14,27 +14,27 @@
       %legend.my-0 Stop Info
     .card-body
       .mb-3.row
-        = f.label :name, class: 'col-sm-2 form-label'
+        = f.label :name, class: 'col-sm-2 col-form-label'
         %div{ class: 'col-sm-10' }
           .form-control-plaintext= stop.name
       .mb-3.row
-        = f.label :hastus_id, 'Hastus ID', class: 'col-sm-2 form-label'
+        = f.label :hastus_id, 'Hastus ID', class: 'col-sm-2 col-form-label'
         %div{ class: 'col-sm-10' }
           .form-control-plaintext= stop.hastus_id
       .mb-3.row
-        = f.label :routes, class: 'col-sm-2 form-label'
+        = f.label :routes, class: 'col-sm-2 col-form-label'
         %div{ class: 'col-sm-10' }
           .form-control-plaintext= stop.route_list
       .mb-3.row
-        = f.label :garage_responsible, class: 'col-sm-2 form-label'
+        = f.label :garage_responsible, class: 'col-sm-2 col-form-label'
         %div{ class: 'col-sm-10' }
           = f.select :garage_responsible, %w[SATCo UMTS VATCo], { include_blank: true }, class: 'form-select'
       .mb-3.row
-        = f.label :state_road, class: 'col-sm-2 form-label'
+        = f.label :state_road, class: 'col-sm-2 col-form-label'
         %div{ class: 'col-sm-10' }
           = f.select :state_road, [['Yes', true], ['No', false]], { include_blank: true }, class: 'form-select'
       .mb-3.row
-        = f.label :needs_work, class: 'col-sm-2 form-label'
+        = f.label :needs_work, class: 'col-sm-2 col-form-label'
         %div{ class: 'col-sm-10' }
           = f.select :needs_work, ['1 - No issues',
             '2 - Needs cleaning, no safety concern',
@@ -50,7 +50,7 @@
       .card-body
         - hash.each do |name, options|
           .mb-3.row
-            = f.label name, class: 'col-sm-2 form-label'
+            = f.label name, class: 'col-sm-2 col-form-label'
             %div{ class: 'col-sm-10' }
               - if options.kind_of?(Array)
                 = f.select name, options, { include_blank: true }, class: 'form-select'
