@@ -2,16 +2,16 @@
 
 = form_for resource, url: user_registration_path, method: :put do |f|
   = render 'devise/shared/error_messages', resource: resource
-  .form-group
-    = f.label :email
+  .mb-3
+    = f.label :email, class: 'form-label'
     = f.email_field :email, autofocus: true, required: true, class: 'form-control'
-  .form-group
-    = f.label :password
+  .mb-3
+    = f.label :password, class: 'form-label'
     = f.password_field :password, autocomplete: :off, required: true, class: 'form-control'
-  .form-group
-    = f.label :password_confirmation
+  .mb-3
+    = f.label :password_confirmation, class: 'form-label'
     = f.password_field :password_confirmation, autocomplete: :off, required: true, class: 'form-control'
-  .form-group
-    = f.label :current_password
+  .mb-3
+    = f.label :current_password, class: 'form-label'
     = f.password_field :current_password, autocomplete: :off, required: true, class: 'form-control'
   = f.submit 'Update', class: 'btn btn-primary'
