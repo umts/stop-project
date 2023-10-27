@@ -40,7 +40,7 @@ class BusStopsController < ApplicationController
   end
 
   def manage
-    @stops = BusStop.order(:name).paginate(page: params[:page], per_page: 10)
+    @stops = BusStop.order(:name).page(params[:page]).per(10)
     respond_to do |format|
       format.html { render :manage }
       format.csv do
@@ -73,7 +73,7 @@ class BusStopsController < ApplicationController
     @stops = BusStop.not_updated_since(@date).order(:updated_at)
     respond_to do |format|
       format.html do
-        @stops = @stops.paginate(page: params[:page], per_page: 10)
+        @stops = @stops.page(params[:page]).per(10)
         render :outdated
       end
       format.csv do
