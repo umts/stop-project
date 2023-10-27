@@ -4,10 +4,10 @@
   .card-body
     = form_for resource, as: resource_name, url: session_path(resource_name) do |f|
       .mb-3
-        = f.label :email
+        = f.label :email, class: 'form-label'
         = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control'
       .mb-3
-        = f.label :password
+        = f.label :password, class: 'form-label'
         = f.password_field :password, autocomplete: 'current-password', class: 'form-control'
       - if devise_mapping.rememberable?
         .mb-3.form-check
@@ -21,6 +21,6 @@
       %h2.card-title Dev Login
       = form_with url: dev_login_path, local: true do |f|
         .mb-3
-          = f.label :user_id
+          = f.label :user_id, class: 'form-label'
           = f.select :user_id, User.dev_login_options, {}, class: 'form-select'
         = f.submit 'Log in', class: 'btn btn-primary'
