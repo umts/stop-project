@@ -14,28 +14,28 @@
       %legend.my-0 Stop Info
     .card-body
       .mb-3.row
-        = f.label :name, class: 'col-sm-2 col-form-label'
-        %div{ class: 'col-sm-10' }
+        = f.label :name, class: 'col-sm-3 col-md-2 col-form-label'
+        .col
           .form-control-plaintext= stop.name
       .mb-3.row
-        = f.label :hastus_id, 'Hastus ID', class: 'col-sm-2 col-form-label'
-        %div{ class: 'col-sm-10' }
+        = f.label :hastus_id, 'Hastus ID', class: 'col-sm-3 col-md-2 col-form-label'
+        %div{ class: 'col' }
           .form-control-plaintext= stop.hastus_id
       .mb-3.row
-        = f.label :routes, class: 'col-sm-2 col-form-label'
-        %div{ class: 'col-sm-10' }
+        = f.label :routes, class: 'col-sm-3 col-md-2 col-form-label'
+        .col
           .form-control-plaintext= stop.route_list
       .mb-3.row
-        = f.label :garage_responsible, class: 'col-sm-2 col-form-label'
-        %div{ class: 'col-sm-10' }
+        = f.label :garage_responsible, class: 'col-sm-3 col-md-2 col-form-label'
+        .col
           = f.select :garage_responsible, %w[SATCo UMTS VATCo], { include_blank: true }, class: 'form-select'
       .mb-3.row
-        = f.label :state_road, class: 'col-sm-2 col-form-label'
-        %div{ class: 'col-sm-10' }
+        = f.label :state_road, class: 'col-sm-3 col-md-2 col-form-label'
+        .col
           = f.select :state_road, [['Yes', true], ['No', false]], { include_blank: true }, class: 'form-select'
       .mb-3.row
-        = f.label :needs_work, class: 'col-sm-2 col-form-label'
-        %div{ class: 'col-sm-10' }
+        = f.label :needs_work, class: 'col-sm-3 col-md-2 col-form-label'
+        .col
           = f.select :needs_work, ['1 - No issues',
             '2 - Needs cleaning, no safety concern',
             '3 - Minor issues, non safety',
@@ -50,8 +50,8 @@
       .card-body
         - hash.each do |name, options|
           .mb-3.row
-            = f.label name, class: 'col-sm-2 col-form-label'
-            %div{ class: 'col-sm-10' }
+            = f.label name, class: 'col-sm-3 col-md-2 col-form-label'
+            .col
               - if options.kind_of?(Array)
                 = f.select name, options, { include_blank: true }, class: 'form-select'
               - else
@@ -62,7 +62,7 @@
       %legend.my-0 Inventory
     .card-body
       .mb-3.row
-        .offset-sm-2.col-sm-10
+        .offset-sm-3.offset-md-2
           .form-check
             = f.check_box :completed, class: 'form-check-input'
             = f.label :completed, 'Completed', class: 'form-check-label'
