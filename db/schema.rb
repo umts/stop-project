@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_10_133909) do
-  create_table "bus_stops", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
+ActiveRecord::Schema[7.0].define(version: 2023_11_01_144146) do
+  create_table "bus_stops", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "hastus_id", null: false
     t.string "bench"
@@ -55,15 +55,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_10_133909) do
   end
 
   create_table "bus_stops_routes", id: false, charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
-    t.integer "bus_stop_id", null: false
-    t.integer "route_id", null: false
+    t.bigint "bus_stop_id", null: false
+    t.bigint "route_id", null: false
     t.integer "sequence"
     t.string "direction"
     t.index ["bus_stop_id", "route_id", "direction"], name: "index_bus_stops_routes_on_bus_stop_id_and_route_id_and_direction", unique: true
     t.index ["sequence", "route_id", "direction"], name: "index_bus_stops_routes_on_sequence_and_route_id_and_direction", unique: true
   end
 
-  create_table "routes", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
+  create_table "routes", charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
     t.string "number"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
