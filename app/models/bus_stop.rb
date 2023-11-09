@@ -44,7 +44,7 @@ class BusStop < ApplicationRecord
     sign_type: ['Axehead',
                 'Rectangle',
                 'MGM and Axehead',
-                'Other',
+                'No sign',
                 'Non PVTA'],
     mounting: ['PVTA pole',
                'City pole',
