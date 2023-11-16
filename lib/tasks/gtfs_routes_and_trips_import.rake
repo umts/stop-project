@@ -3,6 +3,7 @@
 require 'csv'
 
 namespace :gtfs_routes_and_trips do
+  desc 'Import GTFS routes.txt and trips.txt'
   task import: :environment do
     route_data = {}
     stop_data = {}

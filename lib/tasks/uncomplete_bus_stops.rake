@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-namespace :stops do
+namespace :bus_stops do
   desc 'Mark all stops as incomplete'
   task uncomplete_all: :environment do
     # Yes, it skips validations, but marking a stop as incomplete means someone
