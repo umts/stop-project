@@ -15,8 +15,8 @@ namespace :gtfs_routes_and_trips do
       route_id = row['route_id']
       number = row['route_short_name']
       description = row['route_long_name']
-      route = Route.find_or_create_by! number: number
-      route.update! description: description
+      route = Route.find_or_create_by!(number:)
+      route.update!(description:)
       route_data[route_id] = number
     end
 
@@ -53,9 +53,7 @@ namespace :gtfs_routes_and_trips do
       stop_ids.each.with_index(1) do |stop_id, sequence|
         stop = BusStop.find_by(hastus_id: stop_id)
         if stop.present?
-          BusStopsRoute.create!(
-            route: route, direction: direction, bus_stop: stop, sequence: sequence
-          )
+          BusStopsRoute.create!(bus_stop: stop, route:, direction:, sequence:)
         end
       end
     end

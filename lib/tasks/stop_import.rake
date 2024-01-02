@@ -31,7 +31,7 @@ module ImportTask
     shelter_condition: %w[Great Good Fair Poor],
     shelter_pad_condition: %w[Great Good Fair Poor],
     shelter_pad_material: %w[Asphalt Concrete Other],
-    shelter_type: %w[Modern Modern\ half Victorian Dome Wooden Extra\ large Other],
+    shelter_type: ['Modern', 'Modern half', 'Victorian', 'Dome', 'Wooden', 'Extra large', 'Other'],
     sidewalk_width: ['More than 36"', 'Less than 36"', 'None'],
     sign_type: ['Axehead (2014+)', 'Rectangle (<2014)', 'MGM + Axhead (2018+)'],
     trash: %w[PVTA Municipal Other]

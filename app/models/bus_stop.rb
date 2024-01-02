@@ -188,8 +188,9 @@ class BusStop < ApplicationRecord
 
   def last_updated_at
     if last_updated.present?
-      last_updated.created_at.to_formatted_s(:long_with_time)
-    else 'Unknown'
+      last_updated.created_at.to_fs(:long_with_time)
+    else
+      'Unknown'
     end
   end
 

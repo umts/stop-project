@@ -27,14 +27,15 @@ RSpec.describe 'viewing outdated' do
   end
 
   it 'allows editing of outdated stops' do
-    within 'tr', text: old_stop.updated_at.to_formatted_s(:db_hm) do
+    within 'tr', text: old_stop.updated_at.to_fs(:db_hm) do
       click_link 'Edit'
     end
     expect(page).to have_content "Editing #{old_stop.name}"
   end
 
   context 'when specifying a different date' do
-    let(:date_since) { Date.new(2012,3,4) }
+    let(:date_since) { Date.new(2012, 3, 4) }
+
     before do
       fill_in 'date', with: date_since
       click_on 'Change Date'

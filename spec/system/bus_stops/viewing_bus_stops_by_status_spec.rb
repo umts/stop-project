@@ -9,9 +9,9 @@ RSpec.describe 'viewing stops by status' do
   let(:completed_stop) { create :bus_stop, :completed }
 
   before do
-    create :bus_stops_route, route: route, bus_stop: pending_stop
-    create :bus_stops_route, route: route, bus_stop: not_started_stop
-    create :bus_stops_route, route: route, bus_stop: completed_stop
+    create :bus_stops_route, route:, bus_stop: pending_stop
+    create :bus_stops_route, route:, bus_stop: not_started_stop
+    create :bus_stops_route, route:, bus_stop: completed_stop
     when_current_user_is :anyone
     visit by_status_bus_stops_path(number: route.number)
   end
