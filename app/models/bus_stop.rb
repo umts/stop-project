@@ -210,7 +210,7 @@ class BusStop < ApplicationRecord
     attrs = if limited_attributes
               LIMITED_ATTRS
             else
-              hashed_columns = columns.map { |c| [c.name, c.name.humanize] }.to_h
+              hashed_columns = columns.to_h { |c| [c.name, c.name.humanize] }
                                       .except('name',
                                               'hastus_id',
                                               'id',

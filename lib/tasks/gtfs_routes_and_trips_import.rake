@@ -52,9 +52,7 @@ namespace :gtfs_routes_and_trips do
       route = Route.find_or_create_by! number: route_number.strip
       stop_ids.each.with_index(1) do |stop_id, sequence|
         stop = BusStop.find_by(hastus_id: stop_id)
-        if stop.present?
-          BusStopsRoute.create!(bus_stop: stop, route:, direction:, sequence:)
-        end
+        BusStopsRoute.create!(bus_stop: stop, route:, direction:, sequence:) if stop.present?
       end
     end
     puts "The following trips were missing from trips.txt: #{missing_trips.join(', ')}" if missing_trips.present?
