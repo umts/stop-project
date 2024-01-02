@@ -7,8 +7,7 @@ class Route < ApplicationRecord
   default_scope { order :number }
 
   def stops_by_sequence(direction)
-    bus_stops.where(bus_stops_routes: { direction: direction })
-             .order('sequence')
+    bus_stops.where(bus_stops_routes: { direction: }).order(:sequence)
   end
 
   def next_stop_in_sequence(stop, direction)

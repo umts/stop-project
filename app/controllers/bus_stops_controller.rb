@@ -15,8 +15,8 @@ class BusStopsController < ApplicationController
     if @route.present?
       @stops = @route.bus_stops
       @collection = @route.bus_stops_routes.order(:direction, sequence: :asc).group_by(&:direction)
-    else redirect_to bus_stops_path,
-                     notice: "Route #{params[:number]} not found"
+    else
+      redirect_to bus_stops_path, notice: "Route #{params[:number]} not found"
     end
   end
 
@@ -28,8 +28,8 @@ class BusStopsController < ApplicationController
       @stops_hash['Pending'] = @stops.pending
       @stops_hash['Not Started'] = @stops.not_started
       @stops_hash['Completed'] = @stops.completed
-    else redirect_to bus_stops_path,
-                     notice: "Route #{params[:number]} not found"
+    else
+      redirect_to bus_stops_path, notice: "Route #{params[:number]} not found"
     end
   end
 
@@ -93,7 +93,7 @@ class BusStopsController < ApplicationController
         next_stop = Route.find(route_id)
                          .next_stop_in_sequence(@stop, params[:direction])
         if next_stop
-          redirect_to edit_bus_stop_path(id: next_stop.hastus_id, direction: params[:direction], route_id: route_id)
+          redirect_to edit_bus_stop_path(id: next_stop.hastus_id, direction: params[:direction], route_id:)
         else
           route_number = Route.find(route_id).number
           redirect_to by_sequence_bus_stops_url(number: route_number)

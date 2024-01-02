@@ -8,14 +8,14 @@ RSpec.describe 'viewing stops by sequence' do
   let(:route) { create :route }
   let!(:bsr1) do
     stop = create :bus_stop, :pending
-    create :bus_stops_route, route: route, bus_stop: stop
+    create :bus_stops_route, route:, bus_stop: stop
   end
   let!(:bsr2) do
-    create :bus_stops_route, route: route
+    create :bus_stops_route, route:
   end
   let!(:bsr3) do
     stop = create :bus_stop, :completed
-    create :bus_stops_route, route: route, bus_stop: stop
+    create :bus_stops_route, route:, bus_stop: stop
   end
 
   before do

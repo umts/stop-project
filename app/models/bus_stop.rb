@@ -188,8 +188,9 @@ class BusStop < ApplicationRecord
 
   def last_updated_at
     if last_updated.present?
-      last_updated.created_at.to_formatted_s(:long_with_time)
-    else 'Unknown'
+      last_updated.created_at.to_fs(:long_with_time)
+    else
+      'Unknown'
     end
   end
 
@@ -209,7 +210,7 @@ class BusStop < ApplicationRecord
     attrs = if limited_attributes
               LIMITED_ATTRS
             else
-              hashed_columns = columns.map { |c| [c.name, c.name.humanize] }.to_h
+              hashed_columns = columns.to_h { |c| [c.name, c.name.humanize] }
                                       .except('name',
                                               'hastus_id',
                                               'id',
