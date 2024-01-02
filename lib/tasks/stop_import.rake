@@ -3,21 +3,17 @@
 require 'csv'
 
 module ImportTask
-  # rubocop:disable Layout/HashAlignment
-  # rubocop:disable Layout/SpaceInsideArrayPercentLiteral, Layout/SpaceInsidePercentLiteralDelimiters
   STRING_COLUMN_ROW_NAMES = {
-    accessible:      %w[stp_ud_accessible_when_necessary  stp_ud_accessible_not_recommended                            ],
-    bench:           %w[stp_ud_bench_pvta_bench           stp_ud_bench_other_bench                                     ],
-    curb_cut:        %w[stp_ud_curb_cut_drive_within_20ft stp_ud_curb_cut_no_curb_cut       stp_ud_curb_cut_no_curb    ],
-    lighting:        %w[stp_ud_lighting_within_20ft       stp_ud_lighting_within_50ft       stp_ud_lighting_no_lighting],
-    mounting:        %w[stp_ud_mounting_pvta_pole         stp_ud_mounting_pole_other        stp_ud_mounting_structure  ],
-    schedule_holder: %w[stp_ud_schedule_holder_on_pole    stp_ud_schedule_holder_in_shelter                            ],
-    shelter:         %w[stp_ud_shelter_pvta               stp_ud_shelter_other              stp_ud_shelter_building    ],
-    sidewalk_width:  %w[stp_ud_sidewalk_more_than_36in    stp_ud_sidewalk_less_than_36in    stp_ud_sidewalk_no_sidewalk],
-    trash:           %w[stp_ud_trash_pvta                 stp_ud_trash_municipal            stp_ud_trash_other         ]
+    accessible: %w[stp_ud_accessible_when_necessary stp_ud_accessible_not_recommended],
+    bench: %w[stp_ud_bench_pvta_bench stp_ud_bench_other_bench],
+    curb_cut: %w[stp_ud_curb_cut_drive_within_20ft stp_ud_curb_cut_no_curb_cut stp_ud_curb_cut_no_curb],
+    lighting: %w[stp_ud_lighting_within_20ft stp_ud_lighting_within_50ft stp_ud_lighting_no_lighting],
+    mounting: %w[stp_ud_mounting_pvta_pole stp_ud_mounting_pole_other stp_ud_mounting_structure],
+    schedule_holder: %w[stp_ud_schedule_holder_on_pole stp_ud_schedule_holder_in_shelter],
+    shelter: %w[stp_ud_shelter_pvta stp_ud_shelter_other stp_ud_shelter_building],
+    sidewalk_width: %w[stp_ud_sidewalk_more_than_36in stp_ud_sidewalk_less_than_36in stp_ud_sidewalk_no_sidewalk],
+    trash: %w[stp_ud_trash_pvta stp_ud_trash_municipal stp_ud_trash_other]
   }.freeze
-  # rubocop:enable Layout/HashAlignment
-  # rubocop:enable Layout/SpaceInsideArrayPercentLiteral, Layout/SpaceInsidePercentLiteralDelimiters
 
   STRING_COLUMN_OPTIONS = {
     accessible: ['When necessary', 'Not recommended'],
@@ -31,7 +27,7 @@ module ImportTask
     shelter_condition: %w[Great Good Fair Poor],
     shelter_pad_condition: %w[Great Good Fair Poor],
     shelter_pad_material: %w[Asphalt Concrete Other],
-    shelter_type: %w[Modern Modern\ half Victorian Dome Wooden Extra\ large Other],
+    shelter_type: ['Modern', 'Modern half', 'Victorian', 'Dome', 'Wooden', 'Extra large', 'Other'],
     sidewalk_width: ['More than 36"', 'Less than 36"', 'None'],
     sign_type: ['Axehead (2014+)', 'Rectangle (<2014)', 'MGM + Axhead (2018+)'],
     trash: %w[PVTA Municipal Other]
@@ -49,12 +45,13 @@ end
 namespace :bus_stops do
   desc 'Import stop data from Hastus'
   task :import, [:csv_file] => :environment do |_, args|
-    raise <<~EOM
+    raise <<~EXMESSAGE
       Field options have changed since this task was written, but we didn't have access
       to the import file schema at the time. This task needs to be updated to match the
       options in the BusStop model before it can be used again.
-    EOM
+    EXMESSAGE
 
+    # rubocop:disable Lint/UnreachableCode
     BusStop.delete_all
     CSV.foreach(args[:csv_file], headers: true, col_sep: ';') do |row|
       attrs = {}
@@ -73,5 +70,6 @@ namespace :bus_stops do
 
       BusStop.find_or_create_by attrs
     end
+    # rubocop:enable Lint/UnreachableCode
   end
 end

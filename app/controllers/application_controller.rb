@@ -9,8 +9,7 @@ class ApplicationController < ActionController::Base
 
   def prepare_exception_notifier
     request.env['exception_notifier.exception_data'] ||= {}
-    request.env['exception_notifier.exception_data']
-           .merge(current_user: current_user)
+    request.env['exception_notifier.exception_data'].merge(current_user:)
   end
 
   def restrict_to_admin

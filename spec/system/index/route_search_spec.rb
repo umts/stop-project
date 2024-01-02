@@ -6,7 +6,7 @@ RSpec.describe 'searching for a bus stop by route' do
   let(:route) { create :route }
 
   before do
-    create :bus_stops_route, route: route
+    create(:bus_stops_route, route:)
     when_current_user_is :anyone
     visit root_path
   end

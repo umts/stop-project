@@ -56,8 +56,8 @@ RSpec.describe BusStopsController do
     end
 
     let(:route) { create :route }
-    let!(:bsr1) { create :bus_stops_route, route: route }
-    let!(:bsr2) { create :bus_stops_route, route: route }
+    let!(:bsr1) { create :bus_stops_route, route: }
+    let!(:bsr2) { create :bus_stops_route, route: }
 
     it 'redirects to edit next stop when specifying a route and direction' do
       path = edit_bus_stop_path id: bsr2.bus_stop.hastus_id,

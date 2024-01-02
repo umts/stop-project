@@ -8,7 +8,7 @@ RSpec.describe BusStopsRoute do
       let(:route) { create :route }
       let(:stop1) { create :bus_stop }
       let :valid_bsr do
-        create :bus_stops_route, route: route, bus_stop: stop1
+        create :bus_stops_route, route:, bus_stop: stop1
       end
 
       context 'when they have the same sequence' do
