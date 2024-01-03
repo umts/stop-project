@@ -29,5 +29,6 @@ module StopProject
     # in config/environments, which are processed later.
 
     config.time_zone = 'Eastern Time (US & Canada)'
+    config.active_support.cache_format_version = 7.0
   end
 end
