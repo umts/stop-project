@@ -8,7 +8,7 @@ gem 'devise', '~> 4.6'
 gem 'haml-rails'
 gem 'importmap-rails'
 gem 'kaminari'
-gem 'mysql2', '~> 0.4'
+gem 'mysql2'
 gem 'paper_trail', '~> 12.3'
 gem 'rails', '~> 7.0.8'
 gem 'sassc-rails'
@@ -18,18 +18,18 @@ gem 'strong_password'
 gem 'turbo-rails'
 
 group :production do
-  gem 'exception_notification', '~> 4.2'
+  gem 'exception_notification'
   gem 'uglifier'
 end
 
 group :development do
-  gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0', require: false
-  gem 'capistrano', '~> 3.14', require: false
+  gem 'bcrypt_pbkdf', require: false
+  gem 'capistrano', require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-passenger', require: false
   gem 'capistrano-pending', require: false
   gem 'capistrano-rails', require: false
-  gem 'ed25519', '>= 1.2', '< 2.0', require: false
+  gem 'ed25519', require: false
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false

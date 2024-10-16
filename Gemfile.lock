@@ -354,23 +354,23 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bcrypt_pbkdf (>= 1.0, < 2.0)
+  bcrypt_pbkdf
   bootstrap (~> 5.3)
-  capistrano (~> 3.14)
+  capistrano
   capistrano-bundler
   capistrano-passenger
   capistrano-pending
   capistrano-rails
   capybara
   devise (~> 4.6)
-  ed25519 (>= 1.2, < 2.0)
-  exception_notification (~> 4.2)
+  ed25519
+  exception_notification
   factory_bot_rails
   haml-rails
   importmap-rails
   kaminari
   listen
-  mysql2 (~> 0.4)
+  mysql2
   paper_trail (~> 12.3)
   pry-byebug
   puma
