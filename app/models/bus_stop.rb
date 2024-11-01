@@ -33,7 +33,7 @@ class BusStop < ApplicationRecord
                                        shared_sign_post_frta trash]
 
   validates(*strings_required_for_completion, presence: true, if: :completed?)
-  validates(*boolean_required_for_completion, inclusion: { in: [true, false], message: "can't be blank" },
+  validates(*boolean_required_for_completion, inclusion: { in: [true, false], message: :blank },
                                               if: :completed?)
 
   scope :completed, -> { where completed: true }
