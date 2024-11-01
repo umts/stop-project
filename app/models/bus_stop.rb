@@ -13,8 +13,8 @@ class BusStop < ApplicationRecord
 
   before_save :assign_completion_timestamp, if: -> { completed_changed? }
 
-  scope :not_updated_since,
-        ->(date) { where 'updated_at < ?', date.to_datetime }
+  scope :not_updated_since, ->(date) { where(updated_at: ...date.to_datetime) }
+
   strings_required_for_completion = %i[name hastus_id bench curb_cut lighting
                                        mounting mounting_direction
                                        schedule_holder shelter sidewalk_width
