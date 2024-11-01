@@ -14,6 +14,9 @@ AllCops:
     - 'config.ru'
   NewCops: enable
 
+FactoryBot/ConsistentParenthesesStyle:
+  EnforcedStyle: omit_parentheses
+
 # Relax complexity testing to codeclimate standards (roughly).
 Metrics/AbcSize:
   Max: 20
