@@ -16,7 +16,7 @@ RSpec.describe 'editing a user as an admin' do
   context 'with no changes' do
     it 'updates the user' do
       click_save
-      expect(page).to have_selector '.alert', text: 'User was updated.'
+      expect(page).to have_selector '.alert', text: 'User was updated'
     end
 
     it 'redirect to users table' do
