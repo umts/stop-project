@@ -4,8 +4,6 @@ require 'spec_helper'
 
 RSpec.describe 'viewing outdated' do
   let!(:present_stop) { create :bus_stop }
-  # default date for outdated is from a month ago
-  let!(:date) { 1.month.ago.to_date }
   let!(:old_stop) { create :bus_stop, updated_at: 2.months.ago }
 
   before do
