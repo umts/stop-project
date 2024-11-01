@@ -35,7 +35,7 @@ RSpec.describe 'searching for a bus stop by stop name' do
     end
 
     it 'displays a helpful message' do
-      expect(page).to have_selector '.alert', text: "Stop #{incorrect_stop_name} not found"
+      expect(page).to have_css '.alert', text: "Stop #{incorrect_stop_name} not found"
     end
   end
 
@@ -43,7 +43,7 @@ RSpec.describe 'searching for a bus stop by stop name' do
     it 'autocompletes', js: true do
       find '[data-autocomplete-ready-value=true]'
       fill_in 'Enter Stop Name', with: bus_stop.name.first
-      click_on bus_stop.name
+      click_link bus_stop.name
       expect(page).to have_content "Editing #{bus_stop.name}"
     end
   end

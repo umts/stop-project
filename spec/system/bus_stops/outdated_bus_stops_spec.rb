@@ -15,15 +15,15 @@ RSpec.describe 'viewing outdated' do
   end
 
   it 'displays the correct number of stops' do
-    expect(page).to have_selector 'tbody tr', count: 2
+    expect(page).to have_css 'tbody tr', count: 2
   end
 
   it 'displays outdated stops' do
-    expect(page).to have_selector 'tbody tr', text: old_stop.updated_at.to_fs(:db_hm)
+    expect(page).to have_css 'tbody tr', text: old_stop.updated_at.to_fs(:db_hm)
   end
 
   it 'does not display non-outdated stops' do
-    expect(page).not_to have_selector 'tbody tr', text: present_stop.updated_at.to_fs(:db_hm)
+    expect(page).to have_no_css 'tbody tr', text: present_stop.updated_at.to_fs(:db_hm)
   end
 
   it 'allows editing of outdated stops' do
@@ -38,7 +38,7 @@ RSpec.describe 'viewing outdated' do
 
     before do
       fill_in 'date', with: date_since
-      click_on 'Change Date'
+      click_button 'Change Date'
     end
 
     it 'displays outdated stops from that time' do

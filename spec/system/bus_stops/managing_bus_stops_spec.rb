@@ -22,12 +22,12 @@ RSpec.describe 'managing stops as an admin' do
 
     it 'deletes the specific bus stop' do
       click_delete
-      expect(page).not_to have_selector 'table.manage tbody tr', text: bus_stop.hastus_id
+      expect(page).to have_no_css 'table.manage tbody tr', text: bus_stop.hastus_id
     end
 
     it 'informs you of the deletion' do
       click_delete
-      expect(page).to have_selector '.alert', text: "#{bus_stop.name} has been deleted."
+      expect(page).to have_css '.alert', text: "#{bus_stop.name} has been deleted."
     end
   end
 

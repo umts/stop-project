@@ -12,23 +12,23 @@ RSpec.describe 'managing users as an admin' do
 
   describe 'the delete button' do
     subject(:click_delete) do
-      within('tr', text: manage_user.name) { click_on 'Delete' }
+      within('tr', text: manage_user.name) { click_button 'Delete' }
     end
 
     it 'deletes the specific user' do
       click_delete
-      expect(page).not_to have_selector 'table.index tbody tr', text: manage_user.name
+      expect(page).to have_no_css 'table.index tbody tr', text: manage_user.name
     end
 
     it 'informs you of success' do
       click_delete
-      expect(page).to have_selector '.alert', text: 'User was deleted.'
+      expect(page).to have_css '.alert', text: 'User was deleted.'
     end
   end
 
   describe 'the edit link' do
     subject(:click_edit) do
-      within('tr', text: manage_user.name) { click_on 'Edit' }
+      within('tr', text: manage_user.name) { click_link 'Edit' }
     end
 
     it 'goes to the edit user page' do

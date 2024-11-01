@@ -12,11 +12,10 @@ RSpec.describe 'editing a bus stop as a user' do
   end
 
   context 'with no changes' do
-    before { click_on 'Save stop' }
+    before { click_button 'Save stop' }
 
     it 'displays a message that says stop was updated' do
-      expect(page).to have_selector '.alert',
-                                    text: 'Bus stop was updated.'
+      expect(page).to have_css '.alert', text: 'Bus stop was updated.'
     end
 
     it 'redirects to the bus stops page' do
@@ -27,12 +26,11 @@ RSpec.describe 'editing a bus stop as a user' do
   context 'with data changes' do
     before do
       select 'UMTS', from: 'Garage responsible'
-      click_on 'Save stop'
+      click_button 'Save stop'
     end
 
     it 'displays a message that says stop was updated' do
-      expect(page).to have_selector '.alert',
-                                    text: 'Bus stop was updated.'
+      expect(page).to have_css '.alert', text: 'Bus stop was updated.'
     end
 
     it 'redirects to the bus stops page' do
@@ -43,7 +41,7 @@ RSpec.describe 'editing a bus stop as a user' do
   context 'with errors' do
     before do
       check 'Completed'
-      click_on 'Save stop'
+      click_button 'Save stop'
     end
 
     it 'sends a helpful error message' do
@@ -57,7 +55,7 @@ RSpec.describe 'editing a bus stop as a user' do
   end
 
   context 'when clicking on the field guide link' do
-    before { click_on 'Field Guide' }
+    before { click_link 'Field Guide' }
 
     it 'redirects to the field guide' do
       expect(page).to have_current_path field_guide_bus_stops_path
