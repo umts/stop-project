@@ -1,4 +1,5 @@
 require:
+  - rubocop-capybara
   - rubocop-rspec
   - rubocop-rails
 
@@ -12,6 +13,9 @@ AllCops:
     - 'vendor/**/*'
     - 'config.ru'
   NewCops: enable
+
+Capybara/ClickLinkOrButtonStyle:
+  EnforcedStyle: strict
 
 # Relax complexity testing to codeclimate standards (roughly).
 Metrics/AbcSize:
