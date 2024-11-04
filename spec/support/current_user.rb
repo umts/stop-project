@@ -5,7 +5,7 @@ module CurrentUserHelpers
     sign_in case user
             when User, nil then user
             when :anyone, :anybody then create :user
-            when Symbol then create(:user, user)
+            when Symbol then create :user, user
             end
   end
 end
