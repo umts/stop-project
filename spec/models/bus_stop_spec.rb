@@ -24,7 +24,7 @@ RSpec.describe BusStop do
       it 'assigns nil to completed by' do
         completed_stop.completed = false
         completed_stop.decide_if_completed_by user
-        expect(completed_stop.completed_by).to be nil
+        expect(completed_stop.completed_by).to be_nil
       end
     end
   end

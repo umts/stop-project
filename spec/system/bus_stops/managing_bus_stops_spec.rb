@@ -11,7 +11,7 @@ RSpec.describe 'managing stops as an admin' do
     visit manage_bus_stops_path
   end
 
-  describe 'the delete button', js: true do
+  describe 'the delete button', :js do
     subject(:click_delete) do
       accept_alert do
         within 'tr', text: bus_stop.hastus_id do
