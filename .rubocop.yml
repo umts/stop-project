@@ -1,4 +1,5 @@
 require:
+  - rubocop-factory_bot
   - rubocop-rspec
   - rubocop-rails
 
@@ -12,6 +13,9 @@ AllCops:
     - 'vendor/**/*'
     - 'config.ru'
   NewCops: enable
+
+FactoryBot/ConsistentParenthesesStyle:
+  EnforcedStyle: omit_parentheses
 
 # Relax complexity testing to codeclimate standards (roughly).
 Metrics/AbcSize:
