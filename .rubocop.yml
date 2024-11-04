@@ -1,5 +1,6 @@
 require:
   - rubocop-capybara
+  - rubocop-factory_bot
   - rubocop-rspec
   - rubocop-rails
 
@@ -16,6 +17,9 @@ AllCops:
 
 Capybara/ClickLinkOrButtonStyle:
   EnforcedStyle: strict
+
+FactoryBot/ConsistentParenthesesStyle:
+  EnforcedStyle: omit_parentheses
 
 # Relax complexity testing to codeclimate standards (roughly).
 Metrics/AbcSize:
