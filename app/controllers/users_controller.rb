@@ -4,11 +4,11 @@ class UsersController < ApplicationController
   before_action :restrict_to_admin
   before_action :find_user, only: %i[destroy edit update]
 
-  def destroy
-    @user.destroy!
-    flash[:notice] = 'User was deleted.'
-    redirect_to users_path
+  def index
+    @users = User.all
   end
+
+  def edit; end
 
   def create
     @user = User.new user_params
@@ -21,12 +21,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit; end
-
-  def index
-    @users = User.all
-  end
-
   def update
     @user.assign_attributes user_params
     if @user.save
@@ -36,6 +30,12 @@ class UsersController < ApplicationController
       flash[:errors] = @user.errors.full_messages
       render 'edit'
     end
+  end
+
+  def destroy
+    @user.destroy!
+    flash[:notice] = 'User was deleted.'
+    redirect_to users_path
   end
 
   private
