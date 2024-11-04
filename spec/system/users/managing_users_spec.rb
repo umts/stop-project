@@ -12,7 +12,7 @@ RSpec.describe 'managing users as an admin' do
 
   describe 'the delete button' do
     subject(:click_delete) do
-      within('tr', text: manage_user.name) { click_button 'Delete' }
+      within('tr', text: manage_user.name) { click_on 'Delete' }
     end
 
     it 'deletes the specific user' do
@@ -28,7 +28,7 @@ RSpec.describe 'managing users as an admin' do
 
   describe 'the edit link' do
     subject(:click_edit) do
-      within('tr', text: manage_user.name) { click_link 'Edit' }
+      within('tr', text: manage_user.name) { click_on 'Edit' }
     end
 
     it 'goes to the edit user page' do

@@ -15,7 +15,7 @@ RSpec.describe 'managing stops as an admin' do
     subject(:click_delete) do
       accept_alert do
         within 'tr', text: bus_stop.hastus_id do
-          click_button 'Delete'
+          click_on 'Delete'
         end
       end
     end
@@ -34,7 +34,7 @@ RSpec.describe 'managing stops as an admin' do
   describe 'the edit button' do
     subject(:click_edit) do
       within 'tr', text: bus_stop.hastus_id do
-        click_link 'Edit'
+        click_on 'Edit'
       end
     end
 

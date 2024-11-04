@@ -15,9 +15,6 @@ AllCops:
     - 'config.ru'
   NewCops: enable
 
-Capybara/ClickLinkOrButtonStyle:
-  EnforcedStyle: strict
-
 FactoryBot/ConsistentParenthesesStyle:
   EnforcedStyle: omit_parentheses
 

@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe 'creating users as an admin' do
-  subject(:click_save) { click_button 'Save user' }
+  subject(:click_save) { click_on 'Save user' }
 
   let(:admin) { create :user, :admin }
 
