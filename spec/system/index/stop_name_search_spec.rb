@@ -40,7 +40,7 @@ RSpec.describe 'searching for a bus stop by stop name' do
   end
 
   context 'without completing stop name' do
-    it 'autocompletes', js: true do
+    it 'autocompletes', :js do
       find '[data-autocomplete-ready-value=true]'
       fill_in 'Enter Stop Name', with: bus_stop.name.first
       click_on bus_stop.name
