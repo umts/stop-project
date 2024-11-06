@@ -27,7 +27,7 @@ RSpec.describe 'creating users as an admin' do
 
     it 'notifies the user has been created' do
       click_save
-      expect(page).to have_selector '.alert', text: 'User was created'
+      expect(page).to have_css '.alert', text: 'User was created'
     end
 
     it 'redirects to the users page' do
@@ -47,7 +47,7 @@ RSpec.describe 'creating users as an admin' do
 
     it 'sends a helpful error message' do
       click_save
-      expect(page).to have_selector '.alert', text: 'Email has already been taken'
+      expect(page).to have_css '.alert', text: 'Email has already been taken'
     end
 
     it 'redirects to edit user page' do
@@ -77,8 +77,7 @@ RSpec.describe 'creating users as an admin' do
 
     it 'sends a helpful error message' do
       click_save
-      expect(page)
-        .to have_selector '.alert', text: "Password confirmation doesn't match Password"
+      expect(page).to have_css '.alert', text: "Password confirmation doesn't match Password"
     end
 
     it 'redirects to edit user page' do

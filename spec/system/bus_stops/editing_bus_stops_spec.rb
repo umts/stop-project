@@ -15,8 +15,7 @@ RSpec.describe 'editing a bus stop as a user' do
     before { click_on 'Save stop' }
 
     it 'displays a message that says stop was updated' do
-      expect(page).to have_selector '.alert',
-                                    text: 'Bus stop was updated'
+      expect(page).to have_css '.alert', text: 'Bus stop was updated'
     end
 
     it 'redirects to the bus stops page' do
@@ -31,8 +30,7 @@ RSpec.describe 'editing a bus stop as a user' do
     end
 
     it 'displays a message that says stop was updated' do
-      expect(page).to have_selector '.alert',
-                                    text: 'Bus stop was updated'
+      expect(page).to have_css '.alert', text: 'Bus stop was updated'
     end
 
     it 'redirects to the bus stops page' do
@@ -73,7 +71,7 @@ RSpec.describe 'editing a bus stop as a user' do
       Timecop.freeze Date.yesterday do
         when_current_user_is last_user
         visit edit_bus_stop_path(edit_stop.hastus_id)
-        click_button 'Save stop'
+        click_on 'Save stop'
       end
 
       when_current_user_is user
@@ -98,7 +96,7 @@ RSpec.describe 'editing a bus stop as a user' do
 
         select 'UMTS', from: 'Garage responsible'
         check 'Completed'
-        click_button 'Save stop'
+        click_on 'Save stop'
       end
 
       when_current_user_is user

@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe 'editing a user as an admin' do
-  subject(:click_save) { click_button 'Save user' }
+  subject(:click_save) { click_on 'Save user' }
 
   let(:admin) { create :user, :admin }
   let(:edit_user) { create :user }
@@ -16,7 +16,7 @@ RSpec.describe 'editing a user as an admin' do
   context 'with no changes' do
     it 'updates the user' do
       click_save
-      expect(page).to have_selector '.alert', text: 'User was updated'
+      expect(page).to have_css '.alert', text: 'User was updated'
     end
 
     it 'redirect to users table' do
@@ -62,7 +62,7 @@ RSpec.describe 'editing a user as an admin' do
 
     it 'sends a helpful error message' do
       click_save
-      expect(page).to have_selector '.alert', text: 'Name has already been taken'
+      expect(page).to have_css '.alert', text: 'Name has already been taken'
     end
 
     it 'stays on the edit page' do

@@ -60,7 +60,7 @@ class BusStopsController < ApplicationController
       end
     else
       flash[:errors] = @stop.errors.full_messages
-      render 'edit'
+      render 'edit', status: :unprocessable_entity
     end
   end
 

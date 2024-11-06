@@ -16,7 +16,7 @@ RSpec.describe 'searching for a bus stop by stop id' do
     it 'redirects to the edit page' do
       within 'form', text: 'Enter Stop ID' do
         fill_in 'Enter Stop ID', with: bus_stop.hastus_id.to_s
-        click_button 'Search'
+        click_on 'Search'
       end
       expect(page).to have_content "Editing #{bus_stop.name}"
     end
@@ -26,7 +26,7 @@ RSpec.describe 'searching for a bus stop by stop id' do
     before do
       within 'form', text: 'Enter Stop ID' do
         fill_in 'Enter Stop ID', with: incorrect_stop_id
-        click_button 'Search'
+        click_on 'Search'
       end
     end
 
@@ -35,7 +35,7 @@ RSpec.describe 'searching for a bus stop by stop id' do
     end
 
     it 'displays a helpful message' do
-      expect(page).to have_selector '.alert', text: 'Stop -1 not found'
+      expect(page).to have_css '.alert', text: 'Stop -1 not found'
     end
   end
 end
