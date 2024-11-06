@@ -14,7 +14,7 @@ RSpec.describe 'searching for a bus stop by route' do
   context 'when selecting a route from the dropdown' do
     before do
       select route.number, from: 'Select a Route'
-      click_button 'View Stops'
+      click_on 'View Stops'
     end
 
     it 'redirects to bus stops by status' do
@@ -27,7 +27,7 @@ RSpec.describe 'searching for a bus stop by route' do
 
     context 'when viewing by route order' do
       before do
-        click_link 'View by route order'
+        click_on 'View by route order'
       end
 
       it 'redirects to bus stops by sequence' do

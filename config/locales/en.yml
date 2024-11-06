@@ -28,6 +28,17 @@
 #
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  bus_stops:
+    update:
+      success: "Bus stop was updated"
+    destroy:
+      success: "%{name} has been deleted"
+    not_found: "Stop %{search} not found"
+  users:
+    create:
+      success: "User was created"
+    update:
+      success: "User was updated"
+    destroy:
+      success: "User was deleted"

@@ -44,7 +44,7 @@ class BusStopsController < ApplicationController
     @stop.assign_attributes stop_params
     @stop.decide_if_completed_by current_user
     if @stop.save
-      flash[:notice] = 'Bus stop was updated.'
+      flash[:notice] = t('.success')
       if params[:commit] == 'Save and next' && params[:route_id]
         route_id = params[:route_id]
         next_stop = Route.find(route_id)
@@ -60,14 +60,13 @@ class BusStopsController < ApplicationController
       end
     else
       flash[:errors] = @stop.errors.full_messages
-      render 'edit'
+      render 'edit', status: :unprocessable_entity
     end
   end
 
   def destroy
     @stop.destroy
-    redirect_to manage_bus_stops_path,
-                notice: "#{@stop.name} has been deleted."
+    redirect_to manage_bus_stops_path, notice: t('.success', name: @stop.name)
   end
 
   def manage
@@ -91,7 +90,8 @@ class BusStopsController < ApplicationController
     if stop.present?
       redirect_to edit_bus_stop_path(stop.hastus_id)
     else
-      redirect_back fallback_location: bus_stops_path, notice: "Stop #{params[:name]} not found".squish
+      redirect_back fallback_location: bus_stops_path,
+                    notice: t('.not_found', search: params[:id].presence || params[:name])
     end
   end
 
@@ -129,7 +129,7 @@ class BusStopsController < ApplicationController
     @stop = BusStop.find_by hastus_id: params.require(:id)
     return if @stop.present?
 
-    redirect_back(fallback_location: root_path, notice: "Stop #{params[:id]} not found")
+    redirect_back fallback_location: root_path, notice: t('.not_found', search: params[:id])
   end
 
   def stop_params
