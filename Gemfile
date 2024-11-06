@@ -7,6 +7,7 @@ gem 'bootstrap', '~> 5.3'
 gem 'devise', '~> 4.6'
 gem 'haml-rails'
 gem 'importmap-rails'
+gem 'irb'
 gem 'kaminari'
 gem 'mysql2'
 gem 'paper_trail', '~> 12.3'
@@ -38,9 +39,9 @@ group :development do
 end
 
 group :development, :test do
+  gem 'debug'
   gem 'factory_bot_rails'
   gem 'listen'
-  gem 'pry-byebug'
   gem 'timecop'
 end
 
