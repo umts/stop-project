@@ -27,7 +27,7 @@ RSpec.describe 'creating users as an admin' do
 
     it 'notifies the user has been created' do
       click_save
-      expect(page).to have_css '.alert', text: 'User was created.'
+      expect(page).to have_css '.alert', text: 'User was created'
     end
 
     it 'redirects to the users page' do

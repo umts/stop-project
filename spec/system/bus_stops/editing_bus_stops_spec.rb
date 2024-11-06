@@ -15,7 +15,7 @@ RSpec.describe 'editing a bus stop as a user' do
     before { click_on 'Save stop' }
 
     it 'displays a message that says stop was updated' do
-      expect(page).to have_css '.alert', text: 'Bus stop was updated.'
+      expect(page).to have_css '.alert', text: 'Bus stop was updated'
     end
 
     it 'redirects to the bus stops page' do
@@ -30,7 +30,7 @@ RSpec.describe 'editing a bus stop as a user' do
     end
 
     it 'displays a message that says stop was updated' do
-      expect(page).to have_css '.alert', text: 'Bus stop was updated.'
+      expect(page).to have_css '.alert', text: 'Bus stop was updated'
     end
 
     it 'redirects to the bus stops page' do
