@@ -48,20 +48,20 @@ RSpec.describe BusStopsController do
 
   describe 'update' do
     subject(:submit) do
-      put :update, params: { id: bsr1.bus_stop.hastus_id,
-                             bus_stop: { name: bsr1.bus_stop.name },
+      put :update, params: { id: current_bus_stops_route.bus_stop.hastus_id,
+                             bus_stop: { name: current_bus_stops_route.bus_stop.name },
                              commit: 'Save and next',
                              route_id: route.id,
-                             direction: bsr1.direction }
+                             direction: current_bus_stops_route.direction }
     end
 
     let(:route) { create :route }
-    let!(:bsr1) { create :bus_stops_route, route: }
-    let!(:bsr2) { create :bus_stops_route, route: }
+    let!(:current_bus_stops_route) { create :bus_stops_route, route: }
+    let!(:next_bus_stops_route) { create :bus_stops_route, route: }
 
     it 'redirects to edit next stop when specifying a route and direction' do
-      path = edit_bus_stop_path id: bsr2.bus_stop.hastus_id,
-                                direction: bsr2.direction,
+      path = edit_bus_stop_path id: next_bus_stops_route.bus_stop.hastus_id,
+                                direction: next_bus_stops_route.direction,
                                 route_id: route.id
       submit
       expect(response).to redirect_to(path)

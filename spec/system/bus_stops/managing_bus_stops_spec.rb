@@ -11,30 +11,30 @@ RSpec.describe 'managing stops as an admin' do
     visit manage_bus_stops_path
   end
 
-  describe 'the delete button', js: true do
+  describe 'the delete button', :js do
     subject(:click_delete) do
       accept_alert do
         within 'tr', text: bus_stop.hastus_id do
-          click_button 'Delete'
+          click_on 'Delete'
         end
       end
     end
 
     it 'deletes the specific bus stop' do
       click_delete
-      expect(page).not_to have_selector 'table.manage tbody tr', text: bus_stop.hastus_id
+      expect(page).to have_no_css 'table.manage tbody tr', text: bus_stop.hastus_id
     end
 
     it 'informs you of the deletion' do
       click_delete
-      expect(page).to have_selector '.alert', text: "#{bus_stop.name} has been deleted."
+      expect(page).to have_css '.alert', text: "#{bus_stop.name} has been deleted."
     end
   end
 
   describe 'the edit button' do
     subject(:click_edit) do
       within 'tr', text: bus_stop.hastus_id do
-        click_link 'Edit'
+        click_on 'Edit'
       end
     end
 
