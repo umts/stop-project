@@ -17,12 +17,12 @@ RSpec.describe 'managing users as an admin' do
 
     it 'deletes the specific user' do
       click_delete
-      expect(page).not_to have_selector 'table.index tbody tr', text: manage_user.name
+      expect(page).to have_no_css 'table.index tbody tr', text: manage_user.name
     end
 
     it 'informs you of success' do
       click_delete
-      expect(page).to have_selector '.alert', text: 'User was deleted.'
+      expect(page).to have_css '.alert', text: 'User was deleted.'
     end
   end
 
