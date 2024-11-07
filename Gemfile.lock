@@ -80,7 +80,7 @@ GEM
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 2.11.8, < 3)
     builder (3.3.0)
-    capistrano (3.16.0)
+    capistrano (3.19.2)
       airbrussh (>= 1.0.0)
       i18n
       rake (>= 10.0.0)
