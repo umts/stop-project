@@ -392,7 +392,7 @@ DEPENDENCIES
   kaminari
   listen
   mysql2
-  paper_trail (~> 16.0)
+  paper_trail
   puma
   rails (~> 7.0.8)
   rspec-rails
