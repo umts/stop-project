@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_10_133909) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_07_214738) do
   create_table "bus_stops", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_520_ci", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "hastus_id", null: false
@@ -94,9 +94,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_10_133909) do
     t.integer "item_id", null: false
     t.string "event", null: false
     t.string "whodunnit"
-    t.text "object", size: :long
+    t.text "old_object", size: :long
     t.datetime "created_at", precision: nil
+    t.text "object", size: :long, collation: "utf8mb4_bin"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+    t.check_constraint "json_valid(`object`)", name: "object"
   end
 
 end
