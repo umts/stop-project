@@ -91,20 +91,9 @@ class BusStop < ApplicationRecord
     attrs = if limited_attributes
               LIMITED_ATTRS
             else
-              hashed_columns = columns.to_h { |c| [c.name, c.name.humanize] }
-                                      .except('name',
-                                              'hastus_id',
-                                              'id',
-                                              'updated_at',
-                                              'created_at',
-                                              'route_list',
-                                              'completed_at',
-                                              'completed_by',
-                                              'completed')
-              LIMITED_ATTRS.merge hashed_columns
+              LIMITED_ATTRS.merge columns.to_h { |c| [c.name.to_sym, c.name.humanize] }.except(LIMITED_ATTRS.keys)
             end
-    CSV.generate headers: true do |csv|
-      csv << attrs.values
+    CSV.generate headers: attrs.values, write_headers: true do |csv|
       find_each do |stop|
         csv << attrs.keys.map do |attr|
           if attr == :completed_by
