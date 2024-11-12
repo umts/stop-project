@@ -1,22 +1,14 @@
 # frozen_string_literal: true
 
-require 'gtfs'
 require 'spec_helper'
 
 RSpec.describe BusStop::Import do
   describe '#import!' do
     subject(:call) { described_class.new(source).import! }
 
-    let(:stop_data) { GTFS::Stop.parse_stops file_fixture('stops.txt').read }
-    let(:source) { instance_double GTFS::Source }
+    include_context 'a dummy source'
 
-    before do
-      create :bus_stop, name: 'Old Name', hastus_id: '1'
-
-      allow(source).to receive(:each_stop) do |&block|
-        stop_data.each(&block)
-      end
-    end
+    before { create :bus_stop, name: 'Old Name', hastus_id: '1' }
 
     it 'imports stops' do
       expect { call }.to change(BusStop, :count).by(stop_data.count - 2) # (The two cases below)

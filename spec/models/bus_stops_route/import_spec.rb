@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'gtfs'
 require 'spec_helper'
 
 RSpec.describe BusStopsRoute::Import do
@@ -70,20 +69,11 @@ RSpec.describe BusStopsRoute::Import do
   describe '#import!' do
     subject(:call) { described_class.new(source).import! }
 
+    include_context 'a dummy source'
+
     let!(:route) { create :route, number: 'ER' }
 
-    let(:stop_data) { GTFS::Stop.parse_stops file_fixture('stops.txt').read }
-    let(:route_data) { GTFS::Route.parse_routes file_fixture('routes.txt').read }
-    let(:trip_data) { GTFS::Trip.parse_trips file_fixture('trips.txt').read }
-    let(:stop_times_data) { GTFS::StopTime.parse_stop_times file_fixture('stop_times.txt').read }
-
-    let(:source) { instance_double GTFS::Source }
-
-    before do
-      allow(source).to receive(:each_stop) { |&block| stop_data.each(&block) }
-      allow(source).to receive_messages(trips: trip_data, routes: route_data, stop_times: stop_times_data)
-      BusStop::Import.new(source).import!
-    end
+    before { BusStop::Import.new(source).import! }
 
     it 'destroys existing bus stops routes for the route and direction' do
       bus_stop = create(:bus_stops_route, route: route, direction: '0').bus_stop
