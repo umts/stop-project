@@ -61,7 +61,7 @@ class BusStopsRoute < ApplicationRecord
         stops_by_trip[trip.id].each do |stop_time|
           sequence[stop_time.stop_sequence.to_i - 1] = stop_time.stop_id
         end
-      end.compact
+      end.compact.uniq
     end
 
     def stops_by_trip
