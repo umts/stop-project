@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+exit unless Rails.env.development?
+
 require 'timecop'
 
 FactoryBot.create :user, name: 'Admin User', email: 'admin@example.com', admin: true
