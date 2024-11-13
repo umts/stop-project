@@ -69,7 +69,7 @@ RSpec.describe BusStopsRoute::Import do
   describe '#import!' do
     subject(:call) { described_class.new(source).import! }
 
-    include_context 'a dummy source'
+    include_context 'with a dummy source'
 
     let!(:route) { create :route, number: 'ER' }
 

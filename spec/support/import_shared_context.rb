@@ -2,7 +2,7 @@
 
 require 'gtfs'
 
-RSpec.shared_context 'a dummy source' do
+RSpec.shared_context 'with a dummy source' do
   let(:source) { instance_double GTFS::Source }
 
   let(:stop_data) { GTFS::Stop.parse_stops file_fixture('stops.txt').read }

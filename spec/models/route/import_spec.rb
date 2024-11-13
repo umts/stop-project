@@ -6,7 +6,7 @@ RSpec.describe Route::Import do
   describe '#import!' do
     subject(:call) { described_class.new(source).import! }
 
-    include_context 'a dummy source'
+    include_context 'with a dummy source'
 
     before { create :route, number: 'ER', description: 'Old description' }
 

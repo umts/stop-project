@@ -6,7 +6,7 @@ RSpec.describe BusStop::Import do
   describe '#import!' do
     subject(:call) { described_class.new(source).import! }
 
-    include_context 'a dummy source'
+    include_context 'with a dummy source'
 
     before { create :bus_stop, name: 'Old Name', hastus_id: '1' }
 
