@@ -98,7 +98,7 @@ class BusStopsController < ApplicationController
   end
 
   def set_fields_for_stop
-    @fields = BusStop::SUPER_HASH
+    @fields = BusStop::Options::COMBINED
     @fields.each_pair do |category, fields|
       fields.each_pair do |field, options|
         @fields[category][field] << @stop.send(field) if options.is_a?(Array) && options.exclude?(@stop.send(field))
