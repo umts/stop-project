@@ -40,116 +40,6 @@ class BusStop < ApplicationRecord
   scope :not_started, -> { where('created_at = updated_at').where(completed: [false, nil]) }
   scope :pending, -> { where('updated_at > created_at').where(completed: [false, nil]) }
 
-  SIGN_OPTIONS = {
-    sign_type: ['Axehead',
-                'Rectangle',
-                'MGM and Axehead',
-                'No sign',
-                'Non PVTA'],
-    mounting: ['PVTA pole',
-               'City pole',
-               'Utility pole',
-               'Structure',
-               'No sign'],
-    shared_sign_post_frta: :boolean,
-    mounting_direction: ['Towards street',
-                         'Away from street',
-                         'Center',
-                         'No sign'],
-    mounting_clearance: ['Less than 60 inches',
-                         '60-84 inches',
-                         'Greater than 84 inches',
-                         'No sign face'],
-    bolt_on_base: :boolean,
-    stop_sticker: ['No sticker',
-                   'Sticker incorrect',
-                   'Sticker correct'],
-    route_stickers: ['No stickers',
-                     'Stickers incorrect',
-                     'Stickers correct']
-  }.freeze
-
-  SHELTER_OPTIONS = {
-    shelter: ['No shelter',
-              'PVTA shelter',
-              'Other shelter',
-              'Nearby building'],
-    shelter_type: ['Modern full',
-                   'Modern half',
-                   'Victorian',
-                   'Dome',
-                   'Wooden',
-                   'Extra large',
-                   'Other',
-                   'No shelter'],
-    shelter_ada_compliant: :boolean,
-    shelter_condition: ['Great',
-                        'Good',
-                        'Fair',
-                        'Poor',
-                        'No shelter'],
-    shelter_pad_condition: ['Great',
-                            'Good',
-                            'Fair',
-                            'Poor',
-                            'No shelter'],
-    shelter_pad_material: ['Asphalt',
-                           'Concrete',
-                           'Other',
-                           'No shelter']
-  }.freeze
-
-  AMENITIES = {
-    bench: ['PVTA bench',
-            'Other bench',
-            'Other structure',
-            'PVTA and other bench',
-            'None'],
-    bike_rack: ['PVTA bike rack',
-                'Other bike rack',
-                'PVTA and other bike rack',
-                'None'],
-    schedule_holder: ['On pole',
-                      'In shelter',
-                      'None'],
-    system_map_exists: ['New map',
-                        'Old map',
-                        'No map'],
-    trash: :boolean
-  }.freeze
-
-  ACCESSIBILITY = {
-    accessible: :boolean,
-    curb_cut: ['Within 20 feet',
-               'No curb cut',
-               'No curb'],
-    sidewalk_width: ['More than 36 inches',
-                     'Less than 36 inches',
-                     'None'],
-    bus_pull_out_exists: :boolean,
-    ada_landing_pad: :boolean,
-    obstructions: ['Yes - Tree/Branch',
-                   'Yes - Bollard/Structure',
-                   'Yes - Sign/Post',
-                   'Yes - Parking',
-                   'Yes - Other',
-                   'No']
-  }.freeze
-
-  SECURITY_AND_SAFETY = {
-    lighting: ['Within 20 feet',
-               '20 - 50 feet',
-               'None']
-  }.freeze
-
-  TECHNOLOGY = { solar_lighting: :boolean,
-                 has_power: ['Yes - Stub up',
-                             'Yes - Outlet',
-                             'No'],
-                 real_time_information: ['Yes - Solar',
-                                         'Yes - Power',
-                                         'No'] }.freeze
-
   LIMITED_ATTRS = {
     name: 'Stop Name',
     id: 'Id',
@@ -163,16 +53,7 @@ class BusStop < ApplicationRecord
     completed_at: 'Completed at'
   }.freeze
 
-  SUPER_HASH = {
-    sign: SIGN_OPTIONS,
-    shelter: SHELTER_OPTIONS,
-    amenities: AMENITIES,
-    accessibility: ACCESSIBILITY,
-    security_and_safety: SECURITY_AND_SAFETY,
-    technology: TECHNOLOGY
-  }.freeze
-
-  SUPER_HASH.each_value do |hash|
+  Options::COMBINED.each_value do |hash|
     hash.each do |name, options|
       validates name, inclusion: { in: options }, allow_blank: true if options.is_a?(Array)
     end
@@ -210,20 +91,9 @@ class BusStop < ApplicationRecord
     attrs = if limited_attributes
               LIMITED_ATTRS
             else
-              hashed_columns = columns.to_h { |c| [c.name, c.name.humanize] }
-                                      .except('name',
-                                              'hastus_id',
-                                              'id',
-                                              'updated_at',
-                                              'created_at',
-                                              'route_list',
-                                              'completed_at',
-                                              'completed_by',
-                                              'completed')
-              LIMITED_ATTRS.merge hashed_columns
+              LIMITED_ATTRS.merge columns.to_h { |c| [c.name.to_sym, c.name.humanize] }.except(LIMITED_ATTRS.keys)
             end
-    CSV.generate headers: true do |csv|
-      csv << attrs.values
+    CSV.generate headers: attrs.values, write_headers: true do |csv|
       find_each do |stop|
         csv << attrs.keys.map do |attr|
           if attr == :completed_by
