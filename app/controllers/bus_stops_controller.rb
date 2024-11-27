@@ -45,19 +45,7 @@ class BusStopsController < ApplicationController
     @stop.decide_if_completed_by current_user
     if @stop.save
       flash[:notice] = t('.success')
-      if params[:commit] == 'Save and next' && params[:route_id]
-        route_id = params[:route_id]
-        next_stop = Route.find(route_id)
-                         .next_stop_in_sequence(@stop, params[:direction])
-        if next_stop
-          redirect_to edit_bus_stop_path(id: next_stop.hastus_id, direction: params[:direction], route_id:)
-        else
-          route_number = Route.find(route_id).number
-          redirect_to by_sequence_bus_stops_url(number: route_number)
-        end
-      else
-        redirect_to bus_stops_path
-      end
+      redirect_to redirect_target_for_update
     else
       flash[:errors] = @stop.errors.full_messages
       render 'edit', status: :unprocessable_entity
@@ -81,12 +69,7 @@ class BusStopsController < ApplicationController
   end
 
   def search
-    stop = if params[:id].present?
-             BusStop.find_by hastus_id: params[:id]
-           elsif params[:name].present?
-             BusStop.search_names(params[:name]).first
-           end
-
+    stop = search_for_stop
     if stop.present?
       redirect_to edit_bus_stop_path(stop.hastus_id)
     else
@@ -130,6 +113,29 @@ class BusStopsController < ApplicationController
     return if @stop.present?
 
     redirect_back fallback_location: root_path, notice: t('.not_found', search: params[:id])
+  end
+
+  def redirect_target_for_update
+    if params[:commit] == 'Save and next' && params[:route_id]
+      route_id = params[:route_id]
+      next_stop = Route.find(route_id).next_stop_in_sequence(@stop, params[:direction])
+      if next_stop
+        edit_bus_stop_path(id: next_stop.hastus_id, direction: params[:direction], route_id:)
+      else
+        route_number = Route.find(route_id).number
+        by_sequence_bus_stops_url(number: route_number)
+      end
+    else
+      bus_stops_path
+    end
+  end
+
+  def search_for_stop
+    if params[:id].present?
+      BusStop.find_by hastus_id: params.require(:id)
+    elsif params[:name].present?
+      BusStop.search_names(params[:name]).first
+    end
   end
 
   def stop_params
