@@ -11,7 +11,7 @@ FactoryBot.define do
       state_road { true }
       needs_work { '5 - Immediate safety concern' }
 
-      BusStop::SUPER_HASH.each_value do |hash|
+      BusStop::Options::COMBINED.each_value do |hash|
         hash.each do |field, options|
           send(field) { options == :boolean ? true : options.first }
         end
