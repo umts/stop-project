@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :bus_stop do
     name { 'Test Stop' }
-    sequence :hastus_id
+    sequence(:hastus_id) { |n| "FAC-#{n}" }
 
     trait :pending do
       created_at { 2.days.ago }

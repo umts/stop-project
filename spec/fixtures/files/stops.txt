@@ -1,0 +1,12 @@
+stop_id,stop_code,stop_name,stop_desc,stop_lat,stop_lon,zone_id,stop_url,location_type,parent_station,wheelchair_boarding
+1,1,"Existing Stop",,  42.477045, -72.607454,,,0,,1
+2,2,"New Stop",,  42.107338, -72.576106,,,0,Big_Station,1
+Big_Station,,"Big Station",,  42.086972, -72.562004,,,1,,0
+A,A,"Stop A",,  42.477045, -72.607454,,,0,,1
+B,B,"Stop B",,  42.107338, -72.576106,,,0,,1
+C,C,"Stop C",,  42.086972, -72.562004,,,0,,1
+D,D,"Stop D",,  42.477045, -72.607454,,,0,,1
+E,E,"Stop E",,  42.107338, -72.576106,,,0,,1
+F,F,"Stop F",,  42.086972, -72.562004,,,0,,1
+D1,D1,"Stop D1",,  42.477045, -72.607454,,,0,,1
+E1,E1,"Stop E1",,  42.107338, -72.576106,,,0,,1
