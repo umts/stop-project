@@ -27,9 +27,6 @@ Metrics/MethodLength:
 Metrics/ClassLength:
   Max: 160
 
-Metrics/BlockLength:
-  Exclude:
-    - 'lib/tasks/**/*'
 RSpec/NestedGroups:
   Max: 4
 
