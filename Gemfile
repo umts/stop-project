@@ -14,7 +14,7 @@ gem 'mysql2'
 # TODO: remove when we have modern glibc
 gem 'nokogiri', force_ruby_platform: true
 gem 'paper_trail'
-gem 'rails', '~> 7.0.8'
+gem 'rails', '~> 7.1.5'
 gem 'sassc-rails'
 gem 'sprockets-rails'
 gem 'stimulus-rails'
