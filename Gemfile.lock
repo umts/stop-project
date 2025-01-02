@@ -401,6 +401,7 @@ DEPENDENCIES
   kaminari
   listen
   mysql2
+  nokogiri
   paper_trail
   puma
   rails (~> 7.0.8)
