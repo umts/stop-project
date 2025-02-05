@@ -139,7 +139,7 @@ class BusStopsController < ApplicationController
   end
 
   def stop_params
-    # no attributes that people aren't supposed to be able to edit
-    params.require(:bus_stop).permit!
+    fields = BusStop::Options::COMBINED.values.flat_map(&:keys)
+    params.require(:bus_stop).permit(:garage_responsible, :state_road, :needs_work, :completed, *fields)
   end
 end
