@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 ruby file: '.ruby-version'
 
 gem 'bootstrap', '~> 5.3'
+gem 'csv'
 gem 'devise', '~> 4.9'
 gem 'gtfs'
 gem 'haml-rails'
