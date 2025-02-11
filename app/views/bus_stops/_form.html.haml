@@ -4,7 +4,7 @@
 - if stop.completed_at.present?
   .mb-3
     Completed by #{stop.completed_by.try :name}
-    on #{stop.completed_at.to_formatted_s(:long_with_time)}
+    on #{stop.completed_at.to_fs(:long_with_time)}
 
 = link_to 'Field Guide', field_guide_bus_stops_path
 
@@ -37,11 +37,11 @@
         = f.label :needs_work, class: 'col-sm-3 col-md-2 col-form-label'
         .col
           = f.select :needs_work, ['1 - No issues',
-            '2 - Needs cleaning, no safety concern',
-            '3 - Minor issues, non safety',
-            '4 - Potential safety concern',
-            '5 - Immediate safety concern'],
-            { include_blank: true }, class: 'form-select'
+                                   '2 - Needs cleaning, no safety concern',
+                                   '3 - Minor issues, non safety',
+                                   '4 - Potential safety concern',
+                                   '5 - Immediate safety concern'],
+                     { include_blank: true }, class: 'form-select'
 
   - @fields.each do |category, hash|
     %fieldset.card.my-3
@@ -52,7 +52,7 @@
           .mb-3.row
             = f.label name, class: 'col-sm-3 col-md-2 col-form-label'
             .col
-              - if options.kind_of?(Array)
+              - if options.is_a?(Array)
                 = f.select name, options, { include_blank: true }, class: 'form-select'
               - else
                 = f.select name, [['Yes', true], ['No', false]], { include_blank: true }, class: 'form-select'
