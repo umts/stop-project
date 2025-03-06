@@ -20,3 +20,6 @@
 /coverage/.resultset.*
 
 /spec/examples.txt
+
+# Local overcommit configuration
+.local-overcommit.yml
