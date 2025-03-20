@@ -95,6 +95,8 @@ GEM
     bootstrap (5.3.3)
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 2.11.8, < 3)
+    brakeman (7.0.0)
+      racc
     builder (3.3.0)
     capistrano (3.19.2)
       airbrussh (>= 1.0.0)
@@ -441,6 +443,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt_pbkdf
   bootstrap (~> 5.3)
+  brakeman
   capistrano
   capistrano-bundler
   capistrano-passenger
