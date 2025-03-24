@@ -2,9 +2,9 @@
   .container-fluid
     = link_to root_path, class: 'navbar-brand' do
       = image_tag 'favicon.png'
-    = button_tag class: 'navbar-toggler', data: { bs_toggle: 'collapse', bs_target: '#mainNav' } do
+    = button_tag class: 'navbar-toggler', data: { bs_toggle: 'collapse', bs_target: '#main-nav' } do
       %span.navbar-toggler-icon
-    #mainNav.collapse.navbar-collapse
+    #main-nav.collapse.navbar-collapse
       %ul.navbar-nav.me-auto
         - if user_signed_in? && current_user.admin?
           = nav_item 'New User', new_user_path
