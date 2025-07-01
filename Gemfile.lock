@@ -162,7 +162,7 @@ GEM
       activesupport (>= 5.1)
       haml (>= 4.0.6)
       railties (>= 5.1)
-    haml_lint (0.63.0)
+    haml_lint (0.64.0)
       haml (>= 5.0)
       parallel (~> 1.10)
       rainbow
@@ -539,7 +539,7 @@ CHECKSUMS
   gtfs (0.5.1) sha256=a67bbccb3928eb65021ad47b25d99bcd5139b8c3b3a9ace28a9140136f7255a4
   haml (6.3.0) sha256=8e6eb87d869639e348852009e74a2a1663d79663ed7e7dbcb38beb1f12bcdd97
   haml-rails (2.1.0) sha256=273ba0189e2f82ce4b2385019dd9138884017e3103cc2eaebeee7f45186f59ea
-  haml_lint (0.63.0) sha256=2575365d6f8704d029221b24269ea2fc90c331c983fc3af9a104e295bb938c83
+  haml_lint (0.64.0) sha256=0b9738a9fff57bf7478c72b34d7f4b45d0721239270625939b7cda88c28273bf
   i18n (1.14.7) sha256=ceba573f8138ff2c0915427f1fc5bdf4aa3ab8ae88c8ce255eb3ecf0a11a5d0f
   importmap-rails (2.1.0) sha256=9f10c67d60651a547579f448100d033df311c5d5db578301374aeb774faae741
   iniparse (1.5.0) sha256=36a165e98d8a250b7631c4a7f9afba32af78f089970cd6446a39771189c761f1
