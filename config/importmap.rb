@@ -1,5 +1,6 @@
 # Pin npm packages by running ./bin/importmap
 
+enable_integrity!
 pin 'application', preload: true
 pin '@hotwired/stimulus', to: 'stimulus.min.js', preload: true
 pin '@hotwired/stimulus-loading', to: 'stimulus-loading.js', preload: true
