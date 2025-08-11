@@ -49,7 +49,7 @@ RSpec.describe BusStopsController do
   describe 'update' do
     subject(:submit) do
       put :update, params: { id: current_bus_stops_route.bus_stop.hastus_id,
-                             bus_stop: { name: current_bus_stops_route.bus_stop.name },
+                             bus_stop: current_bus_stops_route.bus_stop.attributes,
                              commit: 'Save and next',
                              route_id: route.id,
                              direction: current_bus_stops_route.direction }

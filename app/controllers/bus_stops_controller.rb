@@ -140,6 +140,6 @@ class BusStopsController < ApplicationController
 
   def stop_params
     fields = BusStop::Options::COMBINED.values.flat_map(&:keys)
-    params.require(:bus_stop).permit(:garage_responsible, :state_road, :needs_work, :completed, *fields)
+    params.expect bus_stop: [:garage_responsible, :state_road, :needs_work, :completed, *fields]
   end
 end
