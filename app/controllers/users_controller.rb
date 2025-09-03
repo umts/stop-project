@@ -17,7 +17,7 @@ class UsersController < ApplicationController
       redirect_to users_path
     else
       flash[:errors] = @user.errors.full_messages
-      render 'edit', status: :unprocessable_entity
+      render 'edit', status: :unprocessable_content
     end
   end
 
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
       redirect_to users_path
     else
       flash[:errors] = @user.errors.full_messages
-      render 'edit', status: :unprocessable_entity
+      render 'edit', status: :unprocessable_content
     end
   end
 

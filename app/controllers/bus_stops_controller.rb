@@ -48,7 +48,7 @@ class BusStopsController < ApplicationController
       redirect_to redirect_target_for_update
     else
       flash[:errors] = @stop.errors.full_messages
-      render 'edit', status: :unprocessable_entity
+      render 'edit', status: :unprocessable_content
     end
   end
 
