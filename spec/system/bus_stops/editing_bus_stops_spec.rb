@@ -3,6 +3,8 @@
 require 'spec_helper'
 
 RSpec.describe 'editing a bus stop as a user' do
+  include ActiveSupport::Testing::TimeHelpers
+
   let!(:user) { create :user }
   let!(:edit_stop) { create :bus_stop }
 
@@ -68,7 +70,7 @@ RSpec.describe 'editing a bus stop as a user' do
     let(:edit_stop) { create :bus_stop }
 
     before do
-      Timecop.freeze Date.yesterday do
+      travel_to Date.yesterday do
         when_current_user_is last_user
         visit edit_bus_stop_path(edit_stop.hastus_id)
         click_on 'Save stop'
@@ -90,7 +92,7 @@ RSpec.describe 'editing a bus stop as a user' do
     let(:edit_stop) { create :bus_stop, :pending }
 
     before do
-      Timecop.freeze Date.yesterday do
+      travel_to Date.yesterday do
         when_current_user_is last_user
         visit edit_bus_stop_path(edit_stop.hastus_id)
 
