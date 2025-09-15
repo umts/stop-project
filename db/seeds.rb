@@ -2,7 +2,10 @@
 
 exit unless Rails.env.development?
 
-require 'timecop'
+require 'active_support/testing/time_helpers'
+module TimeTraveler
+  extend ActiveSupport::Testing::TimeHelpers
+end
 
 FactoryBot.create :user, name: 'Admin User', email: 'admin@example.com', admin: true
 FactoryBot.create :user, name: 'Non-Admin User', email: 'user@example.com', admin: false
@@ -45,8 +48,7 @@ hastus_ids = {
 stops.each do |route_number, stops_and_directions|
   stops_and_directions.each do |direction, stop_names|
     stop_names.each.with_index(1) do |stop_name, sequence|
-      # Anytime in the last two months
-      Timecop.freeze rand(86_400).minutes.ago do
+      TimeTraveler.travel_to rand(2.months).seconds.ago do
         stop = BusStop.find_or_initialize_by name: stop_name
         stop.hastus_id = hastus_ids.fetch(stop_name)
         stop.save!
