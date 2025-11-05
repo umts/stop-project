@@ -86,7 +86,7 @@ GEM
     bigdecimal (3.3.1)
     bootstrap (5.3.5)
       popper_js (>= 2.11.8, < 3)
-    brakeman (7.1.0)
+    brakeman (7.1.1)
       racc
     builder (3.3.0)
     capistrano (3.19.2)
@@ -510,7 +510,7 @@ CHECKSUMS
   benchmark (0.5.0) sha256=465df122341aedcb81a2a24b4d3bd19b6c67c1530713fd533f3ff034e419236c
   bigdecimal (3.3.1) sha256=eaa01e228be54c4f9f53bf3cc34fe3d5e845c31963e7fcc5bedb05a4e7d52218
   bootstrap (5.3.5) sha256=d57c9b7a21eaf2182c32fe93d1c0eaa0e1ebe82c46676c5a1fd66dd3a6ac41f8
-  brakeman (7.1.0) sha256=bbc708a75a53008490c8b9600b97fa85cb3d5a8818dd1560f18e0b89475d48af
+  brakeman (7.1.1) sha256=629426b5d6496c75e3ffa2299e1ab1bb3ba721fea03d8808414c083660439498
   builder (3.3.0) sha256=497918d2f9dca528fdca4b88d84e4ef4387256d984b8154e9d5d3fe5a9c8835f
   capistrano (3.19.2) sha256=e0c79823edf604ba513533b224f85f5a9fe33c4c6c9cbde9483a56b48838f563
   capistrano-bundler (2.1.1) sha256=c234a72c1698265885522ba7da77b522c683e2ca350f90ac94d7e84d6f8f4f94
