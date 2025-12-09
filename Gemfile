@@ -14,6 +14,8 @@ gem 'kaminari'
 gem 'mysql2'
 # TODO: remove when we have modern glibc
 gem 'nokogiri', force_ruby_platform: true
+# TODO: remove once default gem is updated
+gem 'openssl'
 gem 'paper_trail'
 gem 'rails', '~> 8.1.1'
 gem 'sassc-rails'
