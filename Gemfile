@@ -24,6 +24,7 @@ gem 'turbo-rails'
 
 group :production do
   gem 'exception_notification'
+  gem 'rack-attack'
   gem 'uglifier'
 end
 
