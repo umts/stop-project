@@ -94,5 +94,6 @@ Rails.application.configure do
                           sender_address: 'transit-it@admin.umass.edu',
                           exception_recipients: %w[programmers@admin.umass.edu]
                         },
-                        error_grouping: true
+                        error_grouping: true,
+                        error_grouping_cache: Rails.cache
 end
