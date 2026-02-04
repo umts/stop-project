@@ -6,6 +6,8 @@ ruby file: '.ruby-version'
 gem 'bootstrap', '~> 5.3'
 gem 'csv'
 gem 'devise', '~> 4.9'
+# TODO: remove when we have modern glibc
+gem 'ffi', force_ruby_platform: true
 gem 'gtfs'
 gem 'haml-rails'
 gem 'importmap-rails'
@@ -26,6 +28,7 @@ gem 'turbo-rails'
 
 group :production do
   gem 'exception_notification'
+  gem 'rack-attack'
   gem 'uglifier'
 end
 
