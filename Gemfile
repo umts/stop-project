@@ -5,7 +5,7 @@ ruby file: '.ruby-version'
 
 gem 'bootstrap', '~> 5.3'
 gem 'csv'
-gem 'devise', '~> 4.9'
+gem 'devise', '~> 5.0'
 # TODO: remove when we have modern glibc
 gem 'ffi', force_ruby_platform: true
 gem 'gtfs'
