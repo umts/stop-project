@@ -73,8 +73,7 @@ class BusStopsController < ApplicationController
     if stop.present?
       redirect_to edit_bus_stop_path(stop.hastus_id)
     else
-      redirect_back fallback_location: bus_stops_path,
-                    notice: t('.not_found', search: params[:id].presence || params[:name])
+      redirect_back_or_to bus_stops_path, notice: t('.not_found', search: params[:id].presence || params[:name])
     end
   end
 
@@ -112,7 +111,7 @@ class BusStopsController < ApplicationController
     @stop = BusStop.find_by hastus_id: params.require(:id)
     return if @stop.present?
 
-    redirect_back fallback_location: root_path, notice: t('.not_found', search: params[:id])
+    redirect_back_or_to root_path, notice: t('.not_found', search: params[:id])
   end
 
   def redirect_target_for_update
