@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-lock '~> 3.14'
-
 set :application, 'stop-project'
 set :repo_url, 'https://github.com/umts/stop-project.git'
 set :branch, :main
@@ -13,3 +11,4 @@ append :linked_files, 'config/database.yml'
 append :linked_dirs, '.bundle', 'log'
 
 set :passenger_restart_with_sudo, true
+set :bundle_version, 4
