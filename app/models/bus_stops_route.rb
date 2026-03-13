@@ -8,4 +8,6 @@ class BusStopsRoute < ApplicationRecord
                        numericality: { greater_than_or_equal_to: 1 }
   validates :direction, presence: true
   validates :sequence, :bus_stop, uniqueness: { scope: %i[route direction] }
+
+  self.implicit_order_column = %w[route_id bus_stop_id]
 end
