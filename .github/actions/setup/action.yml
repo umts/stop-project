@@ -1,8 +1,0 @@
-name: setup
-description: Setup the repository
-runs:
-  using: composite
-  steps:
-    - uses: ruby/setup-ruby@v1
-      with:
-        bundler-cache: true
