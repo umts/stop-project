@@ -8,7 +8,7 @@ set :deploy_to, "/srv/#{fetch :application}"
 set :log_level, :info
 
 append :linked_files, 'config/database.yml'
-append :linked_dirs, '.bundle', 'log'
+append :linked_dirs, '.bundle', 'log', 'tmp/cache'
 
 set :passenger_restart_with_sudo, true
 set :bundle_version, 4
