@@ -18,7 +18,7 @@ RSpec.describe 'searching for a bus stop by stop id' do
         fill_in 'Enter Stop ID', with: bus_stop.hastus_id.to_s
         click_on 'Search'
       end
-      expect(page).to have_content "Editing #{bus_stop.name}"
+      expect(page).to have_text("Editing #{bus_stop.name}")
     end
   end
 
