@@ -28,7 +28,7 @@ RSpec.describe 'viewing outdated' do
     within 'tr', text: old_stop.updated_at.to_fs(:db_hm) do
       click_on 'Edit'
     end
-    expect(page).to have_content "Editing #{old_stop.name}"
+    expect(page).to have_text("Editing #{old_stop.name}")
   end
 
   context 'when specifying a different date' do
@@ -40,7 +40,7 @@ RSpec.describe 'viewing outdated' do
     end
 
     it 'displays outdated stops from that time' do
-      expect(page).to have_content "Bus stops not updated since #{date_since}"
+      expect(page).to have_text("Bus stops not updated since #{date_since}")
     end
   end
 end

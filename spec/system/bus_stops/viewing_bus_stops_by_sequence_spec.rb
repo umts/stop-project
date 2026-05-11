@@ -23,8 +23,8 @@ RSpec.describe 'viewing stops by sequence' do
     visit by_sequence_bus_stops_path(number: route.number)
   end
 
-  it { is_expected.to have_content(bsr.direction) }
-  it { is_expected.to have_content(bsr.sequence) }
-  it { is_expected.to have_content(pending_bsr.sequence) }
-  it { is_expected.to have_content(completed_bsr.sequence) }
+  it { is_expected.to have_text(bsr.direction) }
+  it { is_expected.to have_text(bsr.sequence) }
+  it { is_expected.to have_text(pending_bsr.sequence) }
+  it { is_expected.to have_text(completed_bsr.sequence) }
 end

@@ -18,7 +18,7 @@ RSpec.describe 'searching for a bus stop by stop name' do
         fill_in 'Enter Stop Name', with: bus_stop.name
         click_on 'Search'
       end
-      expect(page).to have_content "Editing #{bus_stop.name}"
+      expect(page).to have_text("Editing #{bus_stop.name}")
     end
   end
 
@@ -44,7 +44,7 @@ RSpec.describe 'searching for a bus stop by stop name' do
       find '[data-autocomplete-ready-value=true]'
       fill_in 'Enter Stop Name', with: bus_stop.name.first
       click_on bus_stop.name
-      expect(page).to have_content "Editing #{bus_stop.name}"
+      expect(page).to have_text("Editing #{bus_stop.name}")
     end
   end
 end

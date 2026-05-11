@@ -17,7 +17,7 @@ RSpec.describe 'viewing stops by status' do
   end
 
   it 'has a section for pending stops' do
-    expect(page).to have_content 'Pending Stops'
+    expect(page).to have_text('Pending Stops')
   end
 
   it 'displays pending stops' do
@@ -27,7 +27,7 @@ RSpec.describe 'viewing stops by status' do
   end
 
   it 'has a section for not-started stops' do
-    expect(page).to have_content 'Not Started Stops'
+    expect(page).to have_text('Not Started Stops')
   end
 
   it 'displays not-started stops' do
@@ -37,7 +37,7 @@ RSpec.describe 'viewing stops by status' do
   end
 
   it 'has a section for completed stops' do
-    expect(page).to have_content 'Completed Stops'
+    expect(page).to have_text('Completed Stops')
   end
 
   it 'displays completed stops' do
