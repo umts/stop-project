@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 ruby file: '.ruby-version'
 
 # TODO: remove when we have gcc >= 5
-gem 'bigdecimal', '4.1.1'
+gem 'bigdecimal', '4.1.2'
 gem 'bootstrap', '~> 5.3'
 gem 'csv'
 gem 'devise', '~> 5.0'
