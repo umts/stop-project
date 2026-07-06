@@ -3,6 +3,8 @@
 Rails.application.routes.draw do
   root 'bus_stops#index'
 
+  get '/up' => 'rails/health#show', as: :rails_health_check
+
   devise_for :users
   as :user do
     get 'users/edit', to: 'devise/registrations#edit', as: :edit_user_registration
