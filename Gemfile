@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby file: '.ruby-version'
+ruby '3.4.8'
 
 # TODO: remove when we have gcc >= 5
 gem 'bigdecimal', '4.1.1'
