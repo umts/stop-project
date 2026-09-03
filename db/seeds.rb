@@ -25,7 +25,7 @@ stops = {
           South: ['Haigis Mall', 'Amherst College', 'Hampshire College', 'Blanchard Hall'] }
 }
 
-# rubocop:disable Layout/HashAlignment
+# rubocop:disable-next Layout/HashAlignment
 hastus_ids = {
   'Amherst College'      => 116,
   'Amherst Post Office'  => 96,
@@ -43,7 +43,6 @@ hastus_ids = {
   'Townhouse Apts'       => 30,
   'Cliffside Apts'       => 11
 }
-# rubocop:enable Layout/HashAlignment
 
 stops.each do |route_number, stops_and_directions|
   stops_and_directions.each do |direction, stop_names|
