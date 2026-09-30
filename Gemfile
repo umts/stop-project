@@ -3,21 +3,15 @@
 source 'https://rubygems.org'
 ruby '3.4.8'
 
-# TODO: remove when we have gcc >= 5
-gem 'bigdecimal', '4.1.1'
 gem 'bootstrap', '~> 5.3'
 gem 'csv'
 gem 'devise', '~> 5.0'
-# TODO: remove when we have modern glibc
-gem 'ffi', force_ruby_platform: true
 gem 'gtfs'
 gem 'haml-rails'
 gem 'importmap-rails'
 gem 'irb'
 gem 'kaminari'
 gem 'mysql2'
-# TODO: remove when we have modern glibc
-gem 'nokogiri', force_ruby_platform: true
 gem 'paper_trail'
 gem 'rails', '~> 8.1.3'
 gem 'sassc-rails'
