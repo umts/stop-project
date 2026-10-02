@@ -2,7 +2,7 @@
 # <% def env_or_credentials(*keys) = ENV.fetch(keys.join('__').upcase, Rails.application.credentials.dig(*keys)) %>
 
 default: &default
-  adapter: mysql2
+  adapter: trilogy
   encoding: utf8mb4
   collation: utf8mb4_unicode_520_ci
   host: <%= env_or_credentials(:database, :host) %>
